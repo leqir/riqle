@@ -109,8 +109,48 @@ export default function HomePage() {
           </p>
         </section>
 
-        {/* Third Screen - Direction & Thinking */}
-        {/* TODO: Implement in Story 3.5 */}
+        {/* Third Screen - Direction & Thinking (Optional Depth) */}
+        <section className="border-t border-stone-200 bg-stone-100/50 py-24">
+          <div className="mx-auto max-w-3xl">
+            <div className="space-y-12">
+              {/* Currently Focused On */}
+              <div className="space-y-3">
+                <h3 className="text-[clamp(1.25rem,2vw,1.5rem)] font-semibold leading-[1.3] text-stone-900">
+                  Currently
+                </h3>
+                <p className="text-[1rem] leading-[1.7] text-stone-700">
+                  Building MarkPoint to solve educational technology challenges. Exploring how
+                  systems thinking transforms education outcomes.
+                </p>
+              </div>
+
+              {/* Featured Essay */}
+              <div className="space-y-3">
+                <h3 className="text-[clamp(1.25rem,2vw,1.5rem)] font-semibold leading-[1.3] text-stone-900">
+                  Recent Thinking
+                </h3>
+                <a href="/writing/building-in-public" className="group block">
+                  <p className="text-[1rem] font-medium leading-[1.7] text-stone-900 transition-colors duration-200 group-hover:text-cyan-500">
+                    Building in Public: Lessons from MarkPoint →
+                  </p>
+                  <p className="mt-1 text-[0.875rem] leading-[1.5] text-stone-600">
+                    On transparency, iteration, and learning from real users.
+                  </p>
+                </a>
+              </div>
+
+              {/* Philosophy/Approach */}
+              <div className="space-y-3">
+                <h3 className="text-[clamp(1.25rem,2vw,1.5rem)] font-semibold leading-[1.3] text-stone-900">
+                  Approach
+                </h3>
+                <p className="text-[1rem] leading-[1.7] text-stone-700">
+                  Outcomes over credentials. Systems over hacks. Teaching what actually works.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
