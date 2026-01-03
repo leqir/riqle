@@ -1,6 +1,6 @@
 # Epic 1: Information Architecture
 
-> **Status:** Documentation Complete (11/12 stories completed)
+> **Status:** Documentation In Progress (11/12 stories completed)
 > **Updated:** January 3, 2026
 > **Purpose:** Define the foundational structure, taxonomy, and user experience patterns for the riqle platform.
 
@@ -285,12 +285,33 @@ This epic establishes the complete information architecture for riqle — the em
 
 ---
 
+### Quality & Standards
+
+#### 12. [accessibility-requirements.md](./accessibility-requirements.md)
+
+**Story:** 1.11 - Ensure accessibility and usability constraints
+**Purpose:** WCAG 2.1 Level AA compliance, keyboard-first navigation, inclusive by default
+**Read first if:** You're implementing UI components or need to ensure accessibility compliance
+
+**Key Sections:**
+
+- WCAG 2.1 Level AA requirements (perceivable, operable, understandable, robust)
+- Keyboard navigation implementation (site header, modals, focus management)
+- Screen reader support (ARIA labels, live regions, screen reader only text)
+- Color contrast and visual design (focus indicators, text sizing, spacing)
+- Responsive and mobile accessibility (touch targets, orientation, zoom)
+- Testing checklist (automated, manual, real user testing)
+- Common accessibility issues and fixes
+- Accessibility statement template
+- Implementation priority phases
+
+**Key Principle:** Accessible design is good design — everyone benefits from clear hierarchy, keyboard navigation, and semantic markup
+
+**Status:** ✅ Complete
+
+---
+
 ## Pending Documentation
-
-### Story 1.11: Accessibility & Usability Constraints
-
-**File:** `accessibility-requirements.md` (to be created)
-**Purpose:** WCAG compliance, keyboard navigation, screen reader support
 
 ### Story 1.12: "Do Not Build" List
 
