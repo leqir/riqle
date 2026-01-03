@@ -141,18 +141,40 @@ model Post {
 }
 
 model Project {
-  id           String   @id @default(cuid())
-  title        String
-  slug         String   @unique
-  description  String   @db.Text
-  outcomes     String?  @db.Text
-  technologies String[] // Array of tech tags
-  links        Json?    // Flexible JSON for various link types
-  featured     Boolean  @default(false)
-  order        Int      @default(0)
-  status       String   @default("draft") // draft, published, archived
+  id          String @id @default(cuid())
+  slug        String @unique
+  title       String
+  description String // One-line description
+
+  // Role & Ownership
+  role           String // "Solo founder", "Lead developer", "Product owner"
+  roleDetail     String @db.Text // What you owned, decided, implemented
+  teamSize       Int? // Optional: team size if collaborative
+
+  // Execution & Outcome
+  outcome        String // "Shipped to 500 users", "Reduced load time by 60%"
+  projectStatus  String // "Shipped", "In production", "Experimental", "Ongoing"
+
+  // Detail sections
+  overview       String @db.Text // What it is, why it exists, who it was for
+  execution      String @db.Text // Technical/design choices, constraints, tradeoffs
+  outcomeDetail  String @db.Text // What shipped, who used it, what changed
+  reflection     String? @db.Text // Optional: What you'd do differently, learnings
+
+  // Media (sparingly)
+  screenshots    String[] // Array of image URLs
+  diagrams       String[] // Optional: architecture diagrams
+
+  // Cross-linking
+  relatedPostSlugs    String[] // Array of post slugs
+  relatedStartupSlugs String[] // Array of startup slugs
+
+  // Metadata
+  featured     Boolean @default(false) // Homepage feature flag
+  displayOrder Int     @default(0)
+  published    Boolean @default(false)
   authorId     String
-  author       User     @relation(fields: [authorId], references: [id])
+  author       User    @relation(fields: [authorId], references: [id])
 
   // SEO
   metaTitle       String?
@@ -165,10 +187,10 @@ model Project {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([slug])
+  @@index([displayOrder])
   @@index([featured])
-  @@index([status])
-  @@index([order])
+  @@index([published])
+  @@index([slug])
   @@index([authorId])
 }
 
