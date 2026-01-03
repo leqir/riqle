@@ -1,6 +1,6 @@
 # Epic 1: Information Architecture
 
-> **Status:** Documentation In Progress (11/12 stories completed)
+> **Status:** Documentation Complete ✅ (12/12 stories completed)
 > **Updated:** January 3, 2026
 > **Purpose:** Define the foundational structure, taxonomy, and user experience patterns for the riqle platform.
 
@@ -311,12 +311,31 @@ This epic establishes the complete information architecture for riqle — the em
 
 ---
 
-## Pending Documentation
+#### 13. [do-not-build.md](./do-not-build.md)
 
-### Story 1.12: "Do Not Build" List
+**Story:** 1.12 - Document 'do not build' list
+**Purpose:** Explicitly banned features and patterns that protect employer-first experience
+**Read first if:** You're considering adding a new feature or pattern to the platform
 
-**File:** `do-not-build.md` (to be created)
-**Purpose:** Explicitly banned features and patterns
+**Key Sections:**
+
+- 10 categories of banned features (engagement manipulation, visual noise, data collection, commerce, complexity, integrations, seo manipulation, unnecessary tech, content anti-patterns, mobile anti-patterns)
+- Engagement manipulation (gamification, notifications, social features, algorithms)
+- Visual noise and distraction (animations, popups, decorative overload, auto-play)
+- Data collection and tracking (invasive analytics, marketing tracking, email collection)
+- Commerce and urgency (artificial urgency, commerce features, fake social proof)
+- Complexity and bloat (dashboards, wizards, advanced search, collaboration)
+- Third-party integrations (social embeds, ads, accessibility overlays)
+- SEO manipulation (black-hat tactics)
+- Unnecessary technology (cutting-edge for tech's sake, performance killers)
+- Content anti-patterns (vague claims, filler, fake work)
+- Mobile anti-patterns (mobile-hostile patterns)
+- Decision framework for exceptions
+- Enforcement and code review checklist
+
+**Key Principle:** Constraints enable focus — saying "no" to bad patterns protects employer comprehension in 45 seconds
+
+**Status:** ✅ Complete
 
 ---
 
