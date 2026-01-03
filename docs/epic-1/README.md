@@ -1,6 +1,6 @@
 # Epic 1: Information Architecture
 
-> **Status:** Documentation Complete (10/12 stories completed)
+> **Status:** Documentation Complete (11/12 stories completed)
 > **Updated:** January 3, 2026
 > **Purpose:** Define the foundational structure, taxonomy, and user experience patterns for the riqle platform.
 
@@ -259,12 +259,33 @@ This epic establishes the complete information architecture for riqle — the em
 
 ---
 
+#### 11. [seo-strategy.md](./seo-strategy.md)
+
+**Story:** 1.10 - Implement SEO and discoverability baseline
+**Purpose:** Employer findability through semantic markup, accurate metadata, and structured data
+**Read first if:** You're implementing meta tags, structured data, or optimizing for search
+
+**Key Sections:**
+
+- Primary SEO goals (name-based, skill-based, content-based queries)
+- Meta tags strategy (homepage, about, projects, essays)
+- Structured data (JSON-LD: Person, Article, SoftwareApplication, BreadcrumbList)
+- Open Graph images (requirements, examples for different page types)
+- Semantic HTML structure (landmarks, headings, microdata)
+- Sitemap.xml generation
+- Robots.txt configuration
+- Internal linking strategy (navigation, contextual links, breadcrumbs)
+- Page load performance (Core Web Vitals)
+- Analytics & Search Console setup
+- Pre-launch SEO audit checklist
+
+**Key Principle:** Optimize for human employers searching for specific skills, not for ranking algorithms
+
+**Status:** ✅ Complete
+
+---
+
 ## Pending Documentation
-
-### Story 1.10: SEO & Discoverability Baseline
-
-**File:** `seo-strategy.md` (to be created)
-**Purpose:** Meta tags, structured data, Open Graph, Twitter Cards
 
 ### Story 1.11: Accessibility & Usability Constraints
 
