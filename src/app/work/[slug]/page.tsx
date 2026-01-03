@@ -12,7 +12,7 @@
 
 import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { db } from '@/server/db';
+import { db } from '@/lib/db';
 import { ProjectDetail } from '@/components/work/project-detail';
 
 type Props = {

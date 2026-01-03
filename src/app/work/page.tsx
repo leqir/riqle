@@ -12,7 +12,7 @@
  */
 
 import { type Metadata } from 'next';
-import { db } from '@/server/db';
+import { db } from '@/lib/db';
 import { WorkCard } from '@/components/work/work-card';
 import { HandDrawnSparkles } from '@/components/icons/hand-drawn-sparkles';
 
