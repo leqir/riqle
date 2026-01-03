@@ -243,3 +243,17 @@ export async function checkBulkAccess(
 
   return accessMap;
 }
+
+/**
+ * Generate secure download URL for a product
+ *
+ * Returns the API endpoint URL that will check entitlements
+ * before serving the download.
+ *
+ * @param productId - Product ID to generate download URL for
+ * @returns Download API endpoint URL
+ */
+export function getDownloadUrl(productId: string): string {
+  const baseUrl = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
+  return `${baseUrl}/api/downloads/${productId}`;
+}
