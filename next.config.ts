@@ -1,6 +1,9 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  experimental: {
+    instrumentationHook: true,
+  },
   async headers() {
     return [
       {
@@ -39,7 +42,7 @@ const nextConfig: NextConfig = {
               "img-src 'self' data: https: blob:",
               "font-src 'self' data:",
               "connect-src 'self' https://api.stripe.com",
-              "frame-src https://js.stripe.com https://hooks.stripe.com",
+              'frame-src https://js.stripe.com https://hooks.stripe.com',
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'",

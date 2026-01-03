@@ -1,0 +1,482 @@
+// Prisma Schema for Riqle Platform
+// Epic 0 - Story 0.5: Complete database schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ============================================================================
+// IDENTITY & ACCESS
+// ============================================================================
+
+model User {
+  id    String  @id @default(cuid())
+  email String  @unique
+  name  String?
+  image String?
+
+  // Stripe mapping
+  stripeCustomerId String? @unique
+
+  // Auth
+  emailVerified DateTime?
+  sessions      Session[]
+  accounts      Account[]
+
+  // RBAC
+  userRoles UserRole[]
+
+  // Relations
+  posts        Post[]
+  projects     Project[]
+  startups     Startup[]
+  mediaAssets  MediaAsset[]
+  orders       Order[]
+  entitlements Entitlement[]
+  auditLogs    AuditLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([stripeCustomerId])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Role {
+  id          String     @id @default(cuid())
+  name        String     @unique // admin, editor, customer
+  description String?
+  userRoles   UserRole[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model UserRole {
+  id        String   @id @default(cuid())
+  userId    String
+  roleId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, roleId])
+  @@index([userId])
+  @@index([roleId])
+}
+
+// ============================================================================
+// CONTENT
+// ============================================================================
+
+model Post {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  content     String    @db.Text
+  excerpt     String?   @db.Text
+  publishedAt DateTime?
+  status      String    @default("draft") // draft, published, archived
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id])
+
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+  ogImage         String?
+
+  // Relations
+  tags TagLink[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([publishedAt])
+  @@index([status])
+  @@index([authorId])
+}
+
+model Project {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  description  String   @db.Text
+  outcomes     String?  @db.Text
+  technologies String[] // Array of tech tags
+  links        Json?    // Flexible JSON for various link types
+  featured     Boolean  @default(false)
+  order        Int      @default(0)
+  status       String   @default("draft") // draft, published, archived
+  authorId     String
+  author       User     @relation(fields: [authorId], references: [id])
+
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+  ogImage         String?
+
+  // Relations
+  tags TagLink[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([featured])
+  @@index([status])
+  @@index([order])
+  @@index([authorId])
+}
+
+model Startup {
+  id          String  @id @default(cuid())
+  title       String
+  slug        String  @unique
+  description String  @db.Text
+  problem     String? @db.Text
+  solution    String? @db.Text
+  traction    String? @db.Text
+  status      String  @default("draft") // draft, published, archived
+  links       Json?   // Flexible JSON for various links
+  authorId    String
+  author      User    @relation(fields: [authorId], references: [id])
+
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+  ogImage         String?
+
+  // Relations
+  tags TagLink[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([status])
+  @@index([authorId])
+}
+
+model Page {
+  id       String  @id @default(cuid())
+  title    String
+  slug     String  @unique
+  content  String  @db.Text
+  template String? // Optional template identifier
+  status   String  @default("draft")
+
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+  ogImage         String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([status])
+}
+
+model MediaAsset {
+  id        String  @id @default(cuid())
+  key       String  @unique // Storage key/path
+  url       String  // Public or signed URL
+  size      Int     // Bytes
+  mimeType  String
+  alt       String?
+  checksum  String? // For integrity verification
+  createdBy String
+  creator   User    @relation(fields: [createdBy], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([key])
+  @@index([createdBy])
+}
+
+model Tag {
+  id    String    @id @default(cuid())
+  name  String    @unique
+  slug  String    @unique
+  links TagLink[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+}
+
+model TagLink {
+  id    String @id @default(cuid())
+  tagId String
+  tag   Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  // Polymorphic relation (one of these will be set)
+  postId    String?
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  startupId String?
+  startup   Startup? @relation(fields: [startupId], references: [id], onDelete: Cascade)
+
+  @@unique([tagId, postId])
+  @@unique([tagId, projectId])
+  @@unique([tagId, startupId])
+  @@index([tagId])
+  @@index([postId])
+  @@index([projectId])
+  @@index([startupId])
+}
+
+// ============================================================================
+// COMMERCE
+// ============================================================================
+
+model Product {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  description String  @db.Text
+  status      String  @default("draft") // draft, published, archived
+  type        String  @default("resource") // resource, course, bundle
+
+  // File/content references
+  files Json? // Array of file keys from MediaAsset
+
+  // Relations
+  prices       Price[]
+  orderItems   OrderItem[]
+  entitlements Entitlement[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([status])
+  @@index([type])
+}
+
+model Price {
+  id            String  @id @default(cuid())
+  productId     String
+  product       Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  // Price details
+  amount        Int     // in cents
+  currency      String  @default("USD")
+  interval      String? // null for one-time, "month"/"year" for subscriptions
+  stripePriceId String? @unique
+
+  // Status
+  active Boolean @default(true)
+
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([productId])
+  @@index([stripePriceId])
+  @@index([active])
+}
+
+model Order {
+  id                    String   @id @default(cuid())
+  userId                String?  // Null for guest purchases initially
+  user                  User?    @relation(fields: [userId], references: [id])
+
+  // Order details
+  status                String   @default("pending") // pending, processing, completed, failed, refunded
+  total                 Int      // in cents
+  currency              String   @default("USD")
+
+  // Stripe references
+  stripeSessionId       String?  @unique
+  stripePaymentIntentId String?  @unique
+
+  // Customer info (for guest purchases)
+  customerEmail         String
+  customerName          String?
+
+  // Relations
+  items        OrderItem[]
+  entitlements Entitlement[]
+
+  // Fulfillment
+  fulfilledAt DateTime?
+  refundedAt  DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([stripeSessionId])
+  @@index([customerEmail])
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  priceId   String
+  price     Price   @relation(fields: [priceId], references: [id])
+
+  // Snapshot at time of purchase (prices can change later)
+  amount      Int
+  currency    String
+  productName String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([orderId])
+  @@index([productId])
+  @@index([priceId])
+}
+
+model Entitlement {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  orderId   String?
+  order     Order?   @relation(fields: [orderId], references: [id])
+
+  // Access control
+  active       Boolean   @default(true)
+  expiresAt    DateTime? // Null for lifetime access
+  revokedAt    DateTime?
+  revokeReason String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, productId])
+  @@index([userId])
+  @@index([productId])
+  @@index([orderId])
+  @@index([active])
+}
+
+model StripeEvent {
+  id              String   @id @default(cuid())
+  eventId         String   @unique // Stripe event ID for idempotency
+  type            String   // Event type (checkout.session.completed, etc.)
+  processed       Boolean  @default(false)
+  processingError String?  @db.Text
+  data            Json     // Full event data
+
+  createdAt   DateTime  @default(now())
+  processedAt DateTime?
+
+  @@index([eventId])
+  @@index([type])
+  @@index([processed])
+}
+
+model IdempotencyKey {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  operation String   // Description of operation
+  result    Json?    // Result of operation (optional)
+
+  createdAt DateTime @default(now())
+  expiresAt DateTime // Keys can expire after some time
+
+  @@index([key])
+  @@index([expiresAt])
+}
+
+// ============================================================================
+// OPERATIONS
+// ============================================================================
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+
+  action    String   // "role_change", "manual_access_grant", "refund", etc.
+  entity    String   // "user", "order", "entitlement", etc.
+  entityId  String
+  details   Json?    // Additional context
+  ipAddress String?
+  userAgent String?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
+  @@index([entity, entityId])
+  @@index([createdAt])
+}
+
+model EmailLog {
+  id        String  @id @default(cuid())
+  to        String
+  subject   String
+  status    String  // "sent", "failed", "pending"
+  provider  String  // "resend", "postmark", etc.
+  messageId String? // Provider message ID
+  error     String? @db.Text
+
+  sentAt   DateTime?
+  failedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([to])
+  @@index([status])
+  @@index([createdAt])
+}
