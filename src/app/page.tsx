@@ -1,56 +1,76 @@
-import { auth } from '@/auth';
-import Link from 'next/link';
-import { SignOutButton } from '@/components/auth/sign-out-button';
+/**
+ * Homepage - Identity Compression Engine
+ *
+ * Purpose: Enable employers to understand capability, credibility, and direction
+ * in 30-45 seconds. This is not a "hero section" — it's a professional decoding surface.
+ *
+ * Five Core Questions Answered:
+ * 1. Who is this? (Name)
+ * 2. What do they actually do? (Positioning statement)
+ * 3. Have they built real things? (Proof anchors - second screen)
+ * 4. Can I trust their judgment? (Writing link + outcomes)
+ * 5. Would I want them on my team? (Synthesis of all above)
+ *
+ * Design Principles:
+ * - Calm over clever
+ * - Clarity over creativity
+ * - Outcomes over personality
+ * - Restraint is the system
+ */
 
-export default async function HomePage() {
-  const session = await auth();
-
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div className="flex flex-col items-center gap-8">
-        <h1 className="text-4xl font-bold">Riqle</h1>
-        <p className="text-lg text-gray-600">Foundation infrastructure is being built...</p>
-        <div className="flex gap-4 text-sm text-gray-500">
-          <span>✅ Next.js 15</span>
-          <span>✅ TypeScript</span>
-          <span>✅ Tailwind CSS</span>
-          <span>✅ Database</span>
-          <span>✅ Auth</span>
-          <span>⏳ Payments</span>
-        </div>
+    <div className="min-h-screen bg-stone-50">
+      <div className="mx-auto max-w-4xl px-6 py-24 md:px-8 md:py-32">
+        {/* Above the Fold - Answers Q1, Q2, Q4 */}
+        <section className="flex min-h-[80vh] flex-col justify-center">
+          {/* Q1: Who is this? */}
+          <h1 className="text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.1] text-stone-900">
+            Nathanael
+          </h1>
 
-        {/* Auth Status */}
-        <div className="mt-8 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-          {session ? (
-            <div className="flex flex-col items-center gap-4">
-              <p className="text-sm text-gray-600">
-                Signed in as <span className="font-semibold">{session.user.email}</span>
-              </p>
-              <div className="flex gap-3">
-                <Link
-                  href="/admin"
-                  className="rounded-lg bg-purple-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-purple-700"
-                >
-                  Go to Admin
-                </Link>
-                <SignOutButton className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50">
-                  Sign Out
-                </SignOutButton>
-              </div>
-            </div>
-          ) : (
-            <div className="flex flex-col items-center gap-4">
-              <p className="text-sm text-gray-600">Not signed in</p>
-              <Link
-                href="/login"
-                className="rounded-lg bg-purple-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-purple-700"
-              >
-                Sign In
-              </Link>
-            </div>
-          )}
-        </div>
+          {/* Q2: What do they actually do? */}
+          <p className="mt-4 max-w-2xl text-[clamp(1.5rem,3vw,2rem)] leading-[1.3] text-stone-700">
+            Student → Tutor → Builder → Founder
+          </p>
+
+          {/* Context - Answers Q2, Q3, Q4 */}
+          <div className="mt-8 space-y-2 text-[1rem] leading-[1.7] text-stone-600">
+            <p>Founder of MarkPoint</p>
+            <p>Former HSC English tutor (500+ students to Band 6)</p>
+            <p>Ships production code daily</p>
+          </div>
+
+          {/* Primary CTAs - Routes to Q3 (Work) and Q4 (Writing) */}
+          <div className="mt-12 flex flex-wrap gap-6">
+            <a
+              href="/work"
+              className="text-lg font-medium text-stone-900 transition-colors duration-200 hover:text-cyan-500"
+            >
+              View Work →
+            </a>
+            <a
+              href="/writing"
+              className="text-lg font-medium text-stone-900 transition-colors duration-200 hover:text-cyan-500"
+            >
+              Read Writing →
+            </a>
+          </div>
+
+          {/* Secondary Resources Link - Subtle, Skippable */}
+          <p className="mt-8 text-[0.875rem] leading-[1.5] text-stone-500">
+            <a href="/resources" className="transition-colors duration-200 hover:text-stone-700">
+              Educational resources
+            </a>
+          </p>
+        </section>
+
+        {/* Second Screen - Proof Anchors */}
+        {/* TODO: Implement in Story 3.4 */}
+
+        {/* Third Screen - Direction & Thinking */}
+        {/* TODO: Implement in Story 3.5 */}
       </div>
-    </main>
+    </div>
   );
 }
