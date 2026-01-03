@@ -32,6 +32,13 @@ export function GlassCard({
     green: 'border-green-400/40 hover:border-green-500/60 shadow-green-200/20',
   };
 
+  const gradientColors = {
+    cyan: 'from-cyan-100/20',
+    pink: 'from-pink-100/20',
+    purple: 'from-purple-100/20',
+    green: 'from-green-100/20',
+  };
+
   return (
     <div
       className={`group relative overflow-hidden rounded-3xl border bg-white/60 backdrop-blur-xl ${neonColors[neonColor]} shadow-xl transition-all duration-300 hover:bg-white/70 hover:shadow-2xl ${className}`}
@@ -39,7 +46,7 @@ export function GlassCard({
       {/* Subtle gradient overlay on hover */}
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <div
-          className={`absolute inset-0 bg-gradient-to-br from-${neonColor}-100/20 to-transparent`}
+          className={`absolute inset-0 bg-gradient-to-br ${gradientColors[neonColor]} to-transparent`}
         />
       </div>
 

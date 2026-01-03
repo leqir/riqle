@@ -16,13 +16,12 @@ import 'server-only';
  * Email sending is done outside the transaction to avoid rollback issues.
  */
 export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): Promise<void> {
-  const { userId, productId, priceId } = session.metadata as {
+  const { userId, productId } = session.metadata as {
     userId: string;
     productId: string;
-    priceId: string;
   };
 
-  if (!userId || !productId || !priceId) {
+  if (!userId || !productId) {
     throw new Error(`Missing required metadata in checkout session ${session.id}`);
   }
 
@@ -50,18 +49,19 @@ export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): 
   try {
     // Execute fulfillment in a transaction
     const result = await db.$transaction(async (tx) => {
-      // Fetch price and product data
-      const price = await tx.price.findUnique({
-        where: { id: priceId },
-        include: { product: true },
+      // Fetch product data
+      const product = await tx.product.findUnique({
+        where: { id: productId },
+        select: {
+          id: true,
+          title: true,
+          priceInCents: true,
+          currency: true,
+        },
       });
 
-      if (!price) {
-        throw new Error(`Price ${priceId} not found`);
-      }
-
-      if (price.productId !== productId) {
-        throw new Error(`Price ${priceId} does not belong to product ${productId}`);
+      if (!product) {
+        throw new Error(`Product ${productId} not found`);
       }
 
       // Create Order
@@ -79,15 +79,14 @@ export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): 
         },
       });
 
-      // Create OrderItem
+      // Create OrderItem (Epic 8: no priceId, snapshot from Product)
       await tx.orderItem.create({
         data: {
           orderId: order.id,
           productId,
-          priceId,
-          amount: price.amount,
-          currency: price.currency,
-          productName: price.product.name,
+          amount: product.priceInCents,
+          currency: product.currency,
+          productName: product.title,
         },
       });
 
@@ -127,7 +126,7 @@ export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): 
         });
       }
 
-      return { orderId: order.id, productName: price.product.name };
+      return { orderId: order.id, productName: product.title };
     });
 
     orderId = result.orderId;

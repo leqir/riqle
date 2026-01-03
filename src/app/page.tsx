@@ -19,7 +19,7 @@ import { HandDrawnSparkles } from '@/components/icons/hand-drawn-sparkles';
 
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen" suppressHydrationWarning>
       {/* Floating HEYTEA Characters */}
       <div className="fixed right-12 top-32 z-20 hidden lg:block">
         <div className="w-24">
@@ -42,38 +42,64 @@ export default function HomePage() {
               <PencilSprite state="excited" />
             </div>
 
-            {/* Main heading - Apple SF Pro style (Inter) */}
-            <h1 className="mb-6 text-[clamp(3rem,8vw,5.5rem)] font-bold leading-[1.05] tracking-tight text-stone-900">
-              Nathanael
-            </h1>
+            {/* Main intro */}
+            <div className="max-w-3xl">
+              {/* Eyebrow */}
+              <p className="mb-8 text-base font-medium tracking-wide text-stone-400">
+                WELCOME TO RIQLE.COM
+              </p>
 
-            {/* Subheading - Apple style */}
-            <p className="mb-8 text-[clamp(1.5rem,3vw,2rem)] font-semibold leading-tight text-stone-600">
-              Student → Tutor → Builder → Founder
-            </p>
+              {/* Hero heading */}
+              <h1 className="mb-12 text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-stone-900">
+                hi, i&apos;m nathanael<br />
+                <span className="text-stone-600">or better known as riqle</span>
+              </h1>
 
-            {/* Description - Apple body text style */}
-            <p className="mb-12 max-w-2xl text-xl leading-relaxed text-stone-600">
-              Building products and teaching systems thinking. Focused on creating tools that help
-              students internalize frameworks, not just memorize content.
-            </p>
+              {/* Body content - Apple style with proper hierarchy */}
+              <div className="mb-12 space-y-8 text-[1.1875rem] leading-relaxed text-stone-700">
+                <p>
+                  my future employers want a personal website
+                  <br />
+                  here it is.
+                </p>
 
-            {/* CTAs - Apple button style */}
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="/work"
-                className="group inline-flex items-center gap-2 rounded-full bg-blue-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-blue-600/30 transition-all duration-200 hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-600/40"
-              >
-                View Work
-                <HandDrawnArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
-              </a>
-              <a
-                href="/about"
-                className="group inline-flex items-center gap-2 rounded-full border-2 border-stone-300 bg-white px-8 py-4 text-base font-semibold text-stone-900 transition-all duration-200 hover:border-stone-400 hover:bg-stone-50"
-              >
-                About
-                <HandDrawnArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
-              </a>
+                <p>
+                  i dropped out of computer science at unsw, and left when it became clear it
+                  wasn&apos;t the work i wanted to do.
+                </p>
+
+                <p>i&apos;m now studying exercise science (physio)</p>
+
+                <p>
+                  during my gap term i co-founded <span className="font-semibold text-stone-900">markpoint</span> with three of my mates. i pulled out of internships to work on it.
+                </p>
+
+                <p>
+                  this site is where i keep my projects, startups, and work in progress.
+                  <br />
+                  <span className="text-stone-600">some things are free. some things are paid.</span>
+                </p>
+
+                <p className="text-stone-500">thanks for stopping by.</p>
+              </div>
+
+              {/* CTAs */}
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="/work"
+                  className="group inline-flex items-center gap-2 rounded-full bg-blue-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-blue-600/30 transition-all duration-200 hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-600/40"
+                >
+                  View Work
+                  <HandDrawnArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                </a>
+                <a
+                  href="/startups/markpoint"
+                  className="group inline-flex items-center gap-2 rounded-full border-2 border-stone-300 bg-white px-8 py-4 text-base font-semibold text-stone-900 transition-all duration-200 hover:border-stone-400 hover:bg-stone-50"
+                >
+                  MarkPoint
+                  <HandDrawnArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                </a>
+              </div>
             </div>
           </div>
         </section>

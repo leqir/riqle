@@ -112,16 +112,34 @@ model UserRole {
 // CONTENT
 // ============================================================================
 
+// Epic 7 - Writing & Thinking
 model Post {
   id          String    @id @default(cuid())
   title       String
   slug        String    @unique
+  description String    // One-line description for listing page
   content     String    @db.Text
   excerpt     String?   @db.Text
+
+  // Epic 7 specific fields
+  contextLine String?   // Why this was written
+  readingTime Int?      // Estimated reading time in minutes
+  diagramUrl  String?   // Max 1 diagram per essay
+  theme       String?   // "Education", "Systems", "Product", "Decision-making"
+
+  // Publishing
   publishedAt DateTime?
   status      String    @default("draft") // draft, published, archived
-  authorId    String
-  author      User      @relation(fields: [authorId], references: [id])
+  published   Boolean   @default(false) // Simplified published flag
+  featured    Boolean   @default(false) // Featured essays
+
+  // Cross-linking
+  relatedProjectSlugs String[] // Related Work items
+  relatedStartupSlugs String[] // Related Startups
+
+  // Author
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
 
   // SEO
   metaTitle       String?
@@ -137,6 +155,9 @@ model Post {
   @@index([slug])
   @@index([publishedAt])
   @@index([status])
+  @@index([published])
+  @@index([featured])
+  @@index([theme])
   @@index([authorId])
 }
 
@@ -194,32 +215,70 @@ model Project {
   @@index([authorId])
 }
 
+// Epic 6 - Startups Showcase
 model Startup {
-  id          String  @id @default(cuid())
-  title       String
-  slug        String  @unique
-  description String  @db.Text
-  problem     String? @db.Text
-  solution    String? @db.Text
-  traction    String? @db.Text
-  status      String  @default("draft") // draft, published, archived
-  links       Json?   // Flexible JSON for various links
-  authorId    String
-  author      User    @relation(fields: [authorId], references: [id])
+  id          String @id @default(cuid())
+  slug        String @unique
+  name        String
+  description String // One-line description
+  role        String // "Founder", "Co-founder", "Product owner"
+  status      String // "Active", "Iterating", "Paused", "Sunset"
+
+  // Overview
+  overview String @db.Text // What it does, who it's for, problem it addresses
+
+  // Why it exists
+  whyItExists String @db.Text // Pain point, gap, why existing solutions insufficient
+
+  // Your role & responsibility
+  roleDetail String @db.Text // What you owned, decisions made, systems responsible for
+
+  // What was built
+  systemsBuilt String @db.Text // Systems, infrastructure, operational components
+
+  // Outcomes & current status
+  outcomes     String @db.Text // What shipped, who used it, what worked/didn't
+  statusDetail String @db.Text // Current state explanation
+
+  // What you learned
+  learnings String @db.Text // Specific lessons, how they inform current work
+
+  // Metrics (optional)
+  metrics Json? // { users: 500, revenue: "$5K MRR", retention: "40%" }
+
+  // Media
+  screenshots String[] // Array of image URLs (sparingly)
+  diagrams    String[] // Optional: architecture/flow diagrams
+
+  // Cross-linking
+  relatedProjectSlugs String[] // Related Work items
+  relatedPostSlugs    String[] // Related Writing
+
+  // Metadata
+  featured     Boolean @default(false) // Homepage feature flag
+  displayOrder Int     @default(0)
+  published    Boolean @default(false)
 
   // SEO
   metaTitle       String?
   metaDescription String?
   ogImage         String?
 
-  // Relations
+  // Author relation
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
+
+  // Tag relations
   tags TagLink[]
 
+  // Timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@index([displayOrder])
+  @@index([featured])
+  @@index([published])
   @@index([slug])
-  @@index([status])
   @@index([authorId])
 }
 
@@ -299,53 +358,66 @@ model TagLink {
 // COMMERCE
 // ============================================================================
 
+// Epic 8 - Resources & Educational Commerce
 model Product {
-  id          String  @id @default(cuid())
-  name        String
-  slug        String  @unique
-  description String  @db.Text
-  status      String  @default("draft") // draft, published, archived
-  type        String  @default("resource") // resource, course, bundle
+  id          String @id @default(cuid())
+  slug        String @unique
+  title       String
+  description String // Short description for listing page
 
-  // File/content references
-  files Json? // Array of file keys from MediaAsset
+  // Positioning
+  targetAudience String // "HSC English students preparing for exams"
+  nonAudience    String // "This is not for university-level essays"
+
+  // Content sections
+  whatItIs       String @db.Text // Clear description, scope, format
+  whatItCovers   String @db.Text // Bullet-level clarity
+  howItWasCreated String @db.Text // Experience behind it
+
+  // Delivery
+  format      String // "PDF", "Course", "Bundle"
+  whatYouGet  String @db.Text // Files, access, delivery method
+
+  // Pricing (simple, single price per product)
+  priceInCents Int
+  currency     String @default("AUD")
+
+  // Stripe integration
+  stripeProductId String? @unique
+  stripePriceId   String?
+
+  // Files/content (for digital products)
+  downloadUrls String[] // Signed URLs for downloads
+
+  // Cross-linking
+  relatedPostSlugs    String[] // Related Writing
+  relatedProjectSlugs String[] // Related Work
+
+  // Metadata
+  featured     Boolean @default(false)
+  displayOrder Int     @default(0)
+  published    Boolean @default(false)
+
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+  ogImage         String?
 
   // Relations
-  prices       Price[]
   orderItems   OrderItem[]
   entitlements Entitlement[]
 
+  // Timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([slug])
-  @@index([status])
-  @@index([type])
+  @@index([displayOrder])
+  @@index([published])
 }
 
-model Price {
-  id            String  @id @default(cuid())
-  productId     String
-  product       Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  // Price details
-  amount        Int     // in cents
-  currency      String  @default("USD")
-  interval      String? // null for one-time, "month"/"year" for subscriptions
-  stripePriceId String? @unique
-
-  // Status
-  active Boolean @default(true)
-
-  orderItems OrderItem[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([productId])
-  @@index([stripePriceId])
-  @@index([active])
-}
+// Price model removed - Epic 8 uses simple single pricing (priceInCents on Product)
+// OrderItem stores price snapshot at time of purchase
 
 model Order {
   id                    String   @id @default(cuid())
@@ -389,8 +461,6 @@ model OrderItem {
   order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   productId String
   product   Product @relation(fields: [productId], references: [id])
-  priceId   String
-  price     Price   @relation(fields: [priceId], references: [id])
 
   // Snapshot at time of purchase (prices can change later)
   amount      Int
@@ -402,7 +472,6 @@ model OrderItem {
 
   @@index([orderId])
   @@index([productId])
-  @@index([priceId])
 }
 
 model Entitlement {
