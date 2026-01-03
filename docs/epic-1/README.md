@@ -1,6 +1,6 @@
 # Epic 1: Information Architecture
 
-> **Status:** Documentation Complete (8/12 stories completed)
+> **Status:** Documentation Complete (9/12 stories completed)
 > **Updated:** January 3, 2026
 > **Purpose:** Define the foundational structure, taxonomy, and user experience patterns for the riqle platform.
 
@@ -209,12 +209,31 @@ This epic establishes the complete information architecture for riqle — the em
 
 ---
 
+#### 9. [cross-linking-system.md](./cross-linking-system.md)
+
+**Story:** 1.8 - Design cross-linking system
+**Purpose:** Proof chains that connect content pieces (essays ↔ projects ↔ startups)
+**Read first if:** You're implementing related content queries or content relationships
+
+**Key Sections:**
+
+- Cross-linking philosophy (proof chains, not promotional links)
+- Direction of links (essays → projects, projects → essays, etc.)
+- Database relationships (Prisma schema with bidirectional relations)
+- Related content logic (homepage, essay detail, project detail, startup detail)
+- In-content markdown linking patterns
+- Admin UI for cross-link selection
+- Link placement rules and section ordering
+- Backlinks (automatic bidirectional references)
+- Korean aesthetic link decorations (hand-drawn arrows, annotations)
+
+**Key Principle:** Links must feel earned, not promotional — "this proves x, which relates to y"
+
+**Status:** ✅ Complete
+
+---
+
 ## Pending Documentation
-
-### Story 1.8: Cross-linking System
-
-**File:** `cross-linking-system.md` (to be created)
-**Purpose:** Define how content pieces reference each other (essays ↔ projects ↔ startups)
 
 ### Story 1.9: Copy System & Tone Rules
 
@@ -259,7 +278,8 @@ This epic establishes the complete information architecture for riqle — the em
 
 1. **content-taxonomy.md** - Implement database models
 2. **content-hierarchy.md** - Implement queries and ordering
-3. **url-strategy.md** - Implement routing and slugs
+3. **cross-linking-system.md** - Implement content relationships
+4. **url-strategy.md** - Implement routing and slugs
 
 ### For Content Creation:
 
