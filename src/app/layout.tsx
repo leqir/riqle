@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Nanum_Pen_Script } from 'next/font/google';
 import { AuthSessionProvider } from '@/components/providers/session-provider';
 import { Header } from '@/components/navigation/header';
+import { KoreanBackground } from '@/components/korean-aesthetic/korean-background';
 import './globals.css';
 
 const inter = Inter({
@@ -10,10 +11,16 @@ const inter = Inter({
   display: 'swap',
 });
 
+const nanumPen = Nanum_Pen_Script({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-chalk',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
-  title: 'Riqle - Personal Platform',
-  description:
-    'Personal digital platform unifying identity, portfolio, educational resources, and startup ventures.',
+  title: 'riqle.',
+  description: 'student → tutor → builder → founder. 1am study energy. honest work. quiet proof.',
 };
 
 export default function RootLayout({
@@ -22,11 +29,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${nanumPen.variable}`}>
       <body className="font-sans">
         <AuthSessionProvider>
-          <Header />
-          <main className="pt-16">{children}</main>
+          <KoreanBackground>
+            <Header />
+            <main className="pt-16">{children}</main>
+          </KoreanBackground>
         </AuthSessionProvider>
       </body>
     </html>

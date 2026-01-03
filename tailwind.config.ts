@@ -11,9 +11,20 @@ const config: Config = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        neon: {
+          pink: '#ff2d6a',
+          cyan: '#00e5ff',
+          purple: '#a855f7',
+          green: '#4ade80',
+        },
+        chalk: {
+          white: '#f5f5f4',
+          charcoal: '#18181b',
+        },
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        chalk: ['var(--font-chalk)', 'cursive'],
       },
     },
   },
