@@ -18,6 +18,8 @@
  * - Restraint is the system
  */
 
+import { ProofAnchor } from '@/components/homepage/proof-anchor';
+
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-stone-50">
@@ -65,8 +67,47 @@ export default function HomePage() {
           </p>
         </section>
 
-        {/* Second Screen - Proof Anchors */}
-        {/* TODO: Implement in Story 3.4 */}
+        {/* Second Screen - Proof Anchors (Answers Q3: Built Real Things?) */}
+        <section className="border-t border-stone-200 py-24">
+          <h2 className="mb-12 text-[clamp(1.5rem,3vw,2rem)] font-semibold leading-[1.3] text-stone-900">
+            Built & Operated
+          </h2>
+
+          <div className="space-y-6">
+            {/* Proof Anchor 1: MarkPoint */}
+            <ProofAnchor
+              name="MarkPoint"
+              description="Startup focused on educational technology. Live product with real users."
+              outcome="Active development, user growth trajectory, built with modern stack"
+              href="/startups/markpoint"
+            />
+
+            {/* Proof Anchor 2: Riqle */}
+            <ProofAnchor
+              name="Riqle"
+              description="Personal platform with commerce, built from scratch with production-grade infrastructure."
+              outcome="T3 Stack, Stripe integration, full test coverage, deployed on Vercel"
+              href="/work/riqle"
+            />
+
+            {/* Proof Anchor 3: Teaching Outcomes */}
+            <ProofAnchor
+              name="HSC English Tutoring"
+              description="Taught 500+ students over 5 years, developing frameworks that consistently produce Band 6 results."
+              outcome="90% of students achieved Band 5 or 6"
+              href="/about#teaching"
+            />
+          </div>
+
+          <p className="mt-12 text-[1rem] leading-[1.7] text-stone-600">
+            <a
+              href="/work"
+              className="font-medium text-stone-900 transition-colors duration-200 hover:text-cyan-500"
+            >
+              See all work →
+            </a>
+          </p>
+        </section>
 
         {/* Third Screen - Direction & Thinking */}
         {/* TODO: Implement in Story 3.5 */}
