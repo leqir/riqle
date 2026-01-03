@@ -57,8 +57,8 @@ export function ResourceDetail({
   whatYouGet,
   priceInCents,
   currency,
-  stripeProductId,
-  stripePriceId,
+  stripeProductId: _stripeProductId,
+  stripePriceId: _stripePriceId,
   relatedPosts,
   relatedProjects,
 }: ResourceDetailProps) {
@@ -201,7 +201,7 @@ export function ResourceDetail({
                 Related work & thinking
               </h2>
               <p className="mb-6 text-base text-stone-600">
-                This resource is grounded in real experience. Here's where you can see the
+                This resource is grounded in real experience. Here&apos;s where you can see the
                 thinking behind it:
               </p>
 

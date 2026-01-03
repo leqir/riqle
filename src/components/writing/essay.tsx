@@ -37,7 +37,7 @@ type EssayProps = {
 
 export function Essay({
   title,
-  description,
+  description: _description,
   content,
   contextLine,
   publishedAt,
