@@ -8,10 +8,10 @@ const envSchema = z.object({
   // Auth
   NEXTAUTH_SECRET: z.string().min(32),
   NEXTAUTH_URL: z.string().url(),
-  GITHUB_CLIENT_ID: z.string().min(1),
-  GITHUB_CLIENT_SECRET: z.string().min(1),
-  GOOGLE_CLIENT_ID: z.string().min(1),
-  GOOGLE_CLIENT_SECRET: z.string().min(1),
+  GITHUB_CLIENT_ID: z.string().min(1).optional(),
+  GITHUB_CLIENT_SECRET: z.string().min(1).optional(),
+  GOOGLE_CLIENT_ID: z.string().min(1).optional(),
+  GOOGLE_CLIENT_SECRET: z.string().min(1).optional(),
 
   // Stripe
   STRIPE_SECRET_KEY: z.string().startsWith('sk_'),

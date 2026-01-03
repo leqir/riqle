@@ -33,12 +33,15 @@ const updatePostSchema = createPostSchema.partial().extend({
   id: z.string().cuid(),
 });
 
-const getPostsSchema = z.object({
-  limit: z.number().min(1).max(100).default(10),
-  cursor: z.string().cuid().optional(),
-  status: z.enum(['draft', 'published', 'archived']).optional(),
-  authorId: z.string().cuid().optional(),
-});
+const getPostsSchema = z
+  .object({
+    limit: z.number().min(1).max(100).default(10),
+    cursor: z.string().cuid().optional(),
+    status: z.enum(['draft', 'published', 'archived']).optional(),
+    authorId: z.string().cuid().optional(),
+  })
+  .optional()
+  .default({});
 
 export const postsRouter = createTRPCRouter({
   /**

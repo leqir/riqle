@@ -7,14 +7,10 @@ Sentry.init({
   environment: process.env.NEXT_PUBLIC_VERCEL_ENV || process.env.NODE_ENV,
   tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
   debug: process.env.NODE_ENV === 'development',
-  integrations: [
-    new Sentry.Replay({
-      maskAllText: true,
-      blockAllMedia: true,
-    }),
-  ],
-  replaySessionSampleRate: 0.1,
-  replayOnErrorSampleRate: 1.0,
+  integrations: [],
+  // Replay configuration (disabled for now - enable when Replay is available)
+  // replaySessionSampleRate: 0.1,
+  // replayOnErrorSampleRate: 1.0,
   beforeSend(event, hint) {
     // Filter out errors we don't want to send
     if (event.exception) {
