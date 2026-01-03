@@ -2,22 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/**
+ * Design System Global Styles
+ * Based on Epic 2: Design System & Visual Language
+ */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  /* Enforce reduced motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
   }
-}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Base typography (will be overridden by Tailwind utilities) */
+  body {
+    @apply font-sans text-base text-stone-600 antialiased;
+  }
+
+  h1 {
+    @apply text-stone-900 font-semibold;
+  }
+
+  h2 {
+    @apply text-stone-900 font-semibold;
+  }
+
+  h3 {
+    @apply text-stone-900 font-medium;
+  }
 }
 
 @layer utilities {
