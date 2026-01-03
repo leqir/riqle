@@ -419,15 +419,24 @@ model Product {
 // Price model removed - Epic 8 uses simple single pricing (priceInCents on Product)
 // OrderItem stores price snapshot at time of purchase
 
+// Epic 9 - Story 9.6: Order Lifecycle Management
+enum OrderStatus {
+  pending    // Payment initiated but not confirmed
+  processing // Payment confirmed, fulfillment in progress
+  completed  // Successfully fulfilled
+  failed     // Payment or fulfillment failed
+  refunded   // Order refunded, entitlements revoked
+}
+
 model Order {
-  id                    String   @id @default(cuid())
-  userId                String?  // Null for guest purchases initially
-  user                  User?    @relation(fields: [userId], references: [id])
+  id                    String      @id @default(cuid())
+  userId                String?     // Null for guest purchases initially
+  user                  User?       @relation(fields: [userId], references: [id])
 
   // Order details
-  status                String   @default("pending") // pending, processing, completed, failed, refunded
-  total                 Int      // in cents
-  currency              String   @default("USD")
+  status                OrderStatus @default(pending)
+  total                 Int         // in cents
+  currency              String      @default("USD")
 
   // Stripe references
   stripeSessionId       String?  @unique

@@ -1,6 +1,7 @@
 import type Stripe from 'stripe';
 import { db } from '@/lib/db';
 import { sendEmail } from '@/lib/email';
+import { OrderStatus } from '@prisma/client';
 import 'server-only';
 
 /**
@@ -68,7 +69,7 @@ export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): 
       const order = await tx.order.create({
         data: {
           userId,
-          status: 'completed',
+          status: OrderStatus.completed,
           total: session.amount_total ?? 0,
           currency: session.currency?.toUpperCase() ?? 'USD',
           stripeSessionId: session.id,
@@ -184,7 +185,7 @@ export async function handleRefund(charge: Stripe.Charge): Promise<void> {
     return;
   }
 
-  if (order.status === 'refunded') {
+  if (order.status === OrderStatus.refunded) {
     console.log(`Order ${order.id} already marked as refunded, skipping`);
     return;
   }
@@ -195,7 +196,7 @@ export async function handleRefund(charge: Stripe.Charge): Promise<void> {
       await tx.order.update({
         where: { id: order.id },
         data: {
-          status: 'refunded',
+          status: OrderStatus.refunded,
           refundedAt: new Date(),
         },
       });

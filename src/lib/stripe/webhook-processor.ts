@@ -18,6 +18,7 @@
 
 import { db } from '@/lib/db';
 import type Stripe from 'stripe';
+import { OrderStatus } from '@prisma/client';
 import { fulfillCheckoutSession } from './fulfillment';
 
 /**
@@ -185,7 +186,7 @@ async function handleRefund(chargeOrIntent: Stripe.Charge | Stripe.PaymentIntent
   await db.order.update({
     where: { id: order.id },
     data: {
-      status: 'refunded',
+      status: OrderStatus.refunded,
       refundedAt: new Date(),
     },
   });
