@@ -1,6 +1,6 @@
 # Epic 1: Information Architecture
 
-> **Status:** Documentation Complete (9/12 stories completed)
+> **Status:** Documentation Complete (10/12 stories completed)
 > **Updated:** January 3, 2026
 > **Purpose:** Define the foundational structure, taxonomy, and user experience patterns for the riqle platform.
 
@@ -233,12 +233,33 @@ This epic establishes the complete information architecture for riqle — the em
 
 ---
 
+### Content & Communication
+
+#### 10. [copy-tone-rules.md](./copy-tone-rules.md)
+
+**Story:** 1.9 - Establish copy system and tone rules
+**Purpose:** Writing style guide, microcopy patterns, voice and tone (factual, lowercase, honest validation)
+**Read first if:** You're writing any copy for the platform (UI, content, messaging)
+
+**Key Sections:**
+
+- Voice & tone principles (lowercase, factual, honest validation, observational, full stops)
+- Writing patterns by content type (homepage, about, projects, essays)
+- Microcopy patterns (buttons, forms, success messages, errors, loading states)
+- Korean aesthetic integration in copy (annotations, chalk handwriting)
+- Copy checklist before publish
+- Banned words & phrases (motivational speak, sales language, vague claims, filler)
+- Replacement patterns (vague → specific, sales → outcomes)
+- Accessibility considerations (link text, headings, alt text, form errors)
+- Implementation examples (components with proper tone)
+
+**Key Principle:** Write like you're explaining to a colleague, not selling to a customer
+
+**Status:** ✅ Complete
+
+---
+
 ## Pending Documentation
-
-### Story 1.9: Copy System & Tone Rules
-
-**File:** `copy-tone-rules.md` (to be created)
-**Purpose:** Writing style guide, microcopy patterns, voice and tone
 
 ### Story 1.10: SEO & Discoverability Baseline
 
