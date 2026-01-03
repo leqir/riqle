@@ -1,11 +1,11 @@
 /**
- * Homepage - Futuristic Glassmorphism with HEYTEA Illustrations
+ * Homepage - Apple-inspired Modern Design
  *
  * Features:
- * - Light mode glassmorphic cards
- * - Hand-drawn HEYTEA character illustrations
- * - Hand-drawn icons throughout
- * - Clean, modern, futuristic aesthetic
+ * - Clean Apple HIG typography
+ * - Strategic glassmorphism (not everything)
+ * - HEYTEA hand-drawn illustrations
+ * - Modern, minimal, futuristic
  */
 
 'use client';
@@ -16,103 +16,87 @@ import { StudyCat } from '@/components/heytea-characters/study-cat';
 import { PencilSprite } from '@/components/heytea-characters/pencil-sprite';
 import { HandDrawnArrowRight } from '@/components/icons/hand-drawn-arrow-right';
 import { HandDrawnSparkles } from '@/components/icons/hand-drawn-sparkles';
-import { HandDrawnCheck } from '@/components/icons/hand-drawn-check';
 
 export default function HomePage() {
   return (
     <div className="relative min-h-screen">
-      <div className="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32">
-        {/* Sleepy Owl - Floating companion */}
-        <div className="fixed right-8 top-24 z-20 hidden w-20 opacity-80 md:block">
+      {/* Floating HEYTEA Characters */}
+      <div className="fixed right-12 top-32 z-20 hidden lg:block">
+        <div className="w-24">
           <SleepyOwl emotion="happy" />
         </div>
+      </div>
 
-        {/* Hero Section */}
-        <section className="relative flex min-h-[85vh] flex-col justify-center">
-          <GlassCard neonColor="purple" imperfection="smudge" className="p-10 md:p-16">
-            {/* Opening tagline */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-300/50 bg-purple-50/50 px-4 py-2">
-              <HandDrawnSparkles className="h-5 w-5 text-purple-600" />
-              <p className="font-chalk text-lg text-purple-700">building with intention</p>
+      <div className="fixed bottom-12 left-12 z-20 hidden lg:block">
+        <div className="w-28">
+          <StudyCat pose="sleeping" />
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-5xl px-6 py-24 md:px-8 md:py-32">
+        {/* Hero Section - No card, just content */}
+        <section className="mb-32 flex min-h-[80vh] flex-col justify-center">
+          <div className="relative">
+            {/* Pencil Sprite near content */}
+            <div className="absolute -right-20 top-0 hidden w-16 xl:block">
+              <PencilSprite state="excited" />
             </div>
 
-            {/* Name */}
-            <h1 className="mb-6 text-[clamp(3.5rem,8vw,6rem)] font-bold leading-[1.05] tracking-tight text-stone-900">
+            {/* Main heading - Apple SF Pro style (Inter) */}
+            <h1 className="mb-6 text-[clamp(3rem,8vw,5.5rem)] font-bold leading-[1.05] tracking-tight text-stone-900">
               Nathanael
             </h1>
 
-            {/* Trajectory */}
-            <p className="mb-10 max-w-2xl font-chalk text-[clamp(1.75rem,3.5vw,2.5rem)] leading-[1.2] text-purple-600">
+            {/* Subheading - Apple style */}
+            <p className="mb-8 text-[clamp(1.5rem,3vw,2rem)] font-semibold leading-tight text-stone-600">
               Student → Tutor → Builder → Founder
             </p>
 
-            {/* Context with hand-drawn checks */}
-            <div className="mb-14 space-y-3 text-[1.1rem] leading-[1.8] text-stone-700">
-              <p className="flex items-start">
-                <HandDrawnCheck className="mr-3 mt-1 h-6 w-6 flex-shrink-0 text-cyan-500" />
-                Founder of MarkPoint
-              </p>
-              <p className="flex items-start">
-                <HandDrawnCheck className="mr-3 mt-1 h-6 w-6 flex-shrink-0 text-cyan-500" />
-                Former HSC English tutor (500+ students to Band 6)
-              </p>
-              <p className="flex items-start">
-                <HandDrawnCheck className="mr-3 mt-1 h-6 w-6 flex-shrink-0 text-cyan-500" />
-                Ships production code daily
-              </p>
-            </div>
+            {/* Description - Apple body text style */}
+            <p className="mb-12 max-w-2xl text-xl leading-relaxed text-stone-600">
+              Building products and teaching systems thinking. Focused on creating tools that help
+              students internalize frameworks, not just memorize content.
+            </p>
 
-            {/* CTAs with Pencil Sprite */}
-            <div className="relative">
-              <div className="absolute -left-16 top-0 hidden w-14 lg:block">
-                <PencilSprite state="excited" />
-              </div>
-
-              <div className="flex flex-wrap gap-4">
-                <a
-                  href="/work"
-                  className="group inline-flex items-center gap-3 rounded-2xl border-2 border-purple-500 bg-purple-500 px-8 py-4 font-semibold text-white shadow-lg shadow-purple-200 transition-all duration-300 hover:bg-purple-600 hover:shadow-xl hover:shadow-purple-300"
-                >
-                  View Work
-                  <HandDrawnArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
-                </a>
-                <a
-                  href="/writing"
-                  className="group inline-flex items-center gap-3 rounded-2xl border-2 border-purple-300 bg-white/80 px-8 py-4 font-semibold text-purple-700 backdrop-blur-sm transition-all duration-300 hover:bg-purple-50 hover:shadow-lg"
-                >
-                  Read Writing
-                  <HandDrawnArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
-                </a>
-              </div>
+            {/* CTAs - Apple button style */}
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="/work"
+                className="group inline-flex items-center gap-2 rounded-full bg-blue-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-blue-600/30 transition-all duration-200 hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-600/40"
+              >
+                View Work
+                <HandDrawnArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+              </a>
+              <a
+                href="/about"
+                className="group inline-flex items-center gap-2 rounded-full border-2 border-stone-300 bg-white px-8 py-4 text-base font-semibold text-stone-900 transition-all duration-200 hover:border-stone-400 hover:bg-stone-50"
+              >
+                About
+                <HandDrawnArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+              </a>
             </div>
-          </GlassCard>
+          </div>
         </section>
 
-        {/* Proof of Work Section */}
-        <section className="relative mt-24">
-          <GlassCard neonColor="cyan" imperfection="tape" className="p-10 md:p-14">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-300/50 bg-cyan-50/50 px-4 py-2">
-              <HandDrawnSparkles className="h-5 w-5 text-cyan-600" />
-              <p className="font-chalk text-base text-cyan-700">proof of work</p>
+        {/* Work Section - With Glassmorphic Card */}
+        <section className="mb-32">
+          <GlassCard neonColor="purple" className="p-12 md:p-16">
+            <div className="mb-8 flex items-center gap-3">
+              <HandDrawnSparkles className="h-7 w-7 text-purple-600" />
+              <h2 className="text-4xl font-bold tracking-tight text-stone-900">Built & Shipped</h2>
             </div>
 
-            <h2 className="mb-12 text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.2] text-stone-900">
-              Built & Operated
-            </h2>
-
-            <div className="space-y-6">
+            <div className="space-y-8">
               {/* MarkPoint */}
-              <div className="group rounded-2xl border border-cyan-200/50 bg-gradient-to-br from-cyan-50/50 to-white/80 p-6 backdrop-blur-sm transition-all duration-300 hover:border-cyan-300 hover:shadow-lg">
-                <h3 className="mb-2 font-chalk text-2xl text-cyan-600">MarkPoint</h3>
-                <p className="mb-3 text-base leading-relaxed text-stone-700">
-                  Startup focused on educational technology. Live product with real users.
-                </p>
-                <p className="mb-4 text-sm leading-relaxed text-stone-500">
-                  Active development, user growth trajectory, built with modern stack
+              <div className="group">
+                <h3 className="mb-2 text-2xl font-semibold text-stone-900">MarkPoint</h3>
+                <p className="mb-3 text-lg leading-relaxed text-stone-700">
+                  Educational technology startup. Live product with real users solving complex
+                  academic frameworks.
                 </p>
                 <a
                   href="/startups/markpoint"
-                  className="group/link inline-flex items-center gap-2 font-semibold text-cyan-600 transition-colors duration-200 hover:text-cyan-700"
+                  className="group/link inline-flex items-center gap-2 font-semibold text-blue-600 transition-colors duration-200 hover:text-blue-700"
                 >
                   View project
                   <HandDrawnArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/link:translate-x-1" />
@@ -120,18 +104,15 @@ export default function HomePage() {
               </div>
 
               {/* Riqle */}
-              <div className="group rounded-2xl border border-purple-200/50 bg-gradient-to-br from-purple-50/50 to-white/80 p-6 backdrop-blur-sm transition-all duration-300 hover:border-purple-300 hover:shadow-lg">
-                <h3 className="mb-2 font-chalk text-2xl text-purple-600">Riqle</h3>
-                <p className="mb-3 text-base leading-relaxed text-stone-700">
-                  Personal platform with commerce, built from scratch with production-grade
-                  infrastructure.
-                </p>
-                <p className="mb-4 text-sm leading-relaxed text-stone-500">
-                  T3 Stack, Stripe integration, full test coverage, deployed on Vercel
+              <div className="group border-t border-stone-200 pt-8">
+                <h3 className="mb-2 text-2xl font-semibold text-stone-900">Riqle</h3>
+                <p className="mb-3 text-lg leading-relaxed text-stone-700">
+                  Personal platform with commerce infrastructure. T3 Stack, Stripe, full test
+                  coverage.
                 </p>
                 <a
                   href="/work/riqle"
-                  className="group/link inline-flex items-center gap-2 font-semibold text-purple-600 transition-colors duration-200 hover:text-purple-700"
+                  className="group/link inline-flex items-center gap-2 font-semibold text-blue-600 transition-colors duration-200 hover:text-blue-700"
                 >
                   View project
                   <HandDrawnArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/link:translate-x-1" />
@@ -139,18 +120,15 @@ export default function HomePage() {
               </div>
 
               {/* Teaching */}
-              <div className="group rounded-2xl border border-green-200/50 bg-gradient-to-br from-green-50/50 to-white/80 p-6 backdrop-blur-sm transition-all duration-300 hover:border-green-300 hover:shadow-lg">
-                <h3 className="mb-2 font-chalk text-2xl text-green-600">HSC English Tutoring</h3>
-                <p className="mb-3 text-base leading-relaxed text-stone-700">
-                  Taught 500+ students over 5 years, developing frameworks that consistently produce
-                  Band 6 results.
-                </p>
-                <p className="mb-4 text-sm leading-relaxed text-stone-500">
-                  90% of students achieved Band 5 or 6
+              <div className="group border-t border-stone-200 pt-8">
+                <h3 className="mb-2 text-2xl font-semibold text-stone-900">Teaching</h3>
+                <p className="mb-3 text-lg leading-relaxed text-stone-700">
+                  500+ HSC English students over 5 years. Developed replicable frameworks that
+                  consistently produce Band 6 results.
                 </p>
                 <a
                   href="/about#teaching"
-                  className="group/link inline-flex items-center gap-2 font-semibold text-green-600 transition-colors duration-200 hover:text-green-700"
+                  className="group/link inline-flex items-center gap-2 font-semibold text-blue-600 transition-colors duration-200 hover:text-blue-700"
                 >
                   Read more
                   <HandDrawnArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/link:translate-x-1" />
@@ -160,53 +138,52 @@ export default function HomePage() {
           </GlassCard>
         </section>
 
-        {/* Current Focus Section */}
-        <section className="relative mt-24">
-          {/* Study Cat - companion */}
-          <div className="absolute -left-20 bottom-8 hidden w-24 opacity-70 lg:block">
-            <StudyCat pose="sleeping" />
-          </div>
+        {/* Current Focus - Grid without cards */}
+        <section className="mb-32">
+          <h2 className="mb-12 text-4xl font-bold tracking-tight text-stone-900">Currently</h2>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            {/* Currently Working On */}
-            <GlassCard neonColor="pink" imperfection="smudge" className="p-8">
-              <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-pink-300/50 bg-pink-100/50">
-                <HandDrawnSparkles className="h-7 w-7 text-pink-600" />
-              </div>
-              <h3 className="mb-4 font-chalk text-2xl text-stone-900">Currently</h3>
-              <p className="text-base leading-relaxed text-stone-700">
-                Building MarkPoint to solve educational technology challenges. Exploring how systems
-                thinking transforms education outcomes.
+          <div className="grid gap-12 md:grid-cols-2">
+            <div>
+              <h3 className="mb-4 text-2xl font-semibold text-stone-900">Focus</h3>
+              <p className="text-lg leading-relaxed text-stone-700">
+                Building MarkPoint&apos;s core infrastructure. Creating educational tools that help
+                students internalize cognitive frameworks rather than memorize content.
               </p>
-            </GlassCard>
+            </div>
 
-            {/* Recent Thinking */}
-            <GlassCard neonColor="purple" imperfection="fold" className="p-8">
-              <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-purple-300/50 bg-purple-100/50">
-                <HandDrawnCheck className="h-7 w-7 text-purple-600" />
-              </div>
-              <h3 className="mb-4 font-chalk text-2xl text-stone-900">Recent Thinking</h3>
-              <a href="/writing/building-in-public" className="group block">
-                <p className="mb-2 font-semibold text-purple-600 transition-colors duration-200 group-hover:text-purple-700">
-                  Building in Public: Lessons from MarkPoint →
-                </p>
-                <p className="text-sm leading-relaxed text-stone-600">
-                  On transparency, iteration, and learning from real users.
-                </p>
-              </a>
-            </GlassCard>
+            <div>
+              <h3 className="mb-4 text-2xl font-semibold text-stone-900">Exploring</h3>
+              <p className="text-lg leading-relaxed text-stone-700">
+                How systems scale without losing coherence—especially in education, where bad
+                scaling destroys what made something work.
+              </p>
+            </div>
 
-            {/* Approach - Full Width */}
-            <GlassCard neonColor="green" imperfection="torn" className="p-8 md:col-span-2">
-              <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-green-300/50 bg-green-100/50">
-                <HandDrawnSparkles className="h-7 w-7 text-green-600" />
-              </div>
-              <h3 className="mb-4 font-chalk text-2xl text-stone-900">Approach</h3>
-              <p className="text-base leading-relaxed text-stone-700">
+            <div className="md:col-span-2">
+              <h3 className="mb-4 text-2xl font-semibold text-stone-900">Approach</h3>
+              <p className="text-lg leading-relaxed text-stone-700">
                 Outcomes over credentials. Systems over hacks. Teaching what actually works.
+                Evidence before persuasion.
               </p>
-            </GlassCard>
+            </div>
           </div>
+        </section>
+
+        {/* Recent Writing - Simple section */}
+        <section>
+          <h2 className="mb-8 text-4xl font-bold tracking-tight text-stone-900">Recent Thinking</h2>
+
+          <a
+            href="/writing/building-in-public"
+            className="group block rounded-2xl border border-stone-200 bg-white p-8 transition-all duration-200 hover:border-stone-300 hover:shadow-lg"
+          >
+            <h3 className="mb-2 text-2xl font-semibold text-stone-900 transition-colors duration-200 group-hover:text-blue-600">
+              Building in Public: Lessons from MarkPoint →
+            </h3>
+            <p className="text-lg leading-relaxed text-stone-600">
+              On transparency, iteration, and learning from real users.
+            </p>
+          </a>
         </section>
       </div>
     </div>
