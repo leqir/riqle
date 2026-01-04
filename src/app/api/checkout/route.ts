@@ -11,6 +11,7 @@ import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { stripe } from '@/lib/stripe';
 import { db } from '@/lib/db';
+import { trackCheckoutCreation } from '@/lib/monitoring';
 
 export async function POST(req: Request) {
   try {
@@ -28,6 +29,9 @@ export async function POST(req: Request) {
     if (!productId) {
       return NextResponse.json({ error: 'Product ID is required' }, { status: 400 });
     }
+
+    // Start performance tracking
+    const timer = trackCheckoutCreation(productId, session.user.id);
 
     // 3. Fetch product from database
     const product = await db.product.findUnique({
@@ -64,10 +68,7 @@ export async function POST(req: Request) {
     });
 
     if (existingEntitlement && existingEntitlement.active) {
-      return NextResponse.json(
-        { error: 'You already own this product' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'You already own this product' }, { status: 400 });
     }
 
     // 5. Create or get Stripe Price
@@ -136,6 +137,7 @@ export async function POST(req: Request) {
     });
 
     // 7. Return checkout URL
+    timer.end({ sessionId: checkoutSession.id, productId });
     return NextResponse.json({ url: checkoutSession.url });
   } catch (error) {
     console.error('Checkout error:', error);

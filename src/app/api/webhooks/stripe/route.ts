@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
 import { processWebhookIdempotently } from '@/lib/stripe/webhook-processor';
+import { trackWebhookProcessing } from '@/lib/monitoring';
 
 /**
  * Stripe Webhook Handler
@@ -56,7 +57,9 @@ export async function POST(req: Request) {
 
   // Step 2: Process webhook with idempotency guarantees
   // All business logic delegated to webhook-processor.ts
+  const timer = trackWebhookProcessing(event.type, event.id);
   const result = await processWebhookIdempotently(event);
+  timer.end({ status: result.status });
 
   // Step 3: Return appropriate response based on processing result
   switch (result.status) {
