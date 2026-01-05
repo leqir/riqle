@@ -127,7 +127,7 @@ export async function POST(req: Request) {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_URL}/resources/${product.slug}?success=true`,
+      success_url: `${process.env.NEXT_PUBLIC_URL}/resources/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_URL}/resources/${product.slug}?canceled=true`,
       metadata: {
         userId: session.user.id,

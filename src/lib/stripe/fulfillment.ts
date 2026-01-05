@@ -1,6 +1,7 @@
 import type Stripe from 'stripe';
 import { db } from '@/lib/db';
 import { sendEmail } from '@/lib/email';
+import { purchaseConfirmationEmail, refundConfirmationEmail } from '@/lib/email-templates';
 import { OrderStatus } from '@prisma/client';
 import 'server-only';
 
@@ -45,7 +46,6 @@ export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): 
   }
 
   let orderId: string;
-  let productName: string;
 
   try {
     // Execute fulfillment in a transaction
@@ -127,11 +127,10 @@ export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): 
         });
       }
 
-      return { orderId: order.id, productName: product.title };
+      return { orderId: order.id };
     });
 
     orderId = result.orderId;
-    productName = result.productName;
 
     console.log(`Successfully fulfilled order ${orderId} for session ${session.id}`);
   } catch (error) {
@@ -141,13 +140,47 @@ export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): 
 
   // Send confirmation email (outside transaction to avoid rollback issues)
   try {
-    await sendPurchaseConfirmationEmail({
+    // Fetch complete order with product and entitlement details
+    const orderWithDetails = await db.order.findUnique({
+      where: { id: orderId },
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
+        },
+        entitlements: true,
+      },
+    });
+
+    if (!orderWithDetails || !orderWithDetails.items[0]) {
+      throw new Error(`Order ${orderId} or product not found for email`);
+    }
+
+    const product = orderWithDetails.items[0].product;
+    const entitlement = orderWithDetails.entitlements[0];
+
+    if (!entitlement) {
+      throw new Error(`Entitlement not found for order ${orderId}`);
+    }
+
+    // Use new email template with magic link
+    const emailContent = purchaseConfirmationEmail({
+      customerEmail: session.customer_email,
+      productTitle: product.title,
+      productSlug: product.slug,
+      productId: product.id,
+      productDescription: product.description,
+      productFormat: product.format,
+      whatYouGet: product.whatYouGet,
+      entitlementId: entitlement.id,
+      orderNumber: orderId,
+    });
+
+    await sendEmail({
       to: session.customer_email,
-      customerName: session.customer_details?.name ?? 'Customer',
-      orderId,
-      productName,
-      amountPaid: session.amount_total ?? 0,
-      currency: session.currency?.toUpperCase() ?? 'USD',
+      subject: emailContent.subject,
+      html: emailContent.html,
     });
   } catch (emailError) {
     // Log email error but don't fail the fulfillment
@@ -238,181 +271,36 @@ export async function handleRefund(charge: Stripe.Charge): Promise<void> {
 
   // Send refund notification email
   try {
-    await sendRefundNotificationEmail({
+    // Get product details for refund email
+    const orderWithProduct = await db.order.findUnique({
+      where: { id: order.id },
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+
+    const productTitle = orderWithProduct?.items[0]?.product.title || 'Product';
+    const refundAmount = formatCurrency(charge.amount_refunded, charge.currency.toUpperCase());
+
+    const emailContent = refundConfirmationEmail({
+      customerEmail: order.customerEmail,
+      productTitle,
+      refundAmount,
+      orderNumber: order.id,
+    });
+
+    await sendEmail({
       to: order.customerEmail,
-      customerName: order.customerName ?? 'Customer',
-      orderId: order.id,
-      refundAmount: charge.amount_refunded,
-      currency: charge.currency.toUpperCase(),
+      subject: emailContent.subject,
+      html: emailContent.html,
     });
   } catch (emailError) {
     console.error(`Failed to send refund notification for order ${order.id}:`, emailError);
   }
-}
-
-/**
- * Send purchase confirmation email
- */
-async function sendPurchaseConfirmationEmail({
-  to,
-  customerName,
-  orderId,
-  productName,
-  amountPaid,
-  currency,
-}: {
-  to: string;
-  customerName: string;
-  orderId: string;
-  productName: string;
-  amountPaid: number;
-  currency: string;
-}): Promise<void> {
-  const formattedAmount = formatCurrency(amountPaid, currency);
-
-  const html = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Purchase Confirmation</title>
-</head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; text-align: center;">
-    <h1 style="margin: 0; font-size: 28px;">Thank You for Your Purchase!</h1>
-  </div>
-
-  <div style="background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px;">
-    <p style="font-size: 16px;">Hi ${customerName},</p>
-
-    <p style="font-size: 16px;">Your purchase has been confirmed! You now have access to:</p>
-
-    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea;">
-      <h2 style="margin: 0 0 10px 0; font-size: 20px; color: #667eea;">${productName}</h2>
-      <p style="margin: 0; color: #666; font-size: 14px;">Order ID: ${orderId}</p>
-    </div>
-
-    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
-      <table style="width: 100%; border-collapse: collapse;">
-        <tr>
-          <td style="padding: 8px 0; color: #666;">Amount Paid:</td>
-          <td style="padding: 8px 0; text-align: right; font-weight: 600;">${formattedAmount}</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px 0; color: #666;">Payment Method:</td>
-          <td style="padding: 8px 0; text-align: right;">Card</td>
-        </tr>
-      </table>
-    </div>
-
-    <div style="text-align: center; margin: 30px 0;">
-      <a href="${process.env.NEXT_PUBLIC_URL}/account/orders" style="display: inline-block; background: #667eea; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: 600;">View Your Purchases</a>
-    </div>
-
-    <p style="font-size: 14px; color: #666; border-top: 1px solid #e5e7eb; padding-top: 20px; margin-top: 30px;">
-      If you have any questions, please don't hesitate to contact us.
-    </p>
-
-    <p style="font-size: 14px; color: #666;">
-      Best regards,<br>
-      The Riqle Team
-    </p>
-  </div>
-
-  <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
-    <p>You received this email because you made a purchase on Riqle.</p>
-  </div>
-</body>
-</html>
-  `.trim();
-
-  await sendEmail({
-    to,
-    subject: `Purchase Confirmation - ${productName}`,
-    html,
-  });
-}
-
-/**
- * Send refund notification email
- */
-async function sendRefundNotificationEmail({
-  to,
-  customerName,
-  orderId,
-  refundAmount,
-  currency,
-}: {
-  to: string;
-  customerName: string;
-  orderId: string;
-  refundAmount: number;
-  currency: string;
-}): Promise<void> {
-  const formattedAmount = formatCurrency(refundAmount, currency);
-
-  const html = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Refund Processed</title>
-</head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: #f59e0b; color: white; padding: 30px; border-radius: 10px 10px 0 0; text-align: center;">
-    <h1 style="margin: 0; font-size: 28px;">Refund Processed</h1>
-  </div>
-
-  <div style="background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px;">
-    <p style="font-size: 16px;">Hi ${customerName},</p>
-
-    <p style="font-size: 16px;">Your refund has been processed for order <strong>${orderId}</strong>.</p>
-
-    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
-      <table style="width: 100%; border-collapse: collapse;">
-        <tr>
-          <td style="padding: 8px 0; color: #666;">Refund Amount:</td>
-          <td style="padding: 8px 0; text-align: right; font-weight: 600; color: #f59e0b;">${formattedAmount}</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px 0; color: #666;">Order ID:</td>
-          <td style="padding: 8px 0; text-align: right;">${orderId}</td>
-        </tr>
-      </table>
-    </div>
-
-    <p style="font-size: 14px; color: #666;">
-      The refund will appear on your original payment method within 5-10 business days.
-    </p>
-
-    <p style="font-size: 14px; color: #666;">
-      Please note that your access to the purchased product has been revoked.
-    </p>
-
-    <p style="font-size: 14px; color: #666; border-top: 1px solid #e5e7eb; padding-top: 20px; margin-top: 30px;">
-      If you have any questions about this refund, please contact us.
-    </p>
-
-    <p style="font-size: 14px; color: #666;">
-      Best regards,<br>
-      The Riqle Team
-    </p>
-  </div>
-
-  <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
-    <p>You received this email because a refund was processed for your Riqle purchase.</p>
-  </div>
-</body>
-</html>
-  `.trim();
-
-  await sendEmail({
-    to,
-    subject: `Refund Processed - Order ${orderId}`,
-    html,
-  });
 }
 
 /**
@@ -425,3 +313,4 @@ function formatCurrency(amountInCents: number, currency: string): string {
     currency: currency,
   }).format(amount);
 }
+

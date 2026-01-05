@@ -72,17 +72,16 @@ async function main() {
         'Educational technology startup. Live product with real users solving complex academic frameworks.',
 
       // Role & Ownership
-      role: 'Solo Founder',
-      roleDetail: `I founded MarkPoint to solve a problem I encountered firsthand as an HSC English tutor: students struggle not with content knowledge, but with knowing what to prioritize and how to structure their thinking under time pressure.
+      role: 'Co-Founder, Founding Developer & Brand Lead',
+      roleDetail: `I co-founded MarkPoint to solve a problem I encountered firsthand as an HSC English tutor: students struggle not with content knowledge, but with knowing what to prioritize and how to structure their thinking under time pressure.
 
-As the sole founder, I own all aspects of the product:
-- Product vision and strategy
-- Full-stack development (Next.js, TypeScript, Prisma)
-- UX design and user research
-- Customer acquisition and onboarding
-- Technical infrastructure and deployment
+As a co-founder, I serve multiple critical roles:
+- **Founding Developer:** Full-stack development (Next.js, TypeScript, Prisma), technical architecture, all code implementation
+- **Brand Lead:** Brand identity, visual design system, marketing positioning
+- **UI/UX Designer:** Product design, user research, interface design
+- **Lead Frontend Developer:** All frontend implementation, component architecture, user experience optimization
 
-I make all product decisions, write all code, and maintain direct contact with users for feedback and iteration.`,
+I own the technical implementation, design direction, and user experience, working alongside my co-founder on product vision and strategy.`,
       teamSize: 0,
 
       // Execution & Outcome
@@ -303,7 +302,7 @@ The T3 Stack proved to be an excellent foundation for solo full-stack developmen
       name: 'MarkPoint',
       description:
         'Educational technology platform teaching cognitive frameworks for HSC English students.',
-      role: 'Founder',
+      role: 'Co-Founder, Founding Developer & Brand Lead',
       status: 'Active',
 
       // Overview
@@ -320,7 +319,7 @@ MarkPoint provides these frameworks through a web-based platform, focusing on sy
 
 Students can recite essay structures and memorize quotes, but under exam pressure, they can't decide what to prioritize or how to adapt their knowledge to unexpected questions. This isn't a content problem—it's a frameworks problem.
 
-I built MarkPoint because:
+We built MarkPoint because:
 1. **Existing solutions are insufficient:** YouTube videos are too generic; tutoring is expensive and doesn't scale; textbooks provide content but not thinking frameworks
 2. **Personal validation:** After 500+ students, the pattern was undeniable—the students who succeeded had internalized frameworks, not just memorized content
 3. **Scalability gap:** One-on-one tutoring works but doesn't scale; MarkPoint makes these frameworks accessible to students who can't afford private tutoring
@@ -328,36 +327,36 @@ I built MarkPoint because:
 The pain point is acute: HSC English is high-stakes (affects university admission), time-constrained (3-hour exams), and requires sophisticated thinking under pressure. Students need frameworks they can internalize, not templates they memorize.`,
 
       // Role & responsibility
-      roleDetail: `As the sole founder of MarkPoint, I own every aspect of the business and product:
+      roleDetail: `As a co-founder of MarkPoint, I serve multiple critical roles that shape both the product and brand:
 
-**Product Strategy:**
-- Define the pedagogical approach (frameworks > content)
-- Identify which frameworks to teach and in what sequence
-- Validate assumptions through direct user feedback
-- Make all product roadmap decisions
-
-**Technical Systems:**
+**Founding Developer:**
 - Full-stack development (Next.js, TypeScript, Prisma, tRPC)
 - Database design and schema evolution
 - Stripe payment integration and webhook processing
 - Deployment infrastructure (Vercel, Neon PostgreSQL)
-- All code written by me
+- All technical implementation and code
 
-**Operations:**
-- Customer acquisition and onboarding
-- Direct user support and feedback collection
-- Content creation (framework documentation and examples)
-- Marketing and positioning
+**Brand Lead:**
+- Brand identity and visual design system
+- Marketing positioning and messaging
+- Content strategy and brand voice
+- Visual aesthetic across all touchpoints
 
-**Business Decisions:**
-- Pricing strategy
-- Feature prioritization
-- Technical infrastructure choices
-- When to ship vs. when to iterate
+**UI/UX Designer:**
+- Product design and user research
+- Interface design and user flows
+- User experience optimization
+- Direct user feedback collection and iteration
 
-The decisions that matter most: choosing frameworks over content delivery, building custom platform instead of using existing course platforms, focusing on HSC English first before expanding to other subjects.
+**Lead Frontend Developer:**
+- All frontend implementation
+- Component architecture and design system
+- Performance optimization
+- User experience refinement
 
-Without me, this doesn't exist—there's no team to delegate to, no co-founder to share load with. Every system, every line of code, every framework taught is something I decided to build and built.`,
+I work alongside my co-founder on product vision and strategy, while owning the technical implementation, design direction, and brand identity end-to-end.
+
+The decisions I make shape how MarkPoint looks, feels, and functions: choosing frameworks over content delivery, building custom platform instead of using existing course platforms, defining the visual language that makes learning approachable yet rigorous.`,
 
       // What was built
       systemsBuilt: `**Core Platform Infrastructure:**

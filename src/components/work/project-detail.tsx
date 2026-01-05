@@ -13,6 +13,8 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 
 type ProjectDetailProps = {
   title: string;
@@ -39,6 +41,15 @@ export function ProjectDetail({
 }: ProjectDetailProps) {
   return (
     <div className="mx-auto max-w-3xl px-6 py-24 md:px-8 md:py-32">
+      {/* Back Button */}
+      <Link
+        href="/work"
+        className="group mb-12 inline-flex items-center gap-2 rounded-full border border-stone-200/60 bg-white/80 px-4 py-2 text-sm font-medium text-stone-700 backdrop-blur-sm transition-all hover:border-purple-300 hover:bg-purple-50/80 hover:text-purple-700"
+      >
+        <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+        Back to Work
+      </Link>
+
       {/* Title */}
       <h1 className="mb-16 text-[clamp(2.5rem,5vw,4rem)] font-bold leading-tight tracking-tight text-stone-900">
         {title}

@@ -68,10 +68,12 @@ export function ResourceDetail({
 
   // Handle purchase
   const [purchasing, setPurchasing] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   const handlePurchase = async () => {
     try {
       setPurchasing(true);
+      setError(null);
 
       // Call checkout API
       const response = await fetch('/api/checkout', {
@@ -84,9 +86,17 @@ export function ResourceDetail({
         }),
       });
 
+      // Check for authentication error
+      if (response.status === 401) {
+        // User not logged in - redirect to login with return URL
+        const returnUrl = encodeURIComponent(window.location.pathname);
+        window.location.href = `/api/auth/signin?callbackUrl=${returnUrl}`;
+        return;
+      }
+
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to create checkout session');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create checkout session');
       }
 
       const data = await response.json();
@@ -94,10 +104,13 @@ export function ResourceDetail({
       // Redirect to Stripe Checkout
       if (data.url) {
         window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL returned');
       }
-    } catch (error) {
-      console.error('Purchase error:', error);
-      alert('Failed to initiate purchase. Please try again.');
+    } catch (err) {
+      console.error('Purchase error:', err);
+      const message = err instanceof Error ? err.message : 'Failed to initiate purchase. Please try again.';
+      setError(message);
       setPurchasing(false);
     }
   };
@@ -181,6 +194,11 @@ export function ResourceDetail({
 
             {/* Purchase CTA - Calm, neutral (no urgency) */}
             <div className="space-y-4">
+              {error && (
+                <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-900">
+                  {error}
+                </div>
+              )}
               <button
                 onClick={handlePurchase}
                 disabled={purchasing}
