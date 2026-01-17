@@ -13,7 +13,7 @@
 
 import { type Metadata } from 'next';
 import { db } from '@/lib/db';
-import { Card, PageHero, MetaInfo } from '@/components/ui';
+import { Card, PageHero, MetaInfo, Text } from '@/components/ui';
 import { HandDrawnSparkles } from '@/components/icons/hand-drawn-sparkles';
 
 export const metadata: Metadata = {
@@ -49,24 +49,24 @@ export default async function WorkPage() {
 
         {/* Career Philosophy Section */}
         <section className="mb-16 rounded-3xl border border-stone-200/60 bg-gradient-to-br from-white/90 to-stone-50/90 p-8 backdrop-blur-xl md:p-12">
-          <div className="prose prose-stone prose-lg max-w-none">
-            <p className="text-lg leading-relaxed text-stone-700">
+          <div className="space-y-6">
+            <Text size="lg" color="secondary">
               A lot of great work happens inside established organisations. Internships at places
               like Atlassian or JPMorgan are rightly competitive, and learning within a well-run
               system is valuable.
-            </p>
-            <p className="text-lg leading-relaxed text-stone-700">
+            </Text>
+            <Text size="lg" color="secondary">
               I&apos;ve chosen a different path for now.
-            </p>
-            <p className="text-lg leading-relaxed text-stone-700">
+            </Text>
+            <Text size="lg" color="secondary">
               I prefer having direct responsibility over what I&apos;m building. That usually means
               smaller teams, less structure, and more exposure, but it also means the work is mine
               end-to-end.
-            </p>
-            <p className="text-lg leading-relaxed text-stone-700">
+            </Text>
+            <Text size="lg" color="secondary">
               The projects here reflect that preference. They&apos;re not exercises or case studies.
               They&apos;re things that exist, are used, and are still being improved.
-            </p>
+            </Text>
           </div>
         </section>
 

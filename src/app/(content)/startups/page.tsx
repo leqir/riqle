@@ -12,7 +12,7 @@
 
 import { type Metadata } from 'next';
 import { db } from '@/lib/db';
-import { StartupCard } from '@/components/startups/startup-card';
+import { Card, PageHero, MetaInfo, Text } from '@/components/ui';
 import { HandDrawnSparkles } from '@/components/icons/hand-drawn-sparkles';
 
 export const metadata: Metadata = {
@@ -39,39 +39,32 @@ export default async function StartupsPage() {
     <div className="relative min-h-screen">
       <div className="mx-auto max-w-5xl px-6 py-24 md:px-8 md:py-32">
         {/* Header */}
-        <header className="mb-16">
-          <div className="mb-6 inline-flex items-center gap-3">
-            <HandDrawnSparkles className="h-7 w-7 text-purple-600" />
-            <h1 className="text-[clamp(2.5rem,5vw,4rem)] font-bold tracking-tight text-stone-900">
-              Startups
-            </h1>
-          </div>
-          <p className="max-w-2xl text-xl leading-relaxed text-stone-600">
-            Ventures I&apos;ve founded and operated—evidence of ownership, decision-making, and
-            execution under uncertainty.
-          </p>
-        </header>
+        <PageHero
+          icon={<HandDrawnSparkles className="h-7 w-7 text-purple-600" />}
+          title="Startups"
+          description="Ventures I've founded and operated—evidence of ownership, decision-making, and execution under uncertainty."
+        />
 
         {/* Career Philosophy Section */}
         <section className="mb-16 rounded-3xl border border-stone-200/60 bg-gradient-to-br from-white/90 to-stone-50/90 p-8 backdrop-blur-xl md:p-12">
-          <div className="prose prose-stone prose-lg max-w-none">
-            <p className="text-lg leading-relaxed text-stone-700">
+          <div className="space-y-6">
+            <Text size="lg" color="secondary">
               A lot of great work happens inside established organisations. Internships at places like
               Atlassian or JPMorgan are rightly competitive, and learning within a well-run system is
               valuable.
-            </p>
-            <p className="text-lg leading-relaxed text-stone-700">
+            </Text>
+            <Text size="lg" color="secondary">
               I&apos;ve chosen a different path for now.
-            </p>
-            <p className="text-lg leading-relaxed text-stone-700">
+            </Text>
+            <Text size="lg" color="secondary">
               I prefer having direct responsibility over what I&apos;m building. That usually means
               smaller teams, less structure, and more exposure, but it also means the work is mine
               end-to-end.
-            </p>
-            <p className="text-lg leading-relaxed text-stone-700">
+            </Text>
+            <Text size="lg" color="secondary">
               The projects here reflect that preference. They&apos;re not exercises or case studies.
               They&apos;re things that exist, are used, and are still being improved.
-            </p>
+            </Text>
           </div>
         </section>
 
@@ -83,13 +76,16 @@ export default async function StartupsPage() {
         ) : (
           <div className="space-y-6">
             {startups.map((startup) => (
-              <StartupCard
+              <Card
                 key={startup.slug}
-                slug={startup.slug}
-                name={startup.name}
+                href={`/startups/${startup.slug}`}
+                title={startup.name}
                 description={startup.description}
-                role={startup.role}
-                status={startup.status}
+                accentColor="blue"
+                badge={
+                  <span className="text-sm font-medium text-stone-500">{startup.status}</span>
+                }
+                metaItems={[<MetaInfo key="role" label="Role" value={startup.role} />]}
               />
             ))}
           </div>

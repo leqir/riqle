@@ -18,7 +18,7 @@
 
 import { type Metadata } from 'next';
 import { db } from '@/lib/db';
-import { Card, Badge, MetaInfo } from '@/components/ui';
+import { Card, Badge, MetaInfo, PageHero } from '@/components/ui';
 
 export const metadata: Metadata = {
   title: 'Resources | Nathanael',
@@ -47,23 +47,10 @@ export default async function ResourcesPage() {
     <div className="relative min-h-screen">
       <div className="mx-auto max-w-5xl px-6 py-24 md:px-8 md:py-32">
         {/* Header */}
-        <header className="mb-16">
-          <h1 className="mb-6 text-[clamp(2.5rem,5vw,4rem)] font-bold tracking-tight text-stone-900">
-            Resources
-          </h1>
-
-          {/* Philosophy Intro - Epic 8 Story 8.1 */}
-          <div className="max-w-2xl space-y-4 text-lg leading-relaxed text-stone-600">
-            <p>
-              Educational materials created from teaching 500+ HSC English students to Band 6. Based
-              on real experience, not theory.
-            </p>
-            <p>
-              Every resource here is something I&apos;d recommend to family—proven frameworks,
-              tested approaches, and practical guidance grounded in what actually worked.
-            </p>
-          </div>
-        </header>
+        <PageHero
+          title="Resources"
+          description="Educational materials created from teaching 500+ HSC English students to Band 6—proven frameworks, tested approaches, and practical guidance grounded in real experience."
+        />
 
         {/* Resources List - Clean list layout (not grid) */}
         {products.length === 0 ? (
