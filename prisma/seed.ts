@@ -82,7 +82,7 @@ As a co-founder, I serve multiple critical roles:
 - **Lead Frontend Developer:** All frontend implementation, component architecture, user experience optimization
 
 I own the technical implementation, design direction, and user experience, working alongside my co-founder on product vision and strategy.`,
-      teamSize: 0,
+      teamSize: 2,
 
       // Execution & Outcome
       outcome: 'Live product with growing user base',
@@ -109,9 +109,9 @@ Built with the T3 Stack (Next.js 15, TypeScript, Prisma, tRPC) for type-safe ful
 3. **Minimal viable feature set:** Focused on core value proposition (framework teaching) before expanding to adjacent features
 
 **Technical Constraints:**
-- Solo development means prioritizing ruthlessly—features must directly support core value proposition
+- Small team means prioritizing ruthlessly—features must directly support core value proposition
 - Infrastructure choices optimized for rapid iteration and low maintenance overhead
-- Type safety throughout to minimize runtime bugs while working alone
+- Type safety throughout to minimize runtime bugs and enable confident iteration
 
 **Tradeoffs:**
 - Chose managed infrastructure (Vercel, Neon) over self-hosted to focus on product, not operations
@@ -140,7 +140,7 @@ If starting fresh, I would invest more time in user research before building. Wh
 The biggest insight has been validating that frameworks > content in education. Students don't need more information—they need better systems for processing the information they already have.
 
 **Technical Learning:**
-The T3 Stack has proven to be an excellent choice for solo development. The type safety across the full stack catches bugs early and enables confident refactoring. tRPC in particular eliminates entire classes of API contract bugs.
+The T3 Stack has proven to be an excellent choice for small team development. The type safety across the full stack catches bugs early and enables confident refactoring. tRPC in particular eliminates entire classes of API contract bugs.
 
 **Future Direction:**
 The core framework engine is solid. Next phase focuses on expanding framework library and improving the onboarding flow to help students internalize the mental models faster.`,
@@ -382,11 +382,11 @@ The decisions I make shape how MarkPoint looks, feels, and functions: choosing f
 
 **Technical Decisions:**
 - Chose managed infrastructure (Vercel, Neon) over self-hosted to focus on product iteration
-- Type safety throughout (TypeScript + Prisma + tRPC) to minimize bugs while working solo
+- Type safety throughout (TypeScript + Prisma + tRPC) to minimize bugs and enable fast iteration
 - Server-side rendering for optimal performance and SEO
 - Stripe for payments to avoid building payment processing from scratch
 
-The system is designed for solo operation: minimal maintenance overhead, automated where possible, focused on core value delivery.`,
+The system is designed for lean operation: minimal maintenance overhead, automated where possible, focused on core value delivery.`,
 
       // Outcomes & current status
       outcomes: `**Live and Operating:**
@@ -405,8 +405,8 @@ Early adopters report that the framework approach helps them structure their thi
 **What Worked:**
 - Framework-first approach resonates with students who already understand content
 - Direct user feedback loop enables rapid iteration
-- Type safety catches bugs early, critical for solo development
-- Managed infrastructure lets me focus on product, not operations
+- Type safety catches bugs early, critical for small team development
+- Managed infrastructure lets us focus on product, not operations
 
 **What Didn't:**
 - Initial onboarding flow was too complex; had to simplify significantly
@@ -424,7 +424,7 @@ Early adopters report that the framework approach helps them structure their thi
 I'm intentionally keeping growth slow while I validate product-market fit. Each new user provides feedback that shapes the product. Scaling before nailing the core experience would be premature.
 
 **Resource Constraints:**
-As a solo founder with limited time, I'm prioritizing product quality and user satisfaction over user acquisition. Better to have 50 users who love the product than 500 who churn because the experience isn't polished.
+As a small founding team with limited time, we're prioritizing product quality and user satisfaction over user acquisition. Better to have 50 users who love the product than 500 who churn because the experience isn't polished.
 
 **Next Phase:**
 Once the core framework engine is validated (3-6 months), I'll focus on structured user acquisition. The foundation needs to be solid first.`,
@@ -437,17 +437,17 @@ The biggest validation has been confirming that students don't need more content
 I would invest more time in structured user research before building if I were starting fresh. My tutoring experience provided strong product intuition, but earlier interviews could have saved iteration cycles. Assumption: students want X. Reality: students need Y. User research bridges that gap.
 
 **Technical Stack Choices:**
-The T3 Stack (Next.js + TypeScript + Prisma + tRPC) has proven excellent for solo development. The full-stack type safety reduces cognitive load significantly and catches bugs early. This learning applies to future projects: type safety is worth the setup overhead when working alone.
+The T3 Stack (Next.js + TypeScript + Prisma + tRPC) has proven excellent for small team development. The full-stack type safety reduces cognitive load significantly and catches bugs early. This learning applies to future projects: type safety is worth the setup overhead when working in lean teams.
 
-**Solo vs. Team:**
-Operating solo has taught me to be ruthlessly focused on core value proposition. Every feature must directly support framework delivery. With a team, it's easier to expand scope; solo forces discipline. This constraint has been valuable—it's made the product sharper.
+**Small Team Discipline:**
+Operating as a small founding team has taught us to be ruthlessly focused on core value proposition. Every feature must directly support framework delivery. Limited resources force discipline and clarity. This constraint has been valuable—it's made the product sharper.
 
 **Iterative Validation:**
 Shipping early and iterating based on real user feedback beats building in isolation. I shipped the MVP within 3 months and learned more from user interactions than I would have from 6 more months of development. Lesson: get to users faster, even if imperfect.
 
 **How This Informs Current Work:**
 - All new features start with user research, not assumptions
-- Type safety is non-negotiable for solo projects
+- Type safety is non-negotiable for small team projects
 - Managed infrastructure is worth the cost for iteration speed
 - Framework thinking applies beyond education—any domain benefits from teaching systems over content`,
 
@@ -488,7 +488,8 @@ Shipping early and iterating based on real user feedback beats building in isola
     create: {
       slug: 'frameworks-over-content',
       title: 'Why Teaching Frameworks Beats Teaching Content',
-      description: 'After teaching 500+ students, I learned that frameworks trump content every time.',
+      description:
+        'After teaching 500+ students, I learned that frameworks trump content every time.',
       content: `<p>After teaching 500+ HSC English students to Band 6, I noticed a consistent pattern: the students who succeeded weren't the ones who memorized the most quotes or read the most analyses. They were the ones who had internalized frameworks for thinking.</p>
 
 <p>This realization fundamentally changed how I teach—and eventually, how I built MarkPoint.</p>
@@ -612,7 +613,7 @@ Shipping early and iterating based on real user feedback beats building in isola
 <p>The tradeoff I now use: if the goal is action, optimize for speed. If the goal is understanding, optimize for depth.</p>
 
 <p>Most product decisions favor action, which means most product decisions should favor speed.</p>`,
-      contextLine: 'Lessons from building MarkPoint\'s feedback engine and observing 500+ students',
+      contextLine: "Lessons from building MarkPoint's feedback engine and observing 500+ students",
       readingTime: 4,
       theme: 'Product',
       publishedAt: new Date('2025-11-20'),
