@@ -14,7 +14,7 @@
 import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { db } from '@/lib/db';
-import { StartupDetail } from '@/components/startups/startup-detail';
+import { StartupDetail } from '@/components/content/startups/startup-detail';
 
 type Props = {
   params: Promise<{ slug: string }>;

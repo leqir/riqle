@@ -50,19 +50,18 @@ export default function AboutPage() {
 
             <div className="space-y-6 text-base leading-relaxed text-stone-700">
               <p>
-                i'm interested in <span className="font-medium text-stone-900">formation</span>.
-                how people are shaped over time by habits, language, discipline, and the systems
-                they inhabit. not in a theoretical way, but in the lived reality of it. the things
-                you do every day, the words you use, the environments you choose. they're quietly
-                forming you into someone. the question is whether you're paying attention.
+                i'm interested in <span className="font-medium text-stone-900">formation</span>. how people
+                are shaped over time by the habits they keep, the language they use, the discipline they build,
+                and the systems they inhabit. not as some abstract idea, but as a lived reality. the things
+                you do every day are quietly forming you into someone, whether you're paying attention or not.
               </p>
 
               <p>
-                i've learned to care about clarity early. unclear language, unclear ownership,
-                and unclear intent tend to create more problems than technical difficulty ever does.
-                this applies just as much to people as it does to software or organisations.
-                i've seen projects fail not because the code was bad, but because no one could
-                agree on what "done" meant. clarity is kindness. ambiguity is violence.
+                i've learned to care about clarity early. unclear language, unclear ownership, and unclear
+                intent create more problems than technical difficulty ever does. this applies just as much
+                to people as it does to software. i've seen teams fall apart not because the code was broken,
+                but because no one could agree on what "done" actually meant. clarity is kindness. ambiguity
+                is violence.
               </p>
 
               <div className="my-10 border-l-2 border-stone-900 pl-6">

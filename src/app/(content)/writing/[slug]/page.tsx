@@ -14,7 +14,7 @@
 import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { db } from '@/lib/db';
-import { Essay } from '@/components/writing/essay';
+import { Essay } from '@/components/content/writing/essay';
 
 type Props = {
   params: Promise<{ slug: string }>;

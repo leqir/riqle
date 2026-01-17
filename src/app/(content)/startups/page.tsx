@@ -13,7 +13,7 @@
 import { type Metadata } from 'next';
 import { db } from '@/lib/db';
 import { Card, PageHero, MetaInfo, Text } from '@/components/ui';
-import { HandDrawnSparkles } from '@/components/icons/hand-drawn-sparkles';
+import { HandDrawnSparkles } from '@/components/design-system/icons/hand-drawn-sparkles';
 
 export const metadata: Metadata = {
   title: 'Startups | Nathanael',

@@ -28,7 +28,7 @@
 
 import Link from 'next/link';
 import { type ReactNode } from 'react';
-import { HandDrawnArrowRight } from '@/components/icons/hand-drawn-arrow-right';
+import { HandDrawnArrowRight } from '@/components/design-system/icons/hand-drawn-arrow-right';
 import { cn, colors, effects, transitions, getAccentColors } from '../design-tokens';
 
 type AccentColor = 'blue' | 'indigo' | 'purple';

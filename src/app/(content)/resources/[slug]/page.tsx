@@ -20,7 +20,7 @@
 import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { db } from '@/lib/db';
-import { ResourceDetail } from '@/components/resources/resource-detail';
+import { ResourceDetail } from '@/components/content/resources/resource-detail';
 
 type Props = {
   params: Promise<{ slug: string }>;

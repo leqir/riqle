@@ -10,12 +10,12 @@
 
 'use client';
 
-import { GlassCard } from '@/components/korean-aesthetic/glass-card';
-import { SleepyOwl } from '@/components/heytea-characters/sleepy-owl';
-import { StudyCat } from '@/components/heytea-characters/study-cat';
-import { PencilSprite } from '@/components/heytea-characters/pencil-sprite';
-import { HandDrawnArrowRight } from '@/components/icons/hand-drawn-arrow-right';
-import { HandDrawnSparkles } from '@/components/icons/hand-drawn-sparkles';
+import { GlassCard } from '@/components/design-system/korean-aesthetic/glass-card';
+import { SleepyOwl } from '@/components/design-system/heytea-characters/sleepy-owl';
+import { StudyCat } from '@/components/design-system/heytea-characters/study-cat';
+import { PencilSprite } from '@/components/design-system/heytea-characters/pencil-sprite';
+import { HandDrawnArrowRight } from '@/components/design-system/icons/hand-drawn-arrow-right';
+import { HandDrawnSparkles } from '@/components/design-system/icons/hand-drawn-sparkles';
 
 export default function HomePage() {
   return (

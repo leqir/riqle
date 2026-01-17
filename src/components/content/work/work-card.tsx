@@ -1,49 +1,59 @@
 /**
- * StartupCard Component - Apple-inspired Design
- *
- * Epic 6 - Story 6.3: Professional record, not sales page
+ * WorkCard Component - Apple-inspired Design
  *
  * Features:
  * - Clean typography following Apple HIG
- * - Clear role and status display
+ * - Strategic glassmorphism (subtle)
+ * - Clear role and outcome display
  * - Hand-drawn arrow icon
- * - Strategic design matching Work portfolio
  */
 
 'use client';
 
 import Link from 'next/link';
-import { HandDrawnArrowRight } from '@/components/icons/hand-drawn-arrow-right';
+import { HandDrawnArrowRight } from '@/components/design-system/icons/hand-drawn-arrow-right';
 
-type StartupCardProps = {
+type WorkCardProps = {
   slug: string;
-  name: string;
+  title: string;
   description: string;
   role: string;
-  status: string;
+  outcome: string;
+  projectStatus: string;
 };
 
-export function StartupCard({ slug, name, description, role, status }: StartupCardProps) {
+export function WorkCard({
+  slug,
+  title,
+  description,
+  role,
+  outcome,
+  projectStatus,
+}: WorkCardProps) {
   return (
     <Link
-      href={`/startups/${slug}`}
+      href={`/work/${slug}`}
       className="group block rounded-2xl border border-stone-200 bg-white p-8 transition-all duration-200 hover:border-stone-300 hover:shadow-lg"
     >
-      {/* Name & Status */}
+      {/* Title & Status */}
       <div className="mb-4 flex items-start justify-between gap-4">
         <h3 className="text-2xl font-semibold text-stone-900 transition-colors duration-200 group-hover:text-blue-600">
-          {name}
+          {title}
         </h3>
-        <span className="text-sm font-medium text-stone-500">{status}</span>
+        <span className="text-sm font-medium text-stone-500">{projectStatus}</span>
       </div>
 
       {/* Description */}
       <p className="mb-6 text-lg leading-relaxed text-stone-700">{description}</p>
 
-      {/* Role */}
-      <div className="mb-4 text-base text-stone-600">
+      {/* Role & Outcome */}
+      <div className="mb-4 flex flex-col gap-2 text-base text-stone-600 sm:flex-row sm:items-center sm:gap-4">
         <span>
           <strong className="font-semibold text-stone-900">Role:</strong> {role}
+        </span>
+        <span className="hidden text-stone-400 sm:inline">•</span>
+        <span>
+          <strong className="font-semibold text-stone-900">Outcome:</strong> {outcome}
         </span>
       </div>
 

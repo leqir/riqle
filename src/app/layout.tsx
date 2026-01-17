@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Nanum_Pen_Script } from 'next/font/google';
-import { AuthSessionProvider } from '@/components/providers/session-provider';
-import { Header } from '@/components/navigation/header';
+import { AuthSessionProvider } from '@/components/infrastructure/providers/session-provider';
+import { Header } from '@/components/infrastructure/navigation/header';
 import './globals.css';
 
 const inter = Inter({

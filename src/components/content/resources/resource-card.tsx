@@ -18,7 +18,7 @@
 'use client';
 
 import Link from 'next/link';
-import { HandDrawnArrowRight } from '@/components/icons/hand-drawn-arrow-right';
+import { HandDrawnArrowRight } from '@/components/design-system/icons/hand-drawn-arrow-right';
 
 type ResourceCardProps = {
   slug: string;

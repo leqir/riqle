@@ -13,7 +13,7 @@
 import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { db } from '@/lib/db';
-import { ProjectDetail } from '@/components/work/project-detail';
+import { ProjectDetail } from '@/components/content/work/project-detail';
 
 type Props = {
   params: Promise<{ slug: string }>;

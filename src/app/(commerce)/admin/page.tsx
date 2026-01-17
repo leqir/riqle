@@ -1,5 +1,5 @@
 import { requireAuth } from '@/lib/auth';
-import { SignOutButton } from '@/components/auth/sign-out-button';
+import { SignOutButton } from '@/components/infrastructure/auth/sign-out-button';
 
 /**
  * Admin Dashboard Page

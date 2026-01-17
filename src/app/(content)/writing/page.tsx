@@ -13,7 +13,7 @@
 import { type Metadata } from 'next';
 import { db } from '@/lib/db';
 import { Card, PageHero, MetaInfo } from '@/components/ui';
-import { HandDrawnPencil } from '@/components/icons/hand-drawn-pencil';
+import { HandDrawnPencil } from '@/components/design-system/icons/hand-drawn-pencil';
 
 export const metadata: Metadata = {
   title: 'Writing | Nathanael',
