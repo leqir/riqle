@@ -44,10 +44,10 @@ export default function ContactPage() {
               for enquiries, collaboration, or feedback about resources.
             </p>
             <Link
-              href="mailto:contact@riqle.com"
+              href="mailto:nathanael.thie@gmail.com"
               className="inline-block text-lg font-medium text-blue-600 transition-colors hover:text-blue-700"
             >
-              contact@riqle.com
+              nathanael.thie@gmail.com
             </Link>
           </section>
 
