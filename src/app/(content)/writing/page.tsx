@@ -1,24 +1,21 @@
 /**
  * Writing Page - Thinking Made Inspectable
  *
- * Epic 7 - Story 7.1 & 7.3: Writing Page Structure
- *
  * Features:
+ * - Minimalist Apple HIG typography
  * - Library feel, not blog
  * - Curated essays on thinking and judgment
- * - No infinite feeds or pagination pressure
- * - Calm, selective exploration
+ * - Clean, scannable layout
  */
 
 import { type Metadata } from 'next';
 import { db } from '@/lib/db';
-import { Card, PageHero, MetaInfo } from '@/components/ui';
-import { HandDrawnPencil } from '@/components/design-system/icons/hand-drawn-pencil';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Writing | Nathanael',
+  title: 'writing | riqle',
   description:
-    'Essays on education, systems, learning, product, and decision-making—thinking made inspectable.',
+    'essays on education, systems, learning, product, and decision-making—thinking made inspectable.',
 };
 
 export default async function WritingPage() {
@@ -37,23 +34,29 @@ export default async function WritingPage() {
   });
 
   return (
-    <div className="relative min-h-screen">
-      <div className="mx-auto max-w-5xl px-6 py-24 md:px-8 md:py-32">
+    <div className="min-h-screen bg-white">
+      <div className="mx-auto max-w-4xl px-6 py-24 md:px-8 md:py-32">
         {/* Header */}
-        <PageHero
-          icon={<HandDrawnPencil className="h-7 w-7 text-indigo-600" />}
-          title="Writing"
-          description="Essays on education, systems, learning, product, and decision-making—thinking made inspectable."
-        />
+        <header className="mb-20">
+          <p className="mb-3 text-sm font-medium uppercase tracking-wider text-stone-500">
+            writing
+          </p>
+          <h1 className="mb-4 text-[clamp(2.5rem,6vw,4rem)] font-semibold leading-[1.1] tracking-tight text-stone-900">
+            thinking made inspectable
+          </h1>
+          <p className="text-xl leading-relaxed text-stone-600">
+            essays on education, systems, learning, product, and decision-making.
+          </p>
+        </header>
 
         {/* Essay List */}
         {posts.length === 0 ? (
-          <div className="rounded-2xl border border-stone-200 bg-white p-12 text-center">
-            <p className="text-lg text-stone-600">No published essays yet. Check back soon!</p>
+          <div className="border-l-2 border-stone-300 py-12 pl-8">
+            <p className="text-lg text-stone-600">no published essays yet. check back soon.</p>
           </div>
         ) : (
-          <div className="space-y-6">
-            {posts.map((post) => {
+          <div className="space-y-16">
+            {posts.map((post, index) => {
               const formattedDate = post.publishedAt
                 ? new Intl.DateTimeFormat('en-US', {
                     year: 'numeric',
@@ -63,25 +66,52 @@ export default async function WritingPage() {
                 : null;
 
               return (
-                <Card
-                  key={post.slug}
-                  href={`/writing/${post.slug}`}
-                  title={post.title}
-                  description={post.description}
-                  accentColor="indigo"
-                  badge={
-                    post.theme ? (
-                      <span className="text-sm font-medium text-stone-500">{post.theme}</span>
-                    ) : undefined
-                  }
-                  metaItems={[
-                    formattedDate ? <MetaInfo key="date">{formattedDate}</MetaInfo> : null,
-                    post.readingTime ? (
-                      <MetaInfo key="reading-time">{post.readingTime} min read</MetaInfo>
-                    ) : null,
-                  ].filter(Boolean)}
-                  ctaText="Read essay"
-                />
+                <article key={post.slug} className="group">
+                  <Link href={`/writing/${post.slug}`} className="block">
+                    {/* Essay Number */}
+                    <p className="mb-4 font-mono text-sm font-medium text-stone-400">
+                      {String(index + 1).padStart(2, '0')}
+                    </p>
+
+                    {/* Title */}
+                    <h2 className="mb-3 text-[clamp(1.75rem,4vw,2.5rem)] font-semibold leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-stone-600">
+                      {post.title}
+                    </h2>
+
+                    {/* Description */}
+                    <p className="mb-6 text-lg leading-relaxed text-stone-600">
+                      {post.description}
+                    </p>
+
+                    {/* Meta */}
+                    <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm">
+                      {formattedDate && (
+                        <div>
+                          <span className="font-medium text-stone-400">published</span>
+                          <span className="ml-3 text-stone-700">{formattedDate}</span>
+                        </div>
+                      )}
+                      {post.readingTime && (
+                        <div>
+                          <span className="font-medium text-stone-400">reading time</span>
+                          <span className="ml-3 text-stone-700">{post.readingTime} min</span>
+                        </div>
+                      )}
+                      {post.theme && (
+                        <div>
+                          <span className="ml-auto inline-block rounded-full bg-stone-100 px-3 py-1 text-xs font-medium text-stone-600">
+                            {post.theme}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Divider */}
+                    {index < posts.length - 1 && (
+                      <div className="mt-16 h-px bg-gradient-to-r from-stone-200 via-stone-300 to-stone-200" />
+                    )}
+                  </Link>
+                </article>
               );
             })}
           </div>
