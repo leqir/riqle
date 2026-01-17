@@ -12,7 +12,7 @@
 
 import { type Metadata } from 'next';
 import { db } from '@/lib/db';
-import { EssayCard } from '@/components/writing/essay-card';
+import { Card, PageHero, MetaInfo } from '@/components/ui';
 import { HandDrawnPencil } from '@/components/icons/hand-drawn-pencil';
 
 export const metadata: Metadata = {
@@ -40,18 +40,11 @@ export default async function WritingPage() {
     <div className="relative min-h-screen">
       <div className="mx-auto max-w-5xl px-6 py-24 md:px-8 md:py-32">
         {/* Header */}
-        <header className="mb-16">
-          <div className="mb-6 inline-flex items-center gap-3">
-            <HandDrawnPencil className="h-7 w-7 text-indigo-600" />
-            <h1 className="text-[clamp(2.5rem,5vw,4rem)] font-bold tracking-tight text-stone-900">
-              Writing
-            </h1>
-          </div>
-          <p className="max-w-2xl text-xl leading-relaxed text-stone-600">
-            Essays on education, systems, learning, product, and decision-making—thinking made
-            inspectable.
-          </p>
-        </header>
+        <PageHero
+          icon={<HandDrawnPencil className="h-7 w-7 text-indigo-600" />}
+          title="Writing"
+          description="Essays on education, systems, learning, product, and decision-making—thinking made inspectable."
+        />
 
         {/* Essay List */}
         {posts.length === 0 ? (
@@ -60,17 +53,37 @@ export default async function WritingPage() {
           </div>
         ) : (
           <div className="space-y-6">
-            {posts.map((post) => (
-              <EssayCard
-                key={post.slug}
-                slug={post.slug}
-                title={post.title}
-                description={post.description}
-                publishedAt={post.publishedAt}
-                readingTime={post.readingTime}
-                theme={post.theme}
-              />
-            ))}
+            {posts.map((post) => {
+              const formattedDate = post.publishedAt
+                ? new Intl.DateTimeFormat('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  }).format(new Date(post.publishedAt))
+                : null;
+
+              return (
+                <Card
+                  key={post.slug}
+                  href={`/writing/${post.slug}`}
+                  title={post.title}
+                  description={post.description}
+                  accentColor="indigo"
+                  badge={
+                    post.theme ? (
+                      <span className="text-sm font-medium text-stone-500">{post.theme}</span>
+                    ) : undefined
+                  }
+                  metaItems={[
+                    formattedDate ? <MetaInfo key="date">{formattedDate}</MetaInfo> : null,
+                    post.readingTime ? (
+                      <MetaInfo key="reading-time">{post.readingTime} min read</MetaInfo>
+                    ) : null,
+                  ].filter(Boolean)}
+                  ctaText="Read essay"
+                />
+              );
+            })}
           </div>
         )}
       </div>

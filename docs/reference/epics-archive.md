@@ -1,9 +1,9 @@
 ---
 stepsCompleted: [1, 2]
 inputDocuments:
-  - "_bmad-output/planning-artifacts/product-brief-riqle-2026-01-03.md"
-  - "_bmad-output/planning-artifacts/ux-design-specification.md"
-  - "_bmad-output/planning-artifacts/project-vision.md"
+  - '_bmad-output/planning-artifacts/product-brief-riqle-2026-01-03.md'
+  - '_bmad-output/planning-artifacts/ux-design-specification.md'
+  - '_bmad-output/planning-artifacts/project-vision.md'
 ---
 
 # riqle - Epic Breakdown
@@ -140,66 +140,82 @@ NFR17: CI/CD pipeline with quality gates
 ## Epic List
 
 ### Epic 0: Core Infrastructure, Backend & Data Foundation
+
 Establish production-grade foundation with database, authentication core, and deployment pipeline. Users can register, login securely, and the platform has reliable infrastructure from day one.
 **FRs covered:** FR17, FR18, NFR6, NFR7, NFR17
 
 ### Epic 1: Information Architecture & System Design
+
 Define content models, navigation structure, URL patterns, and site hierarchy. Users can navigate intuitively across all sections with clear information architecture.
 **FRs covered:** FR22, FR23
 
 ### Epic 2: Design System & Visual Language
+
 Implement Tailwind CSS + Headless UI with warm neutral color palette, typography system, velvet glassmorphism, and hand-drawn icon system. The site has a cohesive "quietly premium, calmly obsessive" visual language.
 **FRs covered:** Design system requirements (Tailwind, typography, glassmorphism, hand-drawn icons, progressive disclosure)
 
 ### Epic 3: Homepage (Identity Compression Engine)
+
 Create homepage enabling employers to understand Nathanael's identity, positioning, and proof in 30-45 seconds with fast load times.
 **FRs covered:** FR1, NFR1
 
 ### Epic 4: About / Narrative / Trajectory
+
 Present personal story with contextual narrative explaining non-linear path (student → tutor → builder → founder) and current direction.
 **FRs covered:** FR2
 
 ### Epic 5: Work & Portfolio (Proof of Execution)
+
 Showcase projects with context, outcomes, and quantified impact. Includes admin interface for project management.
 **FRs covered:** FR3, FR13
 
 ### Epic 6: Startups Showcase (MarkPoint & Others)
+
 Professional startup presentation as chapters in larger arc, with problem space, mission, and traction.
 **FRs covered:** FR3, FR13
 
 ### Epic 7: Writing & Thinking
+
 Display essays and reflections with instant load times and frictionless publishing workflow (write → preview → publish, no build steps).
 **FRs covered:** FR4, FR12
 
 ### Epic 8: Resources & Educational Products
+
 Catalog educational products with calm framing ("Resources created from real tutoring experience"). Includes admin interface for product creation and editing.
 **FRs covered:** FR5, FR14
 
 ### Epic 9: Commerce & Payments
+
 Professional Stripe checkout for one-time purchases with webhook-driven order fulfillment, purchase confirmation emails, and zero-failure reliability.
 **FRs covered:** FR6, FR7, FR10, NFR4, NFR10
 
 ### Epic 10: Customer Access & Delivery
+
 Secure entitlement system granting access to purchased resources with signed URLs, user accounts, and purchase history.
 **FRs covered:** FR8, FR9, FR19, FR20, NFR11
 
 ### Epic 11: Admin Experience (Operator UX)
+
 Frictionless admin dashboard feeling like "internal tooling for a serious operation" with order management, customer support (resend access), and zero-thought deployment.
 **FRs covered:** FR11, FR15, FR16, NFR5
 
 ### Epic 12: Performance, Reliability & Trust
+
 Fast page loads (homepage < 2s, all pages < 3s), 99.9% uptime, zero broken links, reliable email delivery, and backup/recovery plan.
 **FRs covered:** NFR1, NFR2, NFR3, NFR9, NFR12, NFR16
 
 ### Epic 13: Analytics & Insight (Minimal, Intentional)
+
 Minimal analytics to understand employer engagement patterns without bloat. Focus on behavioral signals (pages visited, time spent, referral sources).
 **FRs covered:** Analytics requirements (minimal, intentional)
 
 ### Epic 14: Security, Privacy & Professional Legitimacy
+
 Secure authentication, data protection, WCAG AA accessibility compliance, and maintainable codebase for professional trust signals.
 **FRs covered:** NFR8, NFR11, NFR13, NFR14
 
 ### Epic 15: Launch, Iteration & Long-Term Growth
+
 Initial launch preparation with contact forms, scalable infrastructure, and post-launch iteration capability.
 **FRs covered:** FR21, NFR15
 
@@ -321,12 +337,14 @@ So that the system is modeled correctly from the start.
 **Then** the following table categories exist:
 
 **Identity & Access:**
+
 - users (admin + customers)
 - sessions (or provider-backed session storage)
 - roles table
 - user_roles (junction table for RBAC)
 
 **Content:**
+
 - pages (optional, CMS-like pages)
 - posts (writing/essays)
 - projects (portfolio items)
@@ -335,6 +353,7 @@ So that the system is modeled correctly from the start.
 - tags, tag_links (optional but useful for organization)
 
 **Commerce:**
+
 - products (resources/courses catalog)
 - prices (separate from products so prices can change without breaking order history)
 - orders (purchase records)
@@ -344,6 +363,7 @@ So that the system is modeled correctly from the start.
 - idempotency_keys (for safe retry operations)
 
 **Operations:**
+
 - audit_log (admin actions and sensitive events)
 - email_log (sent/failed email references, not content)
 
@@ -351,14 +371,15 @@ So that the system is modeled correctly from the start.
 **When** the schema is reviewed
 **Then** foreign keys exist for all relationships
 **And** unique constraints are present on:
-  - users.email
-  - products.slug
-  - Stripe identifiers (stripeCustomerId, stripeSessionId, etc.)
-**And** indexes exist for common queries:
-  - posts.publishedAt
-  - projects.featured
-  - orders.userId, orders.status, orders.createdAt
-  - entitlements.userId, entitlements.productId
+
+- users.email
+- products.slug
+- Stripe identifiers (stripeCustomerId, stripeSessionId, etc.)
+  **And** indexes exist for common queries:
+- posts.publishedAt
+- projects.featured
+- orders.userId, orders.status, orders.createdAt
+- entitlements.userId, entitlements.productId
 
 **Given** a decision is made on soft-delete vs status fields
 **When** records need to be "deleted"
@@ -368,11 +389,12 @@ So that the system is modeled correctly from the start.
 **Given** the schema is complete
 **When** reviewing business requirements
 **Then** the schema supports:
-  - Public content browsing
-  - Admin-only editing
-  - Product purchase flows
-  - Entitlements and secure access control
-  - Historical order accuracy even if prices change later
+
+- Public content browsing
+- Admin-only editing
+- Product purchase flows
+- Entitlements and secure access control
+- Historical order accuracy even if prices change later
 
 ### Story 0.6: Migrations, Seeding, and Schema Governance
 
@@ -636,9 +658,10 @@ So that heavy work doesn't block HTTP requests and failures are handled graceful
 **Given** essential background jobs are defined
 **When** jobs are created
 **Then** the following job types exist:
-  - Send purchase confirmation email
-  - Generate delivery links
-  - Reconcile "stuck" orders (optional cleanup job)
+
+- Send purchase confirmation email
+- Generate delivery links
+- Reconcile "stuck" orders (optional cleanup job)
 
 **Given** a retry strategy is implemented
 **When** a job fails
@@ -681,9 +704,10 @@ So that receipts and access emails reach customers reliably.
 **Given** email templates are defined
 **When** sending transactional emails
 **Then** the following templates exist:
-  - Purchase confirmation with order details
-  - Access instructions with download/course links
-  - Admin notification (optional, for new orders)
+
+- Purchase confirmation with order details
+- Access instructions with download/course links
+- Admin notification (optional, for new orders)
 
 **Given** email logging is implemented
 **When** emails are sent
@@ -721,11 +745,12 @@ So that I can diagnose issues in minutes, not hours.
 **Given** business event tracking is minimal but critical
 **When** key business events occur
 **Then** the following events are logged:
-  - Checkout created
-  - Payment succeeded
-  - Entitlement granted
-  - Download link issued
-**And** events can be traced end-to-end using correlation IDs
+
+- Checkout created
+- Payment succeeded
+- Entitlement granted
+- Download link issued
+  **And** events can be traced end-to-end using correlation IDs
 
 **Given** a purchase flow is being debugged
 **When** tracing a specific purchase
@@ -744,10 +769,11 @@ So that cheap attacks and accidental overload don't cause issues.
 **Given** rate limiting is configured
 **When** implementing sensitive endpoints
 **Then** rate limits are applied to:
-  - Login endpoints
-  - Checkout creation
-  - Signed URL generation
-**And** rate limits are appropriate (e.g., 5 login attempts per 15 minutes)
+
+- Login endpoints
+- Checkout creation
+- Signed URL generation
+  **And** rate limits are appropriate (e.g., 5 login attempts per 15 minutes)
 
 **Given** rate limits are enforced
 **When** a user exceeds the rate limit
@@ -819,19 +845,21 @@ So that broken deployments are prevented.
 **Given** CI checks are configured
 **When** code is pushed or a PR is created
 **Then** the following checks run automatically:
-  - Linting
-  - Type checking
-  - Unit tests (at least for critical paths)
-**And** the build fails if any check fails
+
+- Linting
+- Type checking
+- Unit tests (at least for critical paths)
+  **And** the build fails if any check fails
 
 **Given** a pre-deploy checklist exists
 **When** preparing to deploy
 **Then** the checklist includes:
-  - Run migrations
-  - Verify Stripe secrets are present
-  - Confirm webhook endpoint is configured
-  - Check environment variables are set
-**And** the checklist is followed before every production deploy
+
+- Run migrations
+- Verify Stripe secrets are present
+- Confirm webhook endpoint is configured
+- Check environment variables are set
+  **And** the checklist is followed before every production deploy
 
 **Given** a staging-first release habit is established
 **When** releasing new features
@@ -895,6 +923,7 @@ So that the end-to-end purchase path is bulletproof.
 **Then** the following scenarios are verified:
 
 **Must-Pass Flow: Successful Purchase**
+
 - Checkout is initiated for a product
 - Payment succeeds in Stripe
 - Webhook is received and processed
@@ -904,6 +933,7 @@ So that the end-to-end purchase path is bulletproof.
 - Customer can access the purchased resource
 
 **Must-Pass Flow: Replayed Webhook Doesn't Double-Grant**
+
 - Webhook is processed successfully
 - Same webhook is sent again (replay)
 - No duplicate order is created
@@ -911,6 +941,7 @@ So that the end-to-end purchase path is bulletproof.
 - System returns 200 OK for idempotency
 
 **Must-Pass Flow: Refund Revokes Entitlement**
+
 - Purchase is completed successfully
 - Refund is issued in Stripe
 - Refund webhook is processed
@@ -918,6 +949,7 @@ So that the end-to-end purchase path is bulletproof.
 - Customer can no longer access the resource
 
 **Must-Pass Flow: Signed Download Links Expire**
+
 - Customer requests a download link
 - Signed URL is generated with expiration
 - Link works immediately
@@ -925,12 +957,14 @@ So that the end-to-end purchase path is bulletproof.
 - No content is accessible after expiration
 
 **Must-Pass Flow: Admin Can Manually Resend Access**
+
 - Order exists in the system
 - Admin views the order in admin dashboard
 - Admin clicks "Resend Access"
 - Customer receives a new email with access instructions
 
 **Must-Pass Flow: No Paid Asset is Publicly Accessible**
+
 - Attempt to access paid file directly (without signed URL)
 - Access is denied (403 or 404)
 - Files are not discoverable by URL guessing
@@ -939,6 +973,7 @@ So that the end-to-end purchase path is bulletproof.
 **Given** failure recovery is tested
 **When** simulating failure scenarios
 **Then** the following are verified:
+
 - Email provider failure: purchase still completes, email retries
 - Webhook delay: order eventually processes correctly
 - Duplicate webhook: idempotency prevents double-grant
@@ -966,11 +1001,12 @@ So that the system has consistent structure for posts, projects, startups, and p
 **Given** content types are being designed
 **When** defining the content models
 **Then** the following models are specified:
-  - Posts (essays/writing): title, slug, content, excerpt, publishedAt, status, author, tags
-  - Projects (portfolio): title, slug, description, outcomes, technologies, links, featured, order
-  - Startups: title, slug, description, problem, solution, traction, status, links
-  - Pages (optional static pages): title, slug, content, template
-  - Media Assets: key, url, size, mimeType, alt, createdBy
+
+- Posts (essays/writing): title, slug, content, excerpt, publishedAt, status, author, tags
+- Projects (portfolio): title, slug, description, outcomes, technologies, links, featured, order
+- Startups: title, slug, description, problem, solution, traction, status, links
+- Pages (optional static pages): title, slug, content, template
+- Media Assets: key, url, size, mimeType, alt, createdBy
 
 **Given** content relationships are defined
 **When** reviewing model relationships
@@ -995,17 +1031,18 @@ So that navigation is intuitive and URLs can be shared confidently.
 **Given** URL patterns are designed
 **When** accessing different content types
 **Then** the following URL structure is used:
-  - Homepage: `/`
-  - About: `/about`
-  - Work/Portfolio: `/work`
-  - Individual Project: `/work/[project-slug]`
-  - Startups: `/startups`
-  - Individual Startup: `/startups/[startup-slug]`
-  - Writing: `/writing`
-  - Individual Post: `/writing/[post-slug]`
-  - Resources: `/resources`
-  - Individual Resource: `/resources/[product-slug]`
-  - Contact: `/contact`
+
+- Homepage: `/`
+- About: `/about`
+- Work/Portfolio: `/work`
+- Individual Project: `/work/[project-slug]`
+- Startups: `/startups`
+- Individual Startup: `/startups/[startup-slug]`
+- Writing: `/writing`
+- Individual Post: `/writing/[post-slug]`
+- Resources: `/resources`
+- Individual Resource: `/resources/[product-slug]`
+- Contact: `/contact`
 
 **Given** admin routes are separated
 **When** accessing admin functionality
@@ -1065,11 +1102,12 @@ So that content is readable and functional on mobile, tablet, and desktop.
 **Given** responsive design breakpoints are defined
 **When** implementing responsive layouts
 **Then** Tailwind CSS default breakpoints are used:
-  - sm: 640px (mobile landscape)
-  - md: 768px (tablet)
-  - lg: 1024px (small desktop)
-  - xl: 1280px (desktop)
-  - 2xl: 1536px (large desktop)
+
+- sm: 640px (mobile landscape)
+- md: 768px (tablet)
+- lg: 1024px (small desktop)
+- xl: 1280px (desktop)
+- 2xl: 1536px (large desktop)
 
 **Given** the site is desktop-first in design priority
 **When** implementing layouts
@@ -1101,34 +1139,38 @@ So that the site ranks well and shares beautifully on social media.
 **Given** SEO metadata is implemented
 **When** any page loads
 **Then** the following meta tags are present:
-  - `<title>` (unique per page)
-  - `<meta name="description">` (unique per page)
-  - `<meta name="keywords">` (if relevant)
-  - Canonical URL (`<link rel="canonical">`)
+
+- `<title>` (unique per page)
+- `<meta name="description">` (unique per page)
+- `<meta name="keywords">` (if relevant)
+- Canonical URL (`<link rel="canonical">`)
 
 **Given** Open Graph tags are configured
 **When** a page is shared on social media
 **Then** Open Graph tags include:
-  - `og:title`
-  - `og:description`
-  - `og:image` (unique per content item where possible)
-  - `og:url`
-  - `og:type` (website, article, etc.)
+
+- `og:title`
+- `og:description`
+- `og:image` (unique per content item where possible)
+- `og:url`
+- `og:type` (website, article, etc.)
 
 **Given** Twitter Card tags are configured
 **When** shared on Twitter/X
 **Then** Twitter Card tags include:
-  - `twitter:card` (summary_large_image)
-  - `twitter:title`
-  - `twitter:description`
-  - `twitter:image`
+
+- `twitter:card` (summary_large_image)
+- `twitter:title`
+- `twitter:description`
+- `twitter:image`
 
 **Given** structured data is implemented
 **When** search engines crawl pages
 **Then** JSON-LD structured data is present for:
-  - Website/Organization
-  - Articles (for blog posts)
-  - BreadcrumbList (where applicable)
+
+- Website/Organization
+- Articles (for blog posts)
+- BreadcrumbList (where applicable)
 
 ### Story 1.6: Sitemap & Robots.txt Configuration
 
@@ -1141,13 +1183,14 @@ So that search engines can crawl and index the site effectively.
 **Given** a dynamic sitemap is generated
 **When** accessing `/sitemap.xml`
 **Then** all public pages are included:
-  - Homepage, About, Work, Writing, Resources, Contact
-  - All published posts
-  - All published projects
-  - All published startups
-  - All public product pages
-**And** lastmod dates are accurate
-**And** priority values are set appropriately (homepage: 1.0, main pages: 0.8, content: 0.6)
+
+- Homepage, About, Work, Writing, Resources, Contact
+- All published posts
+- All published projects
+- All published startups
+- All public product pages
+  **And** lastmod dates are accurate
+  **And** priority values are set appropriately (homepage: 1.0, main pages: 0.8, content: 0.6)
 
 **Given** robots.txt is configured
 **When** accessing `/robots.txt`

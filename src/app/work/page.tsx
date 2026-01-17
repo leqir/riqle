@@ -13,7 +13,7 @@
 
 import { type Metadata } from 'next';
 import { db } from '@/lib/db';
-import { WorkCard } from '@/components/work/work-card';
+import { Card, PageHero, MetaInfo } from '@/components/ui';
 import { HandDrawnSparkles } from '@/components/icons/hand-drawn-sparkles';
 
 export const metadata: Metadata = {
@@ -41,25 +41,19 @@ export default async function WorkPage() {
     <div className="relative min-h-screen">
       <div className="mx-auto max-w-5xl px-6 py-24 md:px-8 md:py-32">
         {/* Header */}
-        <header className="mb-16">
-          <div className="mb-6 inline-flex items-center gap-3">
-            <HandDrawnSparkles className="h-7 w-7 text-purple-600" />
-            <h1 className="text-[clamp(2.5rem,5vw,4rem)] font-bold tracking-tight text-stone-900">
-              Work
-            </h1>
-          </div>
-          <p className="max-w-2xl text-xl leading-relaxed text-stone-600">
-            Projects, products, and systems I&apos;ve built and shipped.
-          </p>
-        </header>
+        <PageHero
+          icon={<HandDrawnSparkles className="h-7 w-7 text-purple-600" />}
+          title="Work"
+          description="Projects, products, and systems I've built and shipped."
+        />
 
         {/* Career Philosophy Section */}
         <section className="mb-16 rounded-3xl border border-stone-200/60 bg-gradient-to-br from-white/90 to-stone-50/90 p-8 backdrop-blur-xl md:p-12">
           <div className="prose prose-stone prose-lg max-w-none">
             <p className="text-lg leading-relaxed text-stone-700">
-              A lot of great work happens inside established organisations. Internships at places like
-              Atlassian or JPMorgan are rightly competitive, and learning within a well-run system is
-              valuable.
+              A lot of great work happens inside established organisations. Internships at places
+              like Atlassian or JPMorgan are rightly competitive, and learning within a well-run
+              system is valuable.
             </p>
             <p className="text-lg leading-relaxed text-stone-700">
               I&apos;ve chosen a different path for now.
@@ -84,14 +78,21 @@ export default async function WorkPage() {
         ) : (
           <div className="space-y-6">
             {projects.map((project) => (
-              <WorkCard
+              <Card
                 key={project.slug}
-                slug={project.slug}
+                href={`/work/${project.slug}`}
                 title={project.title}
                 description={project.description}
-                role={project.role}
-                outcome={project.outcome}
-                projectStatus={project.projectStatus}
+                accentColor="blue"
+                badge={
+                  <span className="text-sm font-medium text-stone-500">
+                    {project.projectStatus}
+                  </span>
+                }
+                metaItems={[
+                  <MetaInfo key="role" label="Role" value={project.role} />,
+                  <MetaInfo key="outcome" label="Outcome" value={project.outcome} />,
+                ]}
               />
             ))}
           </div>

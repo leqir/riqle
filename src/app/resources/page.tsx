@@ -18,7 +18,7 @@
 
 import { type Metadata } from 'next';
 import { db } from '@/lib/db';
-import { ResourceCard } from '@/components/resources/resource-card';
+import { Card, Badge, MetaInfo } from '@/components/ui';
 
 export const metadata: Metadata = {
   title: 'Resources | Nathanael',
@@ -55,11 +55,11 @@ export default async function ResourcesPage() {
           {/* Philosophy Intro - Epic 8 Story 8.1 */}
           <div className="max-w-2xl space-y-4 text-lg leading-relaxed text-stone-600">
             <p>
-              Educational materials created from teaching 500+ HSC English students to Band 6.
-              Based on real experience, not theory.
+              Educational materials created from teaching 500+ HSC English students to Band 6. Based
+              on real experience, not theory.
             </p>
             <p>
-              Every resource here is something I'd recommend to family—proven frameworks,
+              Every resource here is something I&apos;d recommend to family—proven frameworks,
               tested approaches, and practical guidance grounded in what actually worked.
             </p>
           </div>
@@ -68,25 +68,37 @@ export default async function ResourcesPage() {
         {/* Resources List - Clean list layout (not grid) */}
         {products.length === 0 ? (
           <div className="rounded-2xl border border-stone-200 bg-white p-12 text-center">
-            <p className="text-lg text-stone-600">
-              No resources available yet. Check back soon!
-            </p>
+            <p className="text-lg text-stone-600">No resources available yet. Check back soon!</p>
           </div>
         ) : (
           <div className="space-y-6">
-            {products.map((product) => (
-              <ResourceCard
-                key={product.slug}
-                slug={product.slug}
-                title={product.title}
-                description={product.description}
-                format={product.format}
-                priceInCents={product.priceInCents}
-                currency={product.currency}
-                featured={product.featured}
-                targetAudience={product.targetAudience}
-              />
-            ))}
+            {products.map((product) => {
+              const price = (product.priceInCents / 100).toFixed(2);
+              const currencySymbol = product.currency === 'AUD' ? 'A$' : '$';
+
+              return (
+                <Card
+                  key={product.slug}
+                  href={`/resources/${product.slug}`}
+                  title={product.title}
+                  description={product.description}
+                  accentColor="indigo"
+                  badge={product.featured ? <Badge color="indigo">Featured</Badge> : undefined}
+                  metaItems={[
+                    <MetaInfo key="audience">For: {product.targetAudience}</MetaInfo>,
+                    <MetaInfo key="format">
+                      <span className="font-medium">{product.format}</span>
+                    </MetaInfo>,
+                    <MetaInfo key="price">
+                      <span className="font-semibold text-stone-900">
+                        {currencySymbol}
+                        {price}
+                      </span>
+                    </MetaInfo>,
+                  ]}
+                />
+              );
+            })}
           </div>
         )}
 
@@ -94,8 +106,8 @@ export default async function ResourcesPage() {
         <footer className="mt-16 rounded-2xl border border-stone-200 bg-stone-50 p-8">
           <h3 className="mb-3 text-lg font-semibold text-stone-900">Refund Policy</h3>
           <p className="text-base leading-relaxed text-stone-600">
-            14-day refund, no questions asked. If a resource doesn't work for you, just email
-            and I'll refund immediately. The goal is to help students, not extract revenue.
+            14-day refund, no questions asked. If a resource doesn&apos;t work for you, just email
+            and I&apos;ll refund immediately. The goal is to help students, not extract revenue.
           </p>
         </footer>
       </div>
