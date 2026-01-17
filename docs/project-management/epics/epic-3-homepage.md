@@ -19,6 +19,7 @@ Enable employers to understand Nathanael's **capability, credibility, and direct
 ### Core Job-to-be-Done
 
 Answer five employer questions immediately:
+
 1. **Who is this?**
 2. **What do they actually do?**
 3. **Have they built real things?**
@@ -30,6 +31,7 @@ Answer five employer questions immediately:
 ### User Outcome
 
 When Epic 3 is complete, the homepage:
+
 - ✅ Explains you in under a minute (30-45 seconds target)
 - ✅ Rewards deeper interest without forcing it
 - ✅ Never feels salesy or performative
@@ -47,11 +49,13 @@ When Epic 3 is complete, the homepage:
 ### Non-Functional Requirements Covered
 
 From Product Brief:
+
 - Employer-first optimization (30-45 second skim)
 - Commerce as evidence (not persuasion)
 - Professional legitimacy (serious operator signal)
 
 From UX Design:
+
 - Progressive disclosure (clarity → proof → texture)
 - Calm first impression (Apple-like restraint)
 - Typography over decoration
@@ -63,12 +67,14 @@ From UX Design:
 ### Homepage as Static Route
 
 **Approach:** Server-rendered static page with minimal JavaScript
+
 - Next.js Server Component for `/` route
 - Static data fetching at build time
 - Zero client-side JavaScript for initial render
 - Progressive enhancement for interactions
 
 **Why:**
+
 - Instant load time (< 1s First Meaningful Paint)
 - SEO optimized
 - Works without JavaScript
@@ -77,6 +83,7 @@ From UX Design:
 ### Content Strategy
 
 **Homepage content is curated, not dynamic:**
+
 - Featured projects/posts selected manually (not "latest 3")
 - Content stored in database but rendered statically
 - Quarterly review cadence (not real-time)
@@ -85,6 +92,7 @@ From UX Design:
 ### Performance Budget
 
 **Hard Constraints:**
+
 - First Meaningful Paint: < 1s
 - Total page weight: < 100KB (compressed)
 - Zero render-blocking JavaScript
@@ -112,6 +120,7 @@ So that no element exists without justification.
 **Given** the five core questions are defined
 **When** reviewing any homepage element
 **Then** it must answer at least one of the five questions:
+
 1. Who is this?
 2. What do they actually do?
 3. Have they built real things?
@@ -128,22 +137,26 @@ So that no element exists without justification.
 #### Five Core Questions Mapping
 
 **Question 1: Who is this?**
+
 - Answered by: Name (large, calm typography)
 - Location: Above fold, top of page
 - Format: "Nathanael" or "Nathanael / Riqle"
 
 **Question 2: What do they actually do?**
+
 - Answered by: Positioning statement (1-2 lines max)
 - Location: Immediately below name
 - Format: "Student → Tutor → Builder → Founder"
 - Plain language, no buzzwords
 
 **Question 3: Have they built real things?**
+
 - Answered by: Proof anchors (2-3 items)
 - Location: Second screen (after one scroll)
 - Format: Project name + outcome + link
 
 **Question 4: Can I trust their judgment?**
+
 - Answered by:
   - Writing link (signals thinking quality)
   - Optional: Featured essay or principle
@@ -151,6 +164,7 @@ So that no element exists without justification.
 - Location: Throughout homepage
 
 **Question 5: Would I want them on my team?**
+
 - Answered by: Combination of all above
 - Signals: Restraint, precision, real outcomes, clear thinking
 - Anti-signals removed: Hype, posturing, self-praise
@@ -158,6 +172,7 @@ So that no element exists without justification.
 #### Implementation Checklist
 
 - [ ] Document five questions in `docs/homepage/core-questions.md`:
+
   ```markdown
   # Homepage Core Questions
 
@@ -187,6 +202,7 @@ So that no element exists without justification.
      - Real outcomes
      - Clear thinking
   ```
+
 - [ ] Create decision checklist for homepage elements
 - [ ] Review every existing homepage element against questions
 - [ ] Remove elements that don't answer questions
@@ -218,6 +234,7 @@ So that I understand who this person is without scrolling.
 **Given** the above-fold area is implemented
 **When** an employer lands on the homepage
 **Then** they see (in strict priority order):
+
 1. Name (large, calm typography)
 2. Positioning statement (1-2 lines max)
 3. Context sentence (domain/impact)
@@ -238,22 +255,22 @@ So that I understand who this person is without scrolling.
 #### Required Elements (Strict Priority Order)
 
 **1. Name**
+
 ```tsx
-<h1 className="text-display font-semibold text-stone-900">
-  Nathanael
-</h1>
+<h1 className="text-display font-semibold text-stone-900">Nathanael</h1>
 ```
+
 - Large, calm typography (48-64px)
 - No titles next to name
 - No emojis
 - No descriptors
 
 **2. Positioning Statement (1-2 Lines Max)**
+
 ```tsx
-<p className="text-h2 text-stone-700 mt-4">
-  Student → Tutor → Builder → Founder
-</p>
+<p className="text-h2 mt-4 text-stone-700">Student → Tutor → Builder → Founder</p>
 ```
+
 - What you do + domain of impact
 - Plain language, no buzzwords
 - Legible in 5 seconds
@@ -262,40 +279,46 @@ So that I understand who this person is without scrolling.
   - "Building MarkPoint. Teaching systems thinking."
 
 **3. Context Sentence**
+
 ```tsx
-<div className="text-body text-stone-600 mt-6 space-y-1">
+<div className="text-body mt-6 space-y-1 text-stone-600">
   <p>Founder of MarkPoint</p>
   <p>Former HSC English tutor (500+ students to Band 6)</p>
   <p>Ships production code daily</p>
 </div>
 ```
+
 - 2-3 brief factual statements
 - Domain indicators
 - No claims without proof
 
 **4. Primary Routing CTAs**
+
 ```tsx
 <div className="mt-8 flex gap-4">
-  <a href="/work" className="text-lg font-medium text-stone-900 hover:text-accent">
+  <a href="/work" className="hover:text-accent text-lg font-medium text-stone-900">
     View Work →
   </a>
-  <a href="/writing" className="text-lg font-medium text-stone-900 hover:text-accent">
+  <a href="/writing" className="hover:text-accent text-lg font-medium text-stone-900">
     Read Writing →
   </a>
 </div>
 ```
+
 - Text links (not heavy buttons)
 - Arrows for direction
 - Clear verbs
 
 **5. Secondary Link to Resources (Subtle)**
+
 ```tsx
-<p className="mt-6 text-meta text-stone-500">
+<p className="text-meta mt-6 text-stone-500">
   <a href="/resources" className="hover:text-stone-700">
     Educational resources
   </a>
 </p>
 ```
+
 - Smaller, muted
 - Neutral copy
 - Skippable
@@ -306,22 +329,20 @@ So that I understand who this person is without scrolling.
 // app/page.tsx (Homepage - Above Fold)
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-page">
-      <div className="max-w-4xl mx-auto px-6 md:px-8 py-24 md:py-32">
+    <div className="bg-page min-h-screen">
+      <div className="mx-auto max-w-4xl px-6 py-24 md:px-8 md:py-32">
         {/* Above the Fold */}
-        <section className="min-h-[80vh] flex flex-col justify-center">
+        <section className="flex min-h-[80vh] flex-col justify-center">
           {/* Name */}
-          <h1 className="text-display font-semibold text-stone-900">
-            Nathanael
-          </h1>
+          <h1 className="text-display font-semibold text-stone-900">Nathanael</h1>
 
           {/* Positioning Statement */}
-          <p className="text-h2 text-stone-700 mt-4 max-w-2xl">
+          <p className="text-h2 mt-4 max-w-2xl text-stone-700">
             Student → Tutor → Builder → Founder
           </p>
 
           {/* Context */}
-          <div className="mt-8 space-y-2 text-body text-stone-600">
+          <div className="text-body mt-8 space-y-2 text-stone-600">
             <p>Founder of MarkPoint (startup with X users)</p>
             <p>Taught 500+ students to Band 6 in HSC English</p>
             <p>Ships production code daily</p>
@@ -331,21 +352,21 @@ export default function HomePage() {
           <div className="mt-12 flex flex-wrap gap-6">
             <a
               href="/work"
-              className="text-lg font-medium text-stone-900 hover:text-accent transition-colors"
+              className="hover:text-accent text-lg font-medium text-stone-900 transition-colors"
             >
               View Work →
             </a>
             <a
               href="/writing"
-              className="text-lg font-medium text-stone-900 hover:text-accent transition-colors"
+              className="hover:text-accent text-lg font-medium text-stone-900 transition-colors"
             >
               Read Writing →
             </a>
           </div>
 
           {/* Secondary Resources Link */}
-          <p className="mt-8 text-meta text-stone-500">
-            <a href="/resources" className="hover:text-stone-700 transition-colors">
+          <p className="text-meta mt-8 text-stone-500">
+            <a href="/resources" className="transition-colors hover:text-stone-700">
               Educational resources
             </a>
           </p>
@@ -359,6 +380,7 @@ export default function HomePage() {
 #### Explicit Exclusions
 
 **NO:**
+
 - Glass effects above fold
 - Images or photos
 - Animations on load
@@ -370,6 +392,7 @@ export default function HomePage() {
 - Icons or symbols
 
 **ONLY:**
+
 - Text
 - White/off-white background
 - Simple links
@@ -427,30 +450,35 @@ So that employers feel calm and confident immediately.
 #### Visual Tone Rules
 
 **Background:**
+
 - Color: `stone-50` (off-white, not pure white)
 - No gradients
 - No patterns
 - No textures
 
 **Text Contrast:**
+
 - Headings: `stone-900` (near-black, not pure black)
 - Body: `stone-700` (soft charcoal)
 - Meta: `stone-500` (muted)
 - All meet WCAG AA contrast requirements (4.5:1 minimum)
 
 **Typography:**
+
 - Display: 48-64px (3-4rem)
 - Large body: 18-20px (1.125-1.25rem)
 - Line height: 1.5-1.7 (generous)
 - Font weight: Regular (400) and Semibold (600) only
 
 **Spacing:**
+
 - Vertical rhythm: 32-48px between sections
 - Generous padding: 24-32px
 - Max-width: 896px (max-w-4xl)
 - Centered content container
 
 **No Visual Metaphors:**
+
 - No icons
 - No illustrations
 - No decorative shapes
@@ -460,12 +488,14 @@ So that employers feel calm and confident immediately.
 #### This Screen Should Feel Like
 
 **✅ Apple Internal Memo:**
+
 - Precise, minimal
 - Information-dense but spacious
 - Professional but not corporate
 - Serious but approachable
 
 **❌ NOT Like:**
+
 - SaaS landing page
 - Portfolio showcase
 - Personal brand site
@@ -544,6 +574,7 @@ So that I can validate capability without extensive research.
 3. **Optional:** One educational outcome or metric
 
 **Each Anchor Includes:**
+
 - Name (clear, direct)
 - One-line description (what it is)
 - Outcome or scope (quantified if possible)
@@ -567,9 +598,9 @@ export function ProofAnchor({
   return (
     <a
       href={href}
-      className="block group space-y-2 p-6 rounded-lg border border-stone-200 hover:border-stone-300 transition-colors"
+      className="group block space-y-2 rounded-lg border border-stone-200 p-6 transition-colors hover:border-stone-300"
     >
-      <h3 className="text-h3 font-semibold text-stone-900 group-hover:text-accent transition-colors">
+      <h3 className="text-h3 group-hover:text-accent font-semibold text-stone-900 transition-colors">
         {name}
       </h3>
       <p className="text-body text-stone-700">{description}</p>
@@ -583,11 +614,9 @@ export function ProofAnchor({
 
 ```tsx
 // app/page.tsx (Homepage - Proof Anchors Section)
-<section className="py-24 border-t border-stone-200">
-  <div className="max-w-4xl mx-auto px-6 md:px-8">
-    <h2 className="text-h2 font-semibold text-stone-900 mb-12">
-      Built & Operated
-    </h2>
+<section className="border-t border-stone-200 py-24">
+  <div className="mx-auto max-w-4xl px-6 md:px-8">
+    <h2 className="text-h2 mb-12 font-semibold text-stone-900">Built & Operated</h2>
 
     <div className="space-y-6">
       {/* Proof Anchor 1: MarkPoint */}
@@ -615,8 +644,8 @@ export function ProofAnchor({
       />
     </div>
 
-    <p className="mt-12 text-body text-stone-600">
-      <a href="/work" className="font-medium text-stone-900 hover:text-accent transition-colors">
+    <p className="text-body mt-12 text-stone-600">
+      <a href="/work" className="hover:text-accent font-medium text-stone-900 transition-colors">
         See all work →
       </a>
     </p>
@@ -627,18 +656,21 @@ export function ProofAnchor({
 #### Rules
 
 **No Grids of Logos:**
+
 - Avoid "As seen on..." badges
 - No client logo galleries
 - No "technologies used" icon grids
 - Text-first always
 
 **No Metrics Without Context:**
+
 - ❌ "500+ students" (what does this mean?)
 - ✅ "500+ students taught, 90% achieved Band 5 or 6"
 - ❌ "X users" (compared to what?)
 - ✅ "X users, $Y MRR, featured on Product Hunt"
 
 **No "Featured Everywhere" Syndrome:**
+
 - Avoid listing every mention
 - Quality over quantity
 - Real outcomes over press
@@ -686,9 +718,10 @@ So that I can assess cultural fit and thinking quality.
 **Given** the third screen is implemented
 **When** viewing after proof anchors
 **Then** I see optional content:
-  - "Currently focused on..." (1-2 sentences)
-  - Link to featured essay
-  - Optional: Short principle or philosophy statement
+
+- "Currently focused on..." (1-2 sentences)
+- Link to featured essay
+- Optional: Short principle or philosophy statement
 
 **And** this section is skippable (not required for understanding)
 **And** no manifesto language appears
@@ -702,6 +735,7 @@ So that I can assess cultural fit and thinking quality.
 #### Content Types Allowed
 
 **1. "Currently Focused On..." (1-2 Sentences)**
+
 ```tsx
 <div className="space-y-2">
   <h3 className="text-h3 font-semibold text-stone-900">Currently</h3>
@@ -712,22 +746,22 @@ So that I can assess cultural fit and thinking quality.
 ```
 
 **2. Link to Featured Essay**
+
 ```tsx
 <div className="space-y-2">
   <h3 className="text-h3 font-semibold text-stone-900">Recent Thinking</h3>
   <a
     href="/writing/building-in-public"
-    className="block text-body text-stone-900 hover:text-accent transition-colors"
+    className="text-body hover:text-accent block text-stone-900 transition-colors"
   >
     Building in Public: Lessons from MarkPoint →
   </a>
-  <p className="text-meta text-stone-600">
-    On transparency, iteration, and learning from users.
-  </p>
+  <p className="text-meta text-stone-600">On transparency, iteration, and learning from users.</p>
 </div>
 ```
 
 **3. Short Principle/Philosophy (Optional)**
+
 ```tsx
 <div className="space-y-2">
   <h3 className="text-h3 font-semibold text-stone-900">Philosophy</h3>
@@ -741,29 +775,26 @@ So that I can assess cultural fit and thinking quality.
 
 ```tsx
 // app/page.tsx (Homepage - Direction & Thinking Section)
-<section className="py-24 border-t border-stone-200 bg-stone-100/50">
-  <div className="max-w-3xl mx-auto px-6 md:px-8">
+<section className="border-t border-stone-200 bg-stone-100/50 py-24">
+  <div className="mx-auto max-w-3xl px-6 md:px-8">
     <div className="space-y-12">
       {/* Currently Focused On */}
       <div className="space-y-3">
         <h3 className="text-h3 font-semibold text-stone-900">Currently</h3>
         <p className="text-body text-stone-700">
-          Building MarkPoint to [solve problem]. Exploring how systems thinking
-          transforms education outcomes.
+          Building MarkPoint to [solve problem]. Exploring how systems thinking transforms education
+          outcomes.
         </p>
       </div>
 
       {/* Featured Essay */}
       <div className="space-y-3">
         <h3 className="text-h3 font-semibold text-stone-900">Recent Thinking</h3>
-        <a
-          href="/writing/building-in-public"
-          className="block group"
-        >
-          <p className="text-body font-medium text-stone-900 group-hover:text-accent transition-colors">
+        <a href="/writing/building-in-public" className="group block">
+          <p className="text-body group-hover:text-accent font-medium text-stone-900 transition-colors">
             Building in Public: Lessons from MarkPoint →
           </p>
-          <p className="text-meta text-stone-600 mt-1">
+          <p className="text-meta mt-1 text-stone-600">
             On transparency, iteration, and learning from real users.
           </p>
         </a>
@@ -784,17 +815,20 @@ So that I can assess cultural fit and thinking quality.
 #### Rules
 
 **This Section Must Be Skippable:**
+
 - Not required for core understanding
 - Optional depth for interested employers
 - Skimmers can skip without penalty
 
 **No Manifesto Language:**
+
 - ❌ "I believe in changing the world through education"
 - ✅ "Teaching what works, iterating based on outcomes"
 - ❌ "My mission is to empower..."
 - ✅ "Building tools that solve real problems"
 
 **No Long Blocks of Text:**
+
 - Maximum 2-3 sentences per item
 - Prefer bullets or short paragraphs
 - White space between items
@@ -851,24 +885,27 @@ So that employers see capability first and students can find resources if needed
 #### Allowed
 
 **One Subtle Link to "Resources":**
+
 ```tsx
-<p className="mt-6 text-meta text-stone-500">
-  <a href="/resources" className="hover:text-stone-700 transition-colors">
+<p className="text-meta mt-6 text-stone-500">
+  <a href="/resources" className="transition-colors hover:text-stone-700">
     Educational resources
   </a>
 </p>
 ```
+
 - Small, muted text
 - Neutral copy
 - Low visual priority
 - Skippable
 
 **Alternative (Footer or Third Screen):**
+
 ```tsx
-<div className="mt-12 pt-12 border-t border-stone-200">
+<div className="mt-12 border-t border-stone-200 pt-12">
   <p className="text-meta text-stone-600">
     Resources built from teaching experience available at{' '}
-    <a href="/resources" className="text-stone-900 hover:text-accent">
+    <a href="/resources" className="hover:text-accent text-stone-900">
       /resources
     </a>
   </p>
@@ -878,6 +915,7 @@ So that employers see capability first and students can find resources if needed
 #### Forbidden
 
 **NO Product Cards:**
+
 ```tsx
 // ❌ DO NOT DO THIS
 <div className="grid grid-cols-3 gap-4">
@@ -887,14 +925,14 @@ So that employers see capability first and students can find resources if needed
 ```
 
 **NO Testimonials:**
+
 ```tsx
 // ❌ DO NOT DO THIS
-<blockquote>
-  "This guide changed my life!" - Student
-</blockquote>
+<blockquote>"This guide changed my life!" - Student</blockquote>
 ```
 
 **NO Sales Language:**
+
 - ❌ "Get instant access"
 - ❌ "Transform your HSC results"
 - ❌ "Limited time offer"
@@ -902,6 +940,7 @@ So that employers see capability first and students can find resources if needed
 - ✅ "Built from teaching experience"
 
 **NO Pricing on Homepage:**
+
 - ❌ "$29 - HSC Essay Guide"
 - ✅ "HSC Essay Guide" (price on /resources page)
 
@@ -961,15 +1000,18 @@ So that I feel guided but not pressured into actions.
 #### CTA Hierarchy
 
 **Primary CTAs (Most Important):**
+
 - View Work
 - Read Writing
 
 **Secondary CTAs (Available, Less Prominent):**
+
 - Startups
 - Resources
 - Contact
 
 **Tertiary (Footer or End of Page):**
+
 - About
 - Other pages
 
@@ -980,13 +1022,13 @@ So that I feel guided but not pressured into actions.
 <div className="mt-12 flex flex-wrap gap-6">
   <a
     href="/work"
-    className="text-lg font-medium text-stone-900 hover:text-accent transition-colors"
+    className="hover:text-accent text-lg font-medium text-stone-900 transition-colors"
   >
     View Work →
   </a>
   <a
     href="/writing"
-    className="text-lg font-medium text-stone-900 hover:text-accent transition-colors"
+    className="hover:text-accent text-lg font-medium text-stone-900 transition-colors"
   >
     Read Writing →
   </a>
@@ -994,6 +1036,7 @@ So that I feel guided but not pressured into actions.
 ```
 
 **Characteristics:**
+
 - Text-based (not heavy buttons)
 - Font size: `text-lg` (18px)
 - Font weight: `font-medium` (500)
@@ -1005,7 +1048,7 @@ So that I feel guided but not pressured into actions.
 
 ```tsx
 // Secondary CTAs - Smaller, Muted
-<div className="mt-8 flex flex-wrap gap-4 text-meta">
+<div className="text-meta mt-8 flex flex-wrap gap-4">
   <a href="/startups" className="text-stone-600 hover:text-stone-900">
     Startups
   </a>
@@ -1021,6 +1064,7 @@ So that I feel guided but not pressured into actions.
 ```
 
 **Characteristics:**
+
 - Smaller text: `text-meta` (14px)
 - Muted color: `stone-600`
 - Separated by dots (·)
@@ -1029,19 +1073,22 @@ So that I feel guided but not pressured into actions.
 #### Button Usage (Rare)
 
 Buttons ONLY for expected actions (not navigation):
+
 ```tsx
 // Only use buttons for forms or actions
-<button className="px-4 py-2 bg-stone-900 text-white rounded-md hover:bg-stone-800">
+<button className="rounded-md bg-stone-900 px-4 py-2 text-white hover:bg-stone-800">
   Send Message
 </button>
 ```
 
 **DO NOT use buttons for:**
+
 - Navigation ("View Work")
 - Page routing
 - Simple links
 
 **DO use buttons for:**
+
 - Form submission
 - Triggering actions
 - Modal opens/closes
@@ -1124,15 +1171,18 @@ So that it remains curated and doesn't become a feed.
 #### Rules
 
 **1. Homepage is Curated, Not Chronological**
+
 - NOT: "Latest 3 projects"
 - YES: "Best 3 projects (manually selected)"
 
 **2. Maximum Items Per Section Enforced**
+
 - Proof anchors: 2-3 max
 - Featured essay: 1 max
 - Primary CTAs: 2 (Work, Writing)
 
 **3. "Best Work" Beats "Latest Work"**
+
 - Select for impact, not recency
 - Older but better work can stay featured
 - New work doesn't automatically replace old
@@ -1140,16 +1190,19 @@ So that it remains curated and doesn't become a feed.
 #### Governance
 
 **Featured Items Must Be Manually Chosen:**
+
 - No automatic "latest 3" queries
 - Admin manually marks items as "homepage featured"
 - Database has `featuredOnHomepage: boolean`
 
 **Review Homepage Quarterly, Not Weekly:**
+
 - Don't chase recency
 - Stable representation over time
 - Quarterly review to update if needed
 
 **Homepage Never Becomes a Feed:**
+
 - No chronological listings
 - No "recent posts" sections
 - No activity streams
@@ -1157,6 +1210,7 @@ So that it remains curated and doesn't become a feed.
 #### Implementation Checklist
 
 - [ ] Add `featuredOnHomepage` field to content models:
+
   ```prisma
   model Project {
     featuredOnHomepage Boolean @default(false)
@@ -1166,6 +1220,7 @@ So that it remains curated and doesn't become a feed.
     featuredOnHomepage Boolean @default(false)
   }
   ```
+
 - [ ] Create admin interface to toggle featured status
 - [ ] Implement homepage query for featured items only:
   ```typescript
@@ -1223,23 +1278,27 @@ So that performance signals professionalism and credibility.
 #### Performance Requirements
 
 **1. Minimal JavaScript**
+
 - Server-rendered (Next.js Server Components)
 - Zero client-side JS for initial render
 - Progressive enhancement only
 - No heavy frameworks on homepage
 
 **2. No Blocking Animations**
+
 - No animations that delay content
 - No loading spinners (content loads fast enough)
 - No splash screens
 
 **3. Optimized Fonts**
+
 - Use next/font for automatic optimization
 - Variable fonts for reduced file size
 - Font-display: swap (avoid FOUT)
 - Subset to Latin characters only
 
 **4. No Third-Party Trackers Above Fold**
+
 - Analytics loaded after interaction or delay
 - No tracking scripts blocking render
 - Privacy-first analytics (Plausible/Fathom)
@@ -1247,6 +1306,7 @@ So that performance signals professionalism and credibility.
 #### Performance Budget
 
 **Hard Constraints:**
+
 - First Meaningful Paint: < 1s
 - Largest Contentful Paint: < 2.5s
 - Cumulative Layout Shift: 0 (no shift)
@@ -1264,6 +1324,7 @@ So that performance signals professionalism and credibility.
   }
   ```
 - [ ] Optimize font loading:
+
   ```tsx
   // app/layout.tsx
   import { Inter } from 'next/font/google';
@@ -1274,6 +1335,7 @@ So that performance signals professionalism and credibility.
     variable: '--font-inter',
   });
   ```
+
 - [ ] Defer analytics loading:
   ```tsx
   // Load analytics after page interactive
@@ -1335,6 +1397,7 @@ So that employers and I both feel confident about the representation.
 #### Employer Emotions to Validate
 
 **✅ Target Emotions:**
+
 1. **Calm** - Not overwhelmed, site feels stable
 2. **Clarity** - Understand who you are immediately
 3. **Trust** - Believe claims, see real proof
@@ -1342,6 +1405,7 @@ So that employers and I both feel confident about the representation.
 5. **Light Intrigue** - Want to learn more (but not required)
 
 **❌ Anti-Emotions (Must NOT Appear):**
+
 1. **Confusion** - "What does this person actually do?"
 2. **Pressure** - "Am I supposed to buy something?"
 3. **Impressiveness Anxiety** - "They're trying too hard to impress me"
@@ -1350,6 +1414,7 @@ So that employers and I both feel confident about the representation.
 #### Validation Process
 
 **Employer Test (External):**
+
 - Show to 3-5 employers/recruiters
 - Ask: "What do you think this person does?"
 - Ask: "Would you consider them for a role?"
@@ -1357,6 +1422,7 @@ So that employers and I both feel confident about the representation.
 - Expected answers: Calm, clear, trustworthy
 
 **Operator Test (Internal):**
+
 - Review your own homepage monthly
 - Ask: "Does this represent me accurately?"
 - Ask: "Am I trying too hard?"
@@ -1366,10 +1432,12 @@ So that employers and I both feel confident about the representation.
 #### Implementation Checklist
 
 - [ ] Create emotional validation checklist:
+
   ```markdown
   # Homepage Emotional QA
 
   ## Target Emotions (Employer)
+
   - [ ] Calm (not overwhelmed)
   - [ ] Clarity (understand immediately)
   - [ ] Trust (believe claims)
@@ -1377,22 +1445,26 @@ So that employers and I both feel confident about the representation.
   - [ ] Light intrigue (want to learn more)
 
   ## Anti-Emotions (Must NOT appear)
+
   - [ ] Confusion (unclear what you do)
   - [ ] Pressure (feel sold to)
   - [ ] Impressiveness anxiety (trying too hard)
   - [ ] "Personal brand" energy (influencer vibe)
 
   ## Operator Check
+
   - [ ] Represents me accurately
   - [ ] Not trying too hard
   - [ ] Comfortable sending to serious employer without explanation
 
   ## Test Questions
+
   1. What does this person do? (Should be clear)
   2. Have they built real things? (Should be yes)
   3. Would you consider them? (Should be yes)
   4. How do you feel? (Should be calm/clear/trusting)
   ```
+
 - [ ] Test with 3-5 external reviewers (employers/recruiters)
 - [ ] Review monthly as operator
 - [ ] Adjust based on feedback
@@ -1442,12 +1514,14 @@ So that professionalism includes inclusion.
 #### Requirements Recap
 
 **Keyboard Navigable:**
+
 - Tab through all links/CTAs
 - Enter to activate
 - Skip link to main content
 - Logical tab order
 
 **Clear Focus States:**
+
 ```css
 *:focus-visible {
   outline: 2px solid currentColor;
@@ -1456,15 +1530,18 @@ So that professionalism includes inclusion.
 ```
 
 **Legible Text Sizes:**
+
 - Minimum 16px body text
 - Scalable with browser zoom
 - Works at 200% zoom
 
 **High Contrast:**
+
 - WCAG AA compliance (4.5:1 for text)
 - stone-900 on stone-50 = excellent contrast
 
 **Motion Respect:**
+
 ```css
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -1480,7 +1557,7 @@ So that professionalism includes inclusion.
   ```tsx
   <a
     href="#main-content"
-    className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-stone-900 text-white px-4 py-2 rounded"
+    className="sr-only rounded bg-stone-900 px-4 py-2 text-white focus:not-sr-only focus:absolute focus:left-4 focus:top-4"
   >
     Skip to main content
   </a>
@@ -1529,6 +1606,7 @@ Epic 3 is considered **COMPLETE** when:
 ✅ Accessibility standards met (keyboard, screen reader, WCAG AA)
 
 **Deliverables:**
+
 1. `app/page.tsx` - Complete homepage implementation
 2. `components/ProofAnchor.tsx` - Proof anchor component
 3. `docs/homepage/core-questions.md` - Five question framework

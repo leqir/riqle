@@ -16,6 +16,7 @@ Establish a production-grade foundation with database, authentication core, depl
 ### User Outcome
 
 When Epic 0 is complete, the system has:
+
 - ✅ Secure authentication (admin + customer)
 - ✅ Stripe checkout working reliably end-to-end
 - ✅ Webhooks that are correct and idempotent
@@ -56,44 +57,53 @@ When Epic 0 is complete, the system has:
 ### Tech Stack (Recommended: T3 Stack)
 
 **Framework:** Next.js 14+ (App Router)
+
 - Server-side rendering for SEO
 - API routes for backend endpoints
 - React Server Components for performance
 
 **Database:** PostgreSQL (via Vercel Postgres, Supabase, or Neon)
+
 - Managed service for reliability
 - Connection pooling for serverless compatibility
 
 **ORM:** Prisma or Drizzle
+
 - Type-safe database access
 - Migration tooling built-in
 - Schema as code
 
 **Authentication:** NextAuth.js v5 (Auth.js) or Clerk
+
 - Passwordless email magic links (recommended)
 - Session management with HttpOnly cookies
 - RBAC support
 
 **Payments:** Stripe
+
 - Hosted Checkout (PCI compliance handled by Stripe)
 - Webhook-driven fulfillment
 - Database as source of truth
 
 **File Storage:** Vercel Blob or AWS S3
+
 - Private bucket by default
 - Signed URL generation
 - Metadata stored in database
 
 **Email:** Resend or Postmark
+
 - Transactional email delivery
 - Template support
 - Delivery tracking
 
 **Background Jobs:** Vercel Cron + Inngest (or BullMQ if self-hosted)
+
 - Async processing for emails and heavy tasks
 - Retry logic with exponential backoff
 
 **Observability:** Sentry + Vercel Analytics
+
 - Error tracking with stack traces
 - Request logs with correlation IDs
 - Performance monitoring
@@ -162,6 +172,7 @@ So that code quality is enforced automatically and the codebase won't rot.
   }
   ```
 - [ ] Create `.env.example` with all required variables:
+
   ```
   # Database
   DATABASE_URL=
@@ -186,7 +197,9 @@ So that code quality is enforced automatically and the codebase won't rot.
   # Observability
   SENTRY_DSN=
   ```
+
 - [ ] Add environment variable validation at boot using Zod:
+
   ```typescript
   import { z } from 'zod';
 
@@ -199,6 +212,7 @@ So that code quality is enforced automatically and the codebase won't rot.
 
   export const env = envSchema.parse(process.env);
   ```
+
 - [ ] Create comprehensive README with:
   - Prerequisites (Node version, pnpm/npm)
   - Quick start steps
@@ -248,6 +262,7 @@ So that I can prevent "it worked on my machine" issues and reduce deployment anx
 #### Implementation Checklist
 
 **Local Environment:**
+
 - [ ] Create `.env.local` for local development (gitignored)
 - [ ] Set up local Postgres via Docker Compose or managed dev DB
 - [ ] Configure Stripe test mode keys
@@ -255,6 +270,7 @@ So that I can prevent "it worked on my machine" issues and reduce deployment anx
 - [ ] Use local email testing (email preview or service like MailHog)
 
 **Staging Environment:**
+
 - [ ] Provision staging database (separate from production)
 - [ ] Deploy staging to Vercel staging environment or equivalent
 - [ ] Configure staging domain: `staging.riqle.com`
@@ -263,6 +279,7 @@ So that I can prevent "it worked on my machine" issues and reduce deployment anx
 - [ ] Set up staging email sending (can use test email or real with prefix)
 
 **Production Environment:**
+
 - [ ] Provision production database with appropriate plan
 - [ ] Deploy production to Vercel production environment
 - [ ] Configure production domain: `riqle.com`
@@ -271,6 +288,7 @@ So that I can prevent "it worked on my machine" issues and reduce deployment anx
 - [ ] Set up production email sending with domain authentication
 
 **Environment Variables Strategy:**
+
 - [ ] Create environment variable naming convention:
   - `NEXT_PUBLIC_*` for client-exposed vars
   - Regular names for server-only vars
@@ -281,6 +299,7 @@ So that I can prevent "it worked on my machine" issues and reduce deployment anx
   - Production
 
 **Preview Deployments (Vercel):**
+
 - [ ] Enable preview deployments for all PRs
 - [ ] Configure preview deployments to use:
   - Staging database (or preview-specific DB)
@@ -356,6 +375,7 @@ So that the public surface is secure and trustworthy by default.
 #### Implementation Checklist
 
 **Domain Setup:**
+
 - [ ] Register domain: `riqle.com`
 - [ ] Configure DNS records:
   - A record for apex domain → Vercel IP
@@ -380,27 +400,27 @@ const nextConfig = {
         headers: [
           {
             key: 'Strict-Transport-Security',
-            value: 'max-age=31536000; includeSubDomains; preload'
+            value: 'max-age=31536000; includeSubDomains; preload',
           },
           {
             key: 'X-Frame-Options',
-            value: 'SAMEORIGIN'
+            value: 'SAMEORIGIN',
           },
           {
             key: 'X-Content-Type-Options',
-            value: 'nosniff'
+            value: 'nosniff',
           },
           {
             key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin'
+            value: 'strict-origin-when-cross-origin',
           },
           {
             key: 'X-DNS-Prefetch-Control',
-            value: 'on'
+            value: 'on',
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
+            value: 'camera=(), microphone=(), geolocation=()',
           },
           {
             key: 'Content-Security-Policy',
@@ -411,27 +431,29 @@ const nextConfig = {
               "img-src 'self' data: https: blob:",
               "font-src 'self' data:",
               "connect-src 'self' https://api.stripe.com", // Stripe
-              "frame-src https://js.stripe.com https://hooks.stripe.com", // Stripe
+              'frame-src https://js.stripe.com https://hooks.stripe.com', // Stripe
               "frame-ancestors 'none'",
               "base-uri 'self'",
-              "form-action 'self'"
-            ].join('; ')
-          }
-        ]
-      }
+              "form-action 'self'",
+            ].join('; '),
+          },
+        ],
+      },
     ];
-  }
+  },
 };
 
 module.exports = nextConfig;
 ```
 
 **HTTPS Enforcement:**
+
 - [ ] Verify Vercel automatically redirects HTTP → HTTPS
 - [ ] Test all page routes for HTTPS enforcement
 - [ ] Ensure canonical domain redirects work
 
 **CSP Refinement:**
+
 - [ ] Start with permissive CSP, test all functionality
 - [ ] Gradually tighten CSP directives
 - [ ] Add nonce-based CSP for inline scripts if needed
@@ -491,16 +513,19 @@ So that the database won't fall apart under concurrency or serverless constraint
 Choose one of these managed Postgres providers:
 
 **Option A: Vercel Postgres (Neon underneath)**
+
 - [ ] Provision via Vercel dashboard
 - [ ] Automatically gets connection pooler
 - [ ] Environment variables auto-injected
 
 **Option B: Supabase**
+
 - [ ] Create project on Supabase
 - [ ] Get connection strings (both direct and pooled)
 - [ ] Add to environment variables
 
 **Option C: Neon**
+
 - [ ] Create project on Neon
 - [ ] Enable connection pooling
 - [ ] Get both DATABASE_URL and DIRECT_URL
@@ -539,6 +564,7 @@ if (process.env.NODE_ENV === 'production') {
 ```
 
 For migrations (needs direct connection):
+
 ```bash
 # In package.json scripts
 "db:migrate": "DATABASE_URL=$DIRECT_URL prisma migrate deploy",
@@ -574,10 +600,7 @@ export async function GET() {
     // Simple query to verify DB connection
     await db.$queryRaw`SELECT 1`;
 
-    return NextResponse.json(
-      { status: 'healthy', database: 'connected' },
-      { status: 200 }
-    );
+    return NextResponse.json({ status: 'healthy', database: 'connected' }, { status: 200 });
   } catch (error) {
     console.error('Healthcheck failed:', error);
 
@@ -605,7 +628,7 @@ export async function queryWithRetry<T>(
       if (attempt === maxRetries) throw error;
 
       console.warn(`Query attempt ${attempt} failed, retrying in ${delay}ms...`);
-      await new Promise(resolve => setTimeout(resolve, delay));
+      await new Promise((resolve) => setTimeout(resolve, delay));
       delay *= 2; // Exponential backoff
     }
   }
@@ -654,12 +677,14 @@ So that the system is modeled correctly from the start.
 **Then** the following table categories exist:
 
 **Identity & Access:**
+
 - users (admin + customers)
 - sessions (or provider-backed session storage)
 - roles table
 - user_roles (junction table for RBAC)
 
 **Content:**
+
 - pages (optional, CMS-like pages)
 - posts (writing/essays)
 - projects (portfolio items)
@@ -668,6 +693,7 @@ So that the system is modeled correctly from the start.
 - tags, tag_links (optional but useful for organization)
 
 **Commerce:**
+
 - products (resources/courses catalog)
 - prices (separate from products so prices can change without breaking order history)
 - orders (purchase records)
@@ -677,6 +703,7 @@ So that the system is modeled correctly from the start.
 - idempotency_keys (for safe retry operations)
 
 **Operations:**
+
 - audit_log (admin actions and sensitive events)
 - email_log (sent/failed email references, not content)
 
@@ -684,14 +711,15 @@ So that the system is modeled correctly from the start.
 **When** the schema is reviewed
 **Then** foreign keys exist for all relationships
 **And** unique constraints are present on:
-  - users.email
-  - products.slug
-  - Stripe identifiers (stripeCustomerId, stripeSessionId, etc.)
-**And** indexes exist for common queries:
-  - posts.publishedAt
-  - projects.featured
-  - orders.userId, orders.status, orders.createdAt
-  - entitlements.userId, entitlements.productId
+
+- users.email
+- products.slug
+- Stripe identifiers (stripeCustomerId, stripeSessionId, etc.)
+  **And** indexes exist for common queries:
+- posts.publishedAt
+- projects.featured
+- orders.userId, orders.status, orders.createdAt
+- entitlements.userId, entitlements.productId
 
 **Given** a decision is made on soft-delete vs status fields
 **When** records need to be "deleted"
@@ -701,11 +729,12 @@ So that the system is modeled correctly from the start.
 **Given** the schema is complete
 **When** reviewing business requirements
 **Then** the schema supports:
-  - Public content browsing
-  - Admin-only editing
-  - Product purchase flows
-  - Entitlements and secure access control
-  - Historical order accuracy even if prices change later
+
+- Public content browsing
+- Admin-only editing
+- Product purchase flows
+- Entitlements and secure access control
+- Historical order accuracy even if prices change later
 
 #### Complete Prisma Schema
 
@@ -1195,27 +1224,32 @@ model EmailLog {
 #### Schema Design Decisions
 
 **Why separate `prices` from `products`?**
+
 - Prices can change over time
 - Order history must reflect the price at time of purchase
 - Supports future subscription pricing without schema changes
 
 **Why `status` fields instead of soft deletes?**
+
 - Clearer semantics (draft/published/archived)
 - Easier to query specific states
 - Historical records remain intact
 - No need for complex `deletedAt IS NULL` filters everywhere
 
 **Why `TagLink` polymorphic junction table?**
+
 - Tags can apply to posts, projects, and startups
 - Avoids duplicate tag tables
 - Maintains referential integrity
 
 **Why `StripeEvent` table?**
+
 - Idempotency: Prevent duplicate processing of webhooks
 - Debugging: Full event history
 - Reconciliation: Audit trail for all payment events
 
 **Why `IdempotencyKey` separate from `StripeEvent`?**
+
 - General-purpose idempotency for non-Stripe operations
 - Supports retry logic anywhere in the system
 - Can expire and be cleaned up
@@ -1363,7 +1397,8 @@ async function main() {
     create: {
       name: 'HSC English Essay Writing Guide',
       slug: 'hsc-english-essay-guide',
-      description: 'Comprehensive guide to writing high-scoring HSC English essays, based on real tutoring experience with students achieving Band 6 results.',
+      description:
+        'Comprehensive guide to writing high-scoring HSC English essays, based on real tutoring experience with students achieving Band 6 results.',
       status: 'published',
       type: 'resource',
     },
@@ -1390,7 +1425,8 @@ async function main() {
       title: 'Building in Public: Lessons from Building Riqle',
       slug: 'building-in-public',
       content: 'Sample content about building this platform...',
-      excerpt: 'Reflections on building a personal platform that unifies identity, proof of work, and commerce.',
+      excerpt:
+        'Reflections on building a personal platform that unifies identity, proof of work, and commerce.',
       status: 'published',
       publishedAt: new Date(),
       authorId: adminUser.id,
@@ -1422,7 +1458,7 @@ async function main() {
       title: 'MarkPoint',
       slug: 'markpoint-startup',
       description: 'Detailed startup showcase...',
-      problem: 'The problem we\'re solving...',
+      problem: "The problem we're solving...",
       solution: 'Our approach...',
       traction: 'Current metrics and growth...',
       status: 'published',
@@ -1444,6 +1480,7 @@ main()
 ```
 
 Configure in `package.json`:
+
 ```json
 {
   "prisma": {
@@ -1456,7 +1493,7 @@ Configure in `package.json`:
 
 Create `docs/migration-guide.md`:
 
-```markdown
+````markdown
 # Migration Guide
 
 ## Rules
@@ -1469,6 +1506,7 @@ Create `docs/migration-guide.md`:
 ## Workflow
 
 ### Development
+
 1. Modify `schema.prisma`
 2. Run `pnpm db:migrate:dev --name descriptive-name`
 3. Review generated SQL in `prisma/migrations/`
@@ -1476,12 +1514,14 @@ Create `docs/migration-guide.md`:
 5. Commit migration files
 
 ### Staging
+
 1. Deploy code with new migration
 2. Run `pnpm db:migrate` in staging
 3. Verify migration succeeded
 4. Test affected features
 
 ### Production
+
 1. **Review checklist:**
    - Migration tested in staging? ✓
    - Backward compatible? ✓
@@ -1502,6 +1542,7 @@ If a migration fails:
 4. Deploy the fix
 
 For severe issues:
+
 1. Restore from latest backup
 2. Replay migrations up to last known good state
 3. Fix and redeploy
@@ -1509,20 +1550,24 @@ For severe issues:
 ## Common Patterns
 
 ### Adding a column (backward compatible)
+
 ```prisma
 model User {
   // Existing fields...
   newField String? // Make it optional initially
 }
 ```
+````
 
 ### Renaming a column (requires data migration)
+
 1. Add new column
 2. Migrate data (separate script)
 3. Update code to use new column
 4. Remove old column (later migration)
 
 ### Adding an index
+
 ```prisma
 model Order {
   userId String
@@ -1530,7 +1575,8 @@ model Order {
   @@index([userId])
 }
 ```
-```
+
+````
 
 #### Testing Requirements
 
@@ -1618,8 +1664,10 @@ So that the backend is robust and clients can't send invalid data.
     }
     return next({ ctx });
   });
-  ```
+````
+
 - [ ] Create context with session:
+
   ```typescript
   // server/api/context.ts
   import { type CreateNextContextOptions } from '@trpc/server/adapters/next';
@@ -1630,6 +1678,7 @@ So that the backend is robust and clients can't send invalid data.
     return { session, db };
   };
   ```
+
 - [ ] Create routers for each domain:
   - `server/api/routers/posts.ts` (public + admin procedures)
   - `server/api/routers/products.ts`
@@ -1639,10 +1688,12 @@ So that the backend is robust and clients can't send invalid data.
   ```typescript
   export const postsRouter = router({
     getAll: publicProcedure
-      .input(z.object({
-        limit: z.number().min(1).max(100).default(10),
-        cursor: z.string().optional(),
-      }))
+      .input(
+        z.object({
+          limit: z.number().min(1).max(100).default(10),
+          cursor: z.string().optional(),
+        })
+      )
       .query(async ({ input, ctx }) => {
         const posts = await ctx.db.post.findMany({
           where: { status: 'published' },
@@ -1709,6 +1760,7 @@ So that I can access my account safely and easily.
 
 - [ ] Install NextAuth.js: `next-auth@beta` (v5)
 - [ ] Configure NextAuth with email provider:
+
   ```typescript
   // auth.config.ts
   import type { NextAuthConfig } from 'next-auth';
@@ -1755,7 +1807,9 @@ So that I can access my account safely and easily.
     },
   } satisfies NextAuthConfig;
   ```
+
 - [ ] Create auth helper function:
+
   ```typescript
   // lib/auth.ts
   import { auth } from '@/auth';
@@ -1777,6 +1831,7 @@ So that I can access my account safely and easily.
     return session;
   }
   ```
+
 - [ ] Implement login page with email input
 - [ ] Create middleware for protected routes
 - [ ] Add rate limiting to login endpoint (see Story 0.16)
@@ -1826,6 +1881,7 @@ So that we prevent accidental exposure and admin mistakes.
 #### Implementation Checklist
 
 - [ ] Create role check utilities:
+
   ```typescript
   // lib/rbac.ts
   export async function checkUserRole(userId: string, roleName: string) {
@@ -1845,7 +1901,9 @@ So that we prevent accidental exposure and admin mistakes.
     }
   }
   ```
+
 - [ ] Implement ownership checks:
+
   ```typescript
   // lib/ownership.ts
   export async function checkOrderOwnership(orderId: string, userId: string) {
@@ -1856,7 +1914,11 @@ So that we prevent accidental exposure and admin mistakes.
     return order?.userId === userId;
   }
 
-  export async function requireOwnership(resourceId: string, userId: string, type: 'order' | 'post' | 'project') {
+  export async function requireOwnership(
+    resourceId: string,
+    userId: string,
+    type: 'order' | 'post' | 'project'
+  ) {
     let owns = false;
     if (type === 'order') {
       owns = await checkOrderOwnership(resourceId, userId);
@@ -1868,6 +1930,7 @@ So that we prevent accidental exposure and admin mistakes.
     }
   }
   ```
+
 - [ ] Create audit logging utility:
   ```typescript
   // lib/audit.ts
@@ -1953,6 +2016,7 @@ So that content is protected but customers have a smooth experience.
   pnpm add @vercel/blob
   ```
 - [ ] Create upload utility:
+
   ```typescript
   // lib/storage.ts
   import { put } from '@vercel/blob';
@@ -1977,7 +2041,9 @@ So that content is protected but customers have a smooth experience.
     return asset;
   }
   ```
+
 - [ ] Create signed URL generator:
+
   ```typescript
   // lib/signed-urls.ts
   export async function generateDownloadUrl(productId: string, userId: string) {
@@ -2006,6 +2072,7 @@ So that content is protected but customers have a smooth experience.
     return signedUrls;
   }
   ```
+
 - [ ] Add file upload endpoint (admin only)
 - [ ] Add download endpoint with entitlement check
 - [ ] Implement file type and size validation
@@ -2056,6 +2123,7 @@ So that I can access paid resources securely.
 
 - [ ] Install Stripe SDK: `pnpm add stripe`
 - [ ] Configure Stripe client:
+
   ```typescript
   // lib/stripe.ts
   import Stripe from 'stripe';
@@ -2065,15 +2133,19 @@ So that I can access paid resources securely.
     typescript: true,
   });
   ```
+
 - [ ] Create checkout session endpoint:
+
   ```typescript
   // server/api/routers/checkout.ts
   export const checkoutRouter = router({
     createSession: protectedProcedure
-      .input(z.object({
-        productId: z.string(),
-        priceId: z.string(),
-      }))
+      .input(
+        z.object({
+          productId: z.string(),
+          priceId: z.string(),
+        })
+      )
       .mutation(async ({ input, ctx }) => {
         const { productId, priceId } = input;
         const userId = ctx.session.user.id;
@@ -2107,10 +2179,12 @@ So that I can access paid resources securely.
         const session = await stripe.checkout.sessions.create({
           customer: stripeCustomerId,
           mode: 'payment',
-          line_items: [{
-            price: price.stripePriceId,
-            quantity: 1,
-          }],
+          line_items: [
+            {
+              price: price.stripePriceId,
+              quantity: 1,
+            },
+          ],
           success_url: `${process.env.NEXT_PUBLIC_URL}/account/orders?success=true`,
           cancel_url: `${process.env.NEXT_PUBLIC_URL}/resources/${price.product.slug}`,
           metadata: {
@@ -2124,6 +2198,7 @@ So that I can access paid resources securely.
       }),
   });
   ```
+
 - [ ] Create Stripe products and prices in Stripe Dashboard
 - [ ] Store Stripe price IDs in database
 - [ ] Test checkout session creation
@@ -2177,6 +2252,7 @@ So that payments are processed correctly every time without duplicates.
 #### Implementation Checklist
 
 - [ ] Create webhook endpoint:
+
   ```typescript
   // app/api/webhooks/stripe/route.ts
   import { headers } from 'next/headers';
@@ -2190,11 +2266,7 @@ So that payments are processed correctly every time without duplicates.
     let event: Stripe.Event;
 
     try {
-      event = stripe.webhooks.constructEvent(
-        body,
-        signature!,
-        process.env.STRIPE_WEBHOOK_SECRET!
-      );
+      event = stripe.webhooks.constructEvent(body, signature!, process.env.STRIPE_WEBHOOK_SECRET!);
     } catch (err) {
       console.error('Webhook signature verification failed:', err.message);
       return new Response('Webhook Error', { status: 400 });
@@ -2341,6 +2413,7 @@ So that payments are processed correctly every time without duplicates.
     });
   }
   ```
+
 - [ ] Configure webhook endpoint in Stripe Dashboard
 - [ ] Set STRIPE_WEBHOOK_SECRET environment variable
 - [ ] Test webhook with Stripe CLI locally
@@ -2393,13 +2466,16 @@ So that heavy work doesn't block HTTP requests and failures are handled graceful
   pnpm add inngest
   ```
 - [ ] Configure Inngest client:
+
   ```typescript
   // lib/inngest.ts
   import { Inngest } from 'inngest';
 
   export const inngest = new Inngest({ id: 'riqle' });
   ```
+
 - [ ] Create email job:
+
   ```typescript
   // inngest/functions.ts
   import { inngest } from '@/lib/inngest';
@@ -2429,7 +2505,9 @@ So that heavy work doesn't block HTTP requests and failures are handled graceful
     }
   );
   ```
+
 - [ ] Create API route for Inngest:
+
   ```typescript
   // app/api/inngest/route.ts
   import { serve } from 'inngest/next';
@@ -2441,6 +2519,7 @@ So that heavy work doesn't block HTTP requests and failures are handled graceful
     functions: [sendPurchaseConfirmation],
   });
   ```
+
 - [ ] Enqueue jobs from webhook handler
 - [ ] Configure retry strategy with exponential backoff
 - [ ] Set up dead-letter queue monitoring
@@ -2490,6 +2569,7 @@ So that receipts and access emails reach customers reliably.
 
 - [ ] Install Resend: `pnpm add resend`
 - [ ] Configure Resend client:
+
   ```typescript
   // lib/email.ts
   import { Resend } from 'resend';
@@ -2547,7 +2627,9 @@ So that receipts and access emails reach customers reliably.
     }
   }
   ```
+
 - [ ] Create email templates (React Email or plain HTML):
+
   ```typescript
   // emails/purchase-confirmation.tsx
   import { Html, Text, Button } from '@react-email/components';
@@ -2564,6 +2646,7 @@ So that receipts and access emails reach customers reliably.
     );
   }
   ```
+
 - [ ] Configure DNS records in domain registrar:
   - SPF: `v=spf1 include:_spf.resend.com ~all`
   - DKIM: Add records provided by Resend
@@ -2615,6 +2698,7 @@ So that I can diagnose issues in minutes, not hours.
   npx @sentry/wizard@latest -i nextjs
   ```
 - [ ] Configure Sentry:
+
   ```typescript
   // sentry.server.config.ts
   import * as Sentry from '@sentry/nextjs';
@@ -2625,6 +2709,7 @@ So that I can diagnose issues in minutes, not hours.
     tracesSampleRate: 1.0,
   });
   ```
+
 - [ ] Create logging utility:
   ```typescript
   // lib/logger.ts
@@ -2634,10 +2719,12 @@ So that I can diagnose issues in minutes, not hours.
     data?: any;
     requestId?: string;
   }) {
-    console.log(JSON.stringify({
-      timestamp: new Date().toISOString(),
-      ...event,
-    }));
+    console.log(
+      JSON.stringify({
+        timestamp: new Date().toISOString(),
+        ...event,
+      })
+    );
   }
   ```
 - [ ] Add request ID middleware
@@ -2685,6 +2772,7 @@ So that cheap attacks and accidental overload don't cause issues.
 
 - [ ] Install rate limiting library: `pnpm add @upstash/ratelimit @upstash/redis`
 - [ ] Configure rate limiter:
+
   ```typescript
   // lib/rate-limit.ts
   import { Ratelimit } from '@upstash/ratelimit';
@@ -2705,6 +2793,7 @@ So that cheap attacks and accidental overload don't cause issues.
     limiter: Ratelimit.slidingWindow(10, '1 h'),
   });
   ```
+
 - [ ] Apply to login endpoint
 - [ ] Apply to checkout endpoint
 - [ ] Apply to signed URL generation
@@ -2884,6 +2973,7 @@ So that the end-to-end purchase path is bulletproof.
 **Given** all commerce infrastructure is complete
 **When** testing the purchase flow
 **Then** all must-pass scenarios are verified:
+
 - Successful purchase grants entitlement and sends email
 - Replayed webhook doesn't double-grant
 - Refund revokes entitlement
@@ -2898,6 +2988,7 @@ So that the end-to-end purchase path is bulletproof.
 #### Implementation Checklist
 
 **Must-Pass Flow: Successful Purchase**
+
 - [ ] Initiate checkout for test product
 - [ ] Complete payment in Stripe test mode
 - [ ] Verify webhook received and processed
@@ -2907,6 +2998,7 @@ So that the end-to-end purchase path is bulletproof.
 - [ ] Verify customer can access resource
 
 **Must-Pass Flow: Replayed Webhook**
+
 - [ ] Process webhook successfully
 - [ ] Send same webhook again via Stripe CLI
 - [ ] Verify no duplicate order
@@ -2914,6 +3006,7 @@ So that the end-to-end purchase path is bulletproof.
 - [ ] Verify 200 OK response
 
 **Must-Pass Flow: Refund**
+
 - [ ] Complete test purchase
 - [ ] Issue refund in Stripe
 - [ ] Verify refund webhook processed
@@ -2921,22 +3014,26 @@ So that the end-to-end purchase path is bulletproof.
 - [ ] Verify customer cannot access resource
 
 **Must-Pass Flow: Signed URL Expiration**
+
 - [ ] Request download link as entitled customer
 - [ ] Verify link works immediately
 - [ ] Wait for expiration (or manipulate time)
 - [ ] Verify link returns error after expiration
 
 **Must-Pass Flow: Admin Resend Access**
+
 - [ ] Navigate to admin order page
 - [ ] Click "Resend Access"
 - [ ] Verify customer receives new email
 
 **Must-Pass Flow: Private Files**
+
 - [ ] Attempt direct file access (no signed URL)
 - [ ] Verify 403 or 404 response
 - [ ] Verify files not discoverable
 
 **Failure Recovery Tests**
+
 - [ ] Simulate email provider failure
   - Verify purchase completes
   - Verify email job retries

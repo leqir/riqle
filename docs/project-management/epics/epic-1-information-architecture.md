@@ -12,11 +12,13 @@
 ### Objective
 
 Design the site as an **employer-first information system** that:
+
 - Communicates capability in 30-45 seconds
 - Rewards deeper attention in 2-3 minutes
 - Supports commerce without polluting the professional narrative
 
 This epic is the blueprint for the entire site structure:
+
 - Pages and their responsibilities
 - Navigation patterns
 - Content models and taxonomy
@@ -27,6 +29,7 @@ This epic is the blueprint for the entire site structure:
 ### User Outcome
 
 When Epic 1 is complete, the system has:
+
 - ✅ Clear sitemap with job-to-be-done for each page
 - ✅ Employer skim path optimized for 30-45 second comprehension
 - ✅ Progressive disclosure rules preventing content overload
@@ -53,6 +56,7 @@ When Epic 1 is complete, the system has:
 ### Additional Requirements
 
 From UX Design Specification:
+
 - Progressive disclosure pattern (clarity → proof → texture)
 - Employer-first optimization (30-45 second skim)
 - Semantic HTML with proper ARIA
@@ -78,6 +82,7 @@ From UX Design Specification:
 **Philosophy:** URLs are forever. They're stable references you can share for years.
 
 **Pattern:** `/<content-type>/<slug>`
+
 - No dates in URLs (unless necessary for blog chronology)
 - No query parameters (`?id=123`)
 - Human-readable slugs
@@ -125,36 +130,43 @@ So that the site remains coherent and each page has a clear job-to-be-done.
 #### Required Pages (Day 1)
 
 **Home: Identity Compression + Routing**
+
 - Job-to-be-done: "Help employers understand who you are in 30-45 seconds and route them to proof"
 - Key elements: Name, positioning, 2-3 proof anchors, clear CTAs
 - NOT: A feed, a blog, a portfolio grid
 
 **About: Narrative, Trajectory, Values, "Now"**
+
 - Job-to-be-done: "Answer 'who is this person and why should I care?'"
 - Key elements: Personal story, non-linear path explanation, values, current focus
 - NOT: A resume, a timeline, a hero's journey
 
 **Work: Projects + Proof + Outcomes**
+
 - Job-to-be-done: "Show what you've built with context and outcomes"
 - Key elements: Featured projects, quantified impact, technical depth
 - NOT: A logo grid, a case study factory
 
 **Writing: Essays That Show Judgment and Depth**
+
 - Job-to-be-done: "Demonstrate thinking quality and domain knowledge"
 - Key elements: Long-form essays, instant load times, focused topics
 - NOT: A blog, a newsletter, a content marketing engine
 
 **Startups: MarkPoint + Ventures (As Proof)**
+
 - Job-to-be-done: "Prove operator capability and ownership mindset"
 - Key elements: Problem/solution, traction, learnings
 - NOT: A pitch deck, a portfolio project
 
 **Resources: Catalogue + Trust-First Commerce**
+
 - Job-to-be-done: "Offer educational products with calm framing after establishing proof"
 - Key elements: HSC materials, courses, evidence-backed descriptions
 - NOT: A sales funnel, a landing page
 
 **Contact: One Clear Action**
+
 - Job-to-be-done: "Make it easy to reach you"
 - Key elements: Email (primary), optional form
 - NOT: A lead capture system, a calendar booking widget
@@ -171,23 +183,27 @@ So that the site remains coherent and each page has a clear job-to-be-done.
 
 - [ ] Create sitemap document with all pages
 - [ ] Write job-to-be-done statement for each page:
+
   ```markdown
   # Sitemap
 
   ## Required Pages (Day 1)
 
   ### Home
+
   **Job:** Help employers understand who you are in 30-45 seconds and route them to proof
   **Key Elements:** Name, positioning, 2-3 proof anchors, CTAs
   **NOT:** A feed, a blog, a portfolio grid
 
   ### About
+
   **Job:** Answer "who is this person and why should I care?"
   **Key Elements:** Personal story, trajectory, values, current focus
   **NOT:** A resume, a timeline
 
   [... continue for all pages]
   ```
+
 - [ ] Identify overlaps and consolidate
 - [ ] Mark Day 1 vs Future pages clearly
 - [ ] Review with user for approval
@@ -245,16 +261,19 @@ So that the most important proof is discoverable in 30-45 seconds.
    - Tertiary: "Resources" → `/resources` (present but not dominant)
 
 **Work Page Skim:**
+
 - Featured projects (3-5 max)
 - Each with: Title, outcome, tech, link
 - Clear "See All Projects" if more exist
 
 **Writing Page Skim:**
+
 - Latest 1-3 featured essays
 - Titles that promise value
 - Clear "All Writing" archive
 
 **Startups Page Skim:**
+
 - MarkPoint front and center
 - Problem/solution/traction immediately visible
 - Other ventures tucked below if they exist
@@ -317,24 +336,28 @@ So that the first impression is calm while depth exists for those who want it.
 #### Progressive Disclosure Strategy
 
 **Scroll 1 (Above Fold): Pure Clarity**
+
 - Who you are
 - What you do
 - Where to go next
 - NO: Detailed case studies, full bio, product pitches
 
 **Scroll 2: Proof**
+
 - Featured work snippets
 - Key outcomes/metrics
 - Selected writing titles
 - NO: Full content, complete portfolios
 
 **Scroll 3+: Texture**
+
 - More context if needed
 - Additional proof points
 - Footer navigation
 - NO: Everything at once
 
 **Deep Pages (e.g., /work/project-slug): Full Depth**
+
 - Complete case study
 - Technical details
 - Process documentation
@@ -365,24 +388,29 @@ So that the first impression is calm while depth exists for those who want it.
 #### Implementation Checklist
 
 - [ ] Define scroll zones for homepage:
+
   ```markdown
   ## Homepage Progressive Disclosure
 
   ### Scroll 1: Clarity (0-100vh)
+
   - Name + Identity
   - One-line positioning
   - 2-3 proof anchors
   - Primary CTAs
 
   ### Scroll 2: Proof (100vh-200vh)
+
   - Featured project 1 (title + outcome)
   - Featured project 2 (title + outcome)
   - Featured essay 1 (title)
 
   ### Scroll 3: Texture (200vh+)
+
   - Additional context if needed
   - Footer navigation
   ```
+
 - [ ] Apply same pattern to all major pages
 - [ ] Document "calm-first" violations to avoid:
   - Auto-playing video
@@ -438,11 +466,13 @@ So that I can find what I need without thinking.
 #### Top-Level Navigation (Recommended)
 
 **Desktop:**
+
 ```
 [Logo/Name]                    About | Work | Writing | Startups | Resources | Contact
 ```
 
 **Mobile:**
+
 ```
 [Logo]                                                                    [☰]
 
@@ -456,6 +486,7 @@ Contact
 ```
 
 **Alternative Mobile (Bottom Nav):**
+
 ```
 [About] [Work] [Writing] [More]
                           └─ Startups
@@ -466,6 +497,7 @@ Contact
 #### Requirements
 
 **Desktop Navigation:**
+
 - Always visible at top
 - Sticky header (optional, but recommended)
 - Current page highlighted
@@ -473,6 +505,7 @@ Contact
 - Logo/name links to home
 
 **Mobile Navigation:**
+
 - Hamburger icon (top right)
 - Slide-in or dropdown menu
 - Fast open/close (no 500ms animations)
@@ -480,11 +513,13 @@ Contact
 - Current page highlighted
 
 **Navigation State:**
+
 - Active page: Bold or underlined
 - Hover: Subtle color change or underline
 - Focus: Visible outline for keyboard navigation
 
 **No:**
+
 - Hidden navigation on desktop
 - Mega-menus
 - Nested dropdowns (keep flat)
@@ -496,6 +531,7 @@ Contact
 - [ ] Choose navigation style:
   - Recommended: Horizontal top nav (desktop), hamburger (mobile)
 - [ ] Define navigation component structure:
+
   ```typescript
   // components/Navigation.tsx
   export function Navigation() {
@@ -524,6 +560,7 @@ Contact
     );
   }
   ```
+
 - [ ] Implement mobile navigation
 - [ ] Add keyboard navigation support (Tab, Enter)
 - [ ] Add ARIA labels for accessibility
@@ -575,6 +612,7 @@ So that links never break and SEO remains strong.
 #### URL Standards
 
 **Pages (Static):**
+
 ```
 /                 → Homepage
 /about            → About page
@@ -586,6 +624,7 @@ So that links never break and SEO remains strong.
 ```
 
 **Content (Dynamic):**
+
 ```
 /writing/<slug>       → Individual post/essay
 /work/<slug>          → Individual project
@@ -594,12 +633,14 @@ So that links never break and SEO remains strong.
 ```
 
 **Admin (Not Public):**
+
 ```
 /admin/*              → Admin routes (all prefixed)
 /account/*            → Customer portal routes
 ```
 
 **Auth:**
+
 ```
 /login                → Login page
 /signup               → Signup page (if applicable)
@@ -609,6 +650,7 @@ So that links never break and SEO remains strong.
 #### Slug Policy
 
 **Rules:**
+
 1. **Human-readable:** `building-markpoint` not `post-123`
 2. **Stable:** Never change unless absolutely necessary
 3. **Lowercase:** `my-project` not `My-Project`
@@ -618,6 +660,7 @@ So that links never break and SEO remains strong.
 6. **Unique per type:** `work/markpoint` and `startups/markpoint` can coexist
 
 **Redirect Strategy:**
+
 - If slug changes: Create 301 redirect from old → new
 - Store redirects in config or database
 - Test old URLs continue to work
@@ -650,8 +693,8 @@ So that links never break and SEO remains strong.
       .toLowerCase()
       .trim()
       .replace(/[^\w\s-]/g, '') // Remove special chars
-      .replace(/[\s_-]+/g, '-')  // Replace spaces/underscores with hyphens
-      .replace(/^-+|-+$/g, '');  // Trim hyphens
+      .replace(/[\s_-]+/g, '-') // Replace spaces/underscores with hyphens
+      .replace(/^-+|-+$/g, ''); // Trim hyphens
   }
   ```
 - [ ] Add slug uniqueness validation in database
@@ -699,6 +742,7 @@ So that content remains coherent long-term and I never debate "where should this
 #### Content Types You Will Manage
 
 **1. Writing: Long-Form Essays Showing Thinking**
+
 - Purpose: Demonstrate judgment, depth, domain knowledge
 - Examples:
   - "Building in Public: Lessons from MarkPoint"
@@ -711,6 +755,7 @@ So that content remains coherent long-term and I never debate "where should this
 - Naming: Post, Essay, Article (use "Post" in database/code)
 
 **2. Projects: Things You Built (Technical/UI/UX)**
+
 - Purpose: Proof of execution, technical capability
 - Examples:
   - "Riqle: Personal Platform with Commerce"
@@ -722,6 +767,7 @@ So that content remains coherent long-term and I never debate "where should this
 - Naming: Project
 
 **3. Startups: Ventures You Own (Proof of Operator Capability)**
+
 - Purpose: Show ownership, skin in the game, operator mindset
 - Examples:
   - "MarkPoint: [Problem/Solution/Traction]"
@@ -732,6 +778,7 @@ So that content remains coherent long-term and I never debate "where should this
 - Naming: Startup, Venture
 
 **4. Resources: Products You Sell (Digital Goods, Courses)**
+
 - Purpose: Educational offerings with commerce
 - Examples:
   - "HSC English Essay Writing Guide"
@@ -742,6 +789,7 @@ So that content remains coherent long-term and I never debate "where should this
 - Naming: Product, Resource (use "Product" in database)
 
 **5. Courses (Optional, Future): Structured Learning Offerings**
+
 - Purpose: Multi-module educational experiences
 - Examples:
   - "Complete HSC English Course"
@@ -753,43 +801,51 @@ So that content remains coherent long-term and I never debate "where should this
 #### Taxonomy Rules
 
 **Rule 1: Intent and Ownership Determine Type**
+
 - Did you build it for a client? → Project
 - Do you own it and operate it? → Startup
 - Does it sell access? → Product/Resource
 - Does it show thinking? → Writing
 
 **Rule 2: No Overlaps**
+
 - A startup (MarkPoint) is NOT in Projects
 - A product is NOT in Writing
 - Writing CAN reference projects/startups/products
 
 **Rule 3: Writing Supports, Doesn't Sell**
+
 - Writing can explain the philosophy behind a product
 - Writing can tell the story of building a startup
 - Writing should NOT become a sales page
 
 **Rule 4: Categories Are Stable**
+
 - Once published in a category, it stays there
 - Recategorization is rare and requires redirect
 
 #### Implementation Checklist
 
 - [ ] Document content taxonomy:
+
   ```markdown
   # Content Taxonomy
 
   ## Writing
+
   **Purpose:** Demonstrate thinking
   **Examples:** Essays, reflections, analysis
   **NOT:** Marketing copy, tutorials-as-ads
 
   ## Projects
+
   **Purpose:** Proof of building capability
   **Examples:** Client work, side projects
   **NOT:** Ventures you own (those are Startups)
 
   [... continue for all types]
   ```
+
 - [ ] Create decision tree for new content:
   ```
   New content → Do you sell access?
@@ -843,6 +899,7 @@ So that the homepage stays focused and decision fatigue is prevented.
 #### Feature Logic
 
 **Maximum Featured Items:**
+
 - **Projects:** 3-5 max on homepage, "See All Work" for more
 - **Essays:** 1-3 max on homepage, "All Writing" archive
 - **Startups:** 1 primary (MarkPoint) + others tucked deeper
@@ -851,16 +908,19 @@ So that the homepage stays focused and decision fatigue is prevented.
 **Ordering Logic:**
 
 **Employers See Best Proof First:**
+
 - NOT: Chronological (newest first)
 - YES: Curated (best first)
 
 **What Makes Something "Best"?**
+
 1. **Credibility density:** Does it prove capability quickly?
 2. **Outcome clarity:** Are results quantified?
 3. **Relevance:** Does it match employer expectations?
 4. **Recency:** Is it still relevant? (But not the primary factor)
 
 **Example Ordering (Projects):**
+
 ```
 1. MarkPoint (ownership + traction + ongoing)
 2. Riqle (technical depth + production-grade)
@@ -870,12 +930,14 @@ So that the homepage stays focused and decision fatigue is prevented.
 ```
 
 **Featured vs Archive:**
+
 - **Featured:** Best 3-5 items, manually curated
 - **Archive:** Everything else, chronological or alphabetical
 
 #### Implementation Checklist
 
 - [ ] Add `featured` boolean to content models (already in schema):
+
   ```prisma
   model Project {
     featured Boolean @default(false)
@@ -887,11 +949,14 @@ So that the homepage stays focused and decision fatigue is prevented.
     order    Int     @default(0)      // Add this
   }
   ```
+
 - [ ] Create curation rules document:
+
   ```markdown
   # Feature Curation Rules
 
   ## Projects
+
   - Maximum: 3-5 featured
   - Order by: Credibility density → Outcome clarity → Recency
   - Examples:
@@ -900,13 +965,16 @@ So that the homepage stays focused and decision fatigue is prevented.
     3. High-impact client work
 
   ## Writing
+
   - Maximum: 1-3 featured
   - Order by: Thought quality → Relevance → Engagement
   - Examples:
     1. "Building MarkPoint: Lessons"
     2. "Why I Teach: From Student to Tutor"
   ```
+
 - [ ] Implement featured content queries:
+
   ```typescript
   // Get featured projects
   const featuredProjects = await db.project.findMany({
@@ -921,6 +989,7 @@ So that the homepage stays focused and decision fatigue is prevented.
     orderBy: { createdAt: 'desc' },
   });
   ```
+
 - [ ] Create admin interface to:
   - Toggle featured status
   - Set manual order
@@ -966,11 +1035,13 @@ So that proof compounds and visitors see connections.
 #### Cross-Linking Strategy
 
 **Project Pages Link To:**
+
 - Relevant essays explaining approach/learnings
 - Related projects (if applicable)
 - Startup page (if project is part of a startup)
 
 **Example (MarkPoint Project):**
+
 ```
 Related:
 - Essay: "Building MarkPoint: Lessons Learned"
@@ -979,11 +1050,13 @@ Related:
 ```
 
 **Essay Pages Link To:**
+
 - Referenced projects/startups
 - Other essays on similar topics
 - Products (only if genuinely relevant)
 
 **Example (Essay: "Teaching 500 Students"):**
+
 ```
 Related:
 - Resource: HSC English Essay Guide (built from this experience)
@@ -992,11 +1065,13 @@ Related:
 ```
 
 **Product/Resource Pages Link To:**
+
 - Philosophy/method essay (WHY this exists)
 - Sample work or writing showing expertise
 - Proof of outcomes (testimonials, student results)
 
 **Example (HSC Essay Guide):**
+
 ```
 Built from real experience:
 - Essay: "What the HSC Really Tests"
@@ -1005,11 +1080,13 @@ Built from real experience:
 ```
 
 **Startup Pages Link To:**
+
 - Case studies or deep-dives
 - Metrics/outcomes essays
 - Writing explaining worldview/approach
 
 **Example (MarkPoint Startup):**
+
 ```
 Learn more:
 - Essay: "Building MarkPoint in Public"
@@ -1020,25 +1097,30 @@ Learn more:
 #### Cross-Linking Rules
 
 **Rule 1: Links Feel Like References, Not Upsells**
+
 - Copy: "Read more about this approach →"
 - NOT: "Buy my course now! →"
 
 **Rule 2: Commerce Links to Proof, Not Hype**
+
 - Product pages reference teaching experience essays
 - Product pages show quantified outcomes
 - NO urgency, scarcity, or pressure
 
 **Rule 3: Bidirectional Where Appropriate**
+
 - Essay mentions MarkPoint → links to startup page
 - Startup page → links back to essay
 
 **Rule 4: Max 3-5 Related Links Per Page**
+
 - Prevent link spam
 - Curate intentionally
 
 #### Implementation Checklist
 
 - [ ] Add related content field to models:
+
   ```prisma
   model Post {
     relatedProjects  Project[] // Many-to-many via junction
@@ -1051,6 +1133,7 @@ Learn more:
     relatedProjects Project[] // Self-referential
   }
   ```
+
 - [ ] Create related content component:
   ```typescript
   // components/RelatedContent.tsx
@@ -1113,28 +1196,34 @@ So that all writing feels calm, confident, and employer-safe.
 #### Tone Requirements
 
 **Factual, Grounded:**
+
 - YES: "Taught 500+ students to Band 6 in HSC English"
 - NO: "Helped thousands of students achieve their dreams"
 
 **No Buzzword Inflation:**
+
 - YES: "Built MarkPoint, a tool for X"
 - NO: "Revolutionizing the Y space with cutting-edge Z"
 
 **No "I'm Passionate About...":**
+
 - YES: "I teach because it works. Results speak."
 - NO: "I'm passionate about empowering students to unlock their potential"
 
 **No Hype on Resources:**
+
 - YES: "HSC Essay Guide built from 5 years of tutoring experience"
 - NO: "The ULTIMATE guide to CRUSHING the HSC!"
 
 **Clear Claims Backed by Evidence:**
+
 - YES: "500+ students taught, 90% achieved Band 5 or 6"
 - NO: "I'm one of the best tutors"
 
 #### Microcopy Standards
 
 **Buttons (Use Verbs):**
+
 - ✅ "View Work"
 - ✅ "Read Writing"
 - ✅ "Explore Resources"
@@ -1144,12 +1233,14 @@ So that all writing feels calm, confident, and employer-safe.
 - ❌ "Learn More" (vague)
 
 **Links:**
+
 - ✅ "Read the full case study →"
 - ✅ "See technical details →"
 - ❌ "Click here"
 - ❌ "Find out more"
 
 **Product CTAs:**
+
 - ✅ "Download Guide"
 - ✅ "Access Course"
 - ✅ "View Sample"
@@ -1157,12 +1248,14 @@ So that all writing feels calm, confident, and employer-safe.
 - ❌ "Start Your Journey"
 
 **Navigation:**
+
 - ✅ About, Work, Writing, Startups, Resources, Contact
 - ❌ About Me, My Work, Blog, Portfolio
 
 #### Copy Examples
 
 **Homepage Hero:**
+
 ```
 Nathanael / Riqle
 Student → Tutor → Builder → Founder
@@ -1175,6 +1268,7 @@ Ships production code daily
 ```
 
 **About Page Opening:**
+
 ```
 I went from failing high school to teaching it.
 Then I built software. Then I started a company.
@@ -1183,6 +1277,7 @@ This site is proof, not performance.
 ```
 
 **Resources Page Intro:**
+
 ```
 Resources built from real tutoring experience.
 
@@ -1192,24 +1287,29 @@ No urgency. No scarcity. Just tools that work.
 #### Implementation Checklist
 
 - [ ] Create tone guide document:
+
   ```markdown
   # Tone Guide
 
   ## Voice Principles
+
   - Factual, grounded
   - Evidence-backed claims
   - No buzzwords
   - No hype
 
   ## Vocabulary
+
   **Use:** Built, taught, shipped, designed, operated
   **Avoid:** Revolutionary, cutting-edge, game-changing, passionate
 
   ## Button Copy
+
   **Pattern:** [Verb] [Noun]
   **Examples:** View Work, Read Writing, Download Guide
   **Avoid:** Get Started, Learn More, Join Now
   ```
+
 - [ ] Create microcopy component library:
   ```typescript
   // lib/copy.ts
@@ -1274,20 +1374,29 @@ So that the site is discoverable but maintains integrity.
 **Metadata Templates Per Content Type:**
 
 **Homepage:**
+
 ```html
 <title>Nathanael | Builder, Tutor, Founder</title>
-<meta name="description" content="Student → Tutor → Builder → Founder. Built MarkPoint, taught 500+ students, ships production code." />
+<meta
+  name="description"
+  content="Student → Tutor → Builder → Founder. Built MarkPoint, taught 500+ students, ships production code."
+/>
 <link rel="canonical" href="https://riqle.com/" />
 ```
 
 **Work Page:**
+
 ```html
 <title>Work | Nathanael</title>
-<meta name="description" content="Projects, startups, and proof of execution. From MarkPoint to client work." />
+<meta
+  name="description"
+  content="Projects, startups, and proof of execution. From MarkPoint to client work."
+/>
 <link rel="canonical" href="https://riqle.com/work" />
 ```
 
 **Project Page (Dynamic):**
+
 ```html
 <title>{projectTitle} | Nathanael</title>
 <meta name="description" content="{projectExcerpt}" />
@@ -1295,16 +1404,19 @@ So that the site is discoverable but maintains integrity.
 ```
 
 **Open Graph Images:**
+
 - Simple, typographic
 - 1200x630px (standard OG size)
 - Template: Site name + page title + subtle branding
 
 **Sitemap Generation:**
+
 - Dynamic, auto-updates when content published
 - Includes: all public pages, published posts, projects, startups, resources
 - Excludes: admin pages, drafts, auth pages
 
 **robots.txt:**
+
 ```
 User-agent: *
 Allow: /
@@ -1318,16 +1430,14 @@ Sitemap: https://riqle.com/sitemap.xml
 **Structured Data:**
 
 **Person Schema (Homepage):**
+
 ```json
 {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Nathanael",
   "url": "https://riqle.com",
-  "sameAs": [
-    "https://github.com/nathanael",
-    "https://linkedin.com/in/nathanael"
-  ],
+  "sameAs": ["https://github.com/nathanael", "https://linkedin.com/in/nathanael"],
   "jobTitle": "Founder",
   "worksFor": {
     "@type": "Organization",
@@ -1337,6 +1447,7 @@ Sitemap: https://riqle.com/sitemap.xml
 ```
 
 **Article Schema (Posts):**
+
 ```json
 {
   "@context": "https://schema.org",
@@ -1352,6 +1463,7 @@ Sitemap: https://riqle.com/sitemap.xml
 ```
 
 **Product Schema (Resources - Optional):**
+
 ```json
 {
   "@context": "https://schema.org",
@@ -1393,6 +1505,7 @@ Sitemap: https://riqle.com/sitemap.xml
 - [ ] Implement metadata for all page types
 - [ ] Create OG image templates (use @vercel/og or similar)
 - [ ] Implement dynamic sitemap:
+
   ```typescript
   // app/sitemap.ts
   export default async function sitemap() {
@@ -1403,7 +1516,7 @@ Sitemap: https://riqle.com/sitemap.xml
       { url: 'https://riqle.com', priority: 1.0 },
       { url: 'https://riqle.com/about', priority: 0.8 },
       { url: 'https://riqle.com/work', priority: 0.8 },
-      ...posts.map(post => ({
+      ...posts.map((post) => ({
         url: `https://riqle.com/writing/${post.slug}`,
         lastModified: post.updatedAt,
         priority: 0.6,
@@ -1412,6 +1525,7 @@ Sitemap: https://riqle.com/sitemap.xml
     ];
   }
   ```
+
 - [ ] Create robots.txt
 - [ ] Add structured data to appropriate pages
 - [ ] Test with Google Rich Results Test
@@ -1461,12 +1575,14 @@ So that the site feels premium through professionalism and respect for users.
 #### Accessibility Requirements
 
 **Keyboard Navigation:**
+
 - Tab through all interactive elements
 - Enter/Space to activate buttons/links
 - Escape to close modals/menus
 - Arrow keys for dropdown/menu navigation (if applicable)
 
 **Focus Styles:**
+
 ```css
 /* Visible focus indicators */
 *:focus-visible {
@@ -1479,6 +1595,7 @@ So that the site feels premium through professionalism and respect for users.
 ```
 
 **Semantic HTML:**
+
 ```html
 <nav aria-label="Main navigation">
   <ul>
@@ -1495,6 +1612,7 @@ So that the site feels premium through professionalism and respect for users.
 ```
 
 **ARIA Labels:**
+
 ```html
 <!-- Skip link for keyboard users -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -1509,11 +1627,13 @@ So that the site feels premium through professionalism and respect for users.
 ```
 
 **Color Contrast:**
+
 - Text: Minimum 4.5:1 (WCAG AA)
 - Large text: Minimum 3:1
 - Interactive elements: Minimum 3:1
 
 **Motion Preferences:**
+
 ```css
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -1525,6 +1645,7 @@ So that the site feels premium through professionalism and respect for users.
 ```
 
 **Text Size:**
+
 - Base: 16px minimum (1rem)
 - Headings: Scalable with rem/em
 - Allow browser zoom up to 200%
@@ -1534,9 +1655,7 @@ So that the site feels premium through professionalism and respect for users.
 
 - [ ] Add skip link at top of every page:
   ```html
-  <a href="#main-content" class="sr-only focus:not-sr-only">
-    Skip to main content
-  </a>
+  <a href="#main-content" class="sr-only focus:not-sr-only"> Skip to main content </a>
   ```
 - [ ] Use semantic HTML everywhere
 - [ ] Add ARIA labels to icon buttons and interactive elements
@@ -1588,52 +1707,61 @@ So that the site stays employer-safe and doesn't drift into creator funnel patte
 #### Explicit Bans
 
 **Popups / Modals:**
+
 - ❌ Email capture popups
 - ❌ "Subscribe to newsletter" overlays
 - ❌ Exit-intent modals
 - ✅ Exception: Necessary modals (login, checkout) are fine
 
 **Urgency / Scarcity:**
+
 - ❌ Countdown timers ("Offer ends in X hours!")
 - ❌ "Only 3 spots left!"
 - ❌ "Limited time only"
 - ✅ Commerce exists, but is calm and factual
 
 **Intrusive Banners:**
+
 - ❌ Cookie consent banner (unless legally required)
 - ❌ Sticky "Subscribe" banners
 - ❌ Notification prompts
 - ✅ Exception: Legally required notices (EU GDPR, etc.)
 
 **Auto-Playing Media:**
+
 - ❌ Auto-play video
 - ❌ Background music
 - ❌ Audio without user interaction
 
 **Scroll Hijacking:**
+
 - ❌ Scroll-jacking (overriding native scroll)
 - ❌ Parallax that makes users dizzy
 - ❌ Horizontal scroll for primary content
 - ✅ Smooth scroll is fine if respectful
 
 **Endless Carousels:**
+
 - ❌ Auto-rotating carousels
 - ❌ Infinite scrolling that prevents footer access
 - ✅ Manual carousels with clear controls are acceptable
 
 **Heavy Animation as Identity:**
+
 - ❌ Animations that delay content visibility
 - ❌ Loading animations longer than 300ms
 - ❌ Gratuitous page transitions
 - ✅ Subtle, purposeful micro-interactions are fine
 
 **Creator Funnel Patterns:**
+
 - ❌ "Join my community"
 - ❌ "Subscribe for exclusive content"
 - ❌ "Download my free guide" (as lead magnet)
 - ✅ Resources exist as products, not lead magnets
 
 **Dark Patterns:**
+
 - ❌ Pre-checked checkboxes
 - ❌ Confusing unsubscribe flows
 - ❌ Hidden costs
@@ -1643,18 +1771,21 @@ So that the site stays employer-safe and doesn't drift into creator funnel patte
 #### Allowed (With Constraints)
 
 **Email Collection (Minimal):**
+
 - ✅ Optional newsletter signup (if you want)
 - ✅ Contact form for inquiries
 - ❌ Forced email gates
 - ❌ Exit popups
 
 **Analytics (Privacy-First):**
+
 - ✅ Plausible / Fathom (privacy-focused)
 - ✅ Minimal, intentional tracking
 - ❌ Surveillance-level analytics
 - ❌ Tracking without disclosure
 
 **Social Proof (Factual Only):**
+
 - ✅ "Taught 500+ students"
 - ✅ Testimonials (if genuine)
 - ❌ Fake testimonials
@@ -1669,20 +1800,24 @@ So that the site stays employer-safe and doesn't drift into creator funnel patte
 - [ ] Add to project README as principles
 
 **Example Document Structure:**
+
 ```markdown
 # Do Not Build: Banned Patterns
 
 ## Principle
+
 This site is employer-safe. No dark patterns, no creator funnels, no hype.
 
 ## Banned Patterns
 
 ### Popups
+
 ❌ Email capture popups
 ❌ Exit-intent modals
 ✅ Exception: Login, checkout (necessary)
 
 ### Urgency/Scarcity
+
 ❌ Countdown timers
 ❌ "Only X left!"
 ✅ Commerce is calm and factual
@@ -1690,6 +1825,7 @@ This site is employer-safe. No dark patterns, no creator funnels, no hype.
 [... continue for all categories]
 
 ## Why These Are Banned
+
 - Employer perception: These patterns signal "marketer" not "builder"
 - Trust erosion: Dark patterns reduce credibility
 - User respect: We respect attention and agency
@@ -1722,6 +1858,7 @@ Epic 1 is considered **COMPLETE** when:
 ✅ "Do not build" list documented and approved
 
 **Deliverables:**
+
 1. `docs/sitemap.md` - Complete site structure
 2. `docs/employer-skim-path.md` - 30-45s scan optimization
 3. `docs/progressive-disclosure-rules.md` - Content reveal strategy

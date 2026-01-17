@@ -14,6 +14,7 @@
 Translate "**quietly premium, calmly obsessive**" into enforceable design rules.
 
 This epic ensures the site:
+
 - Feels **calm** in the first 30 seconds
 - Feels **premium** without being corporate
 - Feels **human** without being informal
@@ -24,6 +25,7 @@ This epic ensures the site:
 ### User Outcome
 
 When Epic 2 is complete, the system has:
+
 - ✅ Visual north star defining all design decisions
 - ✅ Typography system doing most of the work
 - ✅ Color palette with restraint and warmth
@@ -42,6 +44,7 @@ When Epic 2 is complete, the system has:
 ### Functional Requirements Covered
 
 From UX Design Specification:
+
 - Design system: Tailwind CSS + Headless UI
 - Typography: Modern neutral grotesk + softer secondary
 - Color palette: Warm neutrals (off-white, cream, fog grey, stone)
@@ -62,23 +65,27 @@ From UX Design Specification:
 ### Tech Stack for Design System
 
 **CSS Framework:** Tailwind CSS
+
 - Utility-first approach
 - Easy to enforce design tokens
 - No runtime CSS-in-JS overhead
 - Customizable design system
 
 **Component Library:** Headless UI (Tailwind Labs)
+
 - Unstyled, accessible primitives
 - Full control over styling
 - Keyboard navigation built-in
 - ARIA attributes included
 
 **Typography:** System font stack + web fonts
+
 - Primary: Inter, Geist, or similar neutral grotesk
 - Secondary: Optional softer font for metadata
 - Variable fonts for performance
 
 **Animation:** Tailwind transitions + Framer Motion (sparingly)
+
 - CSS transitions for simple states
 - Framer Motion for complex interactions only
 - Always respect `prefers-reduced-motion`
@@ -86,12 +93,14 @@ From UX Design Specification:
 ### Design Tokens Strategy
 
 All design decisions encoded in `tailwind.config.js`:
+
 - Colors as named variables
 - Spacing scale consistent
 - Typography scale defined
 - Animation durations fixed
 
 This ensures:
+
 - Consistency enforced automatically
 - No arbitrary values in components
 - Design system is code
@@ -133,6 +142,7 @@ So that every choice can be justified against a clear intent.
 #### Explicit Positioning
 
 **What This Site IS:**
+
 - Calm and unhurried
 - Precise and intentional
 - Quietly premium (not loud luxury)
@@ -141,6 +151,7 @@ So that every choice can be justified against a clear intent.
 - Obsessive about detail
 
 **What This Site Is NOT:**
+
 - Flashy or attention-grabbing
 - Loud or theatrical
 - Trendy or following design fads
@@ -149,6 +160,7 @@ So that every choice can be justified against a clear intent.
 - Playful or informal
 
 **Inspiration References (Feeling, Not Copying):**
+
 - **Apple internal tools:** Calm precision, restrained palette
 - **Linear:** Typography-first, generous spacing
 - **Stripe:** Professional clarity, micro-interactions
@@ -157,20 +169,25 @@ So that every choice can be justified against a clear intent.
 #### Implementation Checklist
 
 - [ ] Document design intent in `docs/design-system/visual-north-star.md`:
+
   ```markdown
   # Visual North Star
 
   ## Design Intent
+
   A calm, precise, Apple-internal-tool-like interface with subtle warmth
   and human texture — serious, intentional, and quietly obsessive.
 
   ## Emotional Target
+
   - First 30 seconds: Calm
   - After engagement: Trust
   - Deep exploration: Respect
 
   ## Positioning
+
   ### IS
+
   - Calm, unhurried
   - Precise, intentional
   - Quietly premium
@@ -178,13 +195,16 @@ So that every choice can be justified against a clear intent.
   - Serious but not corporate
 
   ### IS NOT
+
   - Flashy, loud
   - Trendy, experimental
   - Corporate, sterile
   - Playful, informal
 
   ## Decision Framework
+
   Before adding any design element, ask:
+
   1. Does this make the site calmer or noisier?
   2. Does this support understanding or distract from it?
   3. Would this feel at home in an Apple internal tool?
@@ -192,6 +212,7 @@ So that every choice can be justified against a clear intent.
 
   If the answer to any question is wrong, reject the design.
   ```
+
 - [ ] Create design review checklist
 - [ ] Share with all designers/developers
 - [ ] Add to PR review process
@@ -234,16 +255,19 @@ So that visuals stay secondary and the site feels calm and authoritative.
 #### Typography Requirements
 
 **Primary Font: Neutral Modern Grotesk**
+
 - Options: Inter, Geist, Untitled Sans, or similar
 - Characteristics: High legibility, neutral, modern
 - Usage: All body text, headings, UI elements
 
 **Secondary Font: Softer Tone (Optional)**
+
 - Options: Inter (lighter weight), or complementary sans
 - Usage: Metadata only (dates, tags, captions)
 - Rule: Use sparingly, never for body text
 
 **Font Loading Strategy:**
+
 - Variable fonts for performance
 - Subset to Latin characters only
 - Font-display: swap (avoid FOUT)
@@ -252,6 +276,7 @@ So that visuals stay secondary and the site feels calm and authoritative.
 #### Typographic Hierarchy
 
 **Display / Hero (Identity Statements):**
+
 ```
 Font: Primary, Weight 600-700
 Size: 48px-64px (mobile: 32px-40px)
@@ -261,6 +286,7 @@ Usage: Homepage hero, page titles
 ```
 
 **H1 (Section Headings):**
+
 ```
 Font: Primary, Weight 600
 Size: 32px-40px (mobile: 24px-28px)
@@ -270,6 +296,7 @@ Usage: Main page headings
 ```
 
 **H2 (Subsection Headings):**
+
 ```
 Font: Primary, Weight 600
 Size: 24px-28px (mobile: 20px-24px)
@@ -279,6 +306,7 @@ Usage: Section divisions
 ```
 
 **H3 (Component Headings):**
+
 ```
 Font: Primary, Weight 500-600
 Size: 18px-20px (mobile: 16px-18px)
@@ -287,6 +315,7 @@ Usage: Card titles, list headings
 ```
 
 **Body Text:**
+
 ```
 Font: Primary, Weight 400
 Size: 16px-18px (never smaller than 16px)
@@ -297,6 +326,7 @@ Usage: All reading content
 ```
 
 **Meta Text (Dates, Tags, Captions):**
+
 ```
 Font: Secondary (or Primary lighter weight)
 Size: 14px-15px
@@ -346,22 +376,23 @@ Usage: Timestamps, tags, image captions
           meta: ['Inter', 'system-ui', 'sans-serif'], // Optional
         },
         fontSize: {
-          'display': ['clamp(2rem, 5vw, 4rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
-          'h1': ['clamp(1.5rem, 3vw, 2.5rem)', { lineHeight: '1.3', letterSpacing: '-0.01em' }],
-          'h2': ['clamp(1.25rem, 2vw, 1.75rem)', { lineHeight: '1.4' }],
-          'h3': ['1.125rem', { lineHeight: '1.5' }],
-          'body': ['1rem', { lineHeight: '1.7' }],
-          'meta': ['0.875rem', { lineHeight: '1.5' }],
+          display: ['clamp(2rem, 5vw, 4rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+          h1: ['clamp(1.5rem, 3vw, 2.5rem)', { lineHeight: '1.3', letterSpacing: '-0.01em' }],
+          h2: ['clamp(1.25rem, 2vw, 1.75rem)', { lineHeight: '1.4' }],
+          h3: ['1.125rem', { lineHeight: '1.5' }],
+          body: ['1rem', { lineHeight: '1.7' }],
+          meta: ['0.875rem', { lineHeight: '1.5' }],
         },
         letterSpacing: {
-          'tighter': '-0.02em',
-          'tight': '-0.01em',
+          tighter: '-0.02em',
+          tight: '-0.01em',
         },
       },
     },
   };
   ```
 - [ ] Load font with next/font:
+
   ```typescript
   // app/layout.tsx
   import { Inter } from 'next/font/google';
@@ -380,7 +411,9 @@ Usage: Timestamps, tags, image captions
     );
   }
   ```
+
 - [ ] Create typography component library:
+
   ```typescript
   // components/Typography.tsx
   export function Display({ children }: { children: React.ReactNode }) {
@@ -399,6 +432,7 @@ Usage: Timestamps, tags, image captions
     return <span className="text-meta text-stone-600">{children}</span>;
   }
   ```
+
 - [ ] Document typography system in `docs/design-system/typography.md`
 - [ ] Create typography showcase page for reference
 
@@ -443,20 +477,24 @@ So that the site feels warm and professional without distraction.
 #### Palette Principles
 
 **Light-First Design:**
+
 - Default theme is light
 - Dark mode optional (but equally restrained)
 
 **Neutral Base:**
+
 - Off-white backgrounds (not pure white)
 - Fog gray for subtle backgrounds
 - Soft charcoal for text (not pure black)
 
 **One Restrained Accent:**
+
 - Used sparingly for interactive elements
 - Never on large surfaces
 - Muted, not vibrant
 
 **Maximum 3-4 Core Colors:**
+
 - Neutral grays (stone palette)
 - Accent color (single hue)
 - Optional: Semantic colors (success, error) for feedback only
@@ -464,6 +502,7 @@ So that the site feels warm and professional without distraction.
 #### Color Palette (Tailwind Stone + Accent)
 
 **Neutral Palette (Tailwind Stone):**
+
 ```javascript
 colors: {
   stone: {
@@ -482,6 +521,7 @@ colors: {
 ```
 
 **Accent Color (Subtle Blue or Warm Neutral):**
+
 ```javascript
 colors: {
   accent: {
@@ -504,29 +544,34 @@ Alternative: Warm neutral accent (stone-700 with opacity variations)
 #### Color Usage Rules
 
 **Backgrounds:**
+
 - Page: `stone-50` (off-white, not #fff)
 - Subtle sections: `stone-100`
 - Cards: `stone-50` with glass effect
 - Never: Pure white (#ffffff)
 
 **Text:**
+
 - Body: `stone-700` (soft charcoal, not #000)
 - Headings: `stone-800` or `stone-900`
 - Muted/meta: `stone-500` or `stone-600`
 - Never: Pure black (#000000)
 
 **Interactive Elements:**
+
 - Links: `accent-600` (hover: `accent-700`)
 - Buttons: `stone-900` bg, white text (primary)
 - Buttons secondary: `stone-200` bg, `stone-900` text
 - Focus rings: `accent-500`
 
 **Borders & Dividers:**
+
 - Subtle: `stone-200`
 - Emphasis: `stone-300`
 - Never: High-contrast borders
 
 **Accent Usage (Sparingly):**
+
 - Links in body text
 - Active navigation state
 - Focus indicators
@@ -536,6 +581,7 @@ Alternative: Warm neutral accent (stone-700 with opacity variations)
 #### Dark Mode (Optional, Future)
 
 If implemented, must be equally restrained:
+
 - Dark bg: `stone-900` or `stone-950` (not pure black)
 - Text: `stone-200` or `stone-300` (not pure white)
 - Accent: Slightly desaturated from light mode
@@ -558,13 +604,13 @@ If implemented, must be equally restrained:
           },
         },
         backgroundColor: {
-          'page': colors.stone[50],
-          'subtle': colors.stone[100],
+          page: colors.stone[50],
+          subtle: colors.stone[100],
         },
         textColor: {
-          'body': colors.stone[700],
-          'heading': colors.stone[900],
-          'muted': colors.stone[500],
+          body: colors.stone[700],
+          heading: colors.stone[900],
+          muted: colors.stone[500],
         },
       },
     },
@@ -595,19 +641,21 @@ If implemented, must be equally restrained:
   } as const;
   ```
 - [ ] Avoid pure white/black:
+
   ```css
   /* Never use these */
   .bad {
     background: #fff; /* ❌ Use stone-50 */
-    color: #000;      /* ❌ Use stone-900 */
+    color: #000; /* ❌ Use stone-900 */
   }
 
   /* Use these instead */
   .good {
     background: theme('colors.stone.50'); /* ✅ */
-    color: theme('colors.stone.900');     /* ✅ */
+    color: theme('colors.stone.900'); /* ✅ */
   }
   ```
+
 - [ ] Create color showcase page
 - [ ] Document in `docs/design-system/colors.md`
 
@@ -651,6 +699,7 @@ So that pages feel calm and balanced.
 #### Spacing Scale
 
 Use Tailwind's default 4px base scale:
+
 ```
 0.5 → 2px
 1 → 4px
@@ -667,6 +716,7 @@ Use Tailwind's default 4px base scale:
 ```
 
 **Recommended Usage:**
+
 - Component padding: `p-4` (16px) or `p-6` (24px)
 - Section spacing: `space-y-12` (48px) or `space-y-16` (64px)
 - Page padding: `px-6` mobile, `px-8` desktop
@@ -675,22 +725,25 @@ Use Tailwind's default 4px base scale:
 #### Layout Constraints
 
 **Max-Width Content Containers:**
+
 ```typescript
 // Recommended max-widths
 const layouts = {
-  prose: 'max-w-prose',    // ~65ch, ideal for reading
-  content: 'max-w-4xl',    // 896px, general content
-  wide: 'max-w-6xl',       // 1152px, projects/work
-  full: 'max-w-7xl',       // 1280px, maximum width
+  prose: 'max-w-prose', // ~65ch, ideal for reading
+  content: 'max-w-4xl', // 896px, general content
+  wide: 'max-w-6xl', // 1152px, projects/work
+  full: 'max-w-7xl', // 1280px, maximum width
 };
 ```
 
 **Left-Aligned Text:**
+
 - No center-heavy layouts
 - Text always starts from left (for English)
 - Centered text only for special cases (hero statements)
 
 **Consistent Vertical Rhythm:**
+
 - Sections: 64-96px apart (`space-y-16` or `space-y-24`)
 - Components: 32-48px apart (`space-y-8` or `space-y-12`)
 - Paragraphs: 24px apart (`space-y-6`)
@@ -698,15 +751,15 @@ const layouts = {
 #### Layout Patterns
 
 **Page Container:**
+
 ```tsx
-<div className="min-h-screen bg-page">
-  <div className="max-w-6xl mx-auto px-6 md:px-8 py-12 md:py-16">
-    {/* Content */}
-  </div>
+<div className="bg-page min-h-screen">
+  <div className="mx-auto max-w-6xl px-6 py-12 md:px-8 md:py-16">{/* Content */}</div>
 </div>
 ```
 
 **Section Spacing:**
+
 ```tsx
 <div className="space-y-16">
   <section>{/* Section 1 */}</section>
@@ -716,8 +769,9 @@ const layouts = {
 ```
 
 **Reading Content:**
+
 ```tsx
-<article className="max-w-prose mx-auto space-y-6">
+<article className="mx-auto max-w-prose space-y-6">
   <h1 className="text-h1">Title</h1>
   <p className="text-body">Paragraph 1</p>
   <p className="text-body">Paragraph 2</p>
@@ -749,6 +803,7 @@ const layouts = {
 
 - [ ] Configure Tailwind spacing (use defaults)
 - [ ] Create layout components:
+
   ```typescript
   // components/Layout.tsx
   export function PageContainer({ children }: { children: React.ReactNode }) {
@@ -773,6 +828,7 @@ const layouts = {
     return <section className="space-y-8">{children}</section>;
   }
   ```
+
 - [ ] Establish section spacing convention
 - [ ] Document in `docs/design-system/spacing-layout.md`
 - [ ] Create layout showcase page
@@ -817,6 +873,7 @@ So that new pages can be built quickly while maintaining consistency.
 #### Core Primitives
 
 **1. Text Blocks**
+
 ```typescript
 // components/primitives/Text.tsx
 export function Heading({ level = 1, children }: { level?: 1 | 2 | 3; children: React.ReactNode }) {
@@ -841,6 +898,7 @@ export function Label({ children }: { children: React.ReactNode }) {
 ```
 
 **2. Links**
+
 ```typescript
 // components/primitives/Link.tsx
 export function TextLink({ href, children }: { href: string; children: React.ReactNode }) {
@@ -870,6 +928,7 @@ export function NavLink({ href, active, children }: { href: string; active?: boo
 ```
 
 **3. Buttons**
+
 ```typescript
 // components/primitives/Button.tsx
 export function Button({
@@ -902,6 +961,7 @@ export function Button({
 ```
 
 **4. Cards (For Projects, Resources)**
+
 ```typescript
 // components/primitives/Card.tsx
 export function Card({
@@ -926,6 +986,7 @@ export function Card({
 ```
 
 **5. Dividers**
+
 ```typescript
 // components/primitives/Divider.tsx
 export function Divider() {
@@ -934,6 +995,7 @@ export function Divider() {
 ```
 
 **6. Badges (Used Sparingly)**
+
 ```typescript
 // components/primitives/Badge.tsx
 export function Badge({ children }: { children: React.ReactNode }) {
@@ -1003,6 +1065,7 @@ Due to length, I'll provide streamlined versions of Stories 2.6-2.12. Each follo
 **Estimated Time:** 3-4 hours
 
 **Key Points:**
+
 - Use glass for cards, resource previews, optional overlays only
 - NEVER for navigation bars, hero sections, or text-heavy areas
 - Low blur (backdrop-blur-sm), high translucency (bg-stone-50/80)
@@ -1010,6 +1073,7 @@ Due to length, I'll provide streamlined versions of Stories 2.6-2.12. Each follo
 - First screen contains no glass
 
 **Implementation:**
+
 ```css
 /* Velvet glass effect */
 .glass {
@@ -1028,12 +1092,14 @@ Due to length, I'll provide streamlined versions of Stories 2.6-2.12. Each follo
 **Estimated Time:** 2-3 hours
 
 **Key Points:**
+
 - Subtle fades, slow transitions (duration-300)
 - NEVER scroll hijacking, parallax theatrics, bounce effects
 - Always respect `prefers-reduced-motion`
 - Motion should calm, not excite
 
 **Implementation:**
+
 ```css
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -1055,6 +1121,7 @@ Due to length, I'll provide streamlined versions of Stories 2.6-2.12. Each follo
 **Estimated Time:** 4-6 hours
 
 **Key Points:**
+
 - Use ONLY for diagrams, process flows, learning frameworks
 - Thin line weight, imperfect geometry, single color (neutral)
 - NEVER for navigation icons, decorative doodles, or branding
@@ -1069,6 +1136,7 @@ Due to length, I'll provide streamlined versions of Stories 2.6-2.12. Each follo
 **Estimated Time:** 2-3 hours
 
 **Key Points:**
+
 - Icons assist, not decorate
 - Simple geometric style, consistent stroke weight
 - Never replace text labels
@@ -1083,6 +1151,7 @@ Due to length, I'll provide streamlined versions of Stories 2.6-2.12. Each follo
 **Estimated Time:** 2-3 hours
 
 **Recap:**
+
 - Adequate contrast (4.5:1)
 - Visible focus states
 - Keyboard navigable
@@ -1097,6 +1166,7 @@ Due to length, I'll provide streamlined versions of Stories 2.6-2.12. Each follo
 **Estimated Time:** 2-3 hours
 
 **Key Points:**
+
 - Homepage: Clean, minimal, no glass above fold
 - Writing: Text-first, no cards, wide margins
 - Work/Startups: Card containment allowed, visuals secondary
@@ -1111,6 +1181,7 @@ Due to length, I'll provide streamlined versions of Stories 2.6-2.12. Each follo
 **Estimated Time:** 1-2 hours
 
 **Banned:**
+
 - Dribbble-style hero animations
 - Neon gradients
 - Overlapping text
@@ -1139,6 +1210,7 @@ Epic 2 is considered **COMPLETE** when:
 ✅ Anti-pattern list finalized
 
 **Deliverables:**
+
 1. `docs/design-system/visual-north-star.md`
 2. `docs/design-system/typography.md`
 3. `docs/design-system/colors.md`
