@@ -56,7 +56,7 @@ model EmailLog {
   sentAt    DateTime?
   failedAt  DateTime?
   createdAt DateTime  @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime
 
   @@index([createdAt])
   @@index([status])
@@ -73,7 +73,7 @@ model Entitlement {
   revokedAt    DateTime?
   revokeReason String?
   createdAt    DateTime  @default(now())
-  updatedAt    DateTime @updatedAt
+  updatedAt    DateTime
   Order        Order?    @relation(fields: [orderId], references: [id])
   Product      Product   @relation(fields: [productId], references: [id])
   User         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -107,7 +107,7 @@ model MediaAsset {
   checksum  String?
   createdBy String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime
   User      User     @relation(fields: [createdBy], references: [id])
 
   @@index([createdBy])
@@ -126,7 +126,7 @@ model Order {
   fulfilledAt           DateTime?
   refundedAt            DateTime?
   createdAt             DateTime      @default(now())
-  updatedAt             DateTime @updatedAt
+  updatedAt             DateTime
   status                OrderStatus   @default(pending)
   Entitlement           Entitlement[]
   User                  User?         @relation(fields: [userId], references: [id])
@@ -147,7 +147,7 @@ model OrderItem {
   currency    String
   productName String
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime
   Order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   Product     Product  @relation(fields: [productId], references: [id])
 
@@ -166,7 +166,7 @@ model Page {
   metaDescription String?
   ogImage         String?
   createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  updatedAt       DateTime
 
   @@index([slug])
   @@index([status])
@@ -185,7 +185,7 @@ model Post {
   metaDescription     String?
   ogImage             String?
   createdAt           DateTime  @default(now())
-  updatedAt           DateTime @updatedAt
+  updatedAt           DateTime
   contextLine         String?
   description         String
   diagramUrl          String?
@@ -212,7 +212,7 @@ model Product {
   slug                String        @unique
   description         String
   createdAt           DateTime      @default(now())
-  updatedAt           DateTime @updatedAt
+  updatedAt           DateTime
   currency            String        @default("AUD")
   displayOrder        Int           @default(0)
   downloadUrls        String[]
@@ -253,7 +253,7 @@ model Project {
   metaDescription     String?
   ogImage             String?
   createdAt           DateTime  @default(now())
-  updatedAt           DateTime @updatedAt
+  updatedAt           DateTime
   diagrams            String[]
   displayOrder        Int       @default(0)
   execution           String
@@ -284,7 +284,7 @@ model Role {
   name        String     @unique
   description String?
   createdAt   DateTime   @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime
   UserRole    UserRole[]
 }
 
@@ -308,7 +308,7 @@ model Startup {
   metaDescription     String?
   ogImage             String?
   createdAt           DateTime  @default(now())
-  updatedAt           DateTime @updatedAt
+  updatedAt           DateTime
   diagrams            String[]
   displayOrder        Int       @default(0)
   featured            Boolean   @default(false)
@@ -356,7 +356,7 @@ model Tag {
   name      String    @unique
   slug      String    @unique
   createdAt DateTime  @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime
   TagLink   TagLink[]
 
   @@index([slug])
@@ -390,7 +390,7 @@ model User {
   stripeCustomerId String?       @unique
   emailVerified    DateTime?
   createdAt        DateTime      @default(now())
-  updatedAt        DateTime @updatedAt
+  updatedAt        DateTime
   Account          Account[]
   AuditLog         AuditLog[]
   Entitlement      Entitlement[]

@@ -1,49 +1,42 @@
-import { type NextRequest, NextResponse } from 'next/server';
-import { createRequestLogger } from '@/lib/logger';
-import { getRequestId } from '@/lib/request-id';
-import { handleApiError } from '@/lib/api-error-handler';
+import { db } from '@/lib/db';
+import { NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
-  const requestId = req.headers.get('x-request-id') || (await getRequestId());
-  const logger = createRequestLogger(requestId || '');
-
+/**
+ * Database Health Check Endpoint
+ * Epic 0 Story 0.4 - Database healthcheck requirement
+ *
+ * Returns 200 if database is reachable, 503 if not
+ * Response time should be < 1 second
+ */
+export async function GET() {
   try {
-    logger.info('health_check_started', {
-      path: req.nextUrl.pathname,
-    });
+    const start = Date.now();
 
-    // TODO: Add database health check when Prisma is set up
-    // await db.$queryRaw`SELECT 1`;
+    // Simple query to test database connectivity
+    await db.$queryRaw`SELECT 1`;
 
-    const response = {
-      status: 'healthy',
-      timestamp: new Date().toISOString(),
-      requestId,
-      checks: {
-        api: 'ok',
-        database: 'pending', // Will be 'ok' after DB setup
-      },
-    };
+    const duration = Date.now() - start;
 
-    logger.info('health_check_passed', {
-      checks: response.checks,
-    });
-
-    return NextResponse.json(response, { status: 200 });
-  } catch (error) {
-    logger.error(
-      'health_check_failed',
-      error instanceof Error ? error : new Error('Unknown error'),
+    return NextResponse.json(
       {
+        status: 'healthy',
+        database: 'connected',
+        responseTime: `${duration}ms`,
         timestamp: new Date().toISOString(),
-      }
-    );
-
-    return handleApiError(error, {
-      action: 'health_check',
-      metadata: {
-        requestId,
       },
-    });
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('Health check failed:', error);
+
+    return NextResponse.json(
+      {
+        status: 'unhealthy',
+        database: 'disconnected',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString(),
+      },
+      { status: 503 }
+    );
   }
 }

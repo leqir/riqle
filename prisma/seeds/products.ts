@@ -19,9 +19,9 @@ export async function seedProducts() {
   // Get the first admin user for authorId
   const adminUser = await prisma.user.findFirst({
     where: {
-      userRoles: {
+      UserRole: {
         some: {
-          role: {
+          Role: {
             name: 'admin',
           },
         },
@@ -41,11 +41,14 @@ export async function seedProducts() {
     create: {
       slug: 'common-module-1984-exemplar-essay',
       title: '1984 Common Module Exemplar Essay',
-      description: 'Band 6 exemplar essay for HSC English Advanced Common Module, analyzing George Orwell\'s "1984" with detailed annotations.',
+      description:
+        'Band 6 exemplar essay for HSC English Advanced Common Module, analyzing George Orwell\'s "1984" with detailed annotations.',
 
       // Positioning (Epic 8: Who it's for and NOT for)
-      targetAudience: 'HSC English Advanced students (Year 12, 2025) studying 1984 for Common Module who need a concrete example of Band 6 essay structure and analysis.',
-      nonAudience: 'This is NOT for university students, HSC English Standard, or students looking for an essay to copy. This is a learning tool to understand Band 6 technique, not a template to plagiarize.',
+      targetAudience:
+        'HSC English Advanced students (Year 12, 2025) studying 1984 for Common Module who need a concrete example of Band 6 essay structure and analysis.',
+      nonAudience:
+        'This is NOT for university students, HSC English Standard, or students looking for an essay to copy. This is a learning tool to understand Band 6 technique, not a template to plagiarize.',
 
       // Content sections (Epic 8: 7 required sections)
       whatItIs: `<p>A complete Band 6 exemplar essay (20/20 standard) for HSC English Advanced Common Module analyzing George Orwell's "1984".</p>
@@ -106,7 +109,8 @@ export async function seedProducts() {
 
       // SEO
       metaTitle: '1984 Common Module Exemplar Essay - HSC English Advanced Band 6',
-      metaDescription: 'Band 6 exemplar essay for HSC English Advanced Common Module analyzing George Orwell\'s "1984". Based on teaching 100+ students with detailed annotations explaining technique.',
+      metaDescription:
+        'Band 6 exemplar essay for HSC English Advanced Common Module analyzing George Orwell\'s "1984". Based on teaching 100+ students with detailed annotations explaining technique.',
       ogImage: null, // Could add a preview image later
 
       // Note: stripeProductId and stripePriceId will be created automatically on first checkout
