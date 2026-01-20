@@ -5,6 +5,7 @@ import { hashPassword, validatePassword } from '@/lib/auth/password';
 import { createVerificationToken } from '@/lib/auth/tokens';
 import { Resend } from 'resend';
 import { env } from '@/env';
+import { createId } from '@paralleldrive/cuid2';
 
 const resend = new Resend(env.RESEND_API_KEY);
 
@@ -60,6 +61,7 @@ export async function POST(request: NextRequest) {
     if (customerRole) {
       await db.userRole.create({
         data: {
+          id: createId(),
           userId: user.id,
           roleId: customerRole.id,
         },

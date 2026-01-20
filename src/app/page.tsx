@@ -40,8 +40,8 @@ export default function HomePage() {
               </p>
 
               <p>
-                i dropped out of computer science at unsw, and left when it became clear it
-                wasn&apos;t the work i wanted to do.
+                i dropped out of computer science at unsw when it became clear it wasn&apos;t the
+                work i wanted to do.
               </p>
 
               <p>i&apos;m now studying exercise science (physio)</p>
