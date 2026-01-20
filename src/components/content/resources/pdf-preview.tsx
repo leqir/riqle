@@ -24,10 +24,10 @@ export function PDFPreview({ pdfUrl, totalPages = 3 }: PDFPreviewProps) {
         </p>
       </div>
 
-      {/* PDF Preview - Shows top portion of first page - LARGER */}
+      {/* PDF Preview - Shows minimal top portion of first page */}
       <div className="relative overflow-hidden border-l-2 border-stone-900 bg-white">
-        {/* Cropped PDF viewer - Increased height for more visibility */}
-        <div className="relative h-[800px] overflow-hidden bg-stone-50">
+        {/* Cropped PDF viewer - Shows less text with heavy fade */}
+        <div className="relative h-[500px] overflow-hidden bg-stone-50">
           <object
             data={`${pdfUrl}#page=1&toolbar=0&navpanes=0&scrollbar=0&view=FitH&zoom=100`}
             type="application/pdf"
@@ -35,7 +35,7 @@ export function PDFPreview({ pdfUrl, totalPages = 3 }: PDFPreviewProps) {
             style={{ pointerEvents: 'none' }}
           >
             {/* Fallback for browsers that don't support PDF viewing */}
-            <div className="flex h-[800px] flex-col items-center justify-center p-8 text-center">
+            <div className="flex h-[500px] flex-col items-center justify-center p-8 text-center">
               <svg
                 className="mb-6 h-16 w-16 text-stone-400"
                 fill="none"
@@ -63,8 +63,8 @@ export function PDFPreview({ pdfUrl, totalPages = 3 }: PDFPreviewProps) {
               </a>
             </div>
           </object>
-          {/* Gradient overlay to fade out - stronger gradient */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-white via-white/95 to-transparent" />
+          {/* Gradient overlay to fade out - covers more of the content */}
+          <div className="via-white/98 pointer-events-none absolute inset-x-0 bottom-0 h-96 bg-gradient-to-t from-white to-transparent" />
         </div>
 
         {/* Lock overlay at bottom - Minimalist */}
