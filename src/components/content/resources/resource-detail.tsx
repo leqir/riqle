@@ -182,11 +182,7 @@ export function ResourceDetail({
                 </svg>
                 <h2 className="text-2xl font-bold text-stone-900">Preview</h2>
               </div>
-              <PDFPreview
-                pdfUrl="/products/1984-common-module-essay.pdf"
-                maxPreviewPages={3}
-                totalPages={3}
-              />
+              <PDFPreview pdfUrl="/products/1984-common-module-essay.pdf" totalPages={3} />
             </section>
 
             {/* Who it's for */}
