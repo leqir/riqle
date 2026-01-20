@@ -53,14 +53,43 @@ export function PDFPreview({ pdfUrl, totalPages = 3 }: PDFPreviewProps) {
 
       {/* PDF Preview - Shows top portion of first page */}
       <div className="relative overflow-hidden rounded-xl border-2 border-stone-200 bg-white shadow-lg">
-        {/* Cropped PDF embed */}
+        {/* Cropped PDF viewer */}
         <div className="relative h-[600px] overflow-hidden bg-stone-100">
-          <embed
-            src={`${pdfUrl}#page=1&toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+          <object
+            data={`${pdfUrl}#page=1&toolbar=0&navpanes=0&scrollbar=0&view=FitH&zoom=100`}
             type="application/pdf"
-            className="absolute left-0 top-0 h-[1000px] w-full"
+            className="absolute left-0 top-0 h-[1200px] w-full"
             style={{ pointerEvents: 'none' }}
-          />
+          >
+            {/* Fallback for browsers that don't support PDF viewing */}
+            <div className="flex h-[600px] flex-col items-center justify-center p-8 text-center">
+              <svg
+                className="mb-4 h-16 w-16 text-stone-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                />
+              </svg>
+              <p className="mb-4 text-lg font-semibold text-stone-700">PDF Preview Unavailable</p>
+              <p className="mb-6 text-sm text-stone-600">
+                Your browser doesn&apos;t support inline PDF viewing.
+              </p>
+              <a
+                href={pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+              >
+                Open PDF in New Tab
+              </a>
+            </div>
+          </object>
           {/* Gradient overlay to fade out */}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white via-white/90 to-transparent" />
         </div>
