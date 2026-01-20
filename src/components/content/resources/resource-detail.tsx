@@ -12,7 +12,20 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { PDFPreview } from './pdf-preview';
+import dynamic from 'next/dynamic';
+
+// Dynamically import PDF preview with SSR disabled (PDF.js is browser-only)
+const PDFPreview = dynamic(() => import('./pdf-preview').then((mod) => mod.PDFPreview), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center rounded-xl border border-stone-200 bg-white p-12">
+      <div className="text-center">
+        <div className="mb-3 inline-block h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent"></div>
+        <p className="text-sm text-stone-600">Loading preview...</p>
+      </div>
+    </div>
+  ),
+});
 
 type ResourceDetailProps = {
   productId: string;
@@ -105,7 +118,12 @@ export function ResourceDetail({
             className="inline-flex items-center gap-2 text-sm font-medium text-stone-600 transition-colors hover:text-stone-900"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
             Back to Resources
           </Link>
@@ -114,7 +132,12 @@ export function ResourceDetail({
         {/* Hero Section */}
         <div className="mb-12">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-purple-100 px-4 py-1.5">
-            <svg className="h-4 w-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg
+              className="h-4 w-4 text-purple-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -138,7 +161,12 @@ export function ResourceDetail({
             {/* Preview Section - Most Important */}
             <section>
               <div className="mb-6 flex items-center gap-3">
-                <svg className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg
+                  className="h-6 w-6 text-blue-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -164,7 +192,12 @@ export function ResourceDetail({
             {/* Who it's for */}
             <section>
               <h2 className="mb-6 flex items-center gap-2 text-2xl font-bold text-stone-900">
-                <svg className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg
+                  className="h-6 w-6 text-blue-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -178,7 +211,12 @@ export function ResourceDetail({
                 <div className="rounded-xl border border-green-200 bg-green-50 p-6">
                   <p className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-green-900">
                     <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                     Perfect for:
                   </p>
@@ -187,7 +225,12 @@ export function ResourceDetail({
                 <div className="rounded-xl border border-red-200 bg-red-50 p-6">
                   <p className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-red-900">
                     <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
                     </svg>
                     Not for:
                   </p>
@@ -217,8 +260,18 @@ export function ResourceDetail({
             {/* How it was created */}
             <section className="rounded-xl bg-blue-50 p-8">
               <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-stone-900">
-                <svg className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                <svg
+                  className="h-5 w-5 text-blue-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
                 </svg>
                 How it was created
               </h2>
@@ -244,7 +297,9 @@ export function ResourceDetail({
               {/* Purchase Card */}
               <div className="rounded-xl border-2 border-blue-200 bg-white p-6 shadow-lg">
                 <div className="mb-6">
-                  <p className="mb-2 text-sm font-bold uppercase tracking-wider text-stone-600">Price</p>
+                  <p className="mb-2 text-sm font-bold uppercase tracking-wider text-stone-600">
+                    Price
+                  </p>
                   <p className="text-4xl font-bold text-stone-900">
                     {currencySymbol}
                     {price}
@@ -253,7 +308,7 @@ export function ResourceDetail({
                 </div>
 
                 {error && (
-                  <div className="mb-4 rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-900">
+                  <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-900">
                     {error}
                   </div>
                 )}
@@ -266,7 +321,14 @@ export function ResourceDetail({
                   {purchasing ? (
                     <span className="flex items-center justify-center gap-2">
                       <svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
                         <path
                           className="opacity-75"
                           fill="currentColor"
@@ -283,32 +345,73 @@ export function ResourceDetail({
                 {/* Benefits */}
                 <div className="space-y-3 border-t border-stone-200 pt-4">
                   <div className="flex items-start gap-3">
-                    <svg className="h-5 w-5 mt-0.5 flex-shrink-0 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <svg
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                     <p className="text-sm text-stone-700">
-                      <span className="font-semibold">Watermarked PDF</span> - Forensically protected with your email
+                      <span className="font-semibold">Watermarked PDF</span> - Forensically
+                      protected with your email
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <svg className="h-5 w-5 mt-0.5 flex-shrink-0 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <svg
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                     <p className="text-sm text-stone-700">
                       <span className="font-semibold">Instant download</span> after purchase
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <svg className="h-5 w-5 mt-0.5 flex-shrink-0 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <svg
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                     <p className="text-sm text-stone-700">
                       <span className="font-semibold">14-day refund</span>, no questions asked
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <svg className="h-5 w-5 mt-0.5 flex-shrink-0 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <svg
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                     <p className="text-sm text-stone-700">
                       <span className="font-semibold">Secure payment</span> via Stripe
@@ -320,7 +423,12 @@ export function ResourceDetail({
               {/* Watermark Info */}
               <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
                 <div className="mb-2 flex items-center gap-2">
-                  <svg className="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg
+                    className="h-5 w-5 text-amber-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -331,14 +439,17 @@ export function ResourceDetail({
                   <h3 className="text-sm font-bold text-amber-900">Protected Content</h3>
                 </div>
                 <p className="text-xs leading-relaxed text-amber-800">
-                  Each PDF is watermarked with your email and purchase details. Sharing is traceable.
+                  Each PDF is watermarked with your email and purchase details. Sharing is
+                  traceable.
                 </p>
               </div>
 
               {/* Related Content */}
               {(relatedPosts.length > 0 || relatedProjects.length > 0) && (
                 <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
-                  <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-stone-900">Related</h3>
+                  <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-stone-900">
+                    Related
+                  </h3>
 
                   {relatedPosts.length > 0 && (
                     <div className="mb-4">
@@ -362,7 +473,9 @@ export function ResourceDetail({
 
                   {relatedProjects.length > 0 && (
                     <div>
-                      <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-stone-600">Work</h4>
+                      <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-stone-600">
+                        Work
+                      </h4>
                       <ul className="space-y-2">
                         {relatedProjects.map((project) => (
                           <li key={project.slug}>

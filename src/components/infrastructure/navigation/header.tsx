@@ -228,7 +228,7 @@ export function Header() {
                     sign in
                   </Link>
                   <Link
-                    href="/login"
+                    href="/signup"
                     className="group relative overflow-hidden rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 px-5 py-1.5 text-sm font-medium lowercase text-white shadow-md transition-all duration-200 hover:scale-105 hover:shadow-lg active:scale-95"
                   >
                     <span className="relative z-10">get started</span>
@@ -316,7 +316,7 @@ export function Header() {
                       sign in
                     </Link>
                     <Link
-                      href="/login"
+                      href="/signup"
                       className="block rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 px-4 py-2.5 text-center text-base font-medium lowercase text-white shadow-md transition-all duration-200 hover:shadow-lg active:scale-95"
                       onClick={() => setMobileMenuOpen(false)}
                     >

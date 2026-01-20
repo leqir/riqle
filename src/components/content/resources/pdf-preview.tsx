@@ -20,15 +20,8 @@ export function PDFPreview({ pdfUrl, maxPreviewPages = 3, totalPages }: PDFPrevi
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
   const [pageCount, setPageCount] = React.useState(totalPages || 0);
-  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  React.useEffect(() => {
-    if (!mounted) return;
-
     let isMounted = true;
 
     async function loadPDF() {
@@ -97,7 +90,7 @@ export function PDFPreview({ pdfUrl, maxPreviewPages = 3, totalPages }: PDFPrevi
     return () => {
       isMounted = false;
     };
-  }, [pdfUrl, maxPreviewPages, mounted]);
+  }, [pdfUrl, maxPreviewPages]);
 
   if (loading) {
     return (
