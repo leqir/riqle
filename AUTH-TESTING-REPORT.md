@@ -8,94 +8,94 @@
 
 ## Test Summary
 
-| Category                        | Status  | Details                                  |
-| ------------------------------- | ------- | ---------------------------------------- |
-| **Page Accessibility**          | ✅ PASS | All auth pages accessible (5/5)          |
-| **Signup Flow**                 | ✅ PASS | New user registration working            |
-| **Password Validation**         | ✅ PASS | All validation rules enforced (4/4)      |
-| **Email Verification**          | ✅ PASS | Verification emails sent, tokens working |
-| **Database Integration**        | ✅ PASS | User creation, role assignment working   |
-| **Duplicate Email Detection**   | ✅ PASS | Correctly rejects existing emails        |
-| **Header Authentication State** | ✅ PASS | Conditional rendering verified           |
-| **Logout Functionality**        | ✅ PASS | SignOut with callback implemented        |
+| Category                        | Status | Details                                  |
+| ------------------------------- | ------ | ---------------------------------------- |
+| **Page Accessibility**          | PASS   | All auth pages accessible (5/5)          |
+| **Signup Flow**                 | PASS   | New user registration working            |
+| **Password Validation**         | PASS   | All validation rules enforced (4/4)      |
+| **Email Verification**          | PASS   | Verification emails sent, tokens working |
+| **Database Integration**        | PASS   | User creation, role assignment working   |
+| **Duplicate Email Detection**   | PASS   | Correctly rejects existing emails        |
+| **Header Authentication State** | PASS   | Conditional rendering verified           |
+| **Logout Functionality**        | PASS   | SignOut with callback implemented        |
 
 ---
 
 ## Automated Test Results
 
-### ✅ Page Accessibility (5/5 Passed)
+### Page Accessibility (5/5 Passed)
 
 All authentication pages are properly routed and accessible:
 
-- `/login` - Login page ✅
-- `/signup` - Signup page ✅
-- `/forgot-password` - Password reset request page ✅
-- `/verify-email` - Email verification handler ✅
-- `/reset-password` - Password reset form ✅
+- `/login` - Login page
+- `/signup` - Signup page
+- `/forgot-password` - Password reset request page
+- `/verify-email` - Email verification handler
+- `/reset-password` - Password reset form
 
-### ✅ Signup Flow (PASS)
+### Signup Flow (PASS)
 
 **Test Case 1: New User Registration**
 
 - Email: `test-1768920834383@example.com`
-- Result: ✅ Account created successfully
-- Verification email: ✅ Sent
-- Customer role: ✅ Automatically assigned
-- Email verified: ⏳ Pending user action
+- Result: Account created successfully
+- Verification email: Sent
+- Customer role: Automatically assigned
+- Email verified: [PENDING] Pending user action
 
 **Test Case 2: Duplicate Email**
 
 - Email: `nathanael.thie@gmail.com`
-- Result: ✅ Correctly rejected with 409 status
-- Error message: "Email already registered" ✅
+- Result: Correctly rejected with 409 status
+- Error message: "Email already registered"
 
-### ✅ Password Validation (4/4 Passed)
+### Password Validation (4/4 Passed)
 
 All password strength requirements are properly enforced:
 
-| Test Case    | Password   | Expected Rejection Reason                  | Result  |
-| ------------ | ---------- | ------------------------------------------ | ------- |
-| Too Short    | `12345`    | "Must be at least 8 characters"            | ✅ PASS |
-| No Uppercase | `abcdefgh` | "Must contain at least 1 uppercase letter" | ✅ PASS |
-| No Lowercase | `ABCDEFGH` | "Must contain at least 1 lowercase letter" | ✅ PASS |
-| No Number    | `Abcdefgh` | "Must contain at least 1 number"           | ✅ PASS |
+| Test Case    | Password   | Expected Rejection Reason                  | Result |
+| ------------ | ---------- | ------------------------------------------ | ------ |
+| Too Short    | `12345`    | "Must be at least 8 characters"            | PASS   |
+| No Uppercase | `abcdefgh` | "Must contain at least 1 uppercase letter" | PASS   |
+| No Lowercase | `ABCDEFGH` | "Must contain at least 1 lowercase letter" | PASS   |
+| No Number    | `Abcdefgh` | "Must contain at least 1 number"           | PASS   |
 
-**Valid Password Example:** `ValidPassword123` ✅
+**Valid Password Example:** `ValidPassword123`
 
-### ✅ Database Integration (PASS)
+### Database Integration (PASS)
 
 **Current Database State:**
 
 **User 1: Regular Customer**
 
 - Email: `nathanael.thie@gmail.com`
-- Password: Set ✅ (hashed with bcrypt)
-- Email Verified: Yes ✅
-- Role: customer ✅
-- Can Login: Yes ✅
+- Password: Set (hashed with bcrypt)
+- Email Verified: Yes
+- Role: customer
+- Can Login: Yes
 
 **User 2: Admin User**
 
 - Email: `admin@riqle.com`
 - Name: Nathanael
-- Password: Set ✅ (hashed with bcrypt)
-- Email Verified: Yes ✅
-- Role: admin ✅
-- Can Login: Yes ✅
+- Password: Set (hashed with bcrypt)
+- Email Verified: Yes
+- Role: admin
+- Can Login: Yes
 
 **Database Models:**
 
-- User table ✅
-- Role table ✅ (admin, customer roles exist)
-- UserRole junction table ✅
-- PasswordResetToken table ✅
-- VerificationToken table ✅
+- User table
+- Role table (admin, customer roles exist)
+- UserRole junction table
+- PasswordResetToken table
+- VerificationToken table
 
 ---
 
 ## Manual Testing Checklist
 
-### 🔐 Login Flow
+### Login Flow
 
 **Test Steps:**
 
@@ -109,13 +109,13 @@ All password strength requirements are properly enforced:
 
 **Expected Behavior:**
 
-- ✅ Valid credentials → Login successful
-- ✅ Invalid credentials → "invalid email or password" error
-- ✅ Unverified email → "please verify your email" error
-- ✅ Header shows user avatar, name, and dropdown menu
-- ✅ Dropdown includes: account, purchases, (admin panel if admin), sign out
+- Valid credentials → Login successful
+- Invalid credentials → "invalid email or password" error
+- Unverified email → "please verify your email" error
+- Header shows user avatar, name, and dropdown menu
+- Dropdown includes: account, purchases, (admin panel if admin), sign out
 
-### 📝 Signup Flow
+### Signup Flow
 
 **Test Steps:**
 
@@ -128,13 +128,13 @@ All password strength requirements are properly enforced:
 
 **Expected Behavior:**
 
-- ✅ Weak password → Specific error message
-- ✅ Mismatched passwords → "passwords do not match" error
-- ✅ Existing email → "Email already registered" error
-- ✅ Valid submission → Success message + verification email sent
-- ✅ Success screen with instructions to check email
+- Weak password → Specific error message
+- Mismatched passwords → "passwords do not match" error
+- Existing email → "Email already registered" error
+- Valid submission → Success message + verification email sent
+- Success screen with instructions to check email
 
-### 📧 Email Verification
+### Email Verification
 
 **Test Steps:**
 
@@ -145,14 +145,14 @@ All password strength requirements are properly enforced:
 
 **Expected Behavior:**
 
-- ✅ Verification link format: `/verify-email?token=...&email=...`
-- ✅ Valid token → Email verified, can login
-- ✅ Invalid/expired token → Error message
-- ✅ Token can only be used once
+- Verification link format: `/verify-email?token=...&email=...`
+- Valid token → Email verified, can login
+- Invalid/expired token → Error message
+- Token can only be used once
 
 **Note:** In test mode, Resend only sends to `nathanael.thie@gmail.com`. To test with other emails, verify a domain.
 
-### 🔑 Forgot Password Flow
+### Forgot Password Flow
 
 **Test Steps:**
 
@@ -167,16 +167,16 @@ All password strength requirements are properly enforced:
 
 **Expected Behavior:**
 
-- ✅ Always returns success message (even for non-existent emails - security feature)
-- ✅ Registered email → Reset link sent
-- ✅ Reset link format: `/reset-password?token=...`
-- ✅ Valid token → Can set new password
-- ✅ Expired token (>1 hour) → Error message
-- ✅ Token can only be used once
-- ✅ After successful reset → Can login with new password
-- ✅ Confirmation email sent after password change
+- Always returns success message (even for non-existent emails - security feature)
+- Registered email → Reset link sent
+- Reset link format: `/reset-password?token=...`
+- Valid token → Can set new password
+- Expired token (>1 hour) → Error message
+- Token can only be used once
+- After successful reset → Can login with new password
+- Confirmation email sent after password change
 
-### 🎨 Header Authentication State
+### Header Authentication State
 
 **Test Steps (Logged Out):**
 
@@ -185,9 +185,9 @@ All password strength requirements are properly enforced:
 
 **Expected Logged Out State:**
 
-- ✅ "sign in" button visible → links to `/login`
-- ✅ "get started" button visible → links to `/signup`
-- ✅ No user profile visible
+- "sign in" button visible → links to `/login`
+- "get started" button visible → links to `/signup`
+- No user profile visible
 
 **Test Steps (Logged In):**
 
@@ -196,18 +196,18 @@ All password strength requirements are properly enforced:
 
 **Expected Logged In State:**
 
-- ✅ User avatar visible (first letter of name/email)
-- ✅ User's first name displayed
-- ✅ Dropdown arrow present
-- ✅ Click opens dropdown menu with:
-  - User's full name and email
-  - "my account" link → `/account`
-  - "my purchases" link → `/account/purchases`
-  - "admin panel" link (only if admin role) → `/admin`
-  - "sign out" button
-- ✅ "sign in" and "get started" buttons NOT visible
+- User avatar visible (first letter of name/email)
+- User's first name displayed
+- Dropdown arrow present
+- Click opens dropdown menu with:
+- User's full name and email
+- "my account" link → `/account`
+- "my purchases" link → `/account/purchases`
+- "admin panel" link (only if admin role) → `/admin`
+- "sign out" button
+- "sign in" and "get started" buttons NOT visible
 
-### 🚪 Logout Flow
+### Logout Flow
 
 **Test Steps:**
 
@@ -217,23 +217,23 @@ All password strength requirements are properly enforced:
 
 **Expected Behavior:**
 
-- ✅ Redirects to homepage (`/`)
-- ✅ Session cleared
-- ✅ Header shows logged-out state (sign in/get started buttons)
-- ✅ Cannot access protected routes
+- Redirects to homepage (`/`)
+- Session cleared
+- Header shows logged-out state (sign in/get started buttons)
+- Cannot access protected routes
 
-### 🔒 Security Features
+### Security Features
 
 **Implemented Security Measures:**
 
-- ✅ Passwords hashed with bcrypt (10 rounds)
-- ✅ Email enumeration prevention (forgot password always returns success)
-- ✅ One-time use tokens (verification & password reset)
-- ✅ Token expiration (24h for verification, 1h for password reset)
-- ✅ Password strength requirements enforced
-- ✅ CSRF protection (NextAuth built-in)
-- ✅ Server-only password utilities (marked with 'server-only')
-- ✅ Email verification required before login
+- Passwords hashed with bcrypt (10 rounds)
+- Email enumeration prevention (forgot password always returns success)
+- One-time use tokens (verification & password reset)
+- Token expiration (24h for verification, 1h for password reset)
+- Password strength requirements enforced
+- CSRF protection (NextAuth built-in)
+- Server-only password utilities (marked with 'server-only')
+- Email verification required before login
 
 ---
 
@@ -368,11 +368,11 @@ Role: admin
 
 ### For Development
 
-1. ✅ All core authentication flows implemented and tested
-2. ✅ Database properly configured with roles and relationships
-3. ✅ Security best practices followed
-4. ✅ Modern UI with smooth animations
-5. ⚠️ Verify domain in Resend for production email sending
+1.  All core authentication flows implemented and tested
+2.  Database properly configured with roles and relationships
+3.  Security best practices followed
+4.  Modern UI with smooth animations
+5.  [WARN] Verify domain in Resend for production email sending
 
 ### For Production
 
@@ -387,7 +387,7 @@ Role: admin
 
 ## Conclusion
 
-**Overall Status:** ✅ **PRODUCTION READY**
+**Overall Status:** **PRODUCTION READY**
 
 The authentication system has been comprehensively tested and verified. All core flows are working correctly:
 
