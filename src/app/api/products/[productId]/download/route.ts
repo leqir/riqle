@@ -5,7 +5,8 @@
  * Each download is forensically traceable to the buyer
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/auth.config';
 import { db } from '@/lib/db';
@@ -53,7 +54,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
     if (!entitlement) {
       return NextResponse.json(
         { error: 'No valid entitlement found. Please purchase this product first.' },
-        { status: 403 },
+        { status: 403 }
       );
     }
 

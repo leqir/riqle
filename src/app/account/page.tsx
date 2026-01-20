@@ -82,7 +82,9 @@ export default async function AccountPage() {
           {entitlements.length === 0 ? (
             <div className="py-12 text-center">
               <div className="mb-4 text-6xl">📦</div>
-              <p className="mb-4 text-lg lowercase text-gray-600">you haven't purchased anything yet</p>
+              <p className="mb-4 text-lg lowercase text-gray-600">
+                you haven&apos;t purchased anything yet
+              </p>
               <Link
                 href="/resources"
                 className="inline-block rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 px-6 py-3 font-semibold lowercase text-white shadow-md transition-all duration-200 hover:scale-105 hover:shadow-lg"
@@ -133,8 +135,7 @@ export default async function AccountPage() {
                   {entitlement.Order && (
                     <div className="mt-4 border-t border-stone-200 pt-4">
                       <p className="text-xs lowercase text-gray-500">
-                        order #{entitlement.Order.id} •{' '}
-                        {(entitlement.Order.total / 100).toFixed(2)}{' '}
+                        order #{entitlement.Order.id} • {(entitlement.Order.total / 100).toFixed(2)}{' '}
                         {entitlement.Order.currency}
                       </p>
                     </div>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Nanum_Pen_Script } from 'next/font/google';
 import { AuthSessionProvider } from '@/components/infrastructure/providers/session-provider';
 import { Header } from '@/components/infrastructure/navigation/header';
+import { Footer } from '@/components/infrastructure/navigation/footer';
 import './globals.css';
 
 const inter = Inter({
@@ -34,6 +35,7 @@ export default function RootLayout({
         <AuthSessionProvider>
           <Header />
           <main>{children}</main>
+          <Footer />
         </AuthSessionProvider>
       </body>
     </html>

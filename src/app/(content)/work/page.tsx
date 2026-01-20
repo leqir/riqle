@@ -14,7 +14,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'work | riqle',
-  description: "projects, products, and systems i've built and shipped.",
+  description: 'projects, products, and systems i&apos;ve built and shipped.',
 };
 
 export default async function WorkPage() {
@@ -38,14 +38,12 @@ export default async function WorkPage() {
       <div className="mx-auto max-w-4xl px-6 py-24 md:px-8 md:py-32">
         {/* Header */}
         <header className="mb-20">
-          <p className="mb-3 text-sm font-medium uppercase tracking-wider text-stone-500">
-            work
-          </p>
+          <p className="mb-3 text-sm font-medium uppercase tracking-wider text-stone-500">work</p>
           <h1 className="mb-4 text-[clamp(2.5rem,6vw,4rem)] font-semibold leading-[1.1] tracking-tight text-stone-900">
             projects, products, and systems
           </h1>
           <p className="text-xl leading-relaxed text-stone-600">
-            things i've built and shipped.
+            things i&apos;ve built and shipped.
           </p>
         </header>
 
@@ -57,22 +55,22 @@ export default async function WorkPage() {
               like atlassian or jpmorgan are rightly competitive, and learning within a well-run
               system is valuable.
             </p>
-            <p>i've chosen a different path for now.</p>
+            <p>i&apos;ve chosen a different path for now.</p>
             <p>
-              i prefer having direct responsibility over what i'm building. that usually means
+              i prefer having direct responsibility over what i&apos;m building. that usually means
               smaller teams, less structure, and more exposure, but it also means the work is mine
               end-to-end.
             </p>
             <p>
-              the projects here reflect that preference. they're not exercises or case studies.
-              they're things that exist, are used, and are still being improved.
+              the projects here reflect that preference. they&apos;re not exercises or case studies.
+              they&apos;re things that exist, are used, and are still being improved.
             </p>
           </div>
         </section>
 
         {/* Project List */}
         {projects.length === 0 ? (
-          <div className="border-l-2 border-stone-300 pl-8 py-12">
+          <div className="border-l-2 border-stone-300 py-12 pl-8">
             <p className="text-lg text-stone-600">no published projects yet. check back soon.</p>
           </div>
         ) : (

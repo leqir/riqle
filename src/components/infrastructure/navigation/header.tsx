@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { useSession, signOut } from 'next-auth/react';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 /**
  * Modern, Animated Header Component
@@ -21,7 +21,6 @@ export function Header() {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { data: session, status } = useSession();
-  // const _router = useRouter(); // Reserved for future use
   const pathname = usePathname();
   const userMenuRef = useRef<HTMLDivElement>(null);
 
@@ -91,7 +90,7 @@ export function Header() {
                 <span className="sr-only">Open main menu</span>
                 {mobileMenuOpen ? (
                   <svg
-                    className="h-6 w-6 transition-transform duration-300 rotate-90"
+                    className="h-6 w-6 rotate-90 transition-transform duration-300"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
@@ -130,14 +129,12 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   className={`relative px-4 py-2 text-sm font-medium lowercase tracking-wide transition-all duration-200 ${
-                    isActive(item.href)
-                      ? 'text-cyan-600'
-                      : 'text-stone-700 hover:text-cyan-500'
+                    isActive(item.href) ? 'text-cyan-600' : 'text-stone-700 hover:text-cyan-500'
                   }`}
                 >
                   {item.label}
                   {isActive(item.href) && (
-                    <span className="absolute inset-x-0 -bottom-px h-0.5 bg-gradient-to-r from-cyan-500 to-purple-500 animate-shimmer" />
+                    <span className="animate-shimmer absolute inset-x-0 -bottom-px h-0.5 bg-gradient-to-r from-cyan-500 to-purple-500" />
                   )}
                 </Link>
               ))}
@@ -157,7 +154,9 @@ export function Header() {
                     className="group flex items-center gap-2 rounded-full border border-stone-200 bg-white px-3 py-1.5 shadow-sm transition-all duration-200 hover:border-cyan-300 hover:shadow-md active:scale-95"
                   >
                     <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-purple-500 text-sm font-medium text-white shadow-inner">
-                      {session.user.name?.[0]?.toUpperCase() || session.user.email?.[0]?.toUpperCase() || 'U'}
+                      {session.user.name?.[0]?.toUpperCase() ||
+                        session.user.email?.[0]?.toUpperCase() ||
+                        'U'}
                     </div>
                     <span className="text-sm font-medium lowercase text-stone-700 transition-colors group-hover:text-cyan-600">
                       {session.user.name?.split(' ')[0] || 'account'}
@@ -177,9 +176,11 @@ export function Header() {
 
                   {/* User dropdown */}
                   {userMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-56 origin-top-right animate-slideDown rounded-xl border border-stone-200 bg-white shadow-xl ring-1 ring-black ring-opacity-5">
+                    <div className="animate-slideDown absolute right-0 mt-2 w-56 origin-top-right rounded-xl border border-stone-200 bg-white shadow-xl ring-1 ring-black ring-opacity-5">
                       <div className="border-b border-stone-100 px-4 py-3">
-                        <p className="text-sm font-medium text-stone-900">{session.user.name || 'User'}</p>
+                        <p className="text-sm font-medium text-stone-900">
+                          {session.user.name || 'User'}
+                        </p>
                         <p className="text-xs text-stone-500">{session.user.email}</p>
                       </div>
                       <div className="py-1">
@@ -270,7 +271,9 @@ export function Header() {
                 {session?.user ? (
                   <>
                     <div className="px-3 pb-2">
-                      <p className="text-sm font-medium text-stone-900">{session.user.name || 'User'}</p>
+                      <p className="text-sm font-medium text-stone-900">
+                        {session.user.name || 'User'}
+                      </p>
                       <p className="text-xs text-stone-500">{session.user.email}</p>
                     </div>
                     <Link

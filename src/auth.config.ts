@@ -1,18 +1,77 @@
 import type { NextAuthConfig } from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
 import Resend from 'next-auth/providers/resend';
 import { env } from '@/env';
+import { verifyPassword } from '@/lib/auth/password';
 
 /**
  * NextAuth.js v5 Configuration
  *
  * This configuration uses:
- * - Resend email provider for passwordless magic link authentication
+ * - Credentials provider for password-based authentication
+ * - Resend email provider for passwordless magic link authentication (backup)
  * - JWT session strategy for stateless authentication
  * - HttpOnly cookies for security
  * - Custom callbacks for role-based access control
  */
 export const authConfig = {
   providers: [
+    Credentials({
+      name: 'credentials',
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
+
+        try {
+          const { db } = await import('@/lib/db');
+
+          // Find user by email
+          const user = await db.user.findUnique({
+            where: { email: credentials.email as string },
+          });
+
+          if (!user || !user.password) {
+            // User doesn't exist or has no password set
+            return null;
+          }
+
+          // Verify password
+          const isValidPassword = await verifyPassword(
+            credentials.password as string,
+            user.password
+          );
+
+          if (!isValidPassword) {
+            return null;
+          }
+
+          // Check if email is verified
+          if (!user.emailVerified) {
+            throw new Error('EMAIL_NOT_VERIFIED');
+          }
+
+          // Return user object (will be added to JWT)
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            image: user.image,
+            emailVerified: user.emailVerified,
+          };
+        } catch (error) {
+          console.error('Authorization error:', error);
+          if (error instanceof Error && error.message === 'EMAIL_NOT_VERIFIED') {
+            throw error;
+          }
+          return null;
+        }
+      },
+    }),
     Resend({
       from: env.EMAIL_FROM,
       // Magic link customization
@@ -61,6 +120,7 @@ export const authConfig = {
   ],
   pages: {
     signIn: '/login',
+    newUser: '/signup',
     verifyRequest: '/verify-email',
     error: '/auth/error',
   },
@@ -88,11 +148,16 @@ export const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isOnAdminPage = nextUrl.pathname.startsWith('/admin');
-      const isOnLoginPage = nextUrl.pathname.startsWith('/login');
-      const isOnVerifyPage = nextUrl.pathname.startsWith('/verify-email');
+      const isOnAuthPage =
+        nextUrl.pathname.startsWith('/login') ||
+        nextUrl.pathname.startsWith('/signup') ||
+        nextUrl.pathname.startsWith('/verify-email') ||
+        nextUrl.pathname.startsWith('/forgot-password') ||
+        nextUrl.pathname.startsWith('/reset-password') ||
+        nextUrl.pathname.startsWith('/auth/');
 
-      // Allow access to login and verify pages without authentication
-      if (isOnLoginPage || isOnVerifyPage) {
+      // Allow access to auth pages without authentication
+      if (isOnAuthPage) {
         return true;
       }
 
