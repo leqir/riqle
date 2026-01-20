@@ -5,17 +5,15 @@ import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 
 /**
- * Login Page
+ * Modern Login Page
  *
  * Passwordless authentication using email magic links.
- * Users enter their email and receive a link to sign in.
- *
  * Features:
- * - Email validation
+ * - Smooth animations
+ * - Modern gradient design
  * - Loading states
  * - Error handling
  * - Success confirmation
- * - Callback URL support
  */
 export default function LoginPage() {
   const searchParams = useSearchParams();
@@ -33,7 +31,7 @@ export default function LoginPage() {
 
     // Basic email validation
     if (!email || !email.includes('@')) {
-      setErrorMessage('Please enter a valid email address');
+      setErrorMessage('please enter a valid email address');
       return;
     }
 
@@ -46,51 +44,68 @@ export default function LoginPage() {
         });
 
         if (result?.error) {
-          setErrorMessage('Failed to send magic link. Please try again.');
+          setErrorMessage('failed to send magic link. please try again.');
         } else {
           setIsSubmitted(true);
         }
       } catch (error) {
         console.error('Sign in error:', error);
-        setErrorMessage('An unexpected error occurred. Please try again.');
+        setErrorMessage('an unexpected error occurred. please try again.');
       }
     });
   };
 
-  // Display success message after email sent
+  // Success screen
   if (isSubmitted) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-50 to-blue-50 px-4">
-        <div className="w-full max-w-md">
-          <div className="rounded-2xl bg-white p-8 shadow-xl">
-            <div className="mb-6 flex justify-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-blue-500">
-                <svg
-                  className="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-50 via-white to-blue-50 px-4">
+        <div className="w-full max-w-md animate-slideUp">
+          {/* Success Icon */}
+          <div className="mb-8 flex justify-center">
+            <div className="relative">
+              <div className="absolute inset-0 animate-ping rounded-full bg-gradient-to-r from-cyan-400 to-purple-400 opacity-75" />
+              <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-purple-500 shadow-xl">
+                <svg className="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
             </div>
+          </div>
 
-            <h1 className="mb-2 text-center text-2xl font-bold text-gray-900">Check your email</h1>
-            <p className="mb-6 text-center text-gray-600">
-              We sent a magic link to <span className="font-semibold">{email}</span>
+          {/* Success Card */}
+          <div className="rounded-2xl border border-cyan-100 bg-white p-8 shadow-2xl">
+            <h1 className="mb-2 text-center text-2xl font-bold lowercase text-gray-900">
+              check your email
+            </h1>
+            <p className="mb-2 text-center lowercase text-gray-600">
+              we sent a magic link to
             </p>
+            <p className="mb-6 text-center font-semibold text-cyan-600">{email}</p>
 
-            <div className="rounded-lg bg-blue-50 p-4">
-              <p className="text-sm text-blue-900">
-                Click the link in the email to sign in to your account. The link will expire in 24
-                hours.
-              </p>
+            <div className="space-y-4">
+              <div className="rounded-xl bg-gradient-to-br from-cyan-50 to-purple-50 p-4 border border-cyan-100">
+                <p className="text-sm lowercase text-gray-700">
+                  click the link in your email to sign in. the link will expire in 24 hours.
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
+                <h2 className="mb-2 font-semibold lowercase text-gray-900">didn't receive it?</h2>
+                <ul className="space-y-1 text-sm lowercase text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <span className="text-cyan-500">•</span>
+                    <span>check your spam folder</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-cyan-500">•</span>
+                    <span>make sure you entered the correct email</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-cyan-500">•</span>
+                    <span>wait a few minutes and check again</span>
+                  </li>
+                </ul>
+              </div>
             </div>
 
             <button
@@ -98,14 +113,14 @@ export default function LoginPage() {
                 setIsSubmitted(false);
                 setEmail('');
               }}
-              className="mt-6 w-full text-center text-sm text-purple-600 hover:text-purple-700"
+              className="mt-6 w-full text-center text-sm lowercase text-cyan-600 transition-colors hover:text-cyan-700 active:scale-95"
             >
-              Use a different email
+              use a different email
             </button>
           </div>
 
-          <p className="mt-6 text-center text-sm text-gray-600">
-            Didn&apos;t receive an email? Check your spam folder or try again.
+          <p className="mt-6 text-center text-sm lowercase text-gray-600">
+            for security reasons, this link can only be used once.
           </p>
         </div>
       </div>
@@ -114,92 +129,168 @@ export default function LoginPage() {
 
   // Login form
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-50 to-blue-50 px-4">
-      <div className="w-full max-w-md">
-        <div className="rounded-2xl bg-white p-8 shadow-xl">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-50 via-white to-blue-50 px-4">
+      <div className="w-full max-w-md animate-fadeIn">
+        {/* Logo/Icon */}
+        <div className="mb-8 flex justify-center">
+          <div className="relative">
+            <div className="absolute inset-0 animate-pulse rounded-full bg-gradient-to-r from-cyan-400 to-purple-400 opacity-50 blur-xl" />
+            <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-purple-500 shadow-lg">
+              <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        {/* Login Card */}
+        <div className="rounded-2xl border border-stone-100 bg-white p-8 shadow-2xl">
           <div className="mb-8 text-center">
-            <h1 className="mb-2 text-3xl font-bold text-gray-900">Welcome to Riqle</h1>
-            <p className="text-gray-600">Sign in to your account</p>
+            <h1 className="mb-2 text-3xl font-bold lowercase tracking-tight text-gray-900">
+              welcome to riqle
+            </h1>
+            <p className="lowercase text-gray-600">sign in to your account</p>
           </div>
 
-          {/* Display auth error from URL */}
+          {/* Auth error from URL */}
           {error && (
-            <div className="mb-6 rounded-lg bg-red-50 p-4">
-              <p className="text-sm text-red-900">
+            <div className="mb-6 animate-shake rounded-xl border border-red-100 bg-red-50 p-4">
+              <p className="text-sm lowercase text-red-700">
                 {error === 'Configuration'
-                  ? 'There is a problem with the server configuration.'
+                  ? 'there is a problem with the server configuration.'
                   : error === 'AccessDenied'
-                    ? 'You do not have permission to sign in.'
+                    ? 'you do not have permission to sign in.'
                     : error === 'Verification'
-                      ? 'The sign in link is no longer valid. It may have already been used or expired.'
-                      : 'An error occurred during authentication. Please try again.'}
+                      ? 'the sign in link is no longer valid. it may have already been used or expired.'
+                      : 'an error occurred during authentication. please try again.'}
               </p>
             </div>
           )}
 
-          {/* Display form validation error */}
+          {/* Form validation error */}
           {errorMessage && (
-            <div className="mb-6 rounded-lg bg-red-50 p-4">
-              <p className="text-sm text-red-900">{errorMessage}</p>
+            <div className="mb-6 animate-shake rounded-xl border border-red-100 bg-red-50 p-4">
+              <p className="text-sm lowercase text-red-700">{errorMessage}</p>
             </div>
           )}
 
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
-              <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700">
-                Email address
+              <label htmlFor="email" className="mb-2 block text-sm font-medium lowercase text-gray-700">
+                email address
               </label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                required
-                disabled={isPending}
-                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 transition focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:opacity-50"
-              />
+              <div className="relative">
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  required
+                  disabled={isPending}
+                  className="w-full rounded-xl border-2 border-gray-200 px-4 py-3 lowercase text-gray-900 placeholder-gray-400 transition-all duration-200 focus:border-cyan-500 focus:outline-none focus:ring-4 focus:ring-cyan-500/20 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:opacity-50"
+                />
+                {email && !isPending && (
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <svg className="h-5 w-5 text-green-500 animate-scaleIn" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                )}
+              </div>
             </div>
 
             <button
               type="submit"
               disabled={isPending}
-              className="w-full rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 px-4 py-3 font-semibold text-white transition hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-cyan-500 to-purple-500 px-4 py-3 font-semibold lowercase text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-cyan-500/50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
             >
               {isPending ? (
                 <span className="flex items-center justify-center">
                   <svg className="mr-2 h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    />
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>
-                  Sending magic link...
+                  sending magic link...
                 </span>
               ) : (
-                'Continue with Email'
+                <>
+                  <span className="relative z-10">continue with email</span>
+                  <div className="absolute inset-0 -z-0 bg-gradient-to-r from-purple-500 to-cyan-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                </>
               )}
             </button>
           </form>
 
-          <div className="mt-6 text-center text-sm text-gray-600">
-            <p>We&apos;ll email you a magic link for a password-free sign in.</p>
+          <div className="mt-6 text-center">
+            <p className="text-sm lowercase text-gray-600">
+              we'll email you a magic link for password-free sign in
+            </p>
           </div>
         </div>
 
-        <p className="mt-6 text-center text-xs text-gray-500">
-          By continuing, you agree to our Terms of Service and Privacy Policy.
+        <p className="mt-6 text-center text-xs lowercase text-gray-500">
+          by continuing, you agree to our{' '}
+          <a href="/legal/terms" className="text-cyan-600 hover:text-cyan-700">
+            terms of service
+          </a>{' '}
+          and{' '}
+          <a href="/legal/privacy" className="text-cyan-600 hover:text-cyan-700">
+            privacy policy
+          </a>
         </p>
       </div>
+
+      {/* Animations */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+          20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.5);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.6s ease-out;
+        }
+        .animate-slideUp {
+          animation: slideUp 0.5s ease-out;
+        }
+        .animate-shake {
+          animation: shake 0.5s ease-in-out;
+        }
+        .animate-scaleIn {
+          animation: scaleIn 0.3s ease-out;
+        }
+      `}</style>
     </div>
   );
 }

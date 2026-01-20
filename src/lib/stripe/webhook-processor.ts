@@ -168,12 +168,12 @@ async function handleRefund(chargeOrIntent: Stripe.Charge | Stripe.PaymentIntent
   const order = await db.order.findFirst({
     where: { stripePaymentIntentId: paymentIntentId },
     include: {
-      items: {
+      OrderItem: {
         include: {
-          product: true,
+          Product: true,
         },
       },
-      entitlements: true,
+      Entitlement: true,
     },
   });
 

@@ -144,21 +144,21 @@ export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): 
     const orderWithDetails = await db.order.findUnique({
       where: { id: orderId },
       include: {
-        items: {
+        OrderItem: {
           include: {
-            product: true,
+            Product: true,
           },
         },
-        entitlements: true,
+        Entitlement: true,
       },
     });
 
-    if (!orderWithDetails || !orderWithDetails.items[0]) {
+    if (!orderWithDetails || !orderWithDetails.OrderItem[0]) {
       throw new Error(`Order ${orderId} or product not found for email`);
     }
 
-    const product = orderWithDetails.items[0].product;
-    const entitlement = orderWithDetails.entitlements[0];
+    const product = orderWithDetails.OrderItem[0].Product;
+    const entitlement = orderWithDetails.Entitlement[0];
 
     if (!entitlement) {
       throw new Error(`Entitlement not found for order ${orderId}`);
@@ -275,15 +275,15 @@ export async function handleRefund(charge: Stripe.Charge): Promise<void> {
     const orderWithProduct = await db.order.findUnique({
       where: { id: order.id },
       include: {
-        items: {
+        OrderItem: {
           include: {
-            product: true,
+            Product: true,
           },
         },
       },
     });
 
-    const productTitle = orderWithProduct?.items[0]?.product.title || 'Product';
+    const productTitle = orderWithProduct?.OrderItem[0]?.Product.title || 'Product';
     const refundAmount = formatCurrency(charge.amount_refunded, charge.currency.toUpperCase());
 
     const emailContent = refundConfirmationEmail({

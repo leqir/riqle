@@ -1,24 +1,20 @@
 /**
  * Work Page - Portfolio Listing
  *
- * Epic 5 - Story 5.3: Portfolio Structure (Macro Layout)
- *
  * Features:
- * - Apple-inspired typography
- * - Curated list (5-7 items max, no pagination)
+ * - Minimalist Apple HIG typography
+ * - Clean, scannable layout
  * - Best work first (not chronological)
  * - Clear role and outcome for each project
- * - Scannable in <60 seconds
  */
 
 import { type Metadata } from 'next';
 import { db } from '@/lib/db';
-import { Card, PageHero, MetaInfo, Text } from '@/components/ui';
-import { HandDrawnSparkles } from '@/components/design-system/icons/hand-drawn-sparkles';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Work | Nathanael',
-  description: "Projects, products, and systems I've built and shipped.",
+  title: 'work | riqle',
+  description: "projects, products, and systems i've built and shipped.",
 };
 
 export default async function WorkPage() {
@@ -26,7 +22,7 @@ export default async function WorkPage() {
   const projects = await db.project.findMany({
     where: { published: true },
     orderBy: { displayOrder: 'asc' },
-    take: 7, // Max 7 projects per Epic 5 specifications
+    take: 7,
     select: {
       slug: true,
       title: true,
@@ -38,62 +34,90 @@ export default async function WorkPage() {
   });
 
   return (
-    <div className="relative min-h-screen">
-      <div className="mx-auto max-w-5xl px-6 py-24 md:px-8 md:py-32">
+    <div className="min-h-screen bg-white">
+      <div className="mx-auto max-w-4xl px-6 py-24 md:px-8 md:py-32">
         {/* Header */}
-        <PageHero
-          icon={<HandDrawnSparkles className="h-7 w-7 text-purple-600" />}
-          title="Work"
-          description="Projects, products, and systems I've built and shipped."
-        />
+        <header className="mb-20">
+          <p className="mb-3 text-sm font-medium uppercase tracking-wider text-stone-500">
+            work
+          </p>
+          <h1 className="mb-4 text-[clamp(2.5rem,6vw,4rem)] font-semibold leading-[1.1] tracking-tight text-stone-900">
+            projects, products, and systems
+          </h1>
+          <p className="text-xl leading-relaxed text-stone-600">
+            things i've built and shipped.
+          </p>
+        </header>
 
-        {/* Career Philosophy Section */}
-        <section className="mb-16 rounded-3xl border border-stone-200/60 bg-gradient-to-br from-white/90 to-stone-50/90 p-8 backdrop-blur-xl md:p-12">
-          <div className="space-y-6">
-            <Text size="lg" color="secondary">
-              A lot of great work happens inside established organisations. Internships at places
-              like Atlassian or JPMorgan are rightly competitive, and learning within a well-run
+        {/* Career Philosophy */}
+        <section className="mb-20 border-l-2 border-stone-900 pl-8">
+          <div className="space-y-6 text-lg leading-relaxed text-stone-700">
+            <p>
+              a lot of great work happens inside established organisations. internships at places
+              like atlassian or jpmorgan are rightly competitive, and learning within a well-run
               system is valuable.
-            </Text>
-            <Text size="lg" color="secondary">
-              I&apos;ve chosen a different path for now.
-            </Text>
-            <Text size="lg" color="secondary">
-              I prefer having direct responsibility over what I&apos;m building. That usually means
+            </p>
+            <p>i've chosen a different path for now.</p>
+            <p>
+              i prefer having direct responsibility over what i'm building. that usually means
               smaller teams, less structure, and more exposure, but it also means the work is mine
               end-to-end.
-            </Text>
-            <Text size="lg" color="secondary">
-              The projects here reflect that preference. They&apos;re not exercises or case studies.
-              They&apos;re things that exist, are used, and are still being improved.
-            </Text>
+            </p>
+            <p>
+              the projects here reflect that preference. they're not exercises or case studies.
+              they're things that exist, are used, and are still being improved.
+            </p>
           </div>
         </section>
 
         {/* Project List */}
         {projects.length === 0 ? (
-          <div className="rounded-2xl border border-stone-200 bg-white p-12 text-center">
-            <p className="text-lg text-stone-600">No published projects yet. Check back soon!</p>
+          <div className="border-l-2 border-stone-300 pl-8 py-12">
+            <p className="text-lg text-stone-600">no published projects yet. check back soon.</p>
           </div>
         ) : (
-          <div className="space-y-6">
-            {projects.map((project) => (
-              <Card
-                key={project.slug}
-                href={`/work/${project.slug}`}
-                title={project.title}
-                description={project.description}
-                accentColor="blue"
-                badge={
-                  <span className="text-sm font-medium text-stone-500">
-                    {project.projectStatus}
-                  </span>
-                }
-                metaItems={[
-                  <MetaInfo key="role" label="Role" value={project.role} />,
-                  <MetaInfo key="outcome" label="Outcome" value={project.outcome} />,
-                ]}
-              />
+          <div className="space-y-16">
+            {projects.map((project, index) => (
+              <article key={project.slug} className="group">
+                <Link href={`/work/${project.slug}`} className="block">
+                  {/* Project Number */}
+                  <p className="mb-4 font-mono text-sm font-medium text-stone-400">
+                    {String(index + 1).padStart(2, '0')}
+                  </p>
+
+                  {/* Title */}
+                  <h2 className="mb-3 text-[clamp(1.75rem,4vw,2.5rem)] font-semibold leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-stone-600">
+                    {project.title}
+                  </h2>
+
+                  {/* Description */}
+                  <p className="mb-6 text-lg leading-relaxed text-stone-600">
+                    {project.description}
+                  </p>
+
+                  {/* Meta */}
+                  <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm">
+                    <div>
+                      <span className="font-medium text-stone-400">role</span>
+                      <span className="ml-3 text-stone-700">{project.role}</span>
+                    </div>
+                    <div>
+                      <span className="font-medium text-stone-400">outcome</span>
+                      <span className="ml-3 text-stone-700">{project.outcome}</span>
+                    </div>
+                    <div>
+                      <span className="ml-auto inline-block rounded-full bg-stone-100 px-3 py-1 text-xs font-medium text-stone-600">
+                        {project.projectStatus}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Divider */}
+                  {index < projects.length - 1 && (
+                    <div className="mt-16 h-px bg-gradient-to-r from-stone-200 via-stone-300 to-stone-200" />
+                  )}
+                </Link>
+              </article>
             ))}
           </div>
         )}

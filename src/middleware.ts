@@ -1,22 +1,17 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { generateRequestId } from './lib/request-id';
-import NextAuth from 'next-auth';
-import { authConfig } from '@/auth.config';
-
-const { auth } = NextAuth(authConfig);
 
 /**
- * Combined Middleware
+ * Middleware
  *
  * This middleware:
- * 1. Runs NextAuth authentication checks (via the auth callback)
- * 2. Injects request ID into all requests for tracing
+ * 1. Injects request ID into all requests for tracing
  *
- * The order is important:
- * - Auth runs first to handle authentication/authorization
- * - Then request ID is added for observability
+ * Note: NextAuth v5 handles authentication automatically via the API routes.
+ * We don't need auth middleware for route protection - that's handled by
+ * the authorized() callback in auth.config.ts
  */
-export default auth(async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   // Get existing request ID or generate a new one
   const requestId = request.headers.get('x-request-id') || generateRequestId();
 
@@ -35,7 +30,7 @@ export default auth(async function middleware(request: NextRequest) {
   response.headers.set('x-request-id', requestId);
 
   return response;
-});
+}
 
 // Configure which routes the middleware runs on
 export const config = {

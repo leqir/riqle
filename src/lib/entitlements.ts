@@ -160,7 +160,7 @@ export async function getUserEntitlements(userId: string) {
       OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
     },
     include: {
-      product: {
+      Product: {
         select: {
           id: true,
           slug: true,
@@ -170,7 +170,7 @@ export async function getUserEntitlements(userId: string) {
           downloadUrls: true,
         },
       },
-      order: {
+      Order: {
         select: {
           id: true,
           createdAt: true,

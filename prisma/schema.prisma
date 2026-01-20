@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Account {
-  id                String  @id @default(cuid())
+  id                String  @id
   userId            String
   type              String
   provider          String
@@ -28,7 +28,7 @@ model Account {
 }
 
 model AuditLog {
-  id        String   @id @default(cuid())
+  id        String   @id
   userId    String?
   action    String
   entity    String
@@ -46,7 +46,7 @@ model AuditLog {
 }
 
 model EmailLog {
-  id        String    @id @default(cuid())
+  id        String    @id
   to        String
   subject   String
   status    String
@@ -56,7 +56,7 @@ model EmailLog {
   sentAt    DateTime?
   failedAt  DateTime?
   createdAt DateTime  @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime
 
   @@index([createdAt])
   @@index([status])
@@ -64,7 +64,7 @@ model EmailLog {
 }
 
 model Entitlement {
-  id           String    @id @default(cuid())
+  id           String    @id
   userId       String
   productId    String
   orderId      String?
@@ -73,7 +73,7 @@ model Entitlement {
   revokedAt    DateTime?
   revokeReason String?
   createdAt    DateTime  @default(now())
-  updatedAt    DateTime @updatedAt
+  updatedAt    DateTime
   Order        Order?    @relation(fields: [orderId], references: [id])
   Product      Product   @relation(fields: [productId], references: [id])
   User         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -86,7 +86,7 @@ model Entitlement {
 }
 
 model IdempotencyKey {
-  id        String   @id @default(cuid())
+  id        String   @id
   key       String   @unique
   operation String
   result    Json?
@@ -98,7 +98,7 @@ model IdempotencyKey {
 }
 
 model MediaAsset {
-  id        String   @id @default(cuid())
+  id        String   @id
   key       String   @unique
   url       String
   size      Int
@@ -107,7 +107,7 @@ model MediaAsset {
   checksum  String?
   createdBy String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime
   User      User     @relation(fields: [createdBy], references: [id])
 
   @@index([createdBy])
@@ -115,7 +115,7 @@ model MediaAsset {
 }
 
 model Order {
-  id                    String        @id @default(cuid())
+  id                    String        @id
   userId                String?
   total                 Int
   currency              String        @default("USD")
@@ -126,7 +126,7 @@ model Order {
   fulfilledAt           DateTime?
   refundedAt            DateTime?
   createdAt             DateTime      @default(now())
-  updatedAt             DateTime @updatedAt
+  updatedAt             DateTime
   status                OrderStatus   @default(pending)
   Entitlement           Entitlement[]
   User                  User?         @relation(fields: [userId], references: [id])
@@ -140,14 +140,14 @@ model Order {
 }
 
 model OrderItem {
-  id          String   @id @default(cuid())
+  id          String   @id
   orderId     String
   productId   String
   amount      Int
   currency    String
   productName String
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime
   Order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   Product     Product  @relation(fields: [productId], references: [id])
 
@@ -156,7 +156,7 @@ model OrderItem {
 }
 
 model Page {
-  id              String   @id @default(cuid())
+  id              String   @id
   title           String
   slug            String   @unique
   content         String
@@ -166,14 +166,14 @@ model Page {
   metaDescription String?
   ogImage         String?
   createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  updatedAt       DateTime
 
   @@index([slug])
   @@index([status])
 }
 
 model Post {
-  id                  String    @id @default(cuid())
+  id                  String    @id
   title               String
   slug                String    @unique
   content             String
@@ -185,7 +185,7 @@ model Post {
   metaDescription     String?
   ogImage             String?
   createdAt           DateTime  @default(now())
-  updatedAt           DateTime @updatedAt
+  updatedAt           DateTime
   contextLine         String?
   description         String
   diagramUrl          String?
@@ -208,11 +208,11 @@ model Post {
 }
 
 model Product {
-  id                  String        @id @default(cuid())
+  id                  String        @id
   slug                String        @unique
   description         String
   createdAt           DateTime      @default(now())
-  updatedAt           DateTime @updatedAt
+  updatedAt           DateTime
   currency            String        @default("AUD")
   displayOrder        Int           @default(0)
   downloadUrls        String[]
@@ -243,7 +243,7 @@ model Product {
 }
 
 model Project {
-  id                  String    @id @default(cuid())
+  id                  String    @id
   title               String
   slug                String    @unique
   description         String
@@ -253,7 +253,7 @@ model Project {
   metaDescription     String?
   ogImage             String?
   createdAt           DateTime  @default(now())
-  updatedAt           DateTime @updatedAt
+  updatedAt           DateTime
   diagrams            String[]
   displayOrder        Int       @default(0)
   execution           String
@@ -280,16 +280,16 @@ model Project {
 }
 
 model Role {
-  id          String     @id @default(cuid())
+  id          String     @id
   name        String     @unique
   description String?
   createdAt   DateTime   @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime
   UserRole    UserRole[]
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id           String   @id
   sessionToken String   @unique
   userId       String
   expires      DateTime
@@ -299,7 +299,7 @@ model Session {
 }
 
 model Startup {
-  id                  String    @id @default(cuid())
+  id                  String    @id
   slug                String    @unique
   description         String
   status              String
@@ -308,7 +308,7 @@ model Startup {
   metaDescription     String?
   ogImage             String?
   createdAt           DateTime  @default(now())
-  updatedAt           DateTime @updatedAt
+  updatedAt           DateTime
   diagrams            String[]
   displayOrder        Int       @default(0)
   featured            Boolean   @default(false)
@@ -337,7 +337,7 @@ model Startup {
 }
 
 model StripeEvent {
-  id              String    @id @default(cuid())
+  id              String    @id
   eventId         String    @unique
   type            String
   processed       Boolean   @default(false)
@@ -352,18 +352,18 @@ model StripeEvent {
 }
 
 model Tag {
-  id        String    @id @default(cuid())
+  id        String    @id
   name      String    @unique
   slug      String    @unique
   createdAt DateTime  @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime
   TagLink   TagLink[]
 
   @@index([slug])
 }
 
 model TagLink {
-  id        String   @id @default(cuid())
+  id        String   @id
   tagId     String
   postId    String?
   projectId String?
@@ -383,31 +383,33 @@ model TagLink {
 }
 
 model User {
-  id               String        @id @default(cuid())
-  email            String        @unique
-  name             String?
-  image            String?
-  stripeCustomerId String?       @unique
-  emailVerified    DateTime?
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime @updatedAt
-  Account          Account[]
-  AuditLog         AuditLog[]
-  Entitlement      Entitlement[]
-  MediaAsset       MediaAsset[]
-  Order            Order[]
-  Post             Post[]
-  Project          Project[]
-  Session          Session[]
-  Startup          Startup[]
-  UserRole         UserRole[]
+  id                 String              @id @default(cuid())
+  email              String              @unique
+  name               String?
+  password           String?             // Hashed with bcrypt
+  image              String?
+  stripeCustomerId   String?             @unique
+  emailVerified      DateTime?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  Account            Account[]
+  AuditLog           AuditLog[]
+  Entitlement        Entitlement[]
+  MediaAsset         MediaAsset[]
+  Order              Order[]
+  PasswordResetToken PasswordResetToken[]
+  Post               Post[]
+  Project            Project[]
+  Session            Session[]
+  Startup            Startup[]
+  UserRole           UserRole[]
 
   @@index([email])
   @@index([stripeCustomerId])
 }
 
 model UserRole {
-  id        String   @id @default(cuid())
+  id        String   @id
   userId    String
   roleId    String
   createdAt DateTime @default(now())
@@ -425,6 +427,19 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expires   DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId])
 }
 
 enum OrderStatus {

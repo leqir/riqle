@@ -33,7 +33,7 @@ export default function RootLayout({
       <body className="bg-gradient-to-br from-blue-50 via-white to-purple-50 font-sans">
         <AuthSessionProvider>
           <Header />
-          <main className="pt-16">{children}</main>
+          <main>{children}</main>
         </AuthSessionProvider>
       </body>
     </html>

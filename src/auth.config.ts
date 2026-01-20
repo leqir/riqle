@@ -123,16 +123,16 @@ export const authConfig = {
           const userWithRoles = await db.user.findUnique({
             where: { id: token.id as string },
             include: {
-              userRoles: {
+              UserRole: {
                 include: {
-                  role: true,
+                  Role: true,
                 },
               },
             },
           });
 
           // Get all role names
-          const roles = userWithRoles?.userRoles.map((ur) => ur.role.name) ?? [];
+          const roles = userWithRoles?.UserRole.map((ur) => ur.Role.name) ?? [];
           token.role = roles.includes('admin') ? 'admin' : (roles[0] ?? 'customer');
         } catch (error) {
           console.error('Error fetching user role:', error);
