@@ -1,11 +1,12 @@
 /**
- * ResourceDetail Component - Clean, Organized Product Display
+ * ResourceDetail Component - Minimalist, Stripe-Inspired Design
  *
  * Features:
- * - Studocu-style preview with thumbnails
- * - Clear information architecture
- * - Watermarked PDF downloads
- * - Professional, trust-building design
+ * - Clean typography with stone color palette
+ * - Hand-drawn icons for personality
+ * - Large PDF preview
+ * - No boxes/cards for content - clean layout
+ * - Matches /work and /writing page aesthetic
  */
 
 'use client';
@@ -13,14 +14,16 @@
 import * as React from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import { HandDrawnCheck } from '@/components/design-system/icons/hand-drawn-check';
+import { HandDrawnShield } from '@/components/design-system/icons/hand-drawn-shield';
 
 // Dynamically import PDF preview with SSR disabled (PDF.js is browser-only)
 const PDFPreview = dynamic(() => import('./pdf-preview').then((mod) => mod.PDFPreview), {
   ssr: false,
   loading: () => (
-    <div className="flex items-center justify-center rounded-xl border border-stone-200 bg-white p-12">
+    <div className="flex items-center justify-center border-l-2 border-stone-200 bg-white py-32 pl-8">
       <div className="text-center">
-        <div className="mb-3 inline-block h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent"></div>
+        <div className="mb-3 inline-block h-8 w-8 animate-spin rounded-full border-4 border-stone-300 border-t-transparent"></div>
         <p className="text-sm text-stone-600">Loading preview...</p>
       </div>
     </div>
@@ -109,13 +112,13 @@ export function ResourceDetail({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-stone-50">
-      <div className="mx-auto max-w-6xl px-6 py-12 md:px-8 md:py-16">
+    <div className="min-h-screen bg-white">
+      <div className="mx-auto max-w-7xl px-6 py-12 md:px-8 md:py-16">
         {/* Breadcrumb */}
-        <nav className="mb-8">
+        <nav className="mb-12">
           <Link
             href="/resources"
-            className="inline-flex items-center gap-2 text-sm font-medium text-stone-600 transition-colors hover:text-stone-900"
+            className="inline-flex items-center gap-2 text-sm font-medium text-stone-500 transition-colors hover:text-stone-900"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path
@@ -125,186 +128,160 @@ export function ResourceDetail({
                 d="M15 19l-7-7 7-7"
               />
             </svg>
-            Back to Resources
+            resources
           </Link>
         </nav>
 
-        {/* Hero Section */}
-        <div className="mb-12">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-purple-100 px-4 py-1.5">
-            <svg
-              className="h-4 w-4 text-purple-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-              />
-            </svg>
-            <span className="text-sm font-semibold text-purple-700">{format}</span>
-          </div>
-
-          <h1 className="mb-4 text-[clamp(2rem,5vw,3rem)] font-bold leading-tight tracking-tight text-stone-900">
+        {/* Header */}
+        <header className="mb-16">
+          <p className="mb-3 text-sm font-medium uppercase tracking-wider text-stone-500">
+            {format}
+          </p>
+          <h1 className="mb-4 text-[clamp(2.5rem,6vw,4rem)] font-semibold leading-[1.1] tracking-tight text-stone-900">
             {title}
           </h1>
-          <p className="max-w-3xl text-lg leading-relaxed text-stone-700">{description}</p>
-        </div>
+          <p className="max-w-3xl text-xl leading-relaxed text-stone-600">{description}</p>
+        </header>
 
-        {/* Main Layout - Two Columns */}
-        <div className="grid gap-8 lg:grid-cols-3">
-          {/* Left Column - Content (2/3) */}
-          <div className="space-y-12 lg:col-span-2">
-            {/* Preview Section - Most Important */}
+        {/* Main Layout */}
+        <div className="grid gap-16 lg:grid-cols-[1fr,400px]">
+          {/* Left Column - Content */}
+          <div className="space-y-20">
+            {/* Preview Section - Full Width, Most Prominent */}
             <section>
-              <div className="mb-6 flex items-center gap-3">
-                <svg
-                  className="h-6 w-6 text-blue-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                  />
-                </svg>
-                <h2 className="text-2xl font-bold text-stone-900">Preview</h2>
+              <div className="mb-8">
+                <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
+                  preview
+                </p>
+                <h2 className="text-3xl font-semibold tracking-tight text-stone-900">
+                  see what&apos;s inside
+                </h2>
               </div>
               <PDFPreview pdfUrl="/products/1984-common-module-essay.pdf" totalPages={3} />
             </section>
 
-            {/* Who it's for */}
+            {/* Who it's for - Clean, No Boxes */}
             <section>
-              <h2 className="mb-6 flex items-center gap-2 text-2xl font-bold text-stone-900">
-                <svg
-                  className="h-6 w-6 text-blue-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                  />
-                </svg>
-                Who this is for
-              </h2>
-              <div className="space-y-4">
-                <div className="rounded-xl border border-green-200 bg-green-50 p-6">
-                  <p className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-green-900">
-                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    Perfect for:
-                  </p>
-                  <p className="text-base leading-relaxed text-green-900">{targetAudience}</p>
+              <div className="mb-8">
+                <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
+                  audience
+                </p>
+                <h2 className="text-3xl font-semibold tracking-tight text-stone-900">
+                  who this is for
+                </h2>
+              </div>
+
+              <div className="space-y-8">
+                {/* Perfect for */}
+                <div className="border-l-2 border-stone-900 pl-8">
+                  <div className="mb-3 flex items-center gap-2">
+                    <HandDrawnCheck className="h-5 w-5 text-stone-900" />
+                    <p className="text-sm font-semibold uppercase tracking-wider text-stone-900">
+                      perfect for
+                    </p>
+                  </div>
+                  <p className="text-lg leading-relaxed text-stone-700">{targetAudience}</p>
                 </div>
-                <div className="rounded-xl border border-red-200 bg-red-50 p-6">
-                  <p className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-red-900">
-                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                    Not for:
+
+                {/* Not for */}
+                <div className="border-l-2 border-stone-300 pl-8">
+                  <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-stone-500">
+                    not for
                   </p>
-                  <p className="text-base leading-relaxed text-red-900">{nonAudience}</p>
+                  <p className="text-lg leading-relaxed text-stone-600">{nonAudience}</p>
                 </div>
               </div>
             </section>
 
             {/* What it is */}
-            <section className="rounded-xl border border-stone-200 bg-white p-8 shadow-sm">
-              <h2 className="mb-4 text-xl font-bold text-stone-900">What it is</h2>
-              <div
-                className="prose prose-stone max-w-none"
-                dangerouslySetInnerHTML={{ __html: whatItIs }}
-              />
+            <section>
+              <div className="mb-6">
+                <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
+                  overview
+                </p>
+                <h2 className="text-3xl font-semibold tracking-tight text-stone-900">what it is</h2>
+              </div>
+              <div className="border-l-2 border-stone-900 pl-8">
+                <div
+                  className="prose prose-stone prose-lg max-w-none leading-relaxed text-stone-700"
+                  dangerouslySetInnerHTML={{ __html: whatItIs }}
+                />
+              </div>
             </section>
 
             {/* What it covers */}
-            <section className="rounded-xl border border-stone-200 bg-white p-8 shadow-sm">
-              <h2 className="mb-4 text-xl font-bold text-stone-900">What it covers</h2>
-              <div
-                className="prose prose-stone max-w-none"
-                dangerouslySetInnerHTML={{ __html: whatItCovers }}
-              />
+            <section>
+              <div className="mb-6">
+                <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
+                  content
+                </p>
+                <h2 className="text-3xl font-semibold tracking-tight text-stone-900">
+                  what it covers
+                </h2>
+              </div>
+              <div className="border-l-2 border-stone-900 pl-8">
+                <div
+                  className="prose prose-stone prose-lg max-w-none leading-relaxed text-stone-700"
+                  dangerouslySetInnerHTML={{ __html: whatItCovers }}
+                />
+              </div>
             </section>
 
             {/* How it was created */}
-            <section className="rounded-xl bg-blue-50 p-8">
-              <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-stone-900">
-                <svg
-                  className="h-5 w-5 text-blue-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
-                How it was created
-              </h2>
-              <div
-                className="prose prose-stone max-w-none"
-                dangerouslySetInnerHTML={{ __html: howItWasCreated }}
-              />
+            <section>
+              <div className="mb-6">
+                <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
+                  process
+                </p>
+                <h2 className="text-3xl font-semibold tracking-tight text-stone-900">
+                  how it was created
+                </h2>
+              </div>
+              <div className="border-l-2 border-stone-300 pl-8">
+                <div
+                  className="prose prose-stone prose-lg max-w-none leading-relaxed text-stone-600"
+                  dangerouslySetInnerHTML={{ __html: howItWasCreated }}
+                />
+              </div>
             </section>
 
             {/* What you get */}
-            <section className="rounded-xl border border-stone-200 bg-white p-8 shadow-sm">
-              <h2 className="mb-4 text-xl font-bold text-stone-900">What you get</h2>
-              <div
-                className="prose prose-stone max-w-none"
-                dangerouslySetInnerHTML={{ __html: whatYouGet }}
-              />
+            <section>
+              <div className="mb-6">
+                <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
+                  deliverable
+                </p>
+                <h2 className="text-3xl font-semibold tracking-tight text-stone-900">
+                  what you get
+                </h2>
+              </div>
+              <div className="border-l-2 border-stone-900 pl-8">
+                <div
+                  className="prose prose-stone prose-lg max-w-none leading-relaxed text-stone-700"
+                  dangerouslySetInnerHTML={{ __html: whatYouGet }}
+                />
+              </div>
             </section>
           </div>
 
-          {/* Right Column - Purchase Sidebar (1/3) */}
+          {/* Right Column - Purchase Sidebar */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 space-y-6">
-              {/* Purchase Card */}
-              <div className="rounded-xl border-2 border-blue-200 bg-white p-6 shadow-lg">
-                <div className="mb-6">
-                  <p className="mb-2 text-sm font-bold uppercase tracking-wider text-stone-600">
-                    Price
+            <div className="sticky top-24 space-y-8">
+              {/* Purchase Card - Minimalist */}
+              <div className="border-l-2 border-stone-900 bg-white pl-8">
+                <div className="mb-8">
+                  <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
+                    price
                   </p>
-                  <p className="text-4xl font-bold text-stone-900">
+                  <p className="mb-1 text-5xl font-semibold tracking-tight text-stone-900">
                     {currencySymbol}
                     {price}
                   </p>
-                  <p className="mt-1 text-sm font-medium text-stone-600">One-time payment</p>
+                  <p className="text-sm text-stone-600">one-time payment</p>
                 </div>
 
                 {error && (
-                  <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-900">
+                  <div className="mb-4 border-l-2 border-red-600 bg-red-50 py-3 pl-4 text-sm text-red-900">
                     {error}
                   </div>
                 )}
@@ -312,7 +289,7 @@ export function ResourceDetail({
                 <button
                   onClick={handlePurchase}
                   disabled={purchasing}
-                  className="mb-4 w-full rounded-lg bg-blue-600 px-6 py-4 text-base font-semibold text-white shadow-sm transition-all hover:bg-blue-700 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
+                  className="mb-6 w-full rounded-full bg-stone-900 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {purchasing ? (
                     <span className="flex items-center justify-center gap-2">
@@ -331,133 +308,74 @@ export function ResourceDetail({
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                         />
                       </svg>
-                      Processing...
+                      processing...
                     </span>
                   ) : (
-                    'Purchase Now'
+                    'purchase now'
                   )}
                 </button>
 
-                {/* Benefits */}
-                <div className="space-y-3 border-t border-stone-200 pt-4">
+                {/* Benefits - Clean List */}
+                <div className="space-y-4">
                   <div className="flex items-start gap-3">
-                    <svg
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <p className="text-sm text-stone-700">
-                      <span className="font-semibold">Watermarked PDF</span> - Forensically
-                      protected with your email
+                    <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-stone-900" />
+                    <p className="text-sm leading-relaxed text-stone-700">
+                      watermarked pdf with your purchase details
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <svg
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <p className="text-sm text-stone-700">
-                      <span className="font-semibold">Instant download</span> after purchase
+                    <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-stone-900" />
+                    <p className="text-sm leading-relaxed text-stone-700">
+                      instant download after purchase
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <svg
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <p className="text-sm text-stone-700">
-                      <span className="font-semibold">14-day refund</span>, no questions asked
+                    <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-stone-900" />
+                    <p className="text-sm leading-relaxed text-stone-700">
+                      14-day refund, no questions asked
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <svg
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <p className="text-sm text-stone-700">
-                      <span className="font-semibold">Secure payment</span> via Stripe
+                    <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-stone-900" />
+                    <p className="text-sm leading-relaxed text-stone-700">
+                      secure payment via stripe
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Watermark Info */}
-              <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
-                <div className="mb-2 flex items-center gap-2">
-                  <svg
-                    className="h-5 w-5 text-amber-600"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                    />
-                  </svg>
-                  <h3 className="text-sm font-bold text-amber-900">Protected Content</h3>
+              {/* Watermark Info - Subtle */}
+              <div className="border-l-2 border-stone-300 pl-8">
+                <div className="mb-3 flex items-center gap-2">
+                  <HandDrawnShield className="h-6 w-6 text-stone-400" />
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-stone-900">
+                    protected content
+                  </h3>
                 </div>
-                <p className="text-xs leading-relaxed text-amber-800">
-                  Each PDF is watermarked with your email and purchase details. Sharing is
-                  traceable.
+                <p className="text-sm leading-relaxed text-stone-600">
+                  each pdf is forensically watermarked with your email and purchase details. sharing
+                  is traceable.
                 </p>
               </div>
 
               {/* Related Content */}
               {(relatedPosts.length > 0 || relatedProjects.length > 0) && (
-                <div className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
-                  <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-stone-900">
-                    Related
+                <div className="border-t border-stone-200 pt-8">
+                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-stone-900">
+                    related
                   </h3>
 
                   {relatedPosts.length > 0 && (
-                    <div className="mb-4">
-                      <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-stone-600">
-                        Writing
+                    <div className="mb-6">
+                      <h4 className="mb-3 text-xs font-medium uppercase tracking-wider text-stone-500">
+                        writing
                       </h4>
                       <ul className="space-y-2">
                         {relatedPosts.map((post) => (
                           <li key={post.slug}>
                             <Link
                               href={`/writing/${post.slug}`}
-                              className="block text-sm text-blue-600 transition-colors hover:text-blue-700 hover:underline"
+                              className="block text-sm text-stone-700 transition-colors hover:text-stone-900"
                             >
                               {post.title}
                             </Link>
@@ -469,15 +387,15 @@ export function ResourceDetail({
 
                   {relatedProjects.length > 0 && (
                     <div>
-                      <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-stone-600">
-                        Work
+                      <h4 className="mb-3 text-xs font-medium uppercase tracking-wider text-stone-500">
+                        work
                       </h4>
                       <ul className="space-y-2">
                         {relatedProjects.map((project) => (
                           <li key={project.slug}>
                             <Link
                               href={`/work/${project.slug}`}
-                              className="block text-sm text-blue-600 transition-colors hover:text-blue-700 hover:underline"
+                              className="block text-sm text-stone-700 transition-colors hover:text-stone-900"
                             >
                               {project.title}
                             </Link>
