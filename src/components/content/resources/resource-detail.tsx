@@ -289,7 +289,7 @@ export function ResourceDetail({
 
           {/* Right Column - Purchase Sidebar (1/3) */}
           <div className="lg:col-span-1">
-            <div className="sticky top-8 space-y-6">
+            <div className="sticky top-24 space-y-6">
               {/* Purchase Card */}
               <div className="rounded-xl border-2 border-blue-200 bg-white p-6 shadow-lg">
                 <div className="mb-6">
