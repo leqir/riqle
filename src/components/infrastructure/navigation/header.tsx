@@ -159,7 +159,9 @@ export function Header() {
                         'U'}
                     </div>
                     <span className="text-sm font-medium lowercase text-stone-700 transition-colors group-hover:text-cyan-600">
-                      {session.user.name?.split(' ')[0] || 'account'}
+                      {session.user.name?.split(' ')[0] ||
+                        session.user.email?.split('@')[0] ||
+                        'user'}
                     </span>
                     <svg
                       className={`h-4 w-4 text-stone-500 transition-transform duration-200 ${
@@ -190,13 +192,6 @@ export function Header() {
                           className="block px-4 py-2 text-sm lowercase text-stone-700 transition-colors hover:bg-cyan-50 hover:text-cyan-600"
                         >
                           my account
-                        </Link>
-                        <Link
-                          href="/account/purchases"
-                          onClick={() => setUserMenuOpen(false)}
-                          className="block px-4 py-2 text-sm lowercase text-stone-700 transition-colors hover:bg-cyan-50 hover:text-cyan-600"
-                        >
-                          my purchases
                         </Link>
                         {session.user.role === 'admin' && (
                           <Link
@@ -282,13 +277,6 @@ export function Header() {
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       my account
-                    </Link>
-                    <Link
-                      href="/account/purchases"
-                      className="block rounded-lg px-3 py-2.5 text-base font-medium lowercase text-stone-700 transition-all duration-200 hover:bg-stone-50 hover:text-cyan-500"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      my purchases
                     </Link>
                     {session.user.role === 'admin' && (
                       <Link
