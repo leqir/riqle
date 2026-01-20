@@ -1,69 +1,194 @@
-/**
- * Verify Email Page
- *
- * This page is shown after a user clicks "Sign in with Email"
- * and before they click the magic link in their email.
- *
- * NextAuth will automatically redirect here based on the
- * verifyRequest page configuration in auth.config.ts
- */
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+
 export default function VerifyEmailPage() {
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
+  const email = searchParams.get('email');
+
+  const [status, setStatus] = useState<'verifying' | 'success' | 'error'>('verifying');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
+  useEffect(() => {
+    const verifyEmail = async () => {
+      if (!token || !email) {
+        setStatus('error');
+        setErrorMessage('invalid or missing verification link');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/auth/verify-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, token }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          setStatus('error');
+          setErrorMessage(data.error || 'verification failed');
+          return;
+        }
+
+        setStatus('success');
+      } catch (error) {
+        console.error('Verification error:', error);
+        setStatus('error');
+        setErrorMessage('an unexpected error occurred');
+      }
+    };
+
+    verifyEmail();
+  }, [token, email]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-50 to-blue-50 px-4">
-      <div className="w-full max-w-md">
-        <div className="rounded-2xl bg-white p-8 shadow-xl">
-          <div className="mb-6 flex justify-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-blue-500">
-              <svg
-                className="h-8 w-8 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
-            </div>
-          </div>
+    <>
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.5);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-50 via-white to-blue-50 px-4">
+        <div
+          className="w-full max-w-md"
+          style={{
+            animation: 'fadeIn 0.5s ease-out',
+          }}
+        >
+          {/* Verifying State */}
+          {status === 'verifying' && (
+            <>
+              <div className="mb-8 flex justify-center">
+                <div
+                  className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 shadow-lg"
+                  style={{
+                    animation: 'spin 1s linear infinite',
+                  }}
+                >
+                  <div className="h-16 w-16 rounded-full border-4 border-white border-t-transparent"></div>
+                </div>
+              </div>
 
-          <h1 className="mb-2 text-center text-2xl font-bold text-gray-900">Check your email</h1>
-          <p className="mb-6 text-center text-gray-600">
-            A sign in link has been sent to your email address.
-          </p>
+              <div className="rounded-2xl border border-cyan-100 bg-white p-8 shadow-xl">
+                <h1 className="mb-3 text-center text-2xl font-bold lowercase text-gray-900">
+                  verifying your email...
+                </h1>
+                <p className="text-center lowercase text-gray-600">
+                  please wait while we verify your account
+                </p>
+              </div>
+            </>
+          )}
 
-          <div className="space-y-4">
-            <div className="rounded-lg bg-blue-50 p-4">
-              <p className="text-sm text-blue-900">
-                Click the link in the email to sign in to your account. The link will expire in 24
-                hours.
-              </p>
-            </div>
+          {/* Success State */}
+          {status === 'success' && (
+            <>
+              <div className="mb-8 flex justify-center">
+                <div
+                  className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-green-400 to-emerald-500 text-4xl shadow-lg"
+                  style={{
+                    animation: 'scaleIn 0.5s ease-out',
+                  }}
+                >
+                  ✓
+                </div>
+              </div>
 
-            <div className="rounded-lg border border-gray-200 p-4">
-              <h2 className="mb-2 font-semibold text-gray-900">Didn&apos;t receive the email?</h2>
-              <ul className="list-inside list-disc space-y-1 text-sm text-gray-600">
-                <li>Check your spam or junk folder</li>
-                <li>Make sure you entered the correct email address</li>
-                <li>Wait a few minutes and check again</li>
-              </ul>
-            </div>
-          </div>
+              <div className="rounded-2xl border border-green-100 bg-white p-8 shadow-xl">
+                <h1 className="mb-3 text-center text-2xl font-bold lowercase text-gray-900">
+                  email verified!
+                </h1>
+                <p className="mb-6 text-center lowercase text-gray-600">
+                  your email has been successfully verified. you can now sign in to your account.
+                </p>
 
-          <div className="mt-6 text-center">
-            <a href="/login" className="text-sm text-purple-600 hover:text-purple-700">
-              Back to sign in
-            </a>
-          </div>
+                <Link
+                  href="/login"
+                  className="block w-full rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 px-4 py-3 text-center font-semibold lowercase text-white shadow-md transition-all duration-200 hover:scale-105 hover:shadow-lg active:scale-95"
+                >
+                  sign in now
+                </Link>
+              </div>
+            </>
+          )}
+
+          {/* Error State */}
+          {status === 'error' && (
+            <>
+              <div className="mb-8 flex justify-center">
+                <div
+                  className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-red-400 to-orange-500 text-4xl shadow-lg"
+                  style={{
+                    animation: 'scaleIn 0.5s ease-out',
+                  }}
+                >
+                  ✕
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-red-100 bg-white p-8 shadow-xl">
+                <h1 className="mb-3 text-center text-2xl font-bold lowercase text-gray-900">
+                  verification failed
+                </h1>
+                <p className="mb-6 text-center lowercase text-gray-600">{errorMessage}</p>
+
+                <div className="mb-6 rounded-lg bg-red-50 p-4">
+                  <p className="mb-2 text-sm font-semibold lowercase text-red-900">
+                    possible reasons:
+                  </p>
+                  <ul className="list-inside list-disc space-y-1 text-sm lowercase text-red-800">
+                    <li>the verification link has expired</li>
+                    <li>the link has already been used</li>
+                    <li>the link is invalid or corrupted</li>
+                  </ul>
+                </div>
+
+                <div className="space-y-2">
+                  <Link
+                    href="/signup"
+                    className="block w-full rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 px-4 py-3 text-center font-semibold lowercase text-white shadow-md transition-all duration-200 hover:scale-105 hover:shadow-lg active:scale-95"
+                  >
+                    sign up again
+                  </Link>
+                  <Link
+                    href="/login"
+                    className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-center font-medium lowercase text-gray-700 transition-all duration-200 hover:bg-gray-50 active:scale-95"
+                  >
+                    back to sign in
+                  </Link>
+                </div>
+              </div>
+            </>
+          )}
         </div>
-
-        <p className="mt-6 text-center text-sm text-gray-600">
-          For security reasons, this link can only be used once.
-        </p>
       </div>
-    </div>
+    </>
   );
 }

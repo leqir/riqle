@@ -8,12 +8,6 @@
 'use client';
 
 import * as React from 'react';
-import * as pdfjs from 'pdfjs-dist';
-
-// Configure PDF.js worker
-if (typeof window !== 'undefined') {
-  pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
-}
 
 interface PDFPreviewProps {
   pdfUrl: string;
@@ -26,14 +20,27 @@ export function PDFPreview({ pdfUrl, maxPreviewPages = 3, totalPages }: PDFPrevi
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
   const [pageCount, setPageCount] = React.useState(totalPages || 0);
+  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (!mounted) return;
+
     let isMounted = true;
 
     async function loadPDF() {
       try {
         setLoading(true);
         setError(null);
+
+        // Dynamically import PDF.js only on client side
+        const pdfjs = await import('pdfjs-dist');
+
+        // Configure worker
+        pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
         // Load the PDF document
         const loadingTask = pdfjs.getDocument(pdfUrl);
@@ -90,7 +97,7 @@ export function PDFPreview({ pdfUrl, maxPreviewPages = 3, totalPages }: PDFPrevi
     return () => {
       isMounted = false;
     };
-  }, [pdfUrl, maxPreviewPages]);
+  }, [pdfUrl, maxPreviewPages, mounted]);
 
   if (loading) {
     return (
@@ -116,7 +123,12 @@ export function PDFPreview({ pdfUrl, maxPreviewPages = 3, totalPages }: PDFPrevi
       {/* Preview Info */}
       <div className="flex items-center justify-between rounded-xl bg-blue-50 p-4">
         <div className="flex items-center gap-3">
-          <svg className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg
+            className="h-5 w-5 text-blue-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -145,7 +157,10 @@ export function PDFPreview({ pdfUrl, maxPreviewPages = 3, totalPages }: PDFPrevi
       {/* Page Thumbnails */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {pages.map((pageDataUrl, index) => (
-          <div key={index} className="group relative overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-md">
+          <div
+            key={index}
+            className="group relative overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-md"
+          >
             <div className="aspect-[8.5/11] overflow-hidden bg-stone-50">
               <img
                 src={pageDataUrl}
@@ -179,7 +194,9 @@ export function PDFPreview({ pdfUrl, maxPreviewPages = 3, totalPages }: PDFPrevi
           <p className="mb-2 text-lg font-semibold text-stone-900">
             {pageCount - maxPreviewPages} more pages locked
           </p>
-          <p className="text-sm text-stone-600">Purchase to unlock the full {pageCount}-page document</p>
+          <p className="text-sm text-stone-600">
+            Purchase to unlock the full {pageCount}-page document
+          </p>
         </div>
       )}
     </div>
