@@ -53,18 +53,19 @@ export function PDFPreview({ pdfUrl, totalPages = 3 }: PDFPreviewProps) {
 
       {/* PDF Preview - Shows top portion of first page */}
       <div className="relative overflow-hidden rounded-xl border-2 border-stone-200 bg-white shadow-lg">
-        {/* Cropped PDF iframe */}
-        <div className="relative h-[600px] overflow-hidden">
-          <iframe
-            src={`${pdfUrl}#page=1&view=FitH&toolbar=0&navpanes=0&scrollbar=0`}
-            className="absolute left-0 top-0 h-[800px] w-full border-0"
-            title="PDF Preview"
+        {/* Cropped PDF embed */}
+        <div className="relative h-[600px] overflow-hidden bg-stone-100">
+          <embed
+            src={`${pdfUrl}#page=1&toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+            type="application/pdf"
+            className="absolute left-0 top-0 h-[1000px] w-full"
+            style={{ pointerEvents: 'none' }}
           />
           {/* Gradient overlay to fade out */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white via-white/90 to-transparent" />
         </div>
 
-        {/* Blur overlay at bottom */}
+        {/* Lock overlay at bottom */}
         <div className="relative border-t-4 border-blue-600 bg-gradient-to-b from-blue-50 to-blue-100 px-6 py-8 text-center">
           <svg
             className="mx-auto mb-4 h-12 w-12 text-blue-600"
