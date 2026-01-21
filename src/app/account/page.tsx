@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { db } from '@/lib/db';
 import Link from 'next/link';
+import { AnimatedWrapper } from '@/components/account/AnimatedWrapper';
 
 /**
  * Account Page
@@ -54,42 +55,7 @@ export default async function AccountPage() {
   });
 
   return (
-    <>
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes shimmer {
-          0% {
-            background-position: -200% center;
-          }
-          100% {
-            background-position: 200% center;
-          }
-        }
-        .animate-shimmer {
-          background-size: 200% 100%;
-          animation: shimmer 2s linear infinite;
-        }
-      `}</style>
-
+    <AnimatedWrapper>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 px-4 py-12">
         <div className="mx-auto max-w-5xl">
           {/* Header */}
@@ -294,6 +260,6 @@ export default async function AccountPage() {
           </div>
         </div>
       </div>
-    </>
+    </AnimatedWrapper>
   );
 }
