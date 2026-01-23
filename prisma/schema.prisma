@@ -442,6 +442,30 @@ model PasswordResetToken {
   @@index([userId])
 }
 
+model FailedJob {
+  id          String          @id
+  jobType     String
+  payload     Json
+  error       String
+  attempts    Int             @default(0)
+  maxAttempts Int             @default(3)
+  status      FailedJobStatus @default(PENDING)
+  createdAt   DateTime        @default(now())
+  retriedAt   DateTime?
+  resolvedAt  DateTime?
+
+  @@index([status])
+  @@index([jobType])
+  @@index([createdAt])
+}
+
+enum FailedJobStatus {
+  PENDING
+  RETRYING
+  RESOLVED
+  ABANDONED
+}
+
 enum OrderStatus {
   pending
   processing

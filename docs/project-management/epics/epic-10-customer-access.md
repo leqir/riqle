@@ -1,4 +1,4 @@
-R# EPIC 10 — Customer Access & Delivery (Post-Purchase Trust)
+# EPIC 10 — Customer Access & Delivery (Post-Purchase Trust)
 
 **Epic ID:** 10
 **Epic Name:** Customer Access & Delivery (Post-Purchase Trust)

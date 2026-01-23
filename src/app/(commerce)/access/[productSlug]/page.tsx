@@ -46,7 +46,7 @@ export default async function AccessPage({ params, searchParams }: AccessPagePro
       description: true,
       format: true,
       whatYouGet: true,
-      downloadUrl: true,
+      downloadUrls: true,
       published: true,
     },
   });
@@ -82,35 +82,35 @@ export default async function AccessPage({ params, searchParams }: AccessPagePro
 
   // All checks passed - show download page
   return (
-    <div className="relative min-h-screen">
-      <div className="mx-auto max-w-3xl px-6 py-24 md:px-8 md:py-32">
+    <div className="relative min-h-screen bg-stone-50">
+      <div className="mx-auto max-w-2xl px-6 py-16 md:px-8 md:py-24">
         {/* Header */}
-        <header className="mb-12">
-          <h1 className="mb-4 text-[clamp(2.5rem,5vw,4rem)] font-bold tracking-tight text-stone-900">
+        <header className="mb-8">
+          <h1 className="mb-3 text-3xl font-semibold tracking-tight text-stone-900">
             {product.title}
           </h1>
-          <p className="text-xl leading-relaxed text-stone-700">{product.description}</p>
+          <p className="text-base leading-relaxed text-stone-600">{product.description}</p>
         </header>
 
         {/* Access granted message */}
-        <section className="mb-12 rounded-2xl border border-green-200 bg-green-50 p-8">
+        <section className="mb-6 rounded-lg border border-stone-200 bg-white p-6">
           <div className="flex items-start gap-3">
             <svg
-              className="h-6 w-6 flex-shrink-0 text-green-600"
+              className="h-5 w-5 flex-shrink-0 text-emerald-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
+              strokeWidth={2}
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
             <div>
-              <h2 className="mb-2 text-xl font-semibold text-green-900">Access granted</h2>
-              <p className="text-base leading-relaxed text-green-800">
+              <h2 className="mb-1 text-sm font-medium text-stone-900">Access granted</h2>
+              <p className="text-sm leading-relaxed text-stone-600">
                 You have active access to this product. Download your files below.
               </p>
             </div>
@@ -118,83 +118,86 @@ export default async function AccessPage({ params, searchParams }: AccessPagePro
         </section>
 
         {/* What you get */}
-        <section className="mb-12">
-          <h2 className="mb-4 text-2xl font-semibold text-stone-900">What you get</h2>
-          <div className="mb-4">
-            <p className="text-base font-semibold text-stone-900">Format: {product.format}</p>
+        <section className="mb-6 rounded-lg border border-stone-200 bg-white p-6">
+          <h2 className="mb-3 text-sm font-medium text-stone-900">What you get</h2>
+          <div className="mb-3">
+            <p className="text-sm text-stone-600">Format: {product.format}</p>
           </div>
           <div
-            className="prose prose-lg prose-stone max-w-none"
+            className="prose prose-sm prose-stone max-w-none text-stone-600"
             dangerouslySetInnerHTML={{ __html: product.whatYouGet }}
           />
         </section>
 
         {/* Downloads */}
-        <section className="mb-12 rounded-2xl border border-stone-300 bg-white p-8">
-          <h2 className="mb-6 text-2xl font-semibold text-stone-900">Downloads</h2>
+        <section className="mb-6 rounded-lg border border-stone-200 bg-white p-6">
+          <h2 className="mb-4 text-sm font-medium text-stone-900">Downloads</h2>
 
-          {product.downloadUrl ? (
-            <div className="space-y-4">
-              <a
-                href={product.downloadUrl}
-                download
-                className="flex items-center justify-between rounded-lg border border-stone-200 bg-stone-50 p-4 transition-colors duration-200 hover:bg-stone-100"
-              >
-                <div className="flex items-center gap-3">
+          {product.downloadUrls && product.downloadUrls.length > 0 ? (
+            <div className="space-y-3">
+              {product.downloadUrls.map((_, index) => (
+                <a
+                  key={index}
+                  href={`/api/products/${product.id}/download?eid=${tokenData.entitlementId}`}
+                  className="flex items-center justify-between rounded-md border border-stone-200 bg-stone-50 p-4 text-sm transition-colors duration-150 hover:bg-stone-100"
+                >
+                  <div className="flex items-center gap-3">
+                    <svg
+                      className="h-5 w-5 text-stone-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                      />
+                    </svg>
+                    <div>
+                      <p className="font-medium text-stone-900">{product.title}</p>
+                      <p className="text-xs text-stone-500">{product.format}</p>
+                    </div>
+                  </div>
                   <svg
-                    className="h-8 w-8 text-indigo-600"
+                    className="h-4 w-4 text-stone-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
+                    strokeWidth={2}
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                     />
                   </svg>
-                  <div>
-                    <p className="font-semibold text-stone-900">{product.title}</p>
-                    <p className="text-sm text-stone-600">{product.format}</p>
-                  </div>
-                </div>
-                <svg
-                  className="h-6 w-6 text-stone-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                  />
-                </svg>
-              </a>
-              <p className="text-sm text-stone-600">
-                You can download this file as many times as you need.
+                </a>
+              ))}
+              <p className="text-xs text-stone-500">
+                Your copy is watermarked with your email for security. You can download it as many
+                times as needed.
               </p>
             </div>
           ) : (
-            <p className="text-base text-stone-600">
+            <p className="text-sm text-stone-600">
               Download links are being prepared. Please check back shortly or contact support.
             </p>
           )}
         </section>
 
         {/* Help & support */}
-        <section className="mb-12">
-          <h2 className="mb-4 text-2xl font-semibold text-stone-900">Need help?</h2>
-          <p className="mb-4 text-base leading-relaxed text-stone-700">
+        <section className="mb-6 rounded-lg border border-stone-200 bg-white p-6">
+          <h2 className="mb-2 text-sm font-medium text-stone-900">Need help?</h2>
+          <p className="mb-2 text-sm leading-relaxed text-stone-600">
             Having trouble downloading or accessing your purchase?
           </p>
-          <p className="text-base leading-relaxed text-stone-700">
+          <p className="text-sm leading-relaxed text-stone-600">
             Email{' '}
             <a
               href="mailto:support@riqle.com"
-              className="text-indigo-600 transition-colors duration-200 hover:text-indigo-700 hover:underline"
+              className="text-blue-600 transition-colors duration-150 hover:text-blue-700"
             >
               support@riqle.com
             </a>{' '}
@@ -203,11 +206,11 @@ export default async function AccessPage({ params, searchParams }: AccessPagePro
         </section>
 
         {/* Refund policy */}
-        <section className="rounded-2xl bg-stone-50 p-8">
-          <h2 className="mb-4 text-2xl font-semibold text-stone-900">Refund policy</h2>
-          <p className="text-base leading-relaxed text-stone-700">
-            14-day refund window, no questions asked. Just reply to your purchase confirmation
-            email or contact support.
+        <section className="rounded-lg border border-stone-200 bg-white p-6">
+          <h2 className="mb-2 text-sm font-medium text-stone-900">Refund policy</h2>
+          <p className="text-sm leading-relaxed text-stone-600">
+            14-day refund window, no questions asked. Just reply to your purchase confirmation email
+            or contact support.
           </p>
         </section>
       </div>

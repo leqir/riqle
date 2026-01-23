@@ -21,7 +21,7 @@ export interface WatermarkOptions {
  */
 export async function watermarkPDF(
   pdfBuffer: ArrayBuffer,
-  options: WatermarkOptions,
+  options: WatermarkOptions
 ): Promise<Uint8Array> {
   // Load the PDF
   const pdfDoc = await PDFDocument.load(pdfBuffer);
@@ -39,46 +39,127 @@ export async function watermarkPDF(
   for (const page of pages) {
     const { width, height } = page.getSize();
 
-    // Add semi-transparent watermark in center (diagonal)
-    const fontSize = 12;
-    const lineHeight = fontSize + 4;
+    const fontSize = 11;
+    const smallFontSize = 7;
     const angle = -45; // Diagonal watermark
 
-    // Calculate center position
-    const textWidth = Math.max(...watermarkLines.map((line) => font.widthOfTextAtSize(line, fontSize)));
-    const textHeight = watermarkLines.length * lineHeight;
+    // Watermark text
+    const shortWatermark = `${options.buyerEmail}`;
+    const orderInfo = `Order ${options.orderId}`;
+    const fullWatermark = `Licensed to ${options.buyerEmail}`;
 
-    // Draw each line
+    // Calculate margins to avoid overlapping with edges
+    const _margin = 50;
+    const edgeMargin = 25;
+
+    // 1. REPEATING DIAGONAL PATTERN (background coverage)
+    // Adjusted spacing to prevent overlap with other watermarks
+    const diagonalSpacing = 250;
+    const diagonalFontSize = 10;
+
+    for (let x = -width; x < width * 2; x += diagonalSpacing) {
+      for (let y = -height; y < height * 2; y += diagonalSpacing) {
+        // Skip center area to avoid overlap with main center watermark
+        const distanceFromCenter = Math.sqrt(
+          Math.pow(x - width / 2, 2) + Math.pow(y - height / 2, 2)
+        );
+        if (distanceFromCenter > 150) {
+          page.drawText(shortWatermark, {
+            x: x,
+            y: y,
+            size: diagonalFontSize,
+            font,
+            color: rgb(0.8, 0.8, 0.8),
+            opacity: 0.2,
+            rotate: { type: 'degrees', angle },
+          });
+        }
+      }
+    }
+
+    // 2. CENTER WATERMARK (most prominent) - only on upper half to avoid footer overlap
+    const centerY = height * 0.6; // Position in upper-middle area
+
     watermarkLines.forEach((line, index) => {
+      const textWidth = font.widthOfTextAtSize(line, fontSize);
       page.drawText(line, {
         x: width / 2 - textWidth / 2,
-        y: height / 2 + textHeight / 2 - index * lineHeight,
+        y: centerY - index * 18,
         size: fontSize,
         font,
-        color: rgb(0.7, 0.7, 0.7), // Light gray
-        opacity: 0.3, // Semi-transparent
+        color: rgb(0.6, 0.6, 0.6),
+        opacity: 0.35,
         rotate: { type: 'degrees', angle },
       });
     });
 
-    // Add small footer watermark (visible but not obtrusive)
-    page.drawText(`Licensed to ${options.buyerEmail} - ${options.orderId}`, {
-      x: 50,
-      y: 20,
-      size: 7,
+    // 3. TOP AND BOTTOM BARS (horizontal, non-overlapping)
+    // Top bar - order info
+    const topText = `${orderInfo} - ${options.purchaseDate.toLocaleDateString()}`;
+    const topTextWidth = font.widthOfTextAtSize(topText, smallFontSize);
+    page.drawText(topText, {
+      x: width / 2 - topTextWidth / 2,
+      y: height - edgeMargin,
+      size: smallFontSize,
       font,
       color: rgb(0.5, 0.5, 0.5),
       opacity: 0.6,
     });
 
-    // Add header watermark
-    page.drawText(`Order ${options.orderId} - ${options.purchaseDate.toLocaleDateString()}`, {
-      x: 50,
-      y: height - 20,
-      size: 7,
+    // Bottom bar - license info
+    const bottomTextWidth = font.widthOfTextAtSize(fullWatermark, smallFontSize);
+    page.drawText(fullWatermark, {
+      x: width / 2 - bottomTextWidth / 2,
+      y: edgeMargin,
+      size: smallFontSize,
       font,
       color: rgb(0.5, 0.5, 0.5),
       opacity: 0.6,
+    });
+
+    // 4. STRATEGIC QUADRANT WATERMARKS (non-overlapping positions)
+    // These are positioned to avoid the center watermark and edges
+    const quadrants = [
+      { x: width * 0.25, y: height * 0.8, angle: -30 }, // Top-left
+      { x: width * 0.75, y: height * 0.8, angle: -30 }, // Top-right
+      { x: width * 0.25, y: height * 0.3, angle: -30 }, // Bottom-left
+      { x: width * 0.75, y: height * 0.3, angle: -30 }, // Bottom-right
+    ];
+
+    quadrants.forEach((pos) => {
+      const textWidth = font.widthOfTextAtSize(shortWatermark, diagonalFontSize);
+      page.drawText(shortWatermark, {
+        x: pos.x - textWidth / 2,
+        y: pos.y,
+        size: diagonalFontSize,
+        font,
+        color: rgb(0.7, 0.7, 0.7),
+        opacity: 0.3,
+        rotate: { type: 'degrees', angle: pos.angle },
+      });
+    });
+
+    // 5. SIDE MARGINS (vertical text on left and right)
+    // Left margin
+    page.drawText(shortWatermark, {
+      x: 12,
+      y: height / 2,
+      size: smallFontSize - 1,
+      font,
+      color: rgb(0.6, 0.6, 0.6),
+      opacity: 0.4,
+      rotate: { type: 'degrees', angle: 90 },
+    });
+
+    // Right margin
+    page.drawText(shortWatermark, {
+      x: width - 12,
+      y: height / 2,
+      size: smallFontSize - 1,
+      font,
+      color: rgb(0.6, 0.6, 0.6),
+      opacity: 0.4,
+      rotate: { type: 'degrees', angle: -90 },
     });
   }
 
@@ -92,7 +173,7 @@ export async function watermarkPDF(
  */
 export async function generatePDFPreview(
   pdfBuffer: ArrayBuffer,
-  maxPages: number = 3,
+  maxPages: number = 3
 ): Promise<{ pageCount: number; previewPages: number[] }> {
   const pdfDoc = await PDFDocument.load(pdfBuffer);
   const pageCount = pdfDoc.getPageCount();

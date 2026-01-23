@@ -2,7 +2,7 @@ import type Stripe from 'stripe';
 import { db } from '@/lib/db';
 import { sendEmail } from '@/lib/email';
 import { purchaseConfirmationEmail, refundConfirmationEmail } from '@/lib/email-templates';
-import { OrderStatus } from '@prisma/client';
+import { OrderStatus, Prisma } from '@prisma/client';
 import 'server-only';
 
 /**
@@ -46,6 +46,7 @@ export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): 
   }
 
   let orderId: string;
+  let isRaceCondition = false;
 
   try {
     // Execute fulfillment in a transaction
@@ -68,6 +69,7 @@ export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): 
       // Create Order
       const order = await tx.order.create({
         data: {
+          id: `order_${session.id}_${Date.now()}`,
           userId,
           status: OrderStatus.completed,
           total: session.amount_total ?? 0,
@@ -77,17 +79,20 @@ export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): 
           customerEmail: session.customer_email,
           customerName: session.customer_details?.name ?? null,
           fulfilledAt: new Date(),
+          updatedAt: new Date(),
         },
       });
 
       // Create OrderItem (Epic 8: no priceId, snapshot from Product)
       await tx.orderItem.create({
         data: {
+          id: `order_item_${order.id}_${productId}_${Date.now()}`,
           orderId: order.id,
           productId,
           amount: product.priceInCents,
           currency: product.currency,
           productName: product.title,
+          updatedAt: new Date(),
         },
       });
 
@@ -116,6 +121,7 @@ export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): 
         // Create new entitlement
         await tx.entitlement.create({
           data: {
+            id: `entitlement_${userId}_${productId}_${Date.now()}`,
             userId,
             productId,
             orderId: order.id,
@@ -123,6 +129,7 @@ export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): 
             // expiresAt is null for lifetime access (one-time purchases)
             // For subscriptions, this would be set based on billing period
             expiresAt: null,
+            updatedAt: new Date(),
           },
         });
       }
@@ -134,11 +141,48 @@ export async function fulfillCheckoutSession(session: Stripe.Checkout.Session): 
 
     console.log(`Successfully fulfilled order ${orderId} for session ${session.id}`);
   } catch (error) {
-    console.error(`Failed to fulfill checkout session ${session.id}:`, error);
-    throw error;
+    // Handle race condition: if another concurrent request already created the order,
+    // check if it exists and return gracefully instead of failing
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === 'P2002' // Unique constraint violation
+    ) {
+      console.log(
+        `Unique constraint error for session ${session.id}, checking if order was created by concurrent request`
+      );
+
+      // Check if order was created by the concurrent request
+      const existingOrder = await db.order.findUnique({
+        where: { stripeSessionId: session.id },
+      });
+
+      if (existingOrder) {
+        console.log(
+          `Order ${existingOrder.id} was created by concurrent request for session ${session.id}, treating as success`
+        );
+        orderId = existingOrder.id;
+        isRaceCondition = true;
+        // Skip email sending (concurrent request will handle it)
+      } else {
+        // This shouldn't happen, but if it does, throw the error
+        console.error(`Unique constraint error but no order found for session ${session.id}`);
+        throw error;
+      }
+    } else {
+      console.error(`Failed to fulfill checkout session ${session.id}:`, error);
+      throw error;
+    }
   }
 
   // Send confirmation email (outside transaction to avoid rollback issues)
+  // Skip if this was a race condition (concurrent request will send email)
+  if (isRaceCondition) {
+    console.log(
+      `Skipping email send for session ${session.id} (race condition, concurrent request will send)`
+    );
+    return;
+  }
+
   try {
     // Fetch complete order with product and entitlement details
     const orderWithDetails = await db.order.findUnique({
@@ -250,6 +294,7 @@ export async function handleRefund(charge: Stripe.Charge): Promise<void> {
       // Create audit log
       await tx.auditLog.create({
         data: {
+          id: `audit_${order.id}_refund_${Date.now()}`,
           userId: order.userId ?? undefined,
           action: 'refund_processed',
           entity: 'order',
@@ -313,4 +358,3 @@ function formatCurrency(amountInCents: number, currency: string): string {
     currency: currency,
   }).format(amount);
 }
-

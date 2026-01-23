@@ -150,6 +150,7 @@ export const authConfig = {
      */
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
+      const isAdmin = auth?.user?.role === 'admin';
       const isOnAdminPage = nextUrl.pathname.startsWith('/admin');
       const isOnAuthPage =
         nextUrl.pathname.startsWith('/login') ||
@@ -164,10 +165,17 @@ export const authConfig = {
         return true;
       }
 
-      // Protect admin pages - require authentication
+      // Protect admin pages - require authentication AND admin role
       if (isOnAdminPage) {
-        if (isLoggedIn) return true;
-        return false; // Redirect to login page
+        if (!isLoggedIn) {
+          // Redirect to login with callback to admin page
+          return false;
+        }
+        if (!isAdmin) {
+          // User is logged in but not admin - redirect to unauthorized
+          return Response.redirect(new URL('/unauthorized', nextUrl));
+        }
+        return true;
       }
 
       // All other pages are public

@@ -220,8 +220,8 @@ export default async function AccountPage() {
                         </svg>
                       </Link>
                       {entitlement.Product.downloadUrls.length > 0 && (
-                        <Link
-                          href={`/api/downloads/${entitlement.Product.id}`}
+                        <a
+                          href={`/api/products/${entitlement.Product.id}/download`}
                           className="inline-flex items-center rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 px-4 py-2 text-sm font-semibold lowercase text-white shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md active:scale-95"
                         >
                           <svg
@@ -238,7 +238,7 @@ export default async function AccountPage() {
                             />
                           </svg>
                           download ({entitlement.Product.format})
-                        </Link>
+                        </a>
                       )}
                     </div>
 

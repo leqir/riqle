@@ -1,5 +1,4 @@
 import { headers } from 'next/headers';
-import 'server-only';
 
 const REQUEST_ID_HEADER = 'x-request-id';
 

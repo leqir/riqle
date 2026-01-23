@@ -21,48 +21,81 @@ type RouteContext = {
 export async function GET(request: NextRequest, context: RouteContext) {
   try {
     const { productId } = await context.params;
+    const { searchParams } = new URL(request.url);
+    const eid = searchParams.get('eid');
 
-    // Check authentication
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.email) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    let entitlement;
+    let user;
 
-    // Get user
-    const user = await db.user.findUnique({
-      where: { email: session.user.email },
-    });
+    // Support two access methods: magic link (eid) or authenticated session
+    if (eid) {
+      // Magic link access - verify entitlement ID
+      entitlement = await db.entitlement.findUnique({
+        where: { id: eid },
+        include: {
+          Order: true,
+          Product: true,
+          User: true,
+        },
+      });
 
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
+      if (!entitlement || entitlement.productId !== productId || !entitlement.active) {
+        return NextResponse.json({ error: 'Invalid or expired access link' }, { status: 403 });
+      }
 
-    // Check entitlement (user has purchased this product)
-    const entitlement = await db.entitlement.findFirst({
-      where: {
-        userId: user.id,
-        productId: productId,
-        active: true,
-        OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
-      },
-      include: {
-        Order: true,
-        Product: true,
-      },
-    });
+      user = entitlement.User;
+    } else {
+      // Session-based access - require authentication
+      const session = await getServerSession(authOptions);
+      if (!session?.user?.email) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      }
 
-    if (!entitlement) {
-      return NextResponse.json(
-        { error: 'No valid entitlement found. Please purchase this product first.' },
-        { status: 403 }
-      );
+      // Get user
+      user = await db.user.findUnique({
+        where: { email: session.user.email },
+      });
+
+      if (!user) {
+        return NextResponse.json({ error: 'User not found' }, { status: 404 });
+      }
+
+      // Check entitlement (user has purchased this product)
+      entitlement = await db.entitlement.findFirst({
+        where: {
+          userId: user.id,
+          productId: productId,
+          active: true,
+          OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
+        },
+        include: {
+          Order: true,
+          Product: true,
+        },
+      });
+
+      if (!entitlement) {
+        return NextResponse.json(
+          { error: 'No valid entitlement found. Please purchase this product first.' },
+          { status: 403 }
+        );
+      }
     }
 
     // Get product details
     const product = entitlement.Product;
 
-    // For now, hardcode the PDF path (in production, store in Product.downloadUrls)
-    const pdfPath = join(process.cwd(), 'public', 'products', '1984-common-module-essay.pdf');
+    // Get PDF path from product downloadUrls
+    if (!product.downloadUrls || product.downloadUrls.length === 0) {
+      return NextResponse.json(
+        { error: 'No download available for this product' },
+        { status: 404 }
+      );
+    }
+
+    // Use the first download URL (remove leading slash if present)
+    const downloadPath = product.downloadUrls[0].replace(/^\//, '');
+    const pdfPath = join(process.cwd(), 'public', downloadPath);
 
     // Read the original PDF
     const pdfBuffer = await readFile(pdfPath);

@@ -58,6 +58,7 @@ export async function processWebhookIdempotently(event: Stripe.Event): Promise<{
         data: event.data,
       },
       create: {
+        id: `stripe_evt_${event.id}_${Date.now()}`,
         eventId: event.id,
         type: event.type,
         data: event.data,

@@ -24,6 +24,7 @@ import { ResourceDetail } from '@/components/content/resources/resource-detail';
 
 type Props = {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ eid?: string }>;
 };
 
 // Generate metadata for SEO
@@ -58,8 +59,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ResourcePage({ params }: Props) {
+export default async function ResourcePage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const { eid } = await searchParams;
 
   // Fetch product from database
   const product = await db.product.findUnique({
@@ -89,6 +91,27 @@ export default async function ResourcePage({ params }: Props) {
   // Return 404 if product not found or not published
   if (!product || !product.published) {
     notFound();
+  }
+
+  // Check for entitlement if eid provided
+  let entitlement = null;
+  if (eid) {
+    entitlement = await db.entitlement.findUnique({
+      where: {
+        id: eid,
+      },
+      select: {
+        id: true,
+        active: true,
+        productId: true,
+        userId: true,
+      },
+    });
+
+    // Verify entitlement is active and matches this product
+    if (!entitlement || !entitlement.active || entitlement.productId !== product.id) {
+      entitlement = null;
+    }
   }
 
   // Fetch related posts for credibility (max 3)
@@ -137,6 +160,9 @@ export default async function ResourcePage({ params }: Props) {
       currency={product.currency}
       stripeProductId={product.stripeProductId}
       stripePriceId={product.stripePriceId}
+      downloadUrls={product.downloadUrls}
+      hasAccess={!!entitlement}
+      entitlementId={entitlement?.id}
       relatedPosts={relatedPosts}
       relatedProjects={relatedProjects}
     />

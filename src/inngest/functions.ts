@@ -102,7 +102,7 @@ export const sendRefundNotification = inngest.createFunction(
     const order = await step.run('fetch-order', async () => {
       return await db.order.findUnique({
         where: { id: orderId },
-        include: { items: true },
+        include: { OrderItem: true },
       });
     });
 

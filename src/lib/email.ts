@@ -15,7 +15,7 @@ export async function sendEmail({
 }) {
   try {
     const result = await resend.emails.send({
-      from: 'Riqle <noreply@riqle.com>',
+      from: 'Riqle <noreply@riqle.com.au>',
       to,
       subject,
       html,
@@ -24,12 +24,14 @@ export async function sendEmail({
     // Log successful email
     await db.emailLog.create({
       data: {
+        id: `email_${to}_${Date.now()}`,
         to,
         subject,
         status: 'sent',
         provider: 'resend',
         messageId: result.id,
         sentAt: new Date(),
+        updatedAt: new Date(),
       },
     });
 
@@ -40,12 +42,14 @@ export async function sendEmail({
     // Log failed email
     await db.emailLog.create({
       data: {
+        id: `email_fail_${to}_${Date.now()}`,
         to,
         subject,
         status: 'failed',
         provider: 'resend',
         error: errorMessage,
         failedAt: new Date(),
+        updatedAt: new Date(),
       },
     });
 

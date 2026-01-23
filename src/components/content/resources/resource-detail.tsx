@@ -45,6 +45,9 @@ type ResourceDetailProps = {
   currency: string;
   stripeProductId: string | null;
   stripePriceId: string | null;
+  downloadUrls: string[];
+  hasAccess: boolean;
+  entitlementId?: string;
   relatedPosts: Array<{ slug: string; title: string }>;
   relatedProjects: Array<{ slug: string; title: string }>;
 };
@@ -64,6 +67,9 @@ export function ResourceDetail({
   currency,
   stripeProductId: _stripeProductId,
   stripePriceId: _stripePriceId,
+  downloadUrls,
+  hasAccess,
+  entitlementId,
   relatedPosts,
   relatedProjects,
 }: ResourceDetailProps) {
@@ -72,6 +78,7 @@ export function ResourceDetail({
 
   const [purchasing, setPurchasing] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [downloading, setDownloading] = React.useState(false);
 
   const handlePurchase = async () => {
     try {
@@ -108,6 +115,46 @@ export function ResourceDetail({
         err instanceof Error ? err.message : 'Failed to initiate purchase. Please try again.';
       setError(message);
       setPurchasing(false);
+    }
+  };
+
+  const handleDownload = async () => {
+    if (!entitlementId) return;
+
+    try {
+      setDownloading(true);
+      setError(null);
+
+      // Call download API with entitlement ID
+      const response = await fetch(`/api/products/${productId}/download?eid=${entitlementId}`);
+
+      if (!response.ok) {
+        throw new Error('Failed to download file');
+      }
+
+      // Get filename from Content-Disposition header or use default
+      const contentDisposition = response.headers.get('Content-Disposition');
+      const filename = contentDisposition
+        ? contentDisposition.split('filename=')[1]?.replace(/"/g, '')
+        : `${title}.pdf`;
+
+      // Create blob and download
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error('Download error:', err);
+      const message =
+        err instanceof Error ? err.message : 'Failed to download file. Please try again.';
+      setError(message);
+    } finally {
+      setDownloading(false);
     }
   };
 
@@ -157,7 +204,7 @@ export function ResourceDetail({
                   see what&apos;s inside
                 </h2>
               </div>
-              <PDFPreview pdfUrl="/products/1984-common-module-essay.pdf" totalPages={3} />
+              <PDFPreview pdfUrl={downloadUrls[0]} totalPages={3} />
             </section>
 
             {/* Who it's for - Clean, No Boxes */}
@@ -264,85 +311,169 @@ export function ResourceDetail({
             </section>
           </div>
 
-          {/* Right Column - Purchase Sidebar */}
+          {/* Right Column - Purchase/Download Sidebar */}
           <div className="lg:col-span-1">
             <div className="sticky top-24 space-y-8">
-              {/* Purchase Card - Minimalist */}
-              <div className="border-l-2 border-stone-900 bg-white pl-8">
-                <div className="mb-8">
-                  <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
-                    price
-                  </p>
-                  <p className="mb-1 text-5xl font-semibold tracking-tight text-stone-900">
-                    {currencySymbol}
-                    {price}
-                  </p>
-                  <p className="text-sm text-stone-600">one-time payment</p>
-                </div>
-
-                {error && (
-                  <div className="mb-4 border-l-2 border-red-600 bg-red-50 py-3 pl-4 text-sm text-red-900">
-                    {error}
+              {hasAccess ? (
+                /* Download Card - You Own This */
+                <div className="border-l-2 border-green-600 bg-white pl-8">
+                  <div className="mb-8">
+                    <p className="mb-2 text-sm font-medium uppercase tracking-wider text-green-600">
+                      you own this
+                    </p>
+                    <p className="text-2xl font-semibold tracking-tight text-stone-900">
+                      ready to download
+                    </p>
                   </div>
-                )}
 
-                <button
-                  onClick={handlePurchase}
-                  disabled={purchasing}
-                  className="mb-6 w-full rounded-full bg-stone-900 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {purchasing ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        />
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        />
-                      </svg>
-                      processing...
-                    </span>
-                  ) : (
-                    'purchase now'
+                  {error && (
+                    <div className="mb-4 border-l-2 border-red-600 bg-red-50 py-3 pl-4 text-sm text-red-900">
+                      {error}
+                    </div>
                   )}
-                </button>
 
-                {/* Benefits - Clean List */}
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-stone-900" />
-                    <p className="text-sm leading-relaxed text-stone-700">
-                      watermarked pdf with your purchase details
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-stone-900" />
-                    <p className="text-sm leading-relaxed text-stone-700">
-                      instant download after purchase
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-stone-900" />
-                    <p className="text-sm leading-relaxed text-stone-700">
-                      14-day refund, no questions asked
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-stone-900" />
-                    <p className="text-sm leading-relaxed text-stone-700">
-                      secure payment via stripe
-                    </p>
+                  <button
+                    onClick={handleDownload}
+                    disabled={downloading}
+                    className="mb-6 w-full rounded-full bg-green-600 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {downloading ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          />
+                        </svg>
+                        downloading...
+                      </span>
+                    ) : (
+                      <>
+                        <svg
+                          className="mr-2 inline h-5 w-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+                          />
+                        </svg>
+                        download now
+                      </>
+                    )}
+                  </button>
+
+                  {/* Access Info */}
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600" />
+                      <p className="text-sm leading-relaxed text-stone-700">
+                        watermarked with your purchase details
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600" />
+                      <p className="text-sm leading-relaxed text-stone-700">unlimited downloads</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600" />
+                      <p className="text-sm leading-relaxed text-stone-700">
+                        access link saved in your email
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                /* Purchase Card - Minimalist */
+                <div className="border-l-2 border-stone-900 bg-white pl-8">
+                  <div className="mb-8">
+                    <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
+                      price
+                    </p>
+                    <p className="mb-1 text-5xl font-semibold tracking-tight text-stone-900">
+                      {currencySymbol}
+                      {price}
+                    </p>
+                    <p className="text-sm text-stone-600">one-time payment</p>
+                  </div>
+
+                  {error && (
+                    <div className="mb-4 border-l-2 border-red-600 bg-red-50 py-3 pl-4 text-sm text-red-900">
+                      {error}
+                    </div>
+                  )}
+
+                  <button
+                    onClick={handlePurchase}
+                    disabled={purchasing}
+                    className="mb-6 w-full rounded-full bg-stone-900 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {purchasing ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          />
+                        </svg>
+                        processing...
+                      </span>
+                    ) : (
+                      'purchase now'
+                    )}
+                  </button>
+
+                  {/* Benefits - Clean List */}
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-stone-900" />
+                      <p className="text-sm leading-relaxed text-stone-700">
+                        watermarked pdf with your purchase details
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-stone-900" />
+                      <p className="text-sm leading-relaxed text-stone-700">
+                        instant download after purchase
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-stone-900" />
+                      <p className="text-sm leading-relaxed text-stone-700">
+                        14-day refund, no questions asked
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <HandDrawnCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-stone-900" />
+                      <p className="text-sm leading-relaxed text-stone-700">
+                        secure payment via stripe
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Watermark Info - Subtle */}
               <div className="border-l-2 border-stone-300 pl-8">
