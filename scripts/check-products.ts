@@ -2,16 +2,31 @@ import { PrismaClient } from '@prisma/client';
 
 const db = new PrismaClient();
 
-async function main() {
-  const products = await db.product.findMany({
-    where: { published: true },
-    select: { slug: true, title: true, downloadUrls: true },
-    orderBy: { displayOrder: 'asc' },
-  });
+async function checkProducts() {
+  try {
+    const products = await db.product.findMany({
+      select: {
+        id: true,
+        slug: true,
+        title: true,
+        published: true,
+      },
+    });
 
-  console.log(JSON.stringify(products, null, 2));
+    console.log('Total products:', products.length);
+    console.log('\nProducts:');
+    products.forEach((p) => {
+      console.log(`- ${p.title}`);
+      console.log(`  Slug: ${p.slug}`);
+      console.log(`  Published: ${p.published}`);
+      console.log(`  URL: https://riqle.vercel.app/products/${p.slug}`);
+      console.log('');
+    });
+  } catch (error) {
+    console.error('Error:', error);
+  } finally {
+    await db.$disconnect();
+  }
 }
 
-main()
-  .catch(console.error)
-  .finally(() => db.$disconnect());
+checkProducts();
