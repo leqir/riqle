@@ -81,7 +81,7 @@ export default function HomePage() {
                 </svg>
               </Link>
               <Link
-                href="/startups/markpoint"
+                href="/work/markpoint"
                 className="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-6 py-3 text-base font-semibold text-stone-900 shadow-sm transition-all hover:border-stone-400 hover:shadow-md"
               >
                 MarkPoint
