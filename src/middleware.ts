@@ -1,18 +1,16 @@
-import { type NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 import { generateRequestId } from './lib/request-id';
-import { auth } from '@/auth';
 
 /**
- * Middleware (Epic 14: Story 14.3)
+ * Middleware
  *
- * This middleware:
- * 1. Protects routes with NextAuth authorization
- * 2. Injects request ID into all requests for tracing
+ * This middleware injects request ID into all requests for tracing.
  *
- * NextAuth v5 route protection is handled by the authorized() callback
- * in auth.config.ts, which is called by auth() below.
+ * Note: NextAuth authorization is handled server-side in individual routes
+ * to keep middleware bundle size under Vercel Edge function limits.
  */
-export default auth(async (request) => {
+export function middleware(request: NextRequest) {
   // Get existing request ID or generate a new one
   const requestId = request.headers.get('x-request-id') || generateRequestId();
 
@@ -31,7 +29,7 @@ export default auth(async (request) => {
   response.headers.set('x-request-id', requestId);
 
   return response;
-});
+}
 
 // Configure which routes the middleware runs on
 export const config = {
