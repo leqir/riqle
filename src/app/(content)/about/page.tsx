@@ -38,7 +38,7 @@ export default function AboutPage() {
           <div className="border-l-2 border-stone-900 pl-8">
             <div className="space-y-6 text-lg leading-relaxed text-stone-700">
               <p>
-                i think a lot about <span className="font-medium text-stone-900">formation</span>.
+                ts is ai-gen for now......i think a lot about <span className="font-medium text-stone-900">formation</span>.
                 how people are shaped over time by the habits they keep, the language they use, the
                 discipline they build, and the systems they inhabit. not as some abstract concept,
                 but as a lived reality. the things you do every day are quietly forming you into
@@ -85,15 +85,6 @@ export default function AboutPage() {
                 mind when it&apos;s warranted. there&apos;s something about 1am conversations that
                 strip away pretense. the kind where you&apos;re too tired to perform and end up
                 saying what you actually think. deep theological talks at that hour hit different.
-              </p>
-
-              <p>
-                one night driving from greystanes to parramatta around 1am, my friend put on surely
-                worthy by common gathering. something about that moment (the quiet roads, the
-                vulnerability of late-night honesty, the weight of the conversation we were having)
-                made that song hit harder than it probably should have. it became one of those
-                moments you remember not for what happened, but for how it felt. now whenever i hear
-                it, i&apos;m back in that car, having the kind of conversation that matters.
               </p>
 
               <p>
@@ -196,23 +187,11 @@ export default function AboutPage() {
               <div className="space-y-4 border-t border-stone-200 pt-8">
                 <p className="text-sm font-medium text-stone-500">beyond work</p>
                 <div className="space-y-3 text-sm text-stone-700">
-                  <p>guitar, bass, keys, drums</p>
+                  <p>guitar, bass, keys, drums, sax</p>
                   <p>drawing and visual thinking</p>
                   <p>1am theological conversations</p>
                   <p>running and swimming</p>
                   <p>clarity through language</p>
-                </div>
-              </div>
-
-              {/* Favorite Song */}
-              <div className="space-y-3 border-t border-stone-200 pt-8">
-                <p className="text-xs font-medium text-stone-500">currently on repeat</p>
-                <div className="border-l-2 border-stone-900 pl-4">
-                  <p className="text-sm italic text-stone-700">surely worthy by common gathering</p>
-                  <p className="mt-2 text-xs leading-relaxed text-stone-600">
-                    1am drives from greystanes to parramatta. quiet roads. deep conversations. some
-                    songs just hit different in the right moment.
-                  </p>
                 </div>
               </div>
             </div>

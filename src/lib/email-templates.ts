@@ -98,7 +98,7 @@ export function purchaseConfirmationEmail(data: PurchaseConfirmationData) {
         Need help?
       </h2>
       <p style="margin: 0; font-size: 15px; color: #44403c;">
-        Reply to this email or contact <a href="mailto:support@riqle.com" style="color: #4f46e5;">support@riqle.com</a>
+        Reply to this email or contact <a href="mailto:nathanael.thie@gmail.com" style="color: #4f46e5;">nathanael.thie@gmail.com</a>
       </p>
     </div>
 
@@ -145,7 +145,7 @@ ACCESS ANYTIME
 Save this email. You can use the link above to access your files anytime within 7 days. After that, you can request a new access link from the product page.
 
 NEED HELP?
-Reply to this email or contact support@riqle.com
+Reply to this email or contact nathanael.thie@gmail.com
 
 REFUND POLICY
 14-day refund window, no questions asked. Just reply to this email.

@@ -23,22 +23,22 @@ const photos: Photo[] = [
     src: '/about/album/IMG_3469.JPG',
     alt: 'Life moment 1',
     caption:
-      'catching moments between the grind. sometimes you just need to step back and breathe.',
+      'out in bondi with a bunch of dudes',
   },
   {
     src: '/about/album/IMG_6742.JPG',
     alt: 'Life moment 2',
-    caption: 'these are the conversations that matter. the ones you remember years later.',
+    caption: 'all nighter for sunrise.',
   },
   {
     src: '/about/album/IMG_7140.JPG',
     alt: 'Life moment 3',
-    caption: 'found this spot during a late-night drive. some places just hit different.',
+    caption: 'mt ainslie in canberra.',
   },
   {
     src: '/about/album/IMG_7636.JPG',
     alt: 'Life moment 4',
-    caption: "the people who show up when it counts. that's what actually matters.",
+    caption: "christmas lights somewhere in caringbah",
   },
 ];
 

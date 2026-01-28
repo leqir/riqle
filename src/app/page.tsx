@@ -10,6 +10,9 @@
 
 import Link from 'next/link';
 
+// Static generation with revalidation (24 hours)
+export const revalidate = 86400;
+
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-stone-50">

@@ -1,10 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
+import { useTransition, useState } from 'react';
+import { Button } from './ui/Button';
 
 /**
- * Failed Job Actions Component
+ * Failed Job Actions Component - Stripe-Inspired Design
  *
  * Client-side controls for retrying/abandoning failed background jobs
  * Epic 11 Principle: "Explicit actions over automation" - Manual control
@@ -17,9 +18,13 @@ interface JobActionProps {
 export function RetryJobButton({ jobId }: JobActionProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const handleRetry = () => {
-    if (!confirm('Retry this job?')) return;
+    if (!showConfirm) {
+      setShowConfirm(true);
+      return;
+    }
 
     startTransition(async () => {
       try {
@@ -29,32 +34,44 @@ export function RetryJobButton({ jobId }: JobActionProps) {
 
         if (response.ok) {
           router.refresh();
-        } else {
-          alert('Failed to retry job');
         }
-      } catch {
-        alert('Error retrying job');
+      } catch (error) {
+        console.error('Error retrying job:', error);
       }
+      setShowConfirm(false);
     });
   };
 
+  if (showConfirm) {
+    return (
+      <div className="flex gap-2">
+        <Button variant="primary" onClick={handleRetry} loading={isPending} className="text-xs">
+          Confirm Retry
+        </Button>
+        <Button variant="secondary" onClick={() => setShowConfirm(false)} className="text-xs">
+          Cancel
+        </Button>
+      </div>
+    );
+  }
+
   return (
-    <button
-      onClick={handleRetry}
-      disabled={isPending}
-      className="rounded-md bg-indigo-600 px-3 py-1 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
-    >
-      {isPending ? 'Retrying...' : 'Retry'}
-    </button>
+    <Button variant="primary" onClick={handleRetry} disabled={isPending} className="text-xs">
+      Retry
+    </Button>
   );
 }
 
 export function AbandonJobButton({ jobId }: JobActionProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const handleAbandon = () => {
-    if (!confirm('Abandon this job? This cannot be undone.')) return;
+    if (!showConfirm) {
+      setShowConfirm(true);
+      return;
+    }
 
     startTransition(async () => {
       try {
@@ -64,22 +81,30 @@ export function AbandonJobButton({ jobId }: JobActionProps) {
 
         if (response.ok) {
           router.refresh();
-        } else {
-          alert('Failed to abandon job');
         }
-      } catch {
-        alert('Error abandoning job');
+      } catch (error) {
+        console.error('Error abandoning job:', error);
       }
+      setShowConfirm(false);
     });
   };
 
+  if (showConfirm) {
+    return (
+      <div className="flex gap-2">
+        <Button variant="danger" onClick={handleAbandon} loading={isPending} className="text-xs">
+          Confirm Abandon
+        </Button>
+        <Button variant="secondary" onClick={() => setShowConfirm(false)} className="text-xs">
+          Cancel
+        </Button>
+      </div>
+    );
+  }
+
   return (
-    <button
-      onClick={handleAbandon}
-      disabled={isPending}
-      className="rounded-md border border-stone-300 px-3 py-1 text-sm text-stone-700 hover:bg-stone-50 disabled:opacity-50"
-    >
-      {isPending ? 'Abandoning...' : 'Abandon'}
-    </button>
+    <Button variant="secondary" onClick={handleAbandon} disabled={isPending} className="text-xs">
+      Abandon
+    </Button>
   );
 }

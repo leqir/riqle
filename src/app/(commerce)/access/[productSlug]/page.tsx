@@ -13,17 +13,17 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 interface AccessPageProps {
-  params: {
+  params: Promise<{
     productSlug: string;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     token?: string;
-  };
+  }>;
 }
 
 export default async function AccessPage({ params, searchParams }: AccessPageProps) {
-  const { productSlug } = params;
-  const { token } = searchParams;
+  const { productSlug } = await params;
+  const { token } = await searchParams;
 
   // Validate token
   if (!token) {
@@ -196,10 +196,10 @@ export default async function AccessPage({ params, searchParams }: AccessPagePro
           <p className="text-sm leading-relaxed text-stone-600">
             Email{' '}
             <a
-              href="mailto:support@riqle.com"
+              href="mailto:nathanael.thie@gmail.com"
               className="text-blue-600 transition-colors duration-150 hover:text-blue-700"
             >
-              support@riqle.com
+              nathanael.thie@gmail.com
             </a>{' '}
             and we&apos;ll help you out.
           </p>
@@ -250,8 +250,8 @@ function AccessError({ message }: { message: string }) {
                   <li>Request a new access link from the product page</li>
                   <li>
                     Contact{' '}
-                    <a href="mailto:support@riqle.com" className="underline">
-                      support@riqle.com
+                    <a href="mailto:nathanael.thie@gmail.com" className="underline">
+                      nathanael.thie@gmail.com
                     </a>{' '}
                     for help
                   </li>
@@ -306,8 +306,8 @@ function AccessRevoked({ reason }: { reason: string }) {
               </p>
               <p className="text-base text-yellow-800">
                 If you believe this is an error, please contact{' '}
-                <a href="mailto:support@riqle.com" className="underline">
-                  support@riqle.com
+                <a href="mailto:nathanael.thie@gmail.com" className="underline">
+                  nathanael.thie@gmail.com
                 </a>
                 .
               </p>

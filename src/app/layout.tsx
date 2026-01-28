@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, Nanum_Pen_Script } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
 import { AuthSessionProvider } from '@/components/infrastructure/providers/session-provider';
 import { Header } from '@/components/infrastructure/navigation/header';
 import { Footer } from '@/components/infrastructure/navigation/footer';
@@ -37,6 +38,7 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
         </AuthSessionProvider>
+        <Analytics />
       </body>
     </html>
   );

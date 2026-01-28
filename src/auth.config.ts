@@ -102,7 +102,7 @@ export const authConfig = {
                     <a href="${url}" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: 600; font-size: 16px;">Sign In</a>
                   </div>
                   <p style="font-size: 14px; color: #6b7280;">If you didn't request this email, you can safely ignore it.</p>
-                  <p style="font-size: 14px; color: #6b7280; margin-bottom: 0;">This link will expire in 24 hours.</p>
+                  <p style="font-size: 14px; color: #6b7280; margin-bottom: 0;">This link will expire in 15 minutes.</p>
                 </div>
                 <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 12px;">
                   <p>Riqle Platform - Secure Authentication</p>
@@ -126,8 +126,8 @@ export const authConfig = {
   },
   session: {
     strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-    updateAge: 24 * 60 * 60, // 24 hours - refresh session token
+    maxAge: 60 * 60, // 1 hour (Epic 14: short-lived sessions)
+    updateAge: 15 * 60, // 15 minutes - refresh session token frequently
   },
   cookies: {
     sessionToken: {

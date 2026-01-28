@@ -186,10 +186,10 @@ export default function ResendAccessPage() {
           <p className="text-base leading-relaxed text-stone-700">
             If you&apos;re still having trouble, email{' '}
             <a
-              href="mailto:support@riqle.com"
+              href="mailto:nathanael.thie@gmail.com"
               className="text-indigo-600 transition-colors duration-200 hover:text-indigo-700 hover:underline"
             >
-              support@riqle.com
+              nathanael.thie@gmail.com
             </a>{' '}
             with your purchase details and we&apos;ll help you out.
           </p>

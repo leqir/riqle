@@ -1,17 +1,18 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { generateRequestId } from './lib/request-id';
+import { auth } from '@/auth';
 
 /**
- * Middleware
+ * Middleware (Epic 14: Story 14.3)
  *
  * This middleware:
- * 1. Injects request ID into all requests for tracing
+ * 1. Protects routes with NextAuth authorization
+ * 2. Injects request ID into all requests for tracing
  *
- * Note: NextAuth v5 handles authentication automatically via the API routes.
- * We don't need auth middleware for route protection - that's handled by
- * the authorized() callback in auth.config.ts
+ * NextAuth v5 route protection is handled by the authorized() callback
+ * in auth.config.ts, which is called by auth() below.
  */
-export function middleware(request: NextRequest) {
+export default auth(async (request) => {
   // Get existing request ID or generate a new one
   const requestId = request.headers.get('x-request-id') || generateRequestId();
 
@@ -30,7 +31,7 @@ export function middleware(request: NextRequest) {
   response.headers.set('x-request-id', requestId);
 
   return response;
-}
+});
 
 // Configure which routes the middleware runs on
 export const config = {

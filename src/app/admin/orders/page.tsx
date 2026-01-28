@@ -2,6 +2,10 @@ import { db } from '@/lib/db';
 import { formatDistanceToNow } from 'date-fns';
 import { type OrderStatus } from '@prisma/client';
 import Link from 'next/link';
+import { Card } from '@/components/admin/ui/Card';
+import { Badge } from '@/components/admin/ui/Badge';
+import { Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from '@/components/admin/ui/Table';
+import { ShoppingCart, CheckCircle, RotateCcw, XCircle, FileX } from 'lucide-react';
 
 async function getOrders(status?: string) {
   return db.order.findMany({
@@ -48,17 +52,17 @@ export default async function OrdersPage({
   const [orders, stats] = await Promise.all([getOrders(params.status), getStats()]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-stone-900">Orders</h1>
-        <p className="mt-1 text-stone-600">View and manage customer orders</p>
+        <h1 className="text-3xl font-bold text-slate-900">Orders</h1>
+        <p className="mt-2 text-slate-600">View and manage customer orders</p>
       </div>
 
-      <div className="grid grid-cols-4 gap-4">
-        <StatBox label="Total" value={stats.total} />
-        <StatBox label="Completed" value={stats.completed} />
-        <StatBox label="Refunded" value={stats.refunded} />
-        <StatBox label="Failed" value={stats.failed} />
+      <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+        <StatBox label="Total" value={stats.total} icon={<ShoppingCart className="h-5 w-5" />} />
+        <StatBox label="Completed" value={stats.completed} icon={<CheckCircle className="h-5 w-5" />} />
+        <StatBox label="Refunded" value={stats.refunded} icon={<RotateCcw className="h-5 w-5" />} />
+        <StatBox label="Failed" value={stats.failed} icon={<XCircle className="h-5 w-5" />} />
       </div>
 
       <div className="flex gap-2">
@@ -81,98 +85,91 @@ export default async function OrdersPage({
       </div>
 
       {orders.length === 0 ? (
-        <div className="rounded-lg border border-stone-200 bg-white p-12 text-center">
-          <p className="text-stone-500">No orders found</p>
+        <div className="rounded-lg bg-white p-12 text-center shadow-card">
+          <FileX className="mx-auto h-12 w-12 text-slate-400 mb-4" />
+          <p className="text-slate-600 text-lg">No orders found</p>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-lg border border-stone-200 bg-white">
-          <table className="min-w-full divide-y divide-stone-200">
-            <thead className="bg-stone-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-stone-500">
-                  Customer
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-stone-500">
-                  Products
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-stone-500">
-                  Amount
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-stone-500">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-stone-500">
-                  Date
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-stone-200 bg-white">
+        <div className="overflow-hidden rounded-xl bg-white shadow-card">
+          <Table>
+            <TableHeader>
+              <TableHeaderCell>Customer</TableHeaderCell>
+              <TableHeaderCell>Products</TableHeaderCell>
+              <TableHeaderCell>Amount</TableHeaderCell>
+              <TableHeaderCell>Status</TableHeaderCell>
+              <TableHeaderCell>Date</TableHeaderCell>
+            </TableHeader>
+            <TableBody>
               {orders.map((order) => {
-                const statusColors: Record<string, string> = {
-                  completed: 'bg-green-100 text-green-800',
-                  refunded: 'bg-amber-100 text-amber-800',
-                  failed: 'bg-red-100 text-red-800',
-                  pending: 'bg-stone-100 text-stone-800',
+                const statusVariant: Record<string, 'success' | 'warning' | 'error' | 'neutral'> = {
+                  completed: 'success',
+                  refunded: 'warning',
+                  failed: 'error',
+                  pending: 'neutral',
                 };
-                const statusClass = statusColors[order.status] || statusColors.pending;
 
                 return (
-                  <tr key={order.id} className="hover:bg-stone-50">
-                    <td className="whitespace-nowrap px-6 py-4">
+                  <TableRow key={order.id}>
+                    <TableCell>
                       <div>
-                        <div className="font-medium text-stone-900">
+                        <div className="font-medium text-slate-900">
                           {order.customerName || 'Unknown'}
                         </div>
-                        <div className="text-sm text-stone-500">{order.customerEmail}</div>
+                        <div className="text-sm text-slate-600">{order.customerEmail}</div>
                       </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="text-sm text-stone-900">
+                    </TableCell>
+                    <TableCell>
+                      <div className="text-sm text-slate-700">
                         {order.OrderItem.map(
                           (item: { productName: string; amount: number }, idx: number) => (
                             <div key={idx}>{item.productName}</div>
                           )
                         )}
                       </div>
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-sm text-stone-900">
-                      {(order.total / 100).toFixed(2)} {order.currency.toUpperCase()}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      <span
-                        className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${statusClass}`}
-                      >
+                    </TableCell>
+                    <TableCell className="font-medium text-slate-900">
+                      ${(order.total / 100).toFixed(2)} {order.currency.toUpperCase()}
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant={statusVariant[order.status] || 'neutral'} size="sm">
                         {order.status}
-                      </span>
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-sm text-stone-500">
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-slate-600">
                       {formatDistanceToNow(order.createdAt, { addSuffix: true })}
-                    </td>
-                  </tr>
+                    </TableCell>
+                  </TableRow>
                 );
               })}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       )}
     </div>
   );
 }
 
-function StatBox({ label, value }: { label: string; value: number }) {
+function StatBox({ label, value, icon }: { label: string; value: number; icon: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-stone-200 bg-white p-4">
-      <div className="text-sm text-stone-500">{label}</div>
-      <div className="mt-1 text-2xl font-bold text-stone-900">{value}</div>
-    </div>
+    <Card className="p-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="text-sm font-medium text-slate-600">{label}</div>
+          <div className="mt-2 text-3xl font-bold text-slate-900">{value}</div>
+        </div>
+        <div className="p-3 bg-brand-50 rounded-lg text-brand-600">
+          {icon}
+        </div>
+      </div>
+    </Card>
   );
 }
 
 function FilterButton({ href, label, active }: { href: string; label: string; active: boolean }) {
-  const baseClass = 'rounded-md px-4 py-2 text-sm font-medium';
+  const baseClass = 'rounded-full px-4 py-2 text-sm font-medium transition-colors duration-150';
   const activeClass = active
-    ? 'bg-indigo-600 text-white'
-    : 'bg-white text-stone-700 border border-stone-300 hover:bg-stone-50';
+    ? 'bg-brand-600 text-white'
+    : 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50';
 
   return (
     <Link href={href} className={`${baseClass} ${activeClass}`}>

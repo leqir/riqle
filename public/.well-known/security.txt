@@ -1,0 +1,27 @@
+# Security Policy
+# This file follows RFC 9116 (https://www.rfc-editor.org/rfc/rfc9116.html)
+
+Contact: mailto:security@riqle.com
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://riqle.com/.well-known/security.txt
+
+# Security Disclosure Policy
+# If you discover a security vulnerability, please report it to security@riqle.com
+# We take security seriously and will respond to valid reports within 48 hours.
+
+# Please include:
+# - Description of the vulnerability
+# - Steps to reproduce
+# - Potential impact
+# - Any proof-of-concept code (if applicable)
+
+# Out of Scope:
+# - Social engineering attacks
+# - Physical attacks
+# - Denial of Service (DoS/DDoS)
+# - Spam or brute-force attacks
+# - Issues in third-party services (e.g., Stripe, email providers)
+
+# Acknowledgments
+# We appreciate responsible disclosure and will credit researchers who report valid vulnerabilities.

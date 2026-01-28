@@ -45,7 +45,7 @@ export default async function WritingPage() {
             thinking made inspectable
           </h1>
           <p className="text-xl leading-relaxed text-stone-600">
-            essays on education, systems, learning, product, and decision-making.
+            essays on education, systems, learning, product, and decision-making. These are arbitrary AI generated stuff for testing
           </p>
         </header>
 

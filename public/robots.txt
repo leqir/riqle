@@ -1,0 +1,13 @@
+# Robots.txt for Riqle
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/admin/
+Disallow: /access/
+
+# Sitemap location (update with your actual domain)
+Sitemap: https://riqle.com/sitemap.xml
+
+# Crawl-delay for polite crawlers
+Crawl-delay: 1

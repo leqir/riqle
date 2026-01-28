@@ -7,8 +7,7 @@
 
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/auth.config';
+import { auth } from '@/auth';
 import { db } from '@/lib/db';
 import { watermarkPDF } from '@/lib/pdf-watermark';
 import { readFile } from 'fs/promises';
@@ -46,7 +45,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
       user = entitlement.User;
     } else {
       // Session-based access - require authentication
-      const session = await getServerSession(authOptions);
+      const session = await auth();
       if (!session?.user?.email) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
       }

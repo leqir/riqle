@@ -8,6 +8,18 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+
+  // Image optimization
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year
+  },
+
+  // Compress responses
+  compress: true,
+
   webpack: (config, { isServer }) => {
     // Exclude pdfjs-dist from server-side bundles (it's browser-only)
     if (isServer) {
@@ -20,6 +32,26 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      // Cache static assets aggressively
+      {
+        source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Security headers for all routes
       {
         source: '/(.*)',
         headers: [
@@ -57,6 +89,7 @@ const nextConfig: NextConfig = {
               "font-src 'self' data:",
               "connect-src 'self' https://api.stripe.com",
               "frame-src 'self' https://js.stripe.com https://hooks.stripe.com",
+              "worker-src 'self' blob:",
               "object-src 'self'",
               "frame-ancestors 'none'",
               "base-uri 'self'",

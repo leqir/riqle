@@ -1,9 +1,11 @@
 import { db } from '@/lib/db';
 import { ContentList } from '@/components/admin/ContentList';
+import { Card } from '@/components/admin/ui/Card';
 import Link from 'next/link';
+import { FileText, CheckCircle, FileEdit, Star } from 'lucide-react';
 
 /**
- * Posts Management Page
+ * Posts Management Page - Stripe-Inspired Design
  *
  * View and manage all writing content
  */
@@ -49,19 +51,19 @@ export default async function PostsPage({
   const [posts, stats] = await Promise.all([getPosts(params.status), getStats()]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-stone-900">Posts</h1>
-          <p className="mt-1 text-stone-600">Manage writing and essays</p>
+          <h1 className="text-3xl font-bold text-slate-900">Posts</h1>
+          <p className="mt-2 text-slate-600">Manage writing and essays</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-4">
-        <StatBox label="Total" value={stats.total} />
-        <StatBox label="Published" value={stats.published} />
-        <StatBox label="Drafts" value={stats.drafts} />
-        <StatBox label="Featured" value={stats.featured} />
+      <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+        <StatBox label="Total" value={stats.total} icon={<FileText className="h-5 w-5" />} />
+        <StatBox label="Published" value={stats.published} icon={<CheckCircle className="h-5 w-5" />} />
+        <StatBox label="Drafts" value={stats.drafts} icon={<FileEdit className="h-5 w-5" />} />
+        <StatBox label="Featured" value={stats.featured} icon={<Star className="h-5 w-5" />} />
       </div>
 
       <div className="flex gap-2">
@@ -83,20 +85,27 @@ export default async function PostsPage({
   );
 }
 
-function StatBox({ label, value }: { label: string; value: number }) {
+function StatBox({ label, value, icon }: { label: string; value: number; icon: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-stone-200 bg-white p-4">
-      <div className="text-sm text-stone-500">{label}</div>
-      <div className="mt-1 text-2xl font-bold text-stone-900">{value}</div>
-    </div>
+    <Card className="p-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="text-sm font-medium text-slate-600">{label}</div>
+          <div className="mt-2 text-3xl font-bold text-slate-900">{value}</div>
+        </div>
+        <div className="p-3 bg-brand-50 rounded-lg text-brand-600">
+          {icon}
+        </div>
+      </div>
+    </Card>
   );
 }
 
 function FilterButton({ href, label, active }: { href: string; label: string; active: boolean }) {
-  const baseClass = 'rounded-md px-4 py-2 text-sm font-medium';
+  const baseClass = 'rounded-full px-4 py-2 text-sm font-medium transition-colors duration-150';
   const activeClass = active
-    ? 'bg-indigo-600 text-white'
-    : 'bg-white text-stone-700 border border-stone-300 hover:bg-stone-50';
+    ? 'bg-brand-600 text-white'
+    : 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50';
 
   return (
     <Link href={href} className={`${baseClass} ${activeClass}`}>

@@ -39,8 +39,9 @@ export function Footer() {
       { href: '/account/purchases', label: 'my purchases' },
     ],
     legal: [
-      { href: '/terms', label: 'terms & conditions' },
-      { href: '/privacy', label: 'privacy policy' },
+      { href: '/legal/terms', label: 'terms & conditions' },
+      { href: '/legal/privacy', label: 'privacy policy' },
+      { href: '/legal/contact', label: 'contact' },
     ],
     social: [
       {

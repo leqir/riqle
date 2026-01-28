@@ -19,21 +19,27 @@
     }
   }
 
-  /* Base typography (will be overridden by Tailwind utilities) */
+  /* Base typography with refined letter-spacing and Inter font features */
   body {
-    @apply font-sans text-base text-stone-600 antialiased;
+    @apply font-sans text-base text-slate-700 antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1 {
-    @apply text-stone-900 font-semibold;
+    @apply text-slate-900 font-semibold;
+    letter-spacing: -0.022em;
   }
 
   h2 {
-    @apply text-stone-900 font-semibold;
+    @apply text-slate-900 font-semibold;
+    letter-spacing: -0.019em;
   }
 
   h3 {
-    @apply text-stone-900 font-medium;
+    @apply text-slate-900 font-medium;
+    letter-spacing: -0.017em;
   }
 }
 

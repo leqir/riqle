@@ -52,7 +52,7 @@ export default function UnauthorizedPage() {
 
         <p className="mt-6 text-center text-sm text-gray-600">
           Need help?{' '}
-          <a href="mailto:support@riqle.com" className="text-purple-600 hover:text-purple-700">
+          <a href="mailto:nathanael.thie@gmail.com" className="text-purple-600 hover:text-purple-700">
             Contact support
           </a>
         </p>

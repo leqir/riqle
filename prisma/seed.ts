@@ -20,8 +20,10 @@ async function main() {
     where: { name: 'admin' },
     update: {},
     create: {
+      id: 'role_admin',
       name: 'admin',
       description: 'Administrator role with full access',
+      updatedAt: new Date(),
     },
   });
 
