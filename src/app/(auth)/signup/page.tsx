@@ -245,6 +245,7 @@ export default function SignupPage() {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="your name"
                   className="w-full rounded-lg border border-gray-300 px-4 py-3 placeholder-gray-400 transition-all duration-200 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                  style={{ textTransform: 'none' }}
                 />
               </div>
 
