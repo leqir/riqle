@@ -38,11 +38,12 @@ export default function AboutPage() {
           <div className="border-l-2 border-stone-900 pl-8">
             <div className="space-y-6 text-lg leading-relaxed text-stone-700">
               <p>
-                ts is ai-gen for now......i think a lot about <span className="font-medium text-stone-900">formation</span>.
-                how people are shaped over time by the habits they keep, the language they use, the
-                discipline they build, and the systems they inhabit. not as some abstract concept,
-                but as a lived reality. the things you do every day are quietly forming you into
-                someone, whether you&apos;re paying attention or not.
+                ts is ai-gen for now......i think a lot about{' '}
+                <span className="font-medium text-stone-900">formation</span>. how people are shaped
+                over time by the habits they keep, the language they use, the discipline they build,
+                and the systems they inhabit. not as some abstract concept, but as a lived reality.
+                the things you do every day are quietly forming you into someone, whether
+                you&apos;re paying attention or not.
               </p>
 
               <p>
@@ -62,8 +63,8 @@ export default function AboutPage() {
                   my faith sits at the center of how i try to order my life. i&apos;m guided more by
                   restraint, accountability, and how i treat people than by what i signal publicly.
                   it informs what i say yes to, what i walk away from, and how seriously i take
-                  responsibility. it&apos;s the difference between optimizing for appearance and
-                  optimizing for integrity, and i know which one matters when no one&apos;s
+                  responsibility. it&apos;s the difference between optimising for appearance and
+                  optimising for integrity, and i know which one matters when no one&apos;s
                   watching.
                 </p>
                 <p className="mt-4 text-base leading-relaxed">
@@ -286,7 +287,7 @@ export default function AboutPage() {
                       <p>
                         • accountable for correctness, usability, performance, and maintainability
                       </p>
-                      <p>• decisions optimized for long-term iteration, not demos</p>
+                      <p>• decisions optimised for long-term iteration, not demos</p>
                     </div>
                   </div>
                 </div>

@@ -1,7 +1,7 @@
 /**
  * Database Performance Monitoring
  *
- * Tracks query performance and logs slow queries for optimization.
+ * Tracks query performance and logs slow queries for optimisation.
  */
 
 // Threshold for what constitutes a "slow" query (in milliseconds)
@@ -139,8 +139,7 @@ export class QueryStatsCollector {
       totalDurationMs: newTotal,
       avgDurationMs: newTotal / newCount,
       maxDurationMs: Math.max(existing.maxDurationMs, durationMs),
-      slowQueries:
-        existing.slowQueries + (durationMs >= SLOW_QUERY_THRESHOLD ? 1 : 0),
+      slowQueries: existing.slowQueries + (durationMs >= SLOW_QUERY_THRESHOLD ? 1 : 0),
     });
   }
 

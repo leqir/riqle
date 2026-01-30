@@ -77,7 +77,7 @@ export const SUCCESS_QUESTIONS: SuccessQuestion[] = [
       {
         name: 'conversion_rate',
         threshold: 'Directional only',
-        interpretation: 'Track trends, not absolute optimization',
+        interpretation: 'Track trends, not absolute optimisation',
       },
       {
         name: 'refund_rate',

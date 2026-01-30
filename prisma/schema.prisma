@@ -214,12 +214,12 @@ model Product {
   createdAt           DateTime      @default(now())
   updatedAt           DateTime
   currency            String        @default("AUD")
-  displayOrder        Int           @default(0)
   downloadUrls        String[]
   featured            Boolean       @default(false)
   format              String
   howItWasCreated     String
   nonAudience         String
+  pageCount           Int?
   priceInCents        Int
   published           Boolean       @default(false)
   relatedPostSlugs    String[]
@@ -234,12 +234,69 @@ model Product {
   metaDescription     String?
   metaTitle           String?
   ogImage             String?
+
+  // NEW: Search and tagging support
+  searchVector        String?
+  tags                String[]      @default([])
+
+  // Relations
   Entitlement         Entitlement[]
   OrderItem           OrderItem[]
+  categories          ProductCategory[]
 
-  @@index([displayOrder])
   @@index([published])
   @@index([slug])
+  @@index([tags])
+}
+
+model ResourceCategory {
+  id              String   @id @default(cuid())
+  name            String
+  slug            String
+  description     String?
+  parentId        String?
+  path            String
+  level           Int
+  displayOrder    Int      @default(0)
+  published       Boolean  @default(true)
+
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  parent          ResourceCategory?  @relation("CategoryHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  children        ResourceCategory[] @relation("CategoryHierarchy")
+  products        ProductCategory[]
+
+  @@unique([slug, parentId])
+  @@unique([path])
+  @@index([parentId])
+  @@index([path])
+  @@index([level])
+  @@index([displayOrder])
+  @@index([published])
+}
+
+model ProductCategory {
+  id           String   @id @default(cuid())
+  productId    String
+  categoryId   String
+  isPrimary    Boolean  @default(false)
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  product      Product          @relation(fields: [productId], references: [id], onDelete: Cascade)
+  category     ResourceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, categoryId])
+  @@index([productId])
+  @@index([categoryId])
+  @@index([isPrimary])
 }
 
 model Project {

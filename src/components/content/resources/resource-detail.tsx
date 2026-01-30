@@ -64,6 +64,7 @@ export function ResourceDetail({
   howItWasCreated,
   format,
   whatYouGet,
+  pageCount,
   priceInCents,
   currency,
   stripeProductId: _stripeProductId,
@@ -205,7 +206,7 @@ export function ResourceDetail({
                   see what&apos;s inside
                 </h2>
               </div>
-              <PDFPreview pdfUrl={downloadUrls[0]} totalPages={11} />
+              <PDFPreview pdfUrl={downloadUrls[0]} totalPages={pageCount ?? 3} />
             </section>
 
             {/* Who it's for - Clean, No Boxes */}

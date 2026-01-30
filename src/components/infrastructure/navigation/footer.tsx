@@ -21,17 +21,17 @@ export function Footer() {
   const isActive = (path: string) => pathname === path;
 
   const navigation = {
-    main: [
+    about: [
       { href: '/about', label: 'about' },
       { href: '/work', label: 'work' },
       { href: '/writing', label: 'writing' },
-      { href: '/resources', label: 'resources' },
+      { href: '/changelog', label: 'changelog' },
       { href: '/contact', label: 'contact' },
     ],
     resources: [
       { href: '/resources', label: 'all resources' },
+      { href: '/resources/browse/hsc', label: 'hsc resources' },
       { href: '/writing', label: 'articles' },
-      { href: '/work', label: 'projects' },
     ],
     account: [
       { href: '/login', label: 'sign in' },
@@ -39,6 +39,7 @@ export function Footer() {
       { href: '/account/purchases', label: 'my purchases' },
     ],
     legal: [
+      { href: '/changelog', label: 'changelog' },
       { href: '/legal/terms', label: 'terms & conditions' },
       { href: '/legal/privacy', label: 'privacy policy' },
       { href: '/legal/contact', label: 'contact' },
@@ -118,13 +119,13 @@ export function Footer() {
           {/* Navigation sections */}
           <div className="lg:col-span-8">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-3">
-              {/* Main navigation */}
+              {/* About navigation */}
               <div>
                 <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-stone-900">
-                  navigate
+                  about
                 </h3>
                 <ul className="space-y-3">
-                  {navigation.main.map((item) => (
+                  {navigation.about.map((item) => (
                     <li key={item.href}>
                       <Link
                         href={item.href}

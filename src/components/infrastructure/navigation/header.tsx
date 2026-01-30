@@ -19,10 +19,12 @@ import { usePathname } from 'next/navigation';
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [aboutMenuOpen, setAboutMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { data: session, status } = useSession();
   const pathname = usePathname();
   const userMenuRef = useRef<HTMLDivElement>(null);
+  const aboutMenuRef = useRef<HTMLDivElement>(null);
 
   // Handle scroll effect
   useEffect(() => {
@@ -33,11 +35,14 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close user menu when clicking outside
+  // Close menus when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
         setUserMenuOpen(false);
+      }
+      if (aboutMenuRef.current && !aboutMenuRef.current.contains(event.target as Node)) {
+        setAboutMenuOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -117,27 +122,77 @@ export function Header() {
             </div>
 
             {/* Desktop navigation */}
-            <div className="hidden lg:flex lg:gap-x-1">
-              {[
-                { href: '/about', label: 'about' },
-                { href: '/work', label: 'work' },
-                { href: '/writing', label: 'writing' },
-                { href: '/resources', label: 'resources' },
-                { href: '/contact', label: 'contact' },
-              ].map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`relative px-4 py-2 text-sm font-medium lowercase tracking-wide transition-all duration-200 ${
-                    isActive(item.href) ? 'text-cyan-600' : 'text-stone-700 hover:text-cyan-500'
+            <div className="hidden lg:flex lg:items-center lg:gap-x-1">
+              {/* About dropdown */}
+              <div className="relative" ref={aboutMenuRef}>
+                <button
+                  onClick={() => setAboutMenuOpen(!aboutMenuOpen)}
+                  className={`relative flex items-center gap-1 px-4 py-2 text-sm font-medium lowercase tracking-wide transition-all duration-200 ${
+                    ['/about', '/work', '/writing', '/changelog', '/contact'].some(
+                      (path) => pathname === path
+                    )
+                      ? 'text-cyan-600'
+                      : 'text-stone-700 hover:text-cyan-500'
                   }`}
                 >
-                  {item.label}
-                  {isActive(item.href) && (
+                  about
+                  <svg
+                    className={`h-4 w-4 transition-transform duration-200 ${aboutMenuOpen ? 'rotate-180' : ''}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                  {['/about', '/work', '/writing', '/changelog', '/contact'].some(
+                    (path) => pathname === path
+                  ) && (
                     <span className="animate-shimmer absolute inset-x-0 -bottom-px h-0.5 bg-gradient-to-r from-cyan-500 to-purple-500" />
                   )}
-                </Link>
-              ))}
+                </button>
+
+                {/* About dropdown menu */}
+                {aboutMenuOpen && (
+                  <div className="animate-slideDown absolute left-0 mt-2 w-48 origin-top-left rounded-xl border border-stone-200 bg-white shadow-xl ring-1 ring-black ring-opacity-5">
+                    <div className="py-1">
+                      {[
+                        { href: '/about', label: 'about' },
+                        { href: '/work', label: 'work' },
+                        { href: '/writing', label: 'writing' },
+                        { href: '/changelog', label: 'changelog' },
+                        { href: '/contact', label: 'contact' },
+                      ].map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setAboutMenuOpen(false)}
+                          className={`block px-4 py-2 text-sm lowercase transition-colors ${
+                            isActive(item.href)
+                              ? 'bg-cyan-50 font-medium text-cyan-600'
+                              : 'text-stone-700 hover:bg-stone-50 hover:text-cyan-500'
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Resources link */}
+              <Link
+                href="/resources"
+                className={`relative px-4 py-2 text-sm font-medium lowercase tracking-wide transition-all duration-200 ${
+                  isActive('/resources') ? 'text-cyan-600' : 'text-stone-700 hover:text-cyan-500'
+                }`}
+              >
+                resources
+                {isActive('/resources') && (
+                  <span className="animate-shimmer absolute inset-x-0 -bottom-px h-0.5 bg-gradient-to-r from-cyan-500 to-purple-500" />
+                )}
+              </Link>
             </div>
 
             {/* Auth section */}
@@ -241,26 +296,45 @@ export function Header() {
             }`}
           >
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {[
-                { href: '/about', label: 'about' },
-                { href: '/work', label: 'work' },
-                { href: '/writing', label: 'writing' },
-                { href: '/resources', label: 'resources' },
-                { href: '/contact', label: 'contact' },
-              ].map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`block rounded-lg px-3 py-2.5 text-base font-medium lowercase transition-all duration-200 ${
-                    isActive(item.href)
-                      ? 'bg-cyan-50 text-cyan-600'
-                      : 'text-stone-700 hover:bg-stone-50 hover:text-cyan-500'
-                  }`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {/* About section */}
+              <div className="mb-2">
+                <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-stone-400">
+                  about
+                </div>
+                {[
+                  { href: '/about', label: 'about' },
+                  { href: '/work', label: 'work' },
+                  { href: '/writing', label: 'writing' },
+                  { href: '/changelog', label: 'changelog' },
+                  { href: '/contact', label: 'contact' },
+                ].map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`block rounded-lg px-6 py-2.5 text-base font-medium lowercase transition-all duration-200 ${
+                      isActive(item.href)
+                        ? 'bg-cyan-50 text-cyan-600'
+                        : 'text-stone-700 hover:bg-stone-50 hover:text-cyan-500'
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+
+              {/* Resources link */}
+              <Link
+                href="/resources"
+                className={`block rounded-lg px-3 py-2.5 text-base font-medium lowercase transition-all duration-200 ${
+                  isActive('/resources')
+                    ? 'bg-cyan-50 text-cyan-600'
+                    : 'text-stone-700 hover:bg-stone-50 hover:text-cyan-500'
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                resources
+              </Link>
 
               <div className="mt-4 space-y-2 border-t border-stone-200 pt-4">
                 {session?.user ? (

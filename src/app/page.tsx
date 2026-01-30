@@ -136,7 +136,23 @@ export default function HomePage() {
                   this site is where i keep my projects, startups, and work in progress.
                   <br />
                   <span className="text-stone-600">
-                    some things are free. some things are paid.
+                    unlike most portfolio sites, this one actually works — full auth, payments,
+                    content delivery, the whole thing.
+                  </span>
+                </p>
+
+                <p>
+                  most stuff lives in{' '}
+                  <Link
+                    href="/resources"
+                    className="font-semibold text-blue-600 hover:text-blue-700"
+                  >
+                    resources
+                  </Link>
+                  . some free, some paid.
+                  <br />
+                  <span className="text-stone-600">
+                    it&apos;s where i put things people actually use.
                   </span>
                 </p>
 

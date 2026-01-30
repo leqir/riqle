@@ -99,7 +99,7 @@ export default function PrivacyPage() {
                 <li>to send you technical notices and security alerts</li>
                 <li>to communicate with you about products, services, and promotions</li>
                 <li>to personalize your experience and deliver relevant content</li>
-                <li>to analyze usage patterns and optimize our website</li>
+                <li>to analyse usage patterns and optimise our website</li>
                 <li>to detect, prevent, and address fraud and security issues</li>
                 <li>to comply with legal obligations and enforce our terms</li>
               </ul>

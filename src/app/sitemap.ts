@@ -5,13 +5,13 @@ import { db } from '@/lib/db';
  * Sitemap Generation
  * Epic 1 Story 1.6 - Dynamic sitemap requirement
  *
- * Generates XML sitemap with all public pages, posts, projects, startups, and products
+ * Generates XML sitemap with all public pages, posts, projects, startups, products, and resource categories
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
 
   // Fetch all published content
-  const [posts, projects, startups, products] = await Promise.all([
+  const [posts, projects, startups, products, categories] = await Promise.all([
     db.post.findMany({
       where: { published: true },
       select: { slug: true, updatedAt: true },
@@ -30,6 +30,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     db.product.findMany({
       where: { published: true },
       select: { slug: true, updatedAt: true },
+      orderBy: { createdAt: 'desc' },
+    }),
+    db.resourceCategory.findMany({
+      where: { published: true },
+      select: { path: true, updatedAt: true },
       orderBy: { displayOrder: 'asc' },
     }),
   ]);
@@ -103,5 +108,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...postPages, ...projectPages, ...startupPages, ...productPages];
+  const categoryPages: MetadataRoute.Sitemap = categories.map((category) => ({
+    url: `${baseUrl}/resources/browse/${category.path}`,
+    lastModified: category.updatedAt,
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }));
+
+  return [
+    ...staticPages,
+    ...postPages,
+    ...projectPages,
+    ...startupPages,
+    ...productPages,
+    ...categoryPages,
+  ];
 }

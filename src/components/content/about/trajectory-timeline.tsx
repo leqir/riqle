@@ -62,7 +62,7 @@ const phases: Phase[] = [
     description:
       'Founded MarkPoint to build educational technology that bridges the gap between content knowledge and cognitive frameworks.',
     problemExposed:
-      'Working on the challenge of building sustainable businesses in education—most edtech fails because it optimizes for engagement rather than outcomes.',
+      'Working on the challenge of building sustainable businesses in education—most edtech fails because it optimises for engagement rather than outcomes.',
     learning:
       'Currently learning how to balance product velocity with business sustainability, and how to build tools that respect both user attention and educational integrity.',
   },

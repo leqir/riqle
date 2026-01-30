@@ -13,6 +13,7 @@ import { productsRouter } from './routers/products';
 import { ordersRouter } from './routers/orders';
 import { adminRouter } from './routers/admin';
 import { checkoutRouter } from './routers/checkout';
+import { resourcesRouter } from './routers/resources';
 
 /**
  * Root application router
@@ -23,6 +24,7 @@ export const appRouter = createTRPCRouter({
   orders: ordersRouter,
   admin: adminRouter,
   checkout: checkoutRouter,
+  resources: resourcesRouter,
 });
 
 /**

@@ -157,6 +157,7 @@ export default async function ResourcePage({ params, searchParams }: Props) {
       howItWasCreated={product.howItWasCreated}
       format={product.format}
       whatYouGet={product.whatYouGet}
+      pageCount={product.pageCount}
       priceInCents={product.priceInCents}
       currency={product.currency}
       stripeProductId={product.stripeProductId}
