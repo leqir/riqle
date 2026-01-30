@@ -10,6 +10,7 @@
 
 import { type Metadata } from 'next';
 import { db } from '@/lib/db';
+import { addProductCountsToCategories } from '@/lib/resources/count-products';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -19,10 +20,23 @@ export const metadata: Metadata = {
 };
 
 export default async function ResourcesPage() {
-  // Fetch published products, ordered by display order
+  // Fetch root categories (HSC, Theology, University)
+  const rootCategoriesRaw = await db.resourceCategory.findMany({
+    where: {
+      published: true,
+      parentId: null,
+    },
+    orderBy: { displayOrder: 'asc' },
+  });
+
+  // Add product counts (including descendants)
+  const rootCategories = await addProductCountsToCategories(rootCategoriesRaw);
+
+  // Fetch published products for featured section
   const products = await db.product.findMany({
     where: { published: true },
-    orderBy: { displayOrder: 'asc' },
+    orderBy: { createdAt: 'desc' },
+    take: 3, // Show only 3 featured resources
     select: {
       slug: true,
       title: true,
@@ -53,83 +67,122 @@ export default async function ResourcesPage() {
         {/* Philosophy Section */}
         <section className="mb-20 border-l-2 border-stone-900 pl-8">
           <div className="space-y-6 text-lg leading-relaxed text-stone-700">
+            <p>these resources exist because students asked for them.</p>
             <p>
-              these resources exist because students asked for them. after teaching 500+ hsc english
-              students, certain patterns became clear—what works, what doesn&apos;t, and what
-              students actually need.
+              every resource here is based on real teaching experience. i curate only the highest
+              quality materials—each one selected from an extensive database of exemplars and
+              rigorously annotated to reflect the sophistication required to state rank.
             </p>
             <p>
-              every resource here is based on real teaching experience. no theory without
-              application, no frameworks without proof, no advice i wouldn&apos;t give to family.
+              14-day refund, no questions asked. if it doesn&apos;t help, i&apos;ll refund
+              immediately.
             </p>
-            <p>
-              14-day refund, no questions asked. if it doesn&apos;t help, email and i&apos;ll refund
-              immediately. the goal is to help students, not extract revenue.
-            </p>
+            <p>the goal is to help students, not extract revenue.</p>
           </div>
         </section>
 
-        {/* Resources List */}
-        {products.length === 0 ? (
-          <div className="border-l-2 border-stone-300 py-12 pl-8">
-            <p className="text-lg text-stone-600">no published resources yet. check back soon.</p>
-          </div>
-        ) : (
-          <div className="space-y-16">
-            {products.map((product, index) => {
-              const price = (product.priceInCents / 100).toFixed(2);
-              const currencySymbol = product.currency === 'AUD' ? 'A$' : '$';
+        {/* Browse by Category Section */}
+        {rootCategories.length > 0 && (
+          <section className="mb-20">
+            <h2 className="mb-8 text-2xl font-semibold text-stone-900">browse by category</h2>
+            <p className="mb-8 text-lg text-stone-600">
+              find resources tailored to your course and study level.
+            </p>
 
-              return (
-                <article key={product.slug} className="group">
-                  <Link href={`/resources/${product.slug}`} className="block">
-                    {/* Resource Number */}
-                    <p className="mb-4 font-mono text-sm font-medium text-stone-400">
-                      {String(index + 1).padStart(2, '0')}
-                    </p>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {rootCategories.map((category) => (
+                <Link
+                  key={category.id}
+                  href={`/resources/browse/${category.path}`}
+                  className="group block"
+                >
+                  <div className="h-full rounded-2xl border-2 border-stone-200 bg-white p-6 transition-all hover:border-purple-600 hover:shadow-lg">
+                    <h3 className="mb-2 text-xl font-semibold text-stone-900 transition-colors group-hover:text-purple-600">
+                      {category.name}
+                    </h3>
 
-                    {/* Title */}
-                    <h2 className="mb-3 text-[clamp(1.75rem,4vw,2.5rem)] font-semibold leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-stone-600">
-                      {product.title}
-                    </h2>
+                    {category.description && (
+                      <p className="mb-4 text-sm leading-relaxed text-stone-600">
+                        {category.description}
+                      </p>
+                    )}
 
-                    {/* Description */}
-                    <p className="mb-6 text-lg leading-relaxed text-stone-600">
-                      {product.description}
-                    </p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl font-bold text-stone-900">
+                        {category._count.products}
+                      </span>
+                      <span className="text-sm text-stone-500">
+                        {category._count.products === 1 ? 'resource' : 'resources'}
+                      </span>
+                      <span className="ml-auto text-sm font-medium text-purple-600 transition-transform group-hover:translate-x-1">
+                        →
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
-                    {/* Meta */}
-                    <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm">
-                      <div>
-                        <span className="font-medium text-stone-400">format</span>
-                        <span className="ml-3 text-stone-700">{product.format}</span>
-                      </div>
-                      <div>
-                        <span className="font-medium text-stone-400">price</span>
-                        <span className="ml-3 text-stone-700">
-                          {currencySymbol}
-                          {price}
-                        </span>
-                      </div>
-                      {product.featured && (
+        {/* Featured Resources Section */}
+        {products.length > 0 && (
+          <section className="mb-20">
+            <h2 className="mb-8 text-2xl font-semibold text-stone-900">featured resources</h2>
+            <div className="space-y-12">
+              {products.map((product) => {
+                const price = (product.priceInCents / 100).toFixed(2);
+                const currencySymbol = product.currency === 'AUD' ? 'A$' : '$';
+
+                return (
+                  <article key={product.slug} className="group">
+                    <Link href={`/resources/${product.slug}`} className="block">
+                      <h3 className="mb-3 text-2xl font-semibold leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-stone-600">
+                        {product.title}
+                      </h3>
+
+                      <p className="mb-4 text-lg leading-relaxed text-stone-600">
+                        {product.description}
+                      </p>
+
+                      <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm">
                         <div>
-                          <span className="ml-auto inline-block rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-700">
-                            featured
+                          <span className="font-medium text-stone-400">format</span>
+                          <span className="ml-3 text-stone-700">{product.format}</span>
+                        </div>
+                        <div>
+                          <span className="font-medium text-stone-400">price</span>
+                          <span className="ml-3 text-stone-700">
+                            {currencySymbol}
+                            {price}
                           </span>
                         </div>
-                      )}
-                    </div>
-
-                    {/* Divider */}
-                    {index < products.length - 1 && (
-                      <div className="mt-16 h-px bg-gradient-to-r from-stone-200 via-stone-300 to-stone-200" />
-                    )}
-                  </Link>
-                </article>
-              );
-            })}
-          </div>
+                        {product.featured && (
+                          <div>
+                            <span className="ml-auto inline-block rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-700">
+                              featured
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </Link>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
         )}
+
+        {/* Browse All Resources Link */}
+        <div className="text-center">
+          <Link
+            href="/resources/browse"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-stone-900 bg-white px-8 py-4 text-base font-semibold text-stone-900 transition-all hover:bg-stone-900 hover:text-white"
+          >
+            browse all resources
+            <span className="text-lg transition-transform group-hover:translate-x-1">→</span>
+          </Link>
+        </div>
       </div>
     </div>
   );
