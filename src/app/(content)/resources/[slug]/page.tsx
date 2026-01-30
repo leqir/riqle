@@ -77,6 +77,7 @@ export default async function ResourcePage({ params, searchParams }: Props) {
       howItWasCreated: true,
       format: true,
       whatYouGet: true,
+      pageCount: true,
       priceInCents: true,
       currency: true,
       stripeProductId: true,

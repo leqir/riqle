@@ -41,6 +41,7 @@ type ResourceDetailProps = {
   howItWasCreated: string;
   format: string;
   whatYouGet: string;
+  pageCount: number | null;
   priceInCents: number;
   currency: string;
   stripeProductId: string | null;
