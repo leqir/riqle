@@ -204,7 +204,7 @@ export function ResourceDetail({
                   see what&apos;s inside
                 </h2>
               </div>
-              <PDFPreview pdfUrl={downloadUrls[0]} totalPages={3} />
+              <PDFPreview pdfUrl={downloadUrls[0]} totalPages={11} />
             </section>
 
             {/* Who it's for - Clean, No Boxes */}
