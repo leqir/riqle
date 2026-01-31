@@ -16,14 +16,14 @@ export const revalidate = 86400;
 
 // Enhanced metadata for homepage
 export const metadata: Metadata = {
-  title: 'Riqle | Nathanael - Builder, Founder & Educator',
+  title: 'riqle | nathanael - builder, founder & educator',
   description:
     'my future employers want a personal website here it is. co-founder of MarkPoint, building educational products for HSC students.',
   alternates: {
     canonical: 'https://riqle.com',
   },
   openGraph: {
-    title: 'Riqle | Nathanael - Builder, Founder & Educator',
+    title: 'riqle | nathanael - builder, founder & educator',
     description:
       'my future employers want a personal website here it is. co-founder of MarkPoint, building educational products for HSC students.',
     url: 'https://riqle.com',
@@ -36,11 +36,11 @@ export default function HomePage() {
   const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'Nathanael',
-    alternateName: 'Riqle',
+    name: 'nathanael',
+    alternateName: 'riqle',
     url: 'https://riqle.com',
     image: 'https://riqle.com/og-image.png',
-    jobTitle: 'Co-founder & Builder',
+    jobTitle: 'co-founder & builder',
     worksFor: {
       '@type': 'Organization',
       name: 'MarkPoint',
@@ -68,11 +68,11 @@ export default function HomePage() {
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Riqle',
-    alternateName: 'Nathanael - Riqle',
+    name: 'riqle',
+    alternateName: 'nathanael - riqle',
     url: 'https://riqle.com',
     description:
-      'Personal website of Nathanael (Riqle) - builder, founder, and educator. Home of MarkPoint and HSC educational resources.',
+      'personal website of nathanael (riqle) - builder, founder, and educator. home of markpoint and hsc educational resources.',
     potentialAction: {
       '@type': 'SearchAction',
       target: 'https://riqle.com/resources/browse?search={search_term_string}',
