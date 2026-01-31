@@ -39,6 +39,46 @@ type Version = {
 
 const versions: Version[] = [
   {
+    version: '1.2',
+    date: '2026-01-31',
+    title: 'Analytics & User Tracking',
+    changes: [
+      {
+        category: 'feature',
+        description:
+          'Added comprehensive analytics dashboard at /admin/analytics with real database-driven user signup stats',
+      },
+      {
+        category: 'feature',
+        description:
+          'Implemented event tracking system - now tracking resource views, checkout events, and user interactions',
+      },
+      {
+        category: 'feature',
+        description:
+          'Created view-signups.ts CLI script for quick user signup reporting (totals, trends, verification rates)',
+      },
+      {
+        category: 'feature',
+        description:
+          'Added AnalyticsEvent database model for server-side event tracking with metadata support',
+      },
+      {
+        category: 'improvement',
+        description:
+          'Admin dashboard now shows live signup metrics: total users, 7-day signups, verification rate, paying customers',
+      },
+      {
+        category: 'improvement',
+        description: 'Automatic resource view tracking on every resource page visit',
+      },
+      {
+        category: 'improvement',
+        description: 'Added KRAMIG favicon troubleshooting guide for browser cache issues',
+      },
+    ],
+  },
+  {
     version: '1.1',
     date: '2026-01-31',
     title: 'Extension 1 Resources & System Improvements',
