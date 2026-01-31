@@ -23,14 +23,14 @@ const nanumPen = Nanum_Pen_Script({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'https://riqle.com'),
   title: {
-    default: 'Riqle | Nathanael - Builder, Founder, Educator',
-    template: '%s | Riqle',
+    default: 'riqle | nathanael - builder, founder & educator',
+    template: '%s | riqle',
   },
   description:
-    'Nathanael (Riqle) - Co-founder of MarkPoint. Building educational products and teaching systems thinking. Student → Tutor → Builder → Founder.',
+    'my future employers want a personal website, here it is. co-founder of MarkPoint, building educational products for HSC students.',
   keywords: [
-    'Riqle',
-    'Nathanael',
+    'riqle',
+    'nathanael',
     'MarkPoint',
     'HSC resources',
     'education',
@@ -40,31 +40,31 @@ export const metadata: Metadata = {
     'tutor',
     'Australia',
   ],
-  authors: [{ name: 'Nathanael (Riqle)', url: 'https://riqle.com' }],
-  creator: 'Nathanael (Riqle)',
-  publisher: 'Riqle',
+  authors: [{ name: 'nathanael (riqle)', url: 'https://riqle.com' }],
+  creator: 'nathanael (riqle)',
+  publisher: 'riqle',
   openGraph: {
     type: 'website',
     locale: 'en_AU',
     url: 'https://riqle.com',
-    siteName: 'Riqle',
-    title: 'Riqle | Nathanael - Builder, Founder, Educator',
+    siteName: 'riqle',
+    title: 'riqle | nathanael - builder, founder & educator',
     description:
-      'Nathanael (Riqle) - Co-founder of MarkPoint. Building educational products and teaching systems thinking.',
+      'my future employers want a personal website, here it is. co-founder of MarkPoint, building educational products for HSC students.',
     images: [
       {
         url: '/og-image.png', // You'll need to create this
         width: 1200,
         height: 630,
-        alt: 'Riqle - Nathanael',
+        alt: 'riqle - nathanael',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Riqle | Nathanael - Builder, Founder, Educator',
+    title: 'riqle | nathanael - builder, founder & educator',
     description:
-      'Co-founder of MarkPoint. Building educational products and teaching systems thinking.',
+      'my future employers want a personal website, here it is. co-founder of MarkPoint, building educational products for HSC students.',
     images: ['/og-image.png'],
   },
   robots: {

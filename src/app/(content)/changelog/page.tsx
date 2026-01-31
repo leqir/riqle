@@ -39,7 +39,47 @@ type Version = {
 
 const versions: Version[] = [
   {
-    version: '1.2',
+    version: '1.0.3',
+    date: '2026-02-01',
+    title: 'Content Expansion & Branding Updates',
+    changes: [
+      {
+        category: 'content',
+        description:
+          'Published "Sylvia Plath & Ted Hughes Analysis" - annotated exemplar essay for HSC Module A Textual Conversations',
+      },
+      {
+        category: 'content',
+        description:
+          'Published "T.S. Eliot Analysis" - annotated exemplar essay for HSC Module B Critical Study of Literature',
+      },
+      {
+        category: 'content',
+        description:
+          'Published "Henry IV Analysis" - annotated exemplar essay for HSC Module B Critical Study of Literature',
+      },
+      {
+        category: 'improvement',
+        description:
+          'Standardised all branding to lowercase (riqle, nathanael) for consistent visual identity',
+      },
+      {
+        category: 'improvement',
+        description: 'Updated homepage meta description to better reflect site functionality',
+      },
+      {
+        category: 'improvement',
+        description: 'Enhanced about page, resources page, and footer navigation',
+      },
+      {
+        category: 'fix',
+        description:
+          'Added troubleshooting documentation for DNS/domain configuration and browser cache issues',
+      },
+    ],
+  },
+  {
+    version: '1.0.2',
     date: '2026-01-31',
     title: 'Analytics & User Tracking',
     changes: [
@@ -79,7 +119,7 @@ const versions: Version[] = [
     ],
   },
   {
-    version: '1.1',
+    version: '1.0.1',
     date: '2026-01-31',
     title: 'Extension 1 Resources & System Improvements',
     changes: [
