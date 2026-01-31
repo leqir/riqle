@@ -18,14 +18,14 @@ export const revalidate = 86400;
 export const metadata: Metadata = {
   title: 'Riqle | Nathanael - Builder, Founder & Educator',
   description:
-    "Hi, I'm Nathanael, better known as Riqle. Co-founder of MarkPoint, building educational products for HSC students. Student → Tutor → Builder → Founder.",
+    'my future employers want a personal website here it is. co-founder of MarkPoint, building educational products for HSC students.',
   alternates: {
     canonical: 'https://riqle.com',
   },
   openGraph: {
     title: 'Riqle | Nathanael - Builder, Founder & Educator',
     description:
-      "Hi, I'm Nathanael, better known as Riqle. Co-founder of MarkPoint, building educational products for HSC students.",
+      'my future employers want a personal website here it is. co-founder of MarkPoint, building educational products for HSC students.',
     url: 'https://riqle.com',
     type: 'profile',
   },
