@@ -81,6 +81,31 @@ export default async function ResourcesPage() {
           </div>
         </section>
 
+        {/* Tutoring Section */}
+        <section className="mb-20 border-l-2 border-stone-300 pl-8">
+          <div className="space-y-6 text-lg leading-relaxed text-stone-700">
+            <p>i also tutor english</p>
+            <p>
+              not in a &quot;here&apos;s a template&quot; way, but in a &quot;why does this actually
+              score higher?&quot; way.
+            </p>
+            <div className="space-y-2 text-base text-stone-600">
+              <p>for context:</p>
+              <p>- graduated sydney boys &apos;24</p>
+              <p>- 2+ years private tutoring + centre experience</p>
+              <p>- took 4u english for fun</p>
+            </div>
+            <p className="text-base text-stone-600">
+              i&apos;m based in hurstville area - i love you but i ain&apos;t trekking to epping or
+              castle hill
+            </p>
+            <p>
+              msg me if you&apos;re stuck in band 5, doing extension, or just want english to make
+              sense.
+            </p>
+          </div>
+        </section>
+
         {/* Browse by Category Section */}
         {rootCategories.length > 0 && (
           <section className="mb-20">

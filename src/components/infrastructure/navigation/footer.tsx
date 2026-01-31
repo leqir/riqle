@@ -95,8 +95,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-stone-600">
-              building products and teaching systems thinking. exploring the intersection of
-              technology, education, and human potential.
+              making things. teaching english. figuring it out as i go.
             </p>
 
             {/* Social links */}

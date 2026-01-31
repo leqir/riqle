@@ -37,13 +37,16 @@ export default function AboutPage() {
 
           <div className="border-l-2 border-stone-900 pl-8">
             <div className="space-y-6 text-lg leading-relaxed text-stone-700">
+              <p className="text-sm italic text-stone-500">
+                my chatgpt wanted me to write this here:
+              </p>
+
               <p>
-                ts is ai-gen for now......i think a lot about{' '}
-                <span className="font-medium text-stone-900">formation</span>. how people are shaped
-                over time by the habits they keep, the language they use, the discipline they build,
-                and the systems they inhabit. not as some abstract concept, but as a lived reality.
-                the things you do every day are quietly forming you into someone, whether
-                you&apos;re paying attention or not.
+                i think a lot about <span className="font-medium text-stone-900">formation</span>.
+                how people are shaped over time by the habits they keep, the language they use, the
+                discipline they build, and the systems they inhabit. not as some abstract concept,
+                but as a lived reality. the things you do every day are quietly forming you into
+                someone, whether you&apos;re paying attention or not.
               </p>
 
               <p>
@@ -54,70 +57,21 @@ export default function AboutPage() {
                 actually meant. clarity is kindness. ambiguity is violence.
               </p>
 
-              <div className="my-10 border-l-2 border-stone-900 pl-6">
-                <p className="mb-2 text-sm text-stone-500">core belief</p>
-                <p className="mb-4 text-2xl font-medium text-stone-900">
-                  conviction over performance
+              <div className="my-10 border-l-2 border-stone-300 pl-6">
+                <p className="mb-4 text-lg text-stone-900">
+                  but i&apos;m genuinely just a simple guy
                 </p>
-                <p className="text-base leading-relaxed">
-                  my faith sits at the center of how i try to order my life. i&apos;m guided more by
-                  restraint, accountability, and how i treat people than by what i signal publicly.
-                  it informs what i say yes to, what i walk away from, and how seriously i take
-                  responsibility. it&apos;s the difference between optimising for appearance and
-                  optimising for integrity, and i know which one matters when no one&apos;s
-                  watching.
-                </p>
-                <p className="mt-4 text-base leading-relaxed">
-                  this shapes everything. the products i build, the teams i want to work with, the
-                  conversations i value. it&apos;s why i care more about long-term trust than
-                  short-term growth, and why i&apos;d rather be honest than impressive.
-                </p>
+                <ul className="space-y-2 text-base leading-relaxed text-stone-700">
+                  <li>• i like playing music, hmu if you forming a band</li>
+                  <li>• i like to draw</li>
+                  <li>• i like to yap about the political state of the world</li>
+                  <li>• i like acai</li>
+                </ul>
               </div>
 
-              <p>
-                outside of work, i value routines that reward consistency. i like running and rarely
-                turn it down if someone else is keen. swimming is the other constant. i go to the
-                gym to swim.
+              <p className="text-stone-500">
+                p.s. if anyone can beat me in geoguessr or gamepigeon word hunt i will give them $20
               </p>
-
-              <p>
-                i enjoy talking about theology, ethics, culture, or the political state of the
-                world. i don&apos;t mind listening carefully, disagreeing honestly, and changing my
-                mind when it&apos;s warranted. there&apos;s something about 1am conversations that
-                strip away pretense. the kind where you&apos;re too tired to perform and end up
-                saying what you actually think. deep theological talks at that hour hit different.
-              </p>
-
-              <p>
-                i used to compete in geoguessr (top 50 aus) before taking a break. if anyone can
-                beat me in geoguessr or even gamepigeon word hunt i&apos;ll give them $20.
-              </p>
-
-              <p>
-                music has always hovered in the background. i genuinely enjoy jamming with others. i
-                play guitar, bass, keys, and mess around with drums when the opportunity presents
-                itself. the idea of forming a band resurfaces every so often. it hasn&apos;t
-                happened yet, but the pull is real. there&apos;s something meditative about
-                improvising with people who get the rhythm. it&apos;s less about performance and
-                more about connecting with something honest.
-              </p>
-
-              <p>
-                i draw and sketch when i need to think through something visually. it&apos;s less
-                about being an artist and more about working through ideas in a different medium.
-                sometimes the clearest way to understand a system is to map it by hand. there&apos;s
-                a particular kind of clarity that comes from putting pen to paper. slowing down
-                enough to see what you&apos;re actually building.
-              </p>
-
-              <p>
-                i care about the weight of words. not in a pedantic way, but in the sense that
-                language shapes how we think, how we relate, and what we pay attention to. unclear
-                communication creates more problems than most technical issues ever will. this shows
-                up in how i write, how i design interfaces, and how i think about product decisions.
-              </p>
-
-              <p className="text-stone-500">p.s. lmk if you know good acai spots</p>
             </div>
           </div>
         </section>
@@ -142,57 +96,52 @@ export default function AboutPage() {
                   </h2>
                   <p className="text-base text-stone-600">riqle</p>
                 </div>
-                <p className="text-lg text-stone-700">
-                  founder · product builder · systems thinker
-                </p>
+                <p className="text-lg text-stone-700">making things · sydney</p>
               </div>
 
               {/* Context Snapshot */}
-              <div className="space-y-3 border-l-2 border-stone-900 pl-6">
-                <p className="text-sm text-stone-600">based in sydney</p>
-                <p className="text-sm text-stone-600">building education systems</p>
-                <p className="text-sm text-stone-600">design-led, metric-driven</p>
+              <div className="space-y-3 border-l-2 border-stone-300 pl-6">
+                <p className="text-sm text-stone-600">
+                  dropped out of compsci. started a company. learned everything the hard way.
+                </p>
+                <p className="text-sm text-stone-600">
+                  now studying exercise science because the body is more interesting than code.
+                </p>
               </div>
 
               {/* Philosophy */}
               <div className="space-y-6">
-                <p className="text-sm font-medium text-stone-500">what i care about</p>
+                <p className="text-sm font-medium text-stone-500">things i believe</p>
                 <div className="space-y-4 text-sm leading-relaxed text-stone-700">
-                  <p>systems outperform motivation. discipline beats inspiration every time.</p>
-                  <p>
-                    clarity compounds. unclear language creates more problems than technical
-                    difficulty.
-                  </p>
-                  <p>products should teach users how to succeed, not just give them features.</p>
-                  <p>autonomy matters more than prestige. ownership over titles.</p>
-                  <p>honest conversations. the kind that happen at 1am when pretense falls away.</p>
+                  <p>systems beat motivation</p>
+                  <p>clarity is a superpower</p>
+                  <p>good products teach, they don&apos;t just serve</p>
+                  <p>ownership &gt; titles</p>
+                  <p>the best conversations happen at 1am</p>
                 </div>
               </div>
 
               {/* Background */}
               <div className="space-y-4 border-t border-stone-200 pt-8">
-                <p className="text-sm font-medium text-stone-500">how i got here</p>
+                <p className="text-sm font-medium text-stone-500">the path here</p>
                 <div className="space-y-3 text-sm text-stone-700">
-                  <p>started in computer science. left when it felt like the wrong fit.</p>
-                  <p>founded markpoint. learned by building.</p>
-                  <p>ui/ux internship at breville. saw how real teams work.</p>
-                  <p>
-                    self-taught across product, ux, growth. found my own path when traditional ones
-                    didn&apos;t click.
-                  </p>
-                  <p>now studying exercise science, pathway toward medicine.</p>
+                  <p>tried uni. wasn&apos;t it.</p>
+                  <p>co-founded markpoint with some friends. built the whole stack.</p>
+                  <p>interned at breville doing ui/ux. learned how real companies work.</p>
+                  <p>taught myself product, design, growth. no bootcamp, just building.</p>
+                  <p>taking a different route now. medicine feels right.</p>
                 </div>
               </div>
 
               {/* Human Element */}
               <div className="space-y-4 border-t border-stone-200 pt-8">
-                <p className="text-sm font-medium text-stone-500">beyond work</p>
+                <p className="text-sm font-medium text-stone-500">when i&apos;m not working</p>
                 <div className="space-y-3 text-sm text-stone-700">
-                  <p>guitar, bass, keys, drums, sax</p>
-                  <p>drawing and visual thinking</p>
-                  <p>1am theological conversations</p>
-                  <p>running and swimming</p>
-                  <p>clarity through language</p>
+                  <p>guitar, bass, keys, drums, sax (hmu if you&apos;re forming a band)</p>
+                  <p>drawing when i need to think</p>
+                  <p>talking about theology and politics way too late</p>
+                  <p>running, swimming, acai bowls</p>
+                  <p>trying to beat people at geoguessr ($20 bounty still unclaimed)</p>
                 </div>
               </div>
             </div>
