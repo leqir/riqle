@@ -530,3 +530,16 @@ enum OrderStatus {
   failed
   refunded
 }
+
+model AnalyticsEvent {
+  id         String   @id @default(cuid())
+  eventName  String   // e.g., "resource_viewed", "markpoint_clicked", "extension_1_downloaded"
+  path       String?  // URL path where event occurred
+  userId     String?  // Optional - only if user is logged in
+  metadata   Json?    // Additional data (resource slug, product id, etc.)
+  createdAt  DateTime @default(now())
+
+  @@index([eventName])
+  @@index([createdAt])
+  @@index([userId])
+}

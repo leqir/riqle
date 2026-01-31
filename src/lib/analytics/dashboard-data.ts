@@ -8,6 +8,23 @@ import { db } from '@/lib/db';
 import { AnalyticsEvent } from './events';
 
 export interface DashboardMetrics {
+  userGrowth: {
+    totalUsers: number;
+    signupsToday: number;
+    signupsLast7Days: number;
+    signupsLast30Days: number;
+    verifiedUsers: number;
+    verificationRate: number;
+    payingCustomers: number;
+    conversionRate: number;
+    recentSignups: Array<{
+      email: string;
+      name: string | null;
+      createdAt: Date;
+      emailVerified: boolean;
+      hasPurchases: boolean;
+    }>;
+  };
   employerUnderstanding: {
     homepageBounceRate: number;
     avgTimeToInteraction: number;
@@ -37,6 +54,41 @@ export async function getDashboardMetrics(
   startDate: Date,
   endDate: Date
 ): Promise<DashboardMetrics> {
+  // User Growth - Real Data from Database
+  const allUsers = await db.user.findMany({
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      createdAt: true,
+      emailVerified: true,
+      Order: {
+        where: { status: 'completed' },
+        select: { id: true },
+      },
+    },
+    orderBy: { createdAt: 'desc' },
+  });
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const last7Days = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+  const last30Days = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+  const signupsToday = allUsers.filter((u) => u.createdAt >= today).length;
+  const signupsLast7Days = allUsers.filter((u) => u.createdAt >= last7Days).length;
+  const signupsLast30Days = allUsers.filter((u) => u.createdAt >= last30Days).length;
+  const verifiedUsers = allUsers.filter((u) => u.emailVerified).length;
+  const payingCustomers = allUsers.filter((u) => u.Order.length > 0).length;
+
+  const recentSignups = allUsers.slice(0, 10).map((u) => ({
+    email: u.email,
+    name: u.name,
+    createdAt: u.createdAt,
+    emailVerified: !!u.emailVerified,
+    hasPurchases: u.Order.length > 0,
+  }));
+
   // Employer understanding
   const homepageViews = await getPageViews('/', startDate, endDate);
   const homepageBounces = await getBounces('/', startDate, endDate);
@@ -86,6 +138,17 @@ export async function getDashboardMetrics(
   });
 
   return {
+    userGrowth: {
+      totalUsers: allUsers.length,
+      signupsToday,
+      signupsLast7Days,
+      signupsLast30Days,
+      verifiedUsers,
+      verificationRate: allUsers.length > 0 ? verifiedUsers / allUsers.length : 0,
+      payingCustomers,
+      conversionRate: allUsers.length > 0 ? payingCustomers / allUsers.length : 0,
+      recentSignups,
+    },
     employerUnderstanding: {
       homepageBounceRate: homepageViews > 0 ? homepageBounces / homepageViews : 0,
       avgTimeToInteraction: 0, // Calculated from analytics provider
@@ -113,34 +176,34 @@ export async function getDashboardMetrics(
 }
 
 // Helper functions (implement based on analytics provider)
-async function getPageViews(path: string, start: Date, end: Date): Promise<number> {
+async function getPageViews(_path: string, _start: Date, _end: Date): Promise<number> {
   // Query analytics provider or database
   // TODO: Implement based on Vercel Analytics API or custom tracking
   return 0;
 }
 
-async function getBounces(path: string, start: Date, end: Date): Promise<number> {
+async function getBounces(_path: string, _start: Date, _end: Date): Promise<number> {
   // Query analytics provider
   // TODO: Implement based on analytics provider
   return 0;
 }
 
-async function getNavigationEvents(targets: string[], start: Date, end: Date): Promise<number> {
+async function getNavigationEvents(_targets: string[], _start: Date, _end: Date): Promise<number> {
   // Query navigation patterns
   // TODO: Implement based on analytics provider
   return 0;
 }
 
-async function getAvgTimeOnPage(path: string, start: Date, end: Date): Promise<number> {
+async function getAvgTimeOnPage(_path: string, _start: Date, _end: Date): Promise<number> {
   // Query time on page data
   // TODO: Implement based on analytics provider
   return 0;
 }
 
 async function getScrollDepth(
-  path: string,
-  start: Date,
-  end: Date
+  _path: string,
+  _start: Date,
+  _end: Date
 ): Promise<{
   avgDepth: number;
   completionRate: number;
@@ -150,7 +213,7 @@ async function getScrollDepth(
   return { avgDepth: 0, completionRate: 0 };
 }
 
-async function getEventCount(event: AnalyticsEvent, start: Date, end: Date): Promise<number> {
+async function getEventCount(_event: AnalyticsEvent, _start: Date, _end: Date): Promise<number> {
   // Query event count
   // TODO: Implement based on analytics provider
   return 0;

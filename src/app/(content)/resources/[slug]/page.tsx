@@ -21,6 +21,7 @@ import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { db } from '@/lib/db';
 import { ResourceDetail } from '@/components/content/resources/resource-detail';
+import { trackServerEvent, SERVER_EVENTS } from '@/lib/analytics/tracking';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -93,6 +94,18 @@ export default async function ResourcePage({ params, searchParams }: Props) {
   if (!product || !product.published) {
     notFound();
   }
+
+  // Track resource view
+  await trackServerEvent({
+    eventName: SERVER_EVENTS.RESOURCE_VIEWED,
+    path: `/resources/${slug}`,
+    metadata: {
+      resourceId: product.id,
+      resourceTitle: product.title,
+      resourceSlug: slug,
+      price: product.priceInCents,
+    },
+  });
 
   // Check for entitlement if eid provided
   let entitlement = null;

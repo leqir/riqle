@@ -6,6 +6,7 @@ import {
   interpretOperationalHealth,
 } from '@/lib/analytics/interpretation';
 import { SUCCESS_QUESTIONS } from '@/lib/analytics/questions';
+import { getEventCount, SERVER_EVENTS } from '@/lib/analytics/tracking';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,6 +17,16 @@ export default async function AnalyticsPage() {
   startDate.setDate(startDate.getDate() - 30);
 
   const metrics = await getDashboardMetrics(startDate, endDate);
+
+  // Get event counts for last 30 days
+  const resourceViews = await getEventCount(SERVER_EVENTS.RESOURCE_VIEWED, startDate, endDate);
+  const markpointClicks = await getEventCount(SERVER_EVENTS.MARKPOINT_CLICKED, startDate, endDate);
+  const checkoutsStarted = await getEventCount(SERVER_EVENTS.CHECKOUT_STARTED, startDate, endDate);
+  const checkoutsCompleted = await getEventCount(
+    SERVER_EVENTS.CHECKOUT_COMPLETED,
+    startDate,
+    endDate
+  );
 
   // Interpret metrics
   const employerInterpretation = interpretEmployerUnderstanding({
@@ -48,11 +59,118 @@ export default async function AnalyticsPage() {
         </p>
       </div>
 
+      {/* User Growth - Real Data */}
+      <section className="rounded-lg border border-neutral-200 bg-white p-6">
+        <h2 className="text-lg font-semibold text-neutral-900">User Growth & Signups</h2>
+        <p className="mt-1 text-sm text-neutral-600">Real-time data from your database</p>
+
+        <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+          <div className="rounded-lg bg-blue-50 p-4">
+            <div className="text-2xl font-bold text-blue-900">{metrics.userGrowth.totalUsers}</div>
+            <div className="text-xs text-blue-700">Total Users</div>
+          </div>
+          <div className="rounded-lg bg-green-50 p-4">
+            <div className="text-2xl font-bold text-green-900">
+              {metrics.userGrowth.signupsLast7Days}
+            </div>
+            <div className="text-xs text-green-700">Last 7 Days</div>
+          </div>
+          <div className="rounded-lg bg-purple-50 p-4">
+            <div className="text-2xl font-bold text-purple-900">
+              {formatPercentage(metrics.userGrowth.verificationRate)}
+            </div>
+            <div className="text-xs text-purple-700">Email Verified</div>
+          </div>
+          <div className="rounded-lg bg-orange-50 p-4">
+            <div className="text-2xl font-bold text-orange-900">
+              {metrics.userGrowth.payingCustomers}
+            </div>
+            <div className="text-xs text-orange-700">Paying Customers</div>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <h3 className="mb-3 text-sm font-semibold text-neutral-700">Recent Signups</h3>
+          <div className="space-y-2">
+            {metrics.userGrowth.recentSignups.slice(0, 5).map((signup, i) => (
+              <div
+                key={i}
+                className="flex items-center justify-between rounded border border-neutral-100 bg-neutral-50 p-3"
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`h-2 w-2 rounded-full ${signup.emailVerified ? 'bg-green-500' : 'bg-yellow-500'}`}
+                  />
+                  <div>
+                    <div className="text-sm font-medium text-neutral-900">
+                      {signup.name || 'No name'}
+                    </div>
+                    <div className="text-xs text-neutral-600">{signup.email}</div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-xs text-neutral-600">
+                    {new Date(signup.createdAt).toLocaleDateString('en-AU', {
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                  </div>
+                  {signup.hasPurchases && (
+                    <div className="text-xs font-semibold text-green-600">💳 Paid</div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Event Tracking - Real Data */}
+      <section className="rounded-lg border border-neutral-200 bg-white p-6">
+        <h2 className="text-lg font-semibold text-neutral-900">Event Tracking</h2>
+        <p className="mt-1 text-sm text-neutral-600">
+          Custom events tracked in database (last 30 days)
+        </p>
+
+        <div className="mt-4 space-y-3">
+          <MetricRow label="Resource Views" value={resourceViews.toString()} threshold="Total" />
+          <MetricRow
+            label="MarkPoint Button Clicks"
+            value={markpointClicks.toString()}
+            threshold="Total"
+          />
+          <MetricRow
+            label="Checkouts Started"
+            value={checkoutsStarted.toString()}
+            threshold="Total"
+          />
+          <MetricRow
+            label="Checkouts Completed"
+            value={checkoutsCompleted.toString()}
+            threshold="Total"
+          />
+          <MetricRow
+            label="Checkout Conversion"
+            value={
+              checkoutsStarted > 0
+                ? `${Math.round((checkoutsCompleted / checkoutsStarted) * 100)}%`
+                : '0%'
+            }
+            threshold="> 30%"
+          />
+        </div>
+
+        <div className="mt-4 rounded-lg bg-blue-50 p-4">
+          <p className="text-sm text-blue-800">
+            <strong>Note:</strong> Event tracking started when you added the AnalyticsEvent table.
+            Resource views are now being tracked automatically on every resource page visit.
+          </p>
+        </div>
+      </section>
+
       {/* Question 1: Employer Understanding */}
       <section className="rounded-lg border border-neutral-200 bg-white p-6">
-        <h2 className="text-lg font-semibold text-neutral-900">
-          {SUCCESS_QUESTIONS[0].question}
-        </h2>
+        <h2 className="text-lg font-semibold text-neutral-900">{SUCCESS_QUESTIONS[0].question}</h2>
         <p className="mt-1 text-sm text-neutral-600">{SUCCESS_QUESTIONS[0].why}</p>
 
         <div className="mt-4 space-y-3">
@@ -73,9 +191,7 @@ export default async function AnalyticsPage() {
 
       {/* Question 2: Proof Effectiveness */}
       <section className="rounded-lg border border-neutral-200 bg-white p-6">
-        <h2 className="text-lg font-semibold text-neutral-900">
-          {SUCCESS_QUESTIONS[1].question}
-        </h2>
+        <h2 className="text-lg font-semibold text-neutral-900">{SUCCESS_QUESTIONS[1].question}</h2>
         <p className="mt-1 text-sm text-neutral-600">{SUCCESS_QUESTIONS[1].why}</p>
 
         <div className="mt-4 space-y-3">
@@ -101,9 +217,7 @@ export default async function AnalyticsPage() {
 
       {/* Question 3: Commerce Health */}
       <section className="rounded-lg border border-neutral-200 bg-white p-6">
-        <h2 className="text-lg font-semibold text-neutral-900">
-          {SUCCESS_QUESTIONS[2].question}
-        </h2>
+        <h2 className="text-lg font-semibold text-neutral-900">{SUCCESS_QUESTIONS[2].question}</h2>
         <p className="mt-1 text-sm text-neutral-600">{SUCCESS_QUESTIONS[2].why}</p>
 
         <div className="mt-4 space-y-3">
@@ -129,9 +243,7 @@ export default async function AnalyticsPage() {
 
       {/* Question 4: Operational Health */}
       <section className="rounded-lg border border-neutral-200 bg-white p-6">
-        <h2 className="text-lg font-semibold text-neutral-900">
-          {SUCCESS_QUESTIONS[3].question}
-        </h2>
+        <h2 className="text-lg font-semibold text-neutral-900">{SUCCESS_QUESTIONS[3].question}</h2>
         <p className="mt-1 text-sm text-neutral-600">{SUCCESS_QUESTIONS[3].why}</p>
 
         <div className="mt-4 space-y-3">
