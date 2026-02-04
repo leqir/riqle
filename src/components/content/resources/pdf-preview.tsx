@@ -11,8 +11,8 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
-// Configure PDF.js worker
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+// Configure PDF.js worker - use unpkg CDN with specific version
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 interface PDFPreviewProps {
   pdfUrl: string;
@@ -23,6 +23,7 @@ export function PDFPreview({ pdfUrl, totalPages = 3 }: PDFPreviewProps) {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
   const [containerWidth, setContainerWidth] = React.useState<number>(800);
+  const [numPages, setNumPages] = React.useState<number | null>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   // Measure container width for responsive PDF rendering
@@ -39,7 +40,8 @@ export function PDFPreview({ pdfUrl, totalPages = 3 }: PDFPreviewProps) {
     return () => resizeObserver.disconnect();
   }, []);
 
-  const onDocumentLoadSuccess = () => {
+  const onDocumentLoadSuccess = ({ numPages: pages }: { numPages: number }) => {
+    setNumPages(pages);
     setLoading(false);
     setError(null);
   };
@@ -64,7 +66,7 @@ export function PDFPreview({ pdfUrl, totalPages = 3 }: PDFPreviewProps) {
         {/* Cropped PDF viewer - Shows less text with heavy fade */}
         <div className="relative h-[500px] overflow-hidden bg-stone-50">
           {loading && (
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-stone-50">
               <div className="text-center">
                 <div className="mb-3 inline-block h-8 w-8 animate-spin rounded-full border-4 border-stone-300 border-t-stone-900"></div>
                 <p className="text-sm text-stone-600">loading preview...</p>
@@ -73,7 +75,7 @@ export function PDFPreview({ pdfUrl, totalPages = 3 }: PDFPreviewProps) {
           )}
 
           {error && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-stone-50 p-8 text-center">
               <svg
                 className="mb-6 h-16 w-16 text-stone-400"
                 fill="none"
@@ -107,6 +109,11 @@ export function PDFPreview({ pdfUrl, totalPages = 3 }: PDFPreviewProps) {
               onLoadError={onDocumentLoadError}
               loading=""
               error=""
+              options={{
+                cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
+                cMapPacked: true,
+                standardFontDataUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/standard_fonts/`,
+              }}
             >
               <Page
                 pageNumber={1}
@@ -131,7 +138,7 @@ export function PDFPreview({ pdfUrl, totalPages = 3 }: PDFPreviewProps) {
             remaining content locked
           </p>
           <p className="text-sm text-stone-600">
-            purchase to unlock the full {totalPages}-page document
+            purchase to unlock the full {numPages || totalPages}-page document
           </p>
         </div>
       </div>
