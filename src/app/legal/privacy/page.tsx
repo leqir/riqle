@@ -1,498 +1,453 @@
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Privacy Policy - Riqle',
-  description: 'How we collect, use, and protect your personal information',
+  title: 'Privacy Policy - riqle',
+  description: 'Privacy policy governing data collection, processing, and protection practices',
 };
 
-const LAST_UPDATED = 'January 27, 2026';
+const LAST_UPDATED = 'February 4, 2026';
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-stone-50">
+    <div className="min-h-screen bg-white">
       <div className="mx-auto max-w-4xl px-6 py-16 md:px-8 md:py-24">
         {/* Header */}
-        <header className="mb-16">
-          <p className="mb-3 text-sm font-medium uppercase tracking-wider text-stone-500">legal</p>
-          <h1 className="mb-4 text-[clamp(2.5rem,5vw,3.5rem)] font-semibold leading-[1.1] tracking-tight text-stone-900">
-            Privacy Policy
-          </h1>
-          <p className="text-lg text-stone-600">
-            Last updated: <time dateTime="2026-01-27">{LAST_UPDATED}</time>
+        <header className="mb-16 border-b border-stone-300 pb-8">
+          <p className="mb-3 text-xs font-medium uppercase tracking-widest text-stone-600">
+            legal document
+          </p>
+          <h1 className="mb-4 text-4xl font-bold text-stone-900">Privacy Policy</h1>
+          <p className="text-sm text-stone-600">
+            Effective Date: <time dateTime="2026-02-04">{LAST_UPDATED}</time>
           </p>
         </header>
 
-        {/* Philosophy Highlight */}
-        <div className="mb-16 rounded-xl border-2 border-stone-900 bg-stone-50 p-8">
-          <h2 className="mb-4 text-2xl font-semibold text-stone-900">Our Philosophy</h2>
-          <p className="mb-4 text-lg leading-relaxed text-stone-700">
-            We believe privacy is a right, not a privilege. We collect only what we need to deliver
-            our products and nothing more.
-          </p>
-          <p className="text-xl font-semibold text-stone-900">
-            "If we don't collect it, we can't leak it."
-          </p>
-          <p className="mt-4 text-sm text-stone-600">
-            This privacy policy explains what we collect, why we collect it, and what we do with
-            it. No legal theater, no hidden surprises — just the truth.
-          </p>
-        </div>
-
-        <div className="prose prose-stone prose-lg max-w-none">
-          {/* What We Collect */}
-          <section className="mb-16">
-            <h2 className="mb-6 text-2xl font-semibold tracking-tight text-stone-900">
-              What We Collect
-            </h2>
-
-            <div className="space-y-6">
-              {/* Email Address */}
-              <div className="rounded-lg border border-blue-200 bg-blue-50 p-6">
-                <h3 className="mb-3 flex items-center gap-2 text-lg font-semibold text-blue-900">
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
-                  Email Address (Required)
-                </h3>
-                <div className="space-y-2 text-sm text-blue-900">
-                  <p>
-                    <strong>Why:</strong> To send you purchased products, access links, and order
-                    confirmations
-                  </p>
-                  <p>
-                    <strong>How we use it:</strong> Authentication (passwordless login), order
-                    fulfillment, product delivery
-                  </p>
-                  <p>
-                    <strong>Can you delete it:</strong> Yes, by deleting your account
-                  </p>
-                </div>
-              </div>
-
-              {/* Payment Info */}
-              <div className="rounded-lg border border-green-200 bg-green-50 p-6">
-                <h3 className="mb-3 flex items-center gap-2 text-lg font-semibold text-green-900">
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                    />
-                  </svg>
-                  Payment Information (Handled by Stripe)
-                </h3>
-                <div className="space-y-2 text-sm text-green-900">
-                  <p>
-                    <strong>Why:</strong> To process purchases
-                  </p>
-                  <p>
-                    <strong>What we see:</strong> We NEVER see your credit card numbers
-                  </p>
-                  <p>
-                    <strong>Who handles it:</strong> Stripe (PCI DSS Level 1 certified)
-                  </p>
-                  <p>
-                    <strong>What we store:</strong> Stripe customer ID (for refund processing)
-                  </p>
-                </div>
-              </div>
-
-              {/* What We DON'T Collect */}
-              <div className="rounded-lg border border-red-200 bg-red-50 p-6">
-                <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-red-900">
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
-                    />
-                  </svg>
-                  What We DO NOT Collect
-                </h3>
-                <div className="grid gap-2 text-sm text-red-900 sm:grid-cols-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-red-600">✗</span>
-                    <span>Names (email is enough)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-red-600">✗</span>
-                    <span>Phone numbers</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-red-600">✗</span>
-                    <span>Addresses</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-red-600">✗</span>
-                    <span>Date of birth</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-red-600">✗</span>
-                    <span>Gender or demographics</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-red-600">✗</span>
-                    <span>Browsing behavior</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-red-600">✗</span>
-                    <span>Location data</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-red-600">✗</span>
-                    <span>Social media profiles</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="space-y-12 text-stone-900">
+          {/* Introduction */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold text-stone-900">1. Introduction and Scope</h2>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              This Privacy Policy ("Policy") governs the collection, use, storage, and disclosure
+              of personal information by the operator of riqle.com.au ("Platform," "we," "us," or
+              "our"). This Policy applies to all users ("User," "you," or "your") who access or use
+              the Platform and its services.
+            </p>
+            <p className="leading-relaxed text-stone-700">
+              By accessing or using the Platform, you acknowledge that you have read, understood,
+              and consent to the data practices described in this Policy. If you do not agree with
+              this Policy, you must immediately cease all use of the Platform.
+            </p>
           </section>
 
-          {/* How We Use Your Information */}
-          <section className="mb-16">
-            <h2 className="mb-6 text-2xl font-semibold tracking-tight text-stone-900">
-              How We Use Your Information
+          {/* Information We Collect */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold text-stone-900">
+              2. Personal Information Collection
             </h2>
-
-            <div className="grid gap-6 md:grid-cols-2">
-              <div className="rounded-lg border border-stone-200 bg-white p-6">
-                <h3 className="mb-4 flex items-center gap-2 font-semibold text-stone-900">
-                  <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  We Use Your Email To:
-                </h3>
-                <ul className="space-y-2 text-sm text-stone-700">
-                  <li className="flex items-start gap-2">
-                    <span className="text-stone-400">1.</span>
-                    <span>Send you purchased products - Digital downloads, access links</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-stone-400">2.</span>
-                    <span>Confirm orders - Purchase receipts</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-stone-400">3.</span>
-                    <span>Recover access - If you lose your download link</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-stone-400">4.</span>
-                    <span>Notify you - Refund confirmations, important account updates</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="rounded-lg border border-red-200 bg-red-50 p-6">
-                <h3 className="mb-4 flex items-center gap-2 font-semibold text-red-900">
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                  We DO NOT:
-                </h3>
-                <ul className="space-y-2 text-sm text-red-900">
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-600">✗</span>
-                    <span>Sell your email to anyone (ever)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-600">✗</span>
-                    <span>Send marketing emails (unless you opt in)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-600">✗</span>
-                    <span>Track you across websites</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-600">✗</span>
-                    <span>Build profiles or behavioral data</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-600">✗</span>
-                    <span>Use your data for AI training</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          {/* Who We Share With */}
-          <section className="mb-16">
-            <h2 className="mb-6 text-2xl font-semibold tracking-tight text-stone-900">
-              Who We Share With
-            </h2>
-            <p className="mb-6 text-stone-700">
-              We share your information with exactly <strong>3 companies</strong>, and only for
-              essential services:
+            <p className="mb-4 leading-relaxed text-stone-700">
+              We collect and process the following categories of personal information in accordance
+              with applicable data protection laws, including the Australian Privacy Principles
+              (APPs) under the Privacy Act 1988 (Cth).
             </p>
 
-            <div className="space-y-4">
-              <div className="rounded-lg border border-stone-200 bg-white p-6">
-                <h3 className="mb-2 font-semibold text-stone-900">Stripe (Payment Processing)</h3>
-                <div className="space-y-1 text-sm text-stone-600">
-                  <p>
-                    <strong>What they get:</strong> Email, purchase amount
-                  </p>
-                  <p>
-                    <strong>Why:</strong> Process payments securely
-                  </p>
-                  <p>
-                    <strong>Privacy policy:</strong>{' '}
-                    <a
-                      href="https://stripe.com/privacy"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 underline"
-                    >
-                      stripe.com/privacy
-                    </a>
-                  </p>
-                </div>
-              </div>
+            <p className="mb-4 font-semibold text-stone-900">2.1 Information You Provide Directly</p>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              <strong>Email Address:</strong> Collected during account registration and required for
+              authentication, order fulfillment, product delivery, and essential communications.
+              This constitutes personal information as defined under the Privacy Act 1988 (Cth).
+            </p>
 
-              <div className="rounded-lg border border-stone-200 bg-white p-6">
-                <h3 className="mb-2 font-semibold text-stone-900">Resend (Email Delivery)</h3>
-                <div className="space-y-1 text-sm text-stone-600">
-                  <p>
-                    <strong>What they get:</strong> Email address, email content
-                  </p>
-                  <p>
-                    <strong>Why:</strong> Deliver order confirmations and access links
-                  </p>
-                  <p>
-                    <strong>Privacy policy:</strong>{' '}
-                    <a
-                      href="https://resend.com/legal/privacy-policy"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 underline"
-                    >
-                      resend.com/legal/privacy-policy
-                    </a>
-                  </p>
-                </div>
-              </div>
+            <p className="mb-4 font-semibold text-stone-900">2.2 Information Collected Automatically</p>
+            <ul className="mb-4 ml-6 list-disc space-y-2 text-stone-700">
+              <li>
+                <strong>Technical Information:</strong> IP addresses, browser type, device
+                identifiers, operating system, and access timestamps, collected for security
+                monitoring, fraud prevention, and system administration purposes
+              </li>
+              <li>
+                <strong>Usage Data:</strong> Page views, session duration, and interaction patterns,
+                collected for analytics and service improvement
+              </li>
+              <li>
+                <strong>Transaction Data:</strong> Purchase history, order identifiers, and payment
+                metadata (excluding payment card information), collected for order processing and
+                record-keeping
+              </li>
+            </ul>
 
-              <div className="rounded-lg border border-stone-200 bg-white p-6">
-                <h3 className="mb-2 font-semibold text-stone-900">Sentry (Error Tracking)</h3>
-                <div className="space-y-1 text-sm text-stone-600">
-                  <p>
-                    <strong>What they get:</strong> Technical errors (PII scrubbed)
-                  </p>
-                  <p>
-                    <strong>Why:</strong> Fix bugs, improve reliability
-                  </p>
-                  <p>
-                    <strong>Privacy policy:</strong>{' '}
-                    <a
-                      href="https://sentry.io/privacy/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 underline"
-                    >
-                      sentry.io/privacy
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </div>
+            <p className="mb-4 font-semibold text-stone-900">2.3 Information We Do Not Collect</p>
+            <p className="leading-relaxed text-stone-700">
+              In adherence to data minimization principles, we explicitly do not collect: full
+              names, postal addresses, telephone numbers, date of birth, gender, demographic
+              information, biometric data, precise geolocation data, social media profiles, or
+              browsing history outside the Platform.
+            </p>
           </section>
 
-          {/* Your Rights */}
-          <section className="mb-16">
-            <h2 className="mb-6 text-2xl font-semibold tracking-tight text-stone-900">
-              Your Rights
+          {/* Payment Information */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold text-stone-900">
+              3. Payment Information and Third-Party Processing
             </h2>
-
-            <div className="rounded-lg border-2 border-purple-200 bg-purple-50 p-6">
-              <h3 className="mb-4 text-lg font-semibold text-purple-900">
-                You Have the Right To:
-              </h3>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="flex items-start gap-3">
-                  <svg className="mt-1 h-5 w-5 flex-shrink-0 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                  <div>
-                    <p className="font-semibold text-purple-900">Access Your Data</p>
-                    <p className="text-sm text-purple-800">
-                      See all personal data we have about you
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <svg className="mt-1 h-5 w-5 flex-shrink-0 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                  </svg>
-                  <div>
-                    <p className="font-semibold text-purple-900">Update Your Data</p>
-                    <p className="text-sm text-purple-800">Change your email address</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <svg className="mt-1 h-5 w-5 flex-shrink-0 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                  </svg>
-                  <div>
-                    <p className="font-semibold text-purple-900">Delete Your Data</p>
-                    <p className="text-sm text-purple-800">
-                      Delete your account and all personal data
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <svg className="mt-1 h-5 w-5 flex-shrink-0 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
-                  <div>
-                    <p className="font-semibold text-purple-900">Export Your Data</p>
-                    <p className="text-sm text-purple-800">Get a copy in JSON format (GDPR)</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 rounded-lg bg-purple-100 p-4">
-                <p className="text-sm text-purple-900">
-                  <strong>Contact:</strong>{' '}
-                  <a href="mailto:security@riqle.com" className="underline">
-                    security@riqle.com
-                  </a>
-                </p>
-                <p className="text-sm text-purple-800">
-                  <strong>Response time:</strong> Within 7 days
-                </p>
-              </div>
-            </div>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              Payment processing services are provided by Stripe, Inc. ("Stripe"), a third-party
+              payment processor maintaining PCI DSS Level 1 certification. The Platform does not
+              collect, store, process, or have access to payment card information, including card
+              numbers, CVV codes, or expiration dates.
+            </p>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              We store only: (a) the Stripe customer identifier for refund processing purposes; and
+              (b) transaction metadata including purchase amount, currency, and timestamp. All
+              payment card data is subject to Stripe's Privacy Policy, available at
+              stripe.com/privacy.
+            </p>
+            <p className="leading-relaxed text-stone-700">
+              By making a purchase, you consent to the transfer of your payment information to
+              Stripe in accordance with Stripe's terms of service and privacy practices.
+            </p>
           </section>
 
-          {/* Data Security */}
-          <section className="mb-16">
-            <h2 className="mb-6 text-2xl font-semibold tracking-tight text-stone-900">
-              Data Security
+          {/* Purpose and Legal Basis */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold text-stone-900">
+              4. Purpose of Processing and Legal Basis
             </h2>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              We process personal information for the following purposes, each with a corresponding
+              legal basis under applicable privacy legislation:
+            </p>
 
-            <div className="rounded-lg border border-stone-200 bg-stone-50 p-6">
-              <h3 className="mb-4 text-lg font-semibold text-stone-900">
-                How We Protect Your Data
-              </h3>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="flex items-start gap-2">
-                  <svg className="mt-1 h-5 w-5 flex-shrink-0 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                  <span className="text-sm text-stone-700">HTTPS Everywhere (TLS 1.3)</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <svg className="mt-1 h-5 w-5 flex-shrink-0 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                  <span className="text-sm text-stone-700">Database Encryption at Rest</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <svg className="mt-1 h-5 w-5 flex-shrink-0 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                  </svg>
-                  <span className="text-sm text-stone-700">No Passwords (Magic Links)</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <svg className="mt-1 h-5 w-5 flex-shrink-0 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                  </svg>
-                  <span className="text-sm text-stone-700">Automatic IP Deletion (30 days)</span>
-                </div>
-              </div>
-            </div>
+            <p className="mb-4 font-semibold text-stone-900">4.1 Contractual Necessity</p>
+            <ul className="mb-4 ml-6 list-disc space-y-2 text-stone-700">
+              <li>Account authentication and identity verification</li>
+              <li>Order processing and transaction fulfillment</li>
+              <li>Digital product delivery and access provisioning</li>
+              <li>Customer support and technical assistance</li>
+              <li>Refund processing and financial reconciliation</li>
+            </ul>
+
+            <p className="mb-4 font-semibold text-stone-900">4.2 Legitimate Interests</p>
+            <ul className="mb-4 ml-6 list-disc space-y-2 text-stone-700">
+              <li>Fraud detection and prevention</li>
+              <li>Security monitoring and incident response</li>
+              <li>System administration and performance optimization</li>
+              <li>Analytics and service improvement</li>
+            </ul>
+
+            <p className="mb-4 font-semibold text-stone-900">4.3 Legal Obligations</p>
+            <ul className="mb-4 ml-6 list-disc space-y-2 text-stone-700">
+              <li>Tax record retention (7 years as required under Australian tax law)</li>
+              <li>Financial transaction records for audit purposes</li>
+              <li>Compliance with lawful requests from government authorities</li>
+            </ul>
+
+            <p className="mb-4 font-semibold text-stone-900">4.4 Prohibited Uses</p>
+            <p className="leading-relaxed text-stone-700">
+              We do not and will not: (a) sell, rent, or trade personal information to third
+              parties; (b) use personal information for direct marketing purposes without explicit
+              opt-in consent; (c) process personal information for purposes incompatible with those
+              disclosed herein; or (d) use personal information to train artificial intelligence or
+              machine learning systems.
+            </p>
           </section>
 
-          {/* Data Retention Table */}
-          <section className="mb-16">
-            <h2 className="mb-6 text-2xl font-semibold tracking-tight text-stone-900">
-              Data Retention
+          {/* Third-Party Disclosure */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold text-stone-900">
+              5. Third-Party Service Providers and Data Sharing
             </h2>
-            <div className="overflow-hidden rounded-lg border border-stone-200">
+            <p className="mb-4 leading-relaxed text-stone-700">
+              We engage the following third-party service providers, each processing personal
+              information as a data processor under written agreements containing appropriate data
+              protection obligations:
+            </p>
+
+            <p className="mb-4 font-semibold text-stone-900">5.1 Payment Processing</p>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              <strong>Provider:</strong> Stripe, Inc.
+              <br />
+              <strong>Data Shared:</strong> Email address, transaction amount, currency
+              <br />
+              <strong>Purpose:</strong> Payment processing and fraud prevention
+              <br />
+              <strong>Privacy Policy:</strong> stripe.com/privacy
+            </p>
+
+            <p className="mb-4 font-semibold text-stone-900">5.2 Email Delivery Infrastructure</p>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              <strong>Provider:</strong> Resend, Inc.
+              <br />
+              <strong>Data Shared:</strong> Email address, message content
+              <br />
+              <strong>Purpose:</strong> Transactional email delivery (order confirmations, product
+              access links)
+              <br />
+              <strong>Privacy Policy:</strong> resend.com/legal/privacy-policy
+            </p>
+
+            <p className="mb-4 font-semibold text-stone-900">5.3 Error Monitoring and Diagnostics</p>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              <strong>Provider:</strong> Sentry, Inc.
+              <br />
+              <strong>Data Shared:</strong> Error logs, stack traces (with personally identifiable
+              information redacted)
+              <br />
+              <strong>Purpose:</strong> Application stability monitoring and bug resolution
+              <br />
+              <strong>Privacy Policy:</strong> sentry.io/privacy/
+            </p>
+
+            <p className="mb-4 font-semibold text-stone-900">5.4 Cross-Border Data Transfers</p>
+            <p className="leading-relaxed text-stone-700">
+              The above service providers may process data in jurisdictions outside Australia,
+              including the United States and European Economic Area. Such transfers are conducted
+              in compliance with Chapter 8 of the Privacy Act 1988 (Cth) and, where applicable,
+              Standard Contractual Clauses approved by the European Commission.
+            </p>
+          </section>
+
+          {/* Data Retention */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold text-stone-900">6. Data Retention Periods</h2>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              Personal information is retained only for as long as necessary to fulfill the purposes
+              for which it was collected, subject to the following retention schedules:
+            </p>
+
+            <div className="mb-4 overflow-hidden border border-stone-300">
               <table className="w-full">
-                <thead className="bg-stone-100">
+                <thead className="border-b border-stone-300 bg-stone-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-stone-900">
-                      Data Type
+                    <th className="px-4 py-3 text-left text-sm font-bold text-stone-900">
+                      Data Category
                     </th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-stone-900">
-                      How Long
+                    <th className="px-4 py-3 text-left text-sm font-bold text-stone-900">
+                      Retention Period
                     </th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-stone-900">Why</th>
+                    <th className="px-4 py-3 text-left text-sm font-bold text-stone-900">
+                      Legal Basis
+                    </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-stone-200 bg-white">
+                <tbody className="divide-y divide-stone-200">
                   <tr>
-                    <td className="px-6 py-4 text-sm text-stone-900">User Accounts</td>
-                    <td className="px-6 py-4 text-sm text-stone-600">Until you delete</td>
-                    <td className="px-6 py-4 text-sm text-stone-600">Core business data</td>
+                    <td className="px-4 py-3 text-sm text-stone-900">User Account Data</td>
+                    <td className="px-4 py-3 text-sm text-stone-700">
+                      Until account deletion request
+                    </td>
+                    <td className="px-4 py-3 text-sm text-stone-700">Contractual necessity</td>
                   </tr>
                   <tr>
-                    <td className="px-6 py-4 text-sm text-stone-900">Orders</td>
-                    <td className="px-6 py-4 text-sm text-stone-600">7 years</td>
-                    <td className="px-6 py-4 text-sm text-stone-600">Tax/legal requirement</td>
+                    <td className="px-4 py-3 text-sm text-stone-900">
+                      Transaction and Order Records
+                    </td>
+                    <td className="px-4 py-3 text-sm text-stone-700">7 years</td>
+                    <td className="px-4 py-3 text-sm text-stone-700">
+                      Tax and accounting obligations
+                    </td>
                   </tr>
                   <tr>
-                    <td className="px-6 py-4 text-sm text-stone-900">IP Addresses</td>
-                    <td className="px-6 py-4 text-sm text-stone-600">30 days max</td>
-                    <td className="px-6 py-4 text-sm text-stone-600">Fraud prevention</td>
+                    <td className="px-4 py-3 text-sm text-stone-900">IP Address Logs</td>
+                    <td className="px-4 py-3 text-sm text-stone-700">30 days (maximum)</td>
+                    <td className="px-4 py-3 text-sm text-stone-700">
+                      Security and fraud prevention
+                    </td>
                   </tr>
                   <tr>
-                    <td className="px-6 py-4 text-sm text-stone-900">Error Logs</td>
-                    <td className="px-6 py-4 text-sm text-stone-600">90 days</td>
-                    <td className="px-6 py-4 text-sm text-stone-600">Security monitoring</td>
+                    <td className="px-4 py-3 text-sm text-stone-900">Error Logs and Diagnostics</td>
+                    <td className="px-4 py-3 text-sm text-stone-700">90 days</td>
+                    <td className="px-4 py-3 text-sm text-stone-700">System maintenance</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm text-stone-900">Email Delivery Logs</td>
+                    <td className="px-4 py-3 text-sm text-stone-700">90 days</td>
+                    <td className="px-4 py-3 text-sm text-stone-700">
+                      Deliverability monitoring
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
+
+            <p className="leading-relaxed text-stone-700">
+              Upon expiration of the applicable retention period, personal information is securely
+              deleted or anonymized in accordance with industry best practices.
+            </p>
           </section>
 
-          {/* Contact */}
-          <section className="mb-16">
-            <div className="rounded-lg border-2 border-stone-200 bg-white p-8 text-center">
-              <h2 className="mb-4 text-2xl font-semibold text-stone-900">Privacy Questions?</h2>
-              <p className="mb-6 text-stone-600">
-                Contact us if you have any questions about how we handle your data.
-              </p>
-              <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-                <a
-                  href="mailto:security@riqle.com"
-                  className="rounded-lg bg-stone-900 px-6 py-3 font-medium text-white transition-colors hover:bg-stone-800"
-                >
-                  Email Security Team
-                </a>
-                <Link
-                  href="/legal/contact"
-                  className="rounded-lg border-2 border-stone-200 px-6 py-3 font-medium text-stone-900 transition-colors hover:border-stone-300"
-                >
-                  View Contact Info
-                </Link>
-              </div>
-              <p className="mt-4 text-sm text-stone-500">Response time: 48 hours</p>
-            </div>
+          {/* Data Subject Rights */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold text-stone-900">7. Your Privacy Rights</h2>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              Under the Australian Privacy Principles and, where applicable, the General Data
+              Protection Regulation (GDPR) and California Consumer Privacy Act (CCPA), you possess
+              the following rights regarding your personal information:
+            </p>
+
+            <p className="mb-4 font-semibold text-stone-900">7.1 Right of Access (APP 12, GDPR Art. 15)</p>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              You may request a copy of all personal information we hold about you, provided in a
+              structured, commonly used, and machine-readable format (JSON).
+            </p>
+
+            <p className="mb-4 font-semibold text-stone-900">7.2 Right to Rectification (APP 13, GDPR Art. 16)</p>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              You may request correction of inaccurate or incomplete personal information. Email
+              address updates must be verified through a confirmation process to prevent
+              unauthorized access.
+            </p>
+
+            <p className="mb-4 font-semibold text-stone-900">7.3 Right to Erasure (APP 12.3, GDPR Art. 17)</p>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              You may request deletion of your personal information, subject to legal retention
+              obligations (e.g., 7-year retention of financial records under Australian tax law).
+              Account deletion requests will be processed within 30 days.
+            </p>
+
+            <p className="mb-4 font-semibold text-stone-900">7.4 Right to Data Portability (GDPR Art. 20)</p>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              You may request export of your personal information in JSON format for transfer to
+              another service provider.
+            </p>
+
+            <p className="mb-4 font-semibold text-stone-900">7.5 Right to Object (GDPR Art. 21)</p>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              You may object to processing of personal information based on legitimate interests.
+              Such requests will be assessed on a case-by-case basis.
+            </p>
+
+            <p className="mb-4 font-semibold text-stone-900">7.6 Right to Lodge a Complaint</p>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              You have the right to lodge a complaint with the Office of the Australian Information
+              Commissioner (OAIC) at oaic.gov.au or, if you are located in the European Economic
+              Area, with your local data protection authority.
+            </p>
+
+            <p className="mb-4 font-semibold text-stone-900">7.7 Exercising Your Rights</p>
+            <p className="leading-relaxed text-stone-700">
+              To exercise any of the above rights, submit a written request to
+              nathanael.thie@gmail.com. We will respond within thirty (30) days of receipt. Identity
+              verification may be required to prevent unauthorized disclosure of personal
+              information.
+            </p>
+          </section>
+
+          {/* Security Measures */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold text-stone-900">8. Data Security Measures</h2>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              We implement appropriate technical and organizational measures to protect personal
+              information against unauthorized access, alteration, disclosure, or destruction, in
+              accordance with APP 11 and industry standards.
+            </p>
+
+            <p className="mb-4 font-semibold text-stone-900">8.1 Technical Safeguards</p>
+            <ul className="mb-4 ml-6 list-disc space-y-2 text-stone-700">
+              <li>
+                Transport Layer Security (TLS 1.3) encryption for all data in transit
+              </li>
+              <li>AES-256 encryption for data at rest in production databases</li>
+              <li>Secure token-based authentication system (no password storage)</li>
+              <li>Automated IP address deletion after 30-day retention period</li>
+              <li>Rate limiting and DDoS protection at the infrastructure layer</li>
+            </ul>
+
+            <p className="mb-4 font-semibold text-stone-900">8.2 Organizational Safeguards</p>
+            <ul className="mb-4 ml-6 list-disc space-y-2 text-stone-700">
+              <li>Access controls limiting personnel access to personal information</li>
+              <li>Data processing agreements with all third-party service providers</li>
+              <li>Regular security audits and vulnerability assessments</li>
+              <li>Incident response procedures for data breach notification</li>
+            </ul>
+
+            <p className="mb-4 font-semibold text-stone-900">8.3 Data Breach Notification</p>
+            <p className="leading-relaxed text-stone-700">
+              In the event of a data breach likely to result in serious harm to affected
+              individuals, we will notify affected users and the Office of the Australian
+              Information Commissioner within seventy-two (72) hours of becoming aware of the
+              breach, in accordance with the Notifiable Data Breaches (NDB) scheme under Part IIIC
+              of the Privacy Act 1988 (Cth).
+            </p>
+          </section>
+
+          {/* Children's Privacy */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold text-stone-900">9. Children's Privacy</h2>
+            <p className="leading-relaxed text-stone-700">
+              The Platform is not directed to individuals under the age of eighteen (18) years. We
+              do not knowingly collect personal information from minors. If we become aware that
+              personal information has been collected from an individual under 18 without verifiable
+              parental consent, we will take steps to delete such information within a reasonable
+              timeframe.
+            </p>
+          </section>
+
+          {/* Cookies and Tracking */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold text-stone-900">
+              10. Cookies and Tracking Technologies
+            </h2>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              The Platform uses strictly necessary cookies for authentication and session management
+              only. We do not employ advertising cookies, tracking pixels, or cross-site tracking
+              technologies.
+            </p>
+            <p className="leading-relaxed text-stone-700">
+              Session cookies are automatically deleted upon browser closure or session expiration
+              (24 hours). You may disable cookies through your browser settings; however, this may
+              impair Platform functionality, including the inability to authenticate or access
+              purchased products.
+            </p>
+          </section>
+
+          {/* Policy Updates */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold text-stone-900">11. Policy Modifications</h2>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              We reserve the right to modify this Policy at any time to reflect changes in legal
+              requirements, business practices, or data processing activities. Material changes will
+              be effective immediately upon posting to the Platform.
+            </p>
+            <p className="leading-relaxed text-stone-700">
+              Continued use of the Platform following any modifications constitutes acceptance of
+              the revised Policy. Users are encouraged to review this Policy periodically.
+            </p>
+          </section>
+
+          {/* Contact Information */}
+          <section className="border-t border-stone-300 pt-12">
+            <h2 className="mb-4 text-2xl font-bold text-stone-900">12. Contact Information</h2>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              For inquiries regarding this Privacy Policy, to exercise data subject rights, or to
+              report privacy concerns, please contact:
+            </p>
+            <p className="mb-2 leading-relaxed text-stone-900">
+              Email: <a href="mailto:nathanael.thie@gmail.com" className="underline">nathanael.thie@gmail.com</a>
+            </p>
+            <p className="mb-4 leading-relaxed text-stone-700">
+              Expected response time: Within seven (7) calendar days
+            </p>
+            <p className="leading-relaxed text-stone-700">
+              For complaints regarding privacy practices, you may also contact the Office of the
+              Australian Information Commissioner:
+              <br />
+              Website: <a href="https://www.oaic.gov.au" target="_blank" rel="noopener noreferrer" className="underline">oaic.gov.au</a>
+              <br />
+              Phone: 1300 363 992
+            </p>
           </section>
 
           {/* Footer Links */}
           <div className="flex flex-wrap items-center justify-center gap-6 border-t border-stone-200 pt-8 text-sm text-stone-600">
-            <Link href="/legal/terms" className="hover:text-stone-900">
+            <Link href="/legal/terms" className="hover:underline">
               Terms of Service
             </Link>
-            <span className="text-stone-300">•</span>
-            <Link href="/legal/contact" className="hover:text-stone-900">
+            <span>•</span>
+            <Link href="/legal/contact" className="hover:underline">
               Contact
             </Link>
-            <span className="text-stone-300">•</span>
-            <span>Last updated: {LAST_UPDATED}</span>
+            <span>•</span>
+            <span>Last Updated: {LAST_UPDATED}</span>
           </div>
         </div>
       </div>

@@ -14,7 +14,7 @@ export const BUSINESS_IDENTITY = {
   },
   contact: {
     email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'nathanael.thie@gmail.com',
-    supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || 'security@riqle.com',
+    supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || 'nathanael.thie@gmail.com',
   },
   domain: {
     primary: process.env.NEXT_PUBLIC_SITE_URL || 'https://riqle.com',
