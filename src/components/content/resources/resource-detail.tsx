@@ -13,22 +13,9 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { HandDrawnCheck } from '@/components/design-system/icons/hand-drawn-check';
 import { HandDrawnShield } from '@/components/design-system/icons/hand-drawn-shield';
-
-// Dynamically import PDF preview with SSR disabled (PDF.js is browser-only)
-const PDFPreview = dynamic(() => import('./pdf-preview').then((mod) => mod.PDFPreview), {
-  ssr: false,
-  loading: () => (
-    <div className="flex items-center justify-center border-l-2 border-stone-200 bg-white py-32 pl-8">
-      <div className="text-center">
-        <div className="mb-3 inline-block h-8 w-8 animate-spin rounded-full border-4 border-stone-300 border-t-transparent"></div>
-        <p className="text-sm text-stone-600">Loading preview...</p>
-      </div>
-    </div>
-  ),
-});
+import { PDFPreview } from './pdf-preview';
 
 type ResourceDetailProps = {
   productId: string;
@@ -81,6 +68,27 @@ export function ResourceDetail({
   const [purchasing, setPurchasing] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [downloading, setDownloading] = React.useState(false);
+
+  // Debug logging for PDF URLs
+  React.useEffect(() => {
+    console.log('🟢 ResourceDetail component mounted!');
+    console.log('=== Resource Detail Debug ===');
+    console.log('Product ID:', productId);
+    console.log('Download URLs:', downloadUrls);
+    console.log('Download URLs type:', typeof downloadUrls);
+    console.log('Download URLs length:', downloadUrls?.length);
+    console.log('First URL:', downloadUrls?.[0]);
+    console.log('Has Access:', hasAccess);
+    console.log('Page Count:', pageCount);
+    console.log('============================');
+
+    // Alert to make it VERY obvious
+    if (downloadUrls && downloadUrls.length > 0) {
+      console.log('✅ PDF URL is:', downloadUrls[0]);
+    } else {
+      console.error('❌ NO DOWNLOAD URLS FOUND!');
+    }
+  }, [productId, downloadUrls, hasAccess, pageCount]);
 
   const handlePurchase = async () => {
     try {

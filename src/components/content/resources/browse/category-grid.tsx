@@ -77,6 +77,7 @@ export function CategoryGrid({ categories }: Props) {
             key={category.id}
             href={`/resources/browse/${category.path}`}
             className="group block"
+            prefetch={true}
           >
             <div
               className={`h-full rounded-2xl border-2 bg-gradient-to-br p-6 transition-all hover:shadow-lg ${colors.gradient} ${colors.border} ${colors.hoverBorder}`}

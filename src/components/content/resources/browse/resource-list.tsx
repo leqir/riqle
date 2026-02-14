@@ -202,7 +202,7 @@ export function ResourceList({ categoryPath, initialSearch, initialTags, initial
 
             return (
               <article key={product.id} className="group">
-                <Link href={`/resources/${product.slug}`} className="block">
+                <Link href={`/resources/${product.slug}`} className="block" prefetch={true}>
                   {/* Resource Number */}
                   <p className="mb-4 font-mono text-sm font-medium text-stone-400">
                     {String(index + 1).padStart(2, '0')}

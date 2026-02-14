@@ -23,6 +23,9 @@ import { db } from '@/lib/db';
 import { ResourceDetail } from '@/components/content/resources/resource-detail';
 import { trackServerEvent, SERVER_EVENTS } from '@/lib/analytics/tracking';
 
+// Enable ISR with 5-minute revalidation for instant loading
+export const revalidate = 300;
+
 type Props = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ eid?: string }>;

@@ -13,6 +13,9 @@ import { db } from '@/lib/db';
 import { addProductCountsToCategories } from '@/lib/resources/count-products';
 import Link from 'next/link';
 
+// Enable ISR with 5-minute revalidation for instant loading
+export const revalidate = 300;
+
 export const metadata: Metadata = {
   title: 'resources | riqle',
   description:
@@ -120,6 +123,7 @@ export default async function ResourcesPage() {
                   key={category.id}
                   href={`/resources/browse/${category.path}`}
                   className="group block"
+                  prefetch={true}
                 >
                   <div className="h-full rounded-2xl border-2 border-stone-200 bg-white p-6 transition-all hover:border-purple-600 hover:shadow-lg">
                     <h3 className="mb-2 text-xl font-semibold text-stone-900 transition-colors group-hover:text-purple-600">
@@ -161,7 +165,7 @@ export default async function ResourcesPage() {
 
                 return (
                   <article key={product.slug} className="group">
-                    <Link href={`/resources/${product.slug}`} className="block">
+                    <Link href={`/resources/${product.slug}`} className="block" prefetch={true}>
                       <h3 className="mb-3 text-2xl font-semibold leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-stone-600">
                         {product.title}
                       </h3>
@@ -203,6 +207,7 @@ export default async function ResourcesPage() {
           <Link
             href="/resources/browse"
             className="inline-flex items-center gap-2 rounded-full border-2 border-stone-900 bg-white px-8 py-4 text-base font-semibold text-stone-900 transition-all hover:bg-stone-900 hover:text-white"
+            prefetch={true}
           >
             browse all resources
             <span className="text-lg transition-transform group-hover:translate-x-1">→</span>

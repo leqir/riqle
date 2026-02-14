@@ -4,11 +4,15 @@
  * Features:
  * - Hierarchical category browsing
  * - Dynamic breadcrumbs
- * - Server-side rendering for SEO
+ * - Server-side rendering for SEO with ISR
  * - Integrates with filtering components
+ * - Optimized queries for instant loading
  */
 
 import { type Metadata } from 'next';
+
+// Enable ISR with 5-minute revalidation for instant loading
+export const revalidate = 300;
 import { notFound } from 'next/navigation';
 import { db } from '@/lib/db';
 import { addProductCountsToCategories } from '@/lib/resources/count-products';
@@ -30,7 +34,8 @@ type Props = {
  */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // Build category path from params
-  const categoryPath = params.path?.join('/');
+  const { path } = await params;
+  const categoryPath = path?.join('/');
 
   if (!categoryPath) {
     // Root browse page
@@ -69,7 +74,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  */
 export default async function BrowsePage({ params, searchParams }: Props) {
   // Build category path from params
-  const categoryPath = params.path?.join('/');
+  const { path } = await params;
+  const categoryPath = path?.join('/');
+
+  // Await searchParams once
+  const resolvedSearchParams = await searchParams;
 
   // Fetch current category if path is provided
   let currentCategory = null;
@@ -168,15 +177,15 @@ export default async function BrowsePage({ params, searchParams }: Props) {
           </h2>
           <ResourceList
             categoryPath={categoryPath}
-            initialSearch={searchParams.search}
+            initialSearch={resolvedSearchParams.search}
             initialTags={
-              Array.isArray(searchParams.tags)
-                ? searchParams.tags
-                : searchParams.tags
-                  ? [searchParams.tags]
+              Array.isArray(resolvedSearchParams.tags)
+                ? resolvedSearchParams.tags
+                : resolvedSearchParams.tags
+                  ? [resolvedSearchParams.tags]
                   : undefined
             }
-            initialSort={searchParams.sort}
+            initialSort={resolvedSearchParams.sort}
           />
         </section>
       </div>
