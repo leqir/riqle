@@ -39,6 +39,76 @@ type Version = {
 
 const versions: Version[] = [
   {
+    version: '1.0.4',
+    date: '2026-02-14',
+    title: 'PDF Preview System & Performance Overhaul',
+    changes: [
+      {
+        category: 'content',
+        description:
+          'Published "Threshold Consciousness Analysis" - annotated exemplar discursive for HSC Module C Craft of Writing',
+      },
+      {
+        category: 'fix',
+        description:
+          'Completely rewrote PDF preview system - fixed "preview unavailable" issue by switching from react-pdf library to native browser iframe rendering',
+      },
+      {
+        category: 'fix',
+        description:
+          'Fixed Content Security Policy headers that were blocking PDF iframes from loading',
+      },
+      {
+        category: 'fix',
+        description:
+          'Added multiple scroll prevention layers to PDF preview - users can now only see partial preview without scrolling to full document',
+      },
+      {
+        category: 'improvement',
+        description:
+          'Dramatic performance improvement: resource page load times reduced from 2-3 seconds to 57-200ms through ISR caching',
+      },
+      {
+        category: 'improvement',
+        description:
+          'Enabled link prefetching for instant navigation between resource pages and categories',
+      },
+      {
+        category: 'improvement',
+        description:
+          'Updated all resource pages with 5-minute ISR (Incremental Static Regeneration) for optimal performance',
+      },
+      {
+        category: 'fix',
+        description:
+          'Fixed Next.js 15 compatibility issues with async params handling in browse pages',
+      },
+      {
+        category: 'fix',
+        description: 'Reduced middleware bundle size for improved Vercel deployment performance',
+      },
+      {
+        category: 'improvement',
+        description:
+          'Updated legal pages (terms, privacy, refund policy) with formalized language and consolidated email contact',
+      },
+      {
+        category: 'fix',
+        description: 'Fixed MarkPoint project button link on homepage',
+      },
+      {
+        category: 'fix',
+        description:
+          'Fixed signup name field to allow uppercase letters with proper text-transform handling',
+      },
+      {
+        category: 'feature',
+        description:
+          'Added product management scripts for bulk operations and category assignments',
+      },
+    ],
+  },
+  {
     version: '1.0.3',
     date: '2026-02-01',
     title: 'Content Expansion & Branding Updates',

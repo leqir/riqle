@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+**Note:** The full, user-facing changelog is available at [riqle.com/changelog](https://riqle.com/changelog)
+
+This file tracks technical changes for developers. For version history and user-facing updates, see the web changelog.
+
 ## [Unreleased]
 
 ### Fixed
