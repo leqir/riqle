@@ -2,7 +2,8 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'Terms of Service - riqle',
-  description: 'Terms of service governing the use of riqle platform and the purchase of digital products',
+  description:
+    'Terms of service governing the use of riqle platform and the purchase of digital products',
 };
 
 const LAST_UPDATED = 'February 4, 2026';
@@ -27,16 +28,17 @@ export default function TermsPage() {
           <section>
             <h2 className="mb-4 text-2xl font-bold text-stone-900">1. Acceptance of Terms</h2>
             <p className="mb-4 leading-relaxed text-stone-700">
-              These Terms of Service ("Terms") constitute a legally binding agreement between you
-              (the "User," "you," or "your") and the operator of riqle.com.au ("Platform," "we,"
-              "us," or "our"). By accessing, browsing, or utilizing any services provided through
+              These Terms of Service (&quot;Terms&quot;) constitute a legally binding agreement
+              between you (the &quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) and the
+              operator of riqle.com.au (&quot;Platform,&quot; &quot;we,&quot; &quot;us,&quot; or
+              &quot;our&quot;). By accessing, browsing, or utilizing any services provided through
               this Platform, you acknowledge that you have read, understood, and agree to be bound
               by these Terms in their entirety.
             </p>
             <p className="leading-relaxed text-stone-700">
               If you do not accept these Terms, you must immediately cease all use of the Platform
-              and its services. Continued use following any modifications to these Terms
-              constitutes acceptance of such modifications.
+              and its services. Continued use following any modifications to these Terms constitutes
+              acceptance of such modifications.
             </p>
           </section>
 
@@ -44,10 +46,10 @@ export default function TermsPage() {
           <section>
             <h2 className="mb-4 text-2xl font-bold text-stone-900">2. Services and Products</h2>
             <p className="mb-4 leading-relaxed text-stone-700">
-              The Platform provides digital educational products ("Products") including, but not
-              limited to, electronic documents, video content, templates, and other educational
-              materials in digital format. All Products are provided on an "as-is" basis for
-              educational and informational purposes only.
+              The Platform provides digital educational products (&quot;Products&quot;) including,
+              but not limited to, electronic documents, video content, templates, and other
+              educational materials in digital format. All Products are provided on an
+              &quot;as-is&quot; basis for educational and informational purposes only.
             </p>
             <p className="mb-4 font-semibold text-stone-900">2.1 Nature of Products</p>
             <ul className="mb-4 ml-6 list-disc space-y-2 text-stone-700">
@@ -86,11 +88,11 @@ export default function TermsPage() {
             </p>
             <p className="mb-4 font-semibold text-stone-900">3.2 Payment Processing</p>
             <p className="mb-4 leading-relaxed text-stone-700">
-              Payment processing services are provided by Stripe, Inc. ("Stripe"), a third-party
-              payment processor. By making a purchase, you agree to Stripe's Terms of Service and
-              Privacy Policy. The Platform does not collect, store, or process payment card
-              information. Stripe maintains PCI DSS Level 1 certification for secure payment
-              handling.
+              Payment processing services are provided by Stripe, Inc. (&quot;Stripe&quot;), a
+              third-party payment processor. By making a purchase, you agree to Stripe&apos;s Terms
+              of Service and Privacy Policy. The Platform does not collect, store, or process
+              payment card information. Stripe maintains PCI DSS Level 1 certification for secure
+              payment handling.
             </p>
             <p className="leading-relaxed text-stone-700">
               All payment transactions are final upon completion, subject only to the refund policy
@@ -104,7 +106,7 @@ export default function TermsPage() {
             <p className="mb-4 font-semibold text-stone-900">4.1 Eligibility Period</p>
             <p className="mb-4 leading-relaxed text-stone-700">
               Users may request a full refund within thirty (30) calendar days of the purchase date
-              ("Refund Period"). Refund requests must be submitted in writing to
+              (&quot;Refund Period&quot;). Refund requests must be submitted in writing to
               nathanael.thie@gmail.com and must include the order reference number.
             </p>
             <p className="mb-4 font-semibold text-stone-900">4.2 Refund Conditions</p>
@@ -115,9 +117,7 @@ export default function TermsPage() {
             <ul className="mb-4 ml-6 list-disc space-y-2 text-stone-700">
               <li>Complete download or consumption of the Product content</li>
               <li>Expiration of the Refund Period</li>
-              <li>
-                Pattern of excessive refund requests indicating abuse of the refund policy
-              </li>
+              <li>Pattern of excessive refund requests indicating abuse of the refund policy</li>
               <li>Violation of these Terms or applicable law</li>
             </ul>
             <p className="mb-4 font-semibold text-stone-900">4.3 Processing Time</p>
@@ -139,15 +139,15 @@ export default function TermsPage() {
               for your personal, non-commercial use.
             </p>
             <p className="mb-4 font-semibold text-stone-900">5.2 Prohibited Uses</p>
-            <p className="mb-4 leading-relaxed text-stone-700">
-              You expressly agree not to:
-            </p>
+            <p className="mb-4 leading-relaxed text-stone-700">You expressly agree not to:</p>
             <ul className="mb-4 ml-6 list-disc space-y-2 text-stone-700">
               <li>
                 Share, distribute, sublicense, or transfer Products to any third party, whether for
                 consideration or otherwise
               </li>
-              <li>Upload, publish, or make Products available on file-sharing platforms or services</li>
+              <li>
+                Upload, publish, or make Products available on file-sharing platforms or services
+              </li>
               <li>
                 Use Products for commercial training, education, or other commercial purposes
                 without express written authorization
@@ -165,7 +165,9 @@ export default function TermsPage() {
 
           {/* Intellectual Property */}
           <section>
-            <h2 className="mb-4 text-2xl font-bold text-stone-900">6. Intellectual Property Rights</h2>
+            <h2 className="mb-4 text-2xl font-bold text-stone-900">
+              6. Intellectual Property Rights
+            </h2>
             <p className="mb-4 leading-relaxed text-stone-700">
               All intellectual property rights in and to the Platform and Products, including but
               not limited to copyrights, trademarks, trade secrets, patents, and other proprietary
@@ -184,9 +186,9 @@ export default function TermsPage() {
             </h2>
             <p className="mb-4 font-semibold text-stone-900">7.1 No Warranties</p>
             <p className="mb-4 leading-relaxed text-stone-700">
-              THE PLATFORM AND PRODUCTS ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES
-              OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED
-              WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE,
+              THE PLATFORM AND PRODUCTS ARE PROVIDED &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot;
+              WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+              TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE,
               NON-INFRINGEMENT, OR ANY WARRANTIES ARISING FROM COURSE OF DEALING OR USAGE OF TRADE.
             </p>
             <p className="mb-4 font-semibold text-stone-900">7.2 Limitation of Liability</p>
@@ -199,8 +201,8 @@ export default function TermsPage() {
               DAMAGES.
             </p>
             <p className="leading-relaxed text-stone-700">
-              IN ANY EVENT, THE OPERATOR'S TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT PAID BY YOU
-              FOR THE PRODUCT GIVING RISE TO THE CLAIM.
+              IN ANY EVENT, THE OPERATOR&apos;S TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT PAID BY
+              YOU FOR THE PRODUCT GIVING RISE TO THE CLAIM.
             </p>
           </section>
 
@@ -211,7 +213,7 @@ export default function TermsPage() {
               You agree to indemnify, defend, and hold harmless the operator and its affiliates,
               officers, directors, employees, agents, and licensors from and against any and all
               claims, liabilities, damages, losses, costs, expenses, or fees (including reasonable
-              attorneys' fees) arising from: (a) your use of the Platform or Products; (b) your
+              attorneys&apos; fees) arising from: (a) your use of the Platform or Products; (b) your
               violation of these Terms; (c) your violation of any third-party rights, including
               intellectual property rights; or (d) any willful misconduct by you.
             </p>
@@ -255,18 +257,18 @@ export default function TermsPage() {
             </p>
             <p className="mb-4 font-semibold text-stone-900">11.2 Severability</p>
             <p className="mb-4 leading-relaxed text-stone-700">
-              If any provision of these Terms is found to be invalid or unenforceable, the
-              remaining provisions shall continue in full force and effect.
+              If any provision of these Terms is found to be invalid or unenforceable, the remaining
+              provisions shall continue in full force and effect.
             </p>
             <p className="mb-4 font-semibold text-stone-900">11.3 Entire Agreement</p>
             <p className="mb-4 leading-relaxed text-stone-700">
-              These Terms constitute the entire agreement between you and the operator regarding
-              the use of the Platform and supersede all prior agreements and understandings.
+              These Terms constitute the entire agreement between you and the operator regarding the
+              use of the Platform and supersede all prior agreements and understandings.
             </p>
             <p className="mb-4 font-semibold text-stone-900">11.4 Assignment</p>
             <p className="leading-relaxed text-stone-700">
-              You may not assign or transfer these Terms or any rights granted hereunder without
-              our prior written consent. We may assign these Terms without restriction.
+              You may not assign or transfer these Terms or any rights granted hereunder without our
+              prior written consent. We may assign these Terms without restriction.
             </p>
           </section>
 
@@ -278,7 +280,10 @@ export default function TermsPage() {
               contact:
             </p>
             <p className="mb-2 leading-relaxed text-stone-900">
-              Email: <a href="mailto:nathanael.thie@gmail.com" className="underline">nathanael.thie@gmail.com</a>
+              Email:{' '}
+              <a href="mailto:nathanael.thie@gmail.com" className="underline">
+                nathanael.thie@gmail.com
+              </a>
             </p>
             <p className="leading-relaxed text-stone-700">
               Expected response time: Within two (2) business days

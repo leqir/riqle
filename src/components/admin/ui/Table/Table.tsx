@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 interface TableProps {
   children: ReactNode;
@@ -8,9 +8,7 @@ interface TableProps {
 export function Table({ children, className = '' }: TableProps) {
   return (
     <div className="overflow-x-auto">
-      <table className={`min-w-full divide-y divide-slate-200 ${className}`}>
-        {children}
-      </table>
+      <table className={`min-w-full divide-y divide-slate-200 ${className}`}>{children}</table>
     </div>
   );
 }

@@ -29,7 +29,7 @@ export async function sendEmail({
         subject,
         status: 'sent',
         provider: 'resend',
-        messageId: result.id,
+        messageId: result.data?.id ?? null,
         sentAt: new Date(),
         updatedAt: new Date(),
       },

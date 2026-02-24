@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, HTMLMotionProps } from 'framer-motion';
-import { ReactNode, forwardRef } from 'react';
+import { motion, type HTMLMotionProps } from 'framer-motion';
+import { type ReactNode, forwardRef } from 'react';
 import Link from 'next/link';
 
 type CardVariant = 'default' | 'interactive' | 'stat' | 'alert';
@@ -14,7 +14,8 @@ interface CardProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
 
 const variantStyles: Record<CardVariant, string> = {
   default: 'bg-white rounded-xl p-8 shadow-card',
-  interactive: 'bg-white rounded-xl p-8 shadow-card hover:shadow-card-hover cursor-pointer transition-shadow duration-200',
+  interactive:
+    'bg-white rounded-xl p-8 shadow-card hover:shadow-card-hover cursor-pointer transition-shadow duration-200',
   stat: 'bg-white rounded-xl p-8 shadow-card hover:shadow-card-hover transition-all duration-200',
   alert: 'bg-white rounded-xl p-6 shadow-card border-l-4',
 };

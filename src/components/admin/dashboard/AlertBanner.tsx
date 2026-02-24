@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { X, AlertCircle, CheckCircle, Info, AlertTriangle } from 'lucide-react';
 
 type AlertVariant = 'info' | 'warning' | 'success' | 'error';
@@ -54,10 +54,7 @@ export function AlertBanner({
           animate={{ opacity: 1, y: 0, height: 'auto' }}
           exit={{ opacity: 0, y: -8, height: 0 }}
           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-          className={`
-            rounded-lg border p-4
-            ${config.className}
-          `.trim()}
+          className={`rounded-lg border p-4 ${config.className} `.trim()}
         >
           <div className="flex items-start gap-3">
             <div className="flex-shrink-0">{config.icon}</div>
@@ -65,7 +62,7 @@ export function AlertBanner({
             {dismissible && (
               <button
                 onClick={handleDismiss}
-                className="flex-shrink-0 p-0.5 rounded hover:bg-black/5 transition-colors duration-150"
+                className="flex-shrink-0 rounded p-0.5 transition-colors duration-150 hover:bg-black/5"
               >
                 <X className="h-4 w-4" />
               </button>

@@ -7,7 +7,7 @@ import 'server-only';
  */
 export const inngest = new Inngest({
   id: 'riqle',
-  retryWithExponentialBackoff: async (attempt) => {
+  retryWithExponentialBackoff: async (attempt: number) => {
     // Exponential backoff: 1s, 2s, 4s, 8s, 16s
     return Math.pow(2, attempt) * 1000;
   },

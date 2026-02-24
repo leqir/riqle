@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import { Permission, hasPermission, hasAnyPermission, hasAllPermissions, Role } from './rbac';
+import { type Permission, hasPermission, hasAnyPermission, hasAllPermissions, Role } from './rbac';
 import { NextResponse } from 'next/server';
 import 'server-only';
 

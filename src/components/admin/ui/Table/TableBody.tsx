@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 interface TableBodyProps {
   children: ReactNode;
@@ -6,9 +6,5 @@ interface TableBodyProps {
 }
 
 export function TableBody({ children, className = '' }: TableBodyProps) {
-  return (
-    <tbody className={`bg-white divide-y divide-slate-200 ${className}`}>
-      {children}
-    </tbody>
-  );
+  return <tbody className={`divide-y divide-slate-200 bg-white ${className}`}>{children}</tbody>;
 }

@@ -25,7 +25,7 @@ export async function safeFindMany<T>(
     timeoutMs?: number;
   } = {}
 ): Promise<T[]> {
-  const limit = Math.min(options.limit || DEFAULT_QUERY_LIMIT, MAX_QUERY_LIMIT);
+  const _limit = Math.min(options.limit || DEFAULT_QUERY_LIMIT, MAX_QUERY_LIMIT);
   const timeoutMs = options.timeoutMs || 5000;
 
   // Note: The actual limit enforcement must be done in the query itself

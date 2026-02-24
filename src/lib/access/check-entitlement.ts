@@ -28,10 +28,7 @@ import 'server-only';
  * }
  * ```
  */
-export async function checkEntitlement(
-  userId: string,
-  productId: string
-): Promise<boolean> {
+export async function checkEntitlement(userId: string, productId: string): Promise<boolean> {
   try {
     const entitlement = await db.entitlement.findFirst({
       where: {
@@ -65,10 +62,7 @@ export async function checkEntitlement(
  * }
  * ```
  */
-export async function requireEntitlement(
-  userId: string,
-  productId: string
-): Promise<void> {
+export async function requireEntitlement(userId: string, productId: string): Promise<void> {
   const hasAccess = await checkEntitlement(userId, productId);
 
   if (!hasAccess) {
@@ -91,9 +85,7 @@ export async function requireEntitlement(
  * }
  * ```
  */
-export async function checkCurrentUserEntitlement(
-  productId: string
-): Promise<boolean> {
+export async function checkCurrentUserEntitlement(productId: string): Promise<boolean> {
   const session = await auth();
 
   if (!session?.user) {
@@ -220,10 +212,7 @@ export async function checkEntitlementBySlug(
  * @param productSlug - The product slug
  * @throws {Error} If product not found or user lacks entitlement
  */
-export async function requireEntitlementBySlug(
-  userId: string,
-  productSlug: string
-): Promise<void> {
+export async function requireEntitlementBySlug(userId: string, productSlug: string): Promise<void> {
   const product = await db.product.findUnique({
     where: { slug: productSlug },
     select: { id: true },
@@ -255,7 +244,7 @@ export async function requireEntitlementBySlug(
 export async function grantEntitlement(
   userId: string,
   productId: string,
-  source: 'purchase' | 'gift' | 'manual' = 'purchase'
+  _source: 'purchase' | 'gift' | 'manual' = 'purchase'
 ) {
   try {
     // Check if entitlement already exists

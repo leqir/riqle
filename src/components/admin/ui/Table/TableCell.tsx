@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 interface TableCellProps {
   children: ReactNode;
@@ -6,9 +6,5 @@ interface TableCellProps {
 }
 
 export function TableCell({ children, className = '' }: TableCellProps) {
-  return (
-    <td className={`px-6 py-4 text-sm text-slate-700 ${className}`}>
-      {children}
-    </td>
-  );
+  return <td className={`px-6 py-4 text-sm text-slate-700 ${className}`}>{children}</td>;
 }

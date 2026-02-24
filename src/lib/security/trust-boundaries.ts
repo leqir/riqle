@@ -60,10 +60,7 @@ export function getBoundaryPolicy(boundary: TrustBoundary): BoundaryPolicy {
 /**
  * Validate data based on trust boundary
  */
-export function validateBoundaryCrossing(
-  boundary: TrustBoundary,
-  data: unknown
-): void {
+export function validateBoundaryCrossing(boundary: TrustBoundary, _data: unknown): void {
   const policy = getBoundaryPolicy(boundary);
 
   if (policy.logging) {
@@ -85,9 +82,7 @@ export function shouldRateLimit(boundary: TrustBoundary): boolean {
 /**
  * Get validation level for boundary
  */
-export function getValidationLevel(
-  boundary: TrustBoundary
-): 'strict' | 'standard' | 'minimal' {
+export function getValidationLevel(boundary: TrustBoundary): 'strict' | 'standard' | 'minimal' {
   const policy = getBoundaryPolicy(boundary);
   return policy.validation;
 }

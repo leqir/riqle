@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
@@ -16,23 +16,15 @@ export function QuickActionCard({ title, description, icon, href }: QuickActionC
   return (
     <Link href={href}>
       <motion.div
-        className="
-          bg-white rounded-xl p-6 shadow-card
-          hover:shadow-card-hover
-          transition-shadow duration-200
-          border border-slate-100
-          group
-        "
+        className="group rounded-xl border border-slate-100 bg-white p-6 shadow-card transition-shadow duration-200 hover:shadow-card-hover"
         whileHover={{ y: -4, scale: 1.02 }}
         transition={{ duration: 0.2 }}
       >
-        <div className="flex items-start justify-between mb-4">
-          <div className="p-3 bg-brand-50 rounded-lg text-brand-600">
-            {icon}
-          </div>
-          <ArrowRight className="h-5 w-5 text-slate-400 group-hover:text-brand-600 group-hover:translate-x-1 transition-all duration-200" />
+        <div className="mb-4 flex items-start justify-between">
+          <div className="rounded-lg bg-brand-50 p-3 text-brand-600">{icon}</div>
+          <ArrowRight className="h-5 w-5 text-slate-400 transition-all duration-200 group-hover:translate-x-1 group-hover:text-brand-600" />
         </div>
-        <h3 className="text-lg font-semibold text-slate-900 mb-2">{title}</h3>
+        <h3 className="mb-2 text-lg font-semibold text-slate-900">{title}</h3>
         <p className="text-sm text-slate-600">{description}</p>
       </motion.div>
     </Link>

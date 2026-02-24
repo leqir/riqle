@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 type BadgeVariant = 'success' | 'warning' | 'error' | 'info' | 'neutral';
 type BadgeSize = 'sm' | 'md' | 'lg';
@@ -24,21 +24,10 @@ const sizeStyles: Record<BadgeSize, string> = {
   lg: 'text-base px-3 py-1.5',
 };
 
-export function Badge({
-  variant = 'neutral',
-  size = 'md',
-  children,
-  className = ''
-}: BadgeProps) {
+export function Badge({ variant = 'neutral', size = 'md', children, className = '' }: BadgeProps) {
   return (
     <span
-      className={`
-        inline-flex items-center rounded-full border font-medium
-        transition-all duration-150
-        ${variantStyles[variant]}
-        ${sizeStyles[size]}
-        ${className}
-      `.trim()}
+      className={`inline-flex items-center rounded-full border font-medium transition-all duration-150 ${variantStyles[variant]} ${sizeStyles[size]} ${className} `.trim()}
     >
       {children}
     </span>

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { db } from '@/lib/db';
 import { formatDistanceToNow, format } from 'date-fns';
 import { type TutoringSessionStatus, type TutoringInquiryStatus } from '@prisma/client';

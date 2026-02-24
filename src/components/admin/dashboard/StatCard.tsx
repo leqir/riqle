@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { ReactNode, useEffect } from 'react';
+import { type ReactNode, useEffect } from 'react';
 import { Card } from '../ui/Card';
 import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
@@ -35,8 +35,8 @@ export function StatCard({ title, value, trend, icon, href, loading }: StatCardP
     return (
       <Card variant="stat" className="animate-pulse">
         <div className="space-y-2">
-          <div className="h-4 bg-slate-200 rounded w-1/2" />
-          <div className="h-12 bg-slate-200 rounded w-3/4" />
+          <div className="h-4 w-1/2 rounded bg-slate-200" />
+          <div className="h-12 w-3/4 rounded bg-slate-200" />
         </div>
       </Card>
     );
@@ -46,17 +46,12 @@ export function StatCard({ title, value, trend, icon, href, loading }: StatCardP
     <Card variant="stat" href={href}>
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <p className="text-sm font-medium text-slate-600 mb-2">{title}</p>
+          <p className="mb-2 text-sm font-medium text-slate-600">{title}</p>
           <div className="flex items-baseline gap-2">
-            <motion.p className="text-4xl font-bold text-slate-900">
-              {rounded}
-            </motion.p>
+            <motion.p className="text-4xl font-bold text-slate-900">{rounded}</motion.p>
             {trend && (
               <div
-                className={`
-                  flex items-center gap-1 text-sm font-medium
-                  ${trend.isPositive ? 'text-success-600' : 'text-error-600'}
-                `.trim()}
+                className={`flex items-center gap-1 text-sm font-medium ${trend.isPositive ? 'text-success-600' : 'text-error-600'} `.trim()}
               >
                 {trend.isPositive ? (
                   <ArrowUpRight className="h-4 w-4" />
@@ -69,9 +64,7 @@ export function StatCard({ title, value, trend, icon, href, loading }: StatCardP
           </div>
         </div>
         {icon && (
-          <div className="flex-shrink-0 p-3 bg-brand-50 rounded-lg text-brand-600">
-            {icon}
-          </div>
+          <div className="flex-shrink-0 rounded-lg bg-brand-50 p-3 text-brand-600">{icon}</div>
         )}
       </div>
     </Card>

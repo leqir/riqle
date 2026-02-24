@@ -6,7 +6,7 @@
 
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 /**
  * Rate limit configurations for different endpoint types
@@ -60,10 +60,7 @@ export const RATE_LIMITS = {
  *
  * Uses Upstash Redis in production, in-memory for development
  */
-function createRateLimiter(
-  requests: number,
-  window: string
-): Ratelimit | null {
+function createRateLimiter(requests: number, window: string): Ratelimit | null {
   // Check if Redis is configured
   const redisUrl = process.env.UPSTASH_REDIS_REST_URL;
   const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN;

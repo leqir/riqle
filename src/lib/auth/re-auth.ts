@@ -31,7 +31,7 @@ export type SensitiveAction = (typeof SENSITIVE_ACTIONS)[number];
  * Re-authentication window: 5 minutes
  * If user authenticated less than 5 minutes ago, allow sensitive action
  */
-const RE_AUTH_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
+const _RE_AUTH_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
 
 /**
  * Require recent authentication for sensitive actions

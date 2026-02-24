@@ -27,10 +27,11 @@ export default function PrivacyPage() {
           <section>
             <h2 className="mb-4 text-2xl font-bold text-stone-900">1. Introduction and Scope</h2>
             <p className="mb-4 leading-relaxed text-stone-700">
-              This Privacy Policy ("Policy") governs the collection, use, storage, and disclosure
-              of personal information by the operator of riqle.com.au ("Platform," "we," "us," or
-              "our"). This Policy applies to all users ("User," "you," or "your") who access or use
-              the Platform and its services.
+              This Privacy Policy (&quot;Policy&quot;) governs the collection, use, storage, and
+              disclosure of personal information by the operator of riqle.com.au
+              (&quot;Platform,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;). This
+              Policy applies to all users (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;)
+              who access or use the Platform and its services.
             </p>
             <p className="leading-relaxed text-stone-700">
               By accessing or using the Platform, you acknowledge that you have read, understood,
@@ -50,14 +51,18 @@ export default function PrivacyPage() {
               (APPs) under the Privacy Act 1988 (Cth).
             </p>
 
-            <p className="mb-4 font-semibold text-stone-900">2.1 Information You Provide Directly</p>
+            <p className="mb-4 font-semibold text-stone-900">
+              2.1 Information You Provide Directly
+            </p>
             <p className="mb-4 leading-relaxed text-stone-700">
               <strong>Email Address:</strong> Collected during account registration and required for
               authentication, order fulfillment, product delivery, and essential communications.
               This constitutes personal information as defined under the Privacy Act 1988 (Cth).
             </p>
 
-            <p className="mb-4 font-semibold text-stone-900">2.2 Information Collected Automatically</p>
+            <p className="mb-4 font-semibold text-stone-900">
+              2.2 Information Collected Automatically
+            </p>
             <ul className="mb-4 ml-6 list-disc space-y-2 text-stone-700">
               <li>
                 <strong>Technical Information:</strong> IP addresses, browser type, device
@@ -90,20 +95,20 @@ export default function PrivacyPage() {
               3. Payment Information and Third-Party Processing
             </h2>
             <p className="mb-4 leading-relaxed text-stone-700">
-              Payment processing services are provided by Stripe, Inc. ("Stripe"), a third-party
-              payment processor maintaining PCI DSS Level 1 certification. The Platform does not
-              collect, store, process, or have access to payment card information, including card
-              numbers, CVV codes, or expiration dates.
+              Payment processing services are provided by Stripe, Inc. (&quot;Stripe&quot;), a
+              third-party payment processor maintaining PCI DSS Level 1 certification. The Platform
+              does not collect, store, process, or have access to payment card information,
+              including card numbers, CVV codes, or expiration dates.
             </p>
             <p className="mb-4 leading-relaxed text-stone-700">
               We store only: (a) the Stripe customer identifier for refund processing purposes; and
               (b) transaction metadata including purchase amount, currency, and timestamp. All
-              payment card data is subject to Stripe's Privacy Policy, available at
+              payment card data is subject to Stripe&apos;s Privacy Policy, available at
               stripe.com/privacy.
             </p>
             <p className="leading-relaxed text-stone-700">
               By making a purchase, you consent to the transfer of your payment information to
-              Stripe in accordance with Stripe's terms of service and privacy practices.
+              Stripe in accordance with Stripe&apos;s terms of service and privacy practices.
             </p>
           </section>
 
@@ -185,7 +190,9 @@ export default function PrivacyPage() {
               <strong>Privacy Policy:</strong> resend.com/legal/privacy-policy
             </p>
 
-            <p className="mb-4 font-semibold text-stone-900">5.3 Error Monitoring and Diagnostics</p>
+            <p className="mb-4 font-semibold text-stone-900">
+              5.3 Error Monitoring and Diagnostics
+            </p>
             <p className="mb-4 leading-relaxed text-stone-700">
               <strong>Provider:</strong> Sentry, Inc.
               <br />
@@ -261,9 +268,7 @@ export default function PrivacyPage() {
                   <tr>
                     <td className="px-4 py-3 text-sm text-stone-900">Email Delivery Logs</td>
                     <td className="px-4 py-3 text-sm text-stone-700">90 days</td>
-                    <td className="px-4 py-3 text-sm text-stone-700">
-                      Deliverability monitoring
-                    </td>
+                    <td className="px-4 py-3 text-sm text-stone-700">Deliverability monitoring</td>
                   </tr>
                 </tbody>
               </table>
@@ -284,27 +289,35 @@ export default function PrivacyPage() {
               the following rights regarding your personal information:
             </p>
 
-            <p className="mb-4 font-semibold text-stone-900">7.1 Right of Access (APP 12, GDPR Art. 15)</p>
+            <p className="mb-4 font-semibold text-stone-900">
+              7.1 Right of Access (APP 12, GDPR Art. 15)
+            </p>
             <p className="mb-4 leading-relaxed text-stone-700">
               You may request a copy of all personal information we hold about you, provided in a
               structured, commonly used, and machine-readable format (JSON).
             </p>
 
-            <p className="mb-4 font-semibold text-stone-900">7.2 Right to Rectification (APP 13, GDPR Art. 16)</p>
+            <p className="mb-4 font-semibold text-stone-900">
+              7.2 Right to Rectification (APP 13, GDPR Art. 16)
+            </p>
             <p className="mb-4 leading-relaxed text-stone-700">
               You may request correction of inaccurate or incomplete personal information. Email
               address updates must be verified through a confirmation process to prevent
               unauthorized access.
             </p>
 
-            <p className="mb-4 font-semibold text-stone-900">7.3 Right to Erasure (APP 12.3, GDPR Art. 17)</p>
+            <p className="mb-4 font-semibold text-stone-900">
+              7.3 Right to Erasure (APP 12.3, GDPR Art. 17)
+            </p>
             <p className="mb-4 leading-relaxed text-stone-700">
               You may request deletion of your personal information, subject to legal retention
               obligations (e.g., 7-year retention of financial records under Australian tax law).
               Account deletion requests will be processed within 30 days.
             </p>
 
-            <p className="mb-4 font-semibold text-stone-900">7.4 Right to Data Portability (GDPR Art. 20)</p>
+            <p className="mb-4 font-semibold text-stone-900">
+              7.4 Right to Data Portability (GDPR Art. 20)
+            </p>
             <p className="mb-4 leading-relaxed text-stone-700">
               You may request export of your personal information in JSON format for transfer to
               another service provider.
@@ -343,9 +356,7 @@ export default function PrivacyPage() {
 
             <p className="mb-4 font-semibold text-stone-900">8.1 Technical Safeguards</p>
             <ul className="mb-4 ml-6 list-disc space-y-2 text-stone-700">
-              <li>
-                Transport Layer Security (TLS 1.3) encryption for all data in transit
-              </li>
+              <li>Transport Layer Security (TLS 1.3) encryption for all data in transit</li>
               <li>AES-256 encryption for data at rest in production databases</li>
               <li>Secure token-based authentication system (no password storage)</li>
               <li>Automated IP address deletion after 30-day retention period</li>
@@ -372,7 +383,7 @@ export default function PrivacyPage() {
 
           {/* Children's Privacy */}
           <section>
-            <h2 className="mb-4 text-2xl font-bold text-stone-900">9. Children's Privacy</h2>
+            <h2 className="mb-4 text-2xl font-bold text-stone-900">9. Children&apos;s Privacy</h2>
             <p className="leading-relaxed text-stone-700">
               The Platform is not directed to individuals under the age of eighteen (18) years. We
               do not knowingly collect personal information from minors. If we become aware that
@@ -422,7 +433,10 @@ export default function PrivacyPage() {
               report privacy concerns, please contact:
             </p>
             <p className="mb-2 leading-relaxed text-stone-900">
-              Email: <a href="mailto:nathanael.thie@gmail.com" className="underline">nathanael.thie@gmail.com</a>
+              Email:{' '}
+              <a href="mailto:nathanael.thie@gmail.com" className="underline">
+                nathanael.thie@gmail.com
+              </a>
             </p>
             <p className="mb-4 leading-relaxed text-stone-700">
               Expected response time: Within seven (7) calendar days
@@ -431,7 +445,15 @@ export default function PrivacyPage() {
               For complaints regarding privacy practices, you may also contact the Office of the
               Australian Information Commissioner:
               <br />
-              Website: <a href="https://www.oaic.gov.au" target="_blank" rel="noopener noreferrer" className="underline">oaic.gov.au</a>
+              Website:{' '}
+              <a
+                href="https://www.oaic.gov.au"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              >
+                oaic.gov.au
+              </a>
               <br />
               Phone: 1300 363 992
             </p>

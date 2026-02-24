@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 interface TableHeaderProps {
   children: ReactNode;
@@ -8,9 +8,7 @@ interface TableHeaderProps {
 export function TableHeader({ children, className = '' }: TableHeaderProps) {
   return (
     <thead className={`bg-slate-50 ${className}`}>
-      <tr>
-        {children}
-      </tr>
+      <tr>{children}</tr>
     </thead>
   );
 }
@@ -23,10 +21,7 @@ interface TableHeaderCellProps {
 export function TableHeaderCell({ children, className = '' }: TableHeaderCellProps) {
   return (
     <th
-      className={`
-        px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider
-        ${className}
-      `.trim()}
+      className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-600 ${className} `.trim()}
     >
       {children}
     </th>

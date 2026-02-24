@@ -13,7 +13,7 @@ import { featureFlags } from '@/lib/reliability/graceful-degradation';
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-export async function GET(request: Request) {
+export async function GET(_request: Request) {
   try {
     // Collect circuit breaker states
     const circuitBreakerStates = Array.from(circuitBreakers.getAll().entries()).map(
@@ -37,8 +37,7 @@ export async function GET(request: Request) {
       summary: {
         totalCircuitBreakers: circuitBreakerStates.length,
         openCircuits: circuitBreakerStates.filter((cb) => cb.state === 'OPEN').length,
-        halfOpenCircuits: circuitBreakerStates.filter((cb) => cb.state === 'HALF_OPEN')
-          .length,
+        halfOpenCircuits: circuitBreakerStates.filter((cb) => cb.state === 'HALF_OPEN').length,
         totalBulkheads: bulkheadStats.length,
         activeBulkheads: bulkheadStats.filter((b) => b.activeCount > 0).length,
         disabledFeatures: Object.entries(flags)
@@ -113,10 +112,7 @@ export async function POST(request: Request) {
       });
     }
 
-    return NextResponse.json(
-      { error: 'Invalid action or parameters' },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: 'Invalid action or parameters' }, { status: 400 });
   } catch (error) {
     console.error('[Reliability Monitor] Action failed:', error);
 
