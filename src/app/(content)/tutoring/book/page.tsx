@@ -404,11 +404,11 @@ export default function BookingPage() {
                     type="text"
                     value={form.preferredLocation}
                     onChange={(e) => setForm({ ...form, preferredLocation: e.target.value })}
-                    placeholder="e.g. Hurstville, Chatswood, City..."
+                    placeholder="e.g. Hurstville Library, home address, UNSW campus..."
                     className="w-full rounded-lg border border-stone-200 px-4 py-3 text-sm text-stone-900 placeholder-stone-300 focus:border-stone-900 focus:outline-none focus:ring-1 focus:ring-stone-900"
                   />
                   <p className="mt-1.5 text-xs text-stone-400">
-                    i&apos;ll confirm whether the location works for me before the session.
+                    be specific — i&apos;ll confirm whether it works before the session.
                   </p>
                 </div>
               )}

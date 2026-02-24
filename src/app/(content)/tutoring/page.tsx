@@ -71,6 +71,25 @@ export default function TutoringPage() {
           </div>
         </section>
 
+        {/* About */}
+        <section className="mb-20 border-l-2 border-stone-300 pl-8">
+          <div className="space-y-4 text-base leading-relaxed text-stone-600">
+            <p className="text-lg text-stone-700">
+              not in a &quot;here&apos;s a template&quot; way, but in a &quot;why does this actually
+              score higher?&quot; way.
+            </p>
+            <ul className="space-y-1">
+              <li>graduated sydney boys &apos;24</li>
+              <li>2+ years private tutoring + centre experience</li>
+              <li>took 4u english for fun</li>
+            </ul>
+            <p>
+              i&apos;m based in hurstville — i love you but i ain&apos;t trekking to epping or
+              castle hill. online works fine if you&apos;re far.
+            </p>
+          </div>
+        </section>
+
         {/* Pricing — single, clean block */}
         <section className="mb-20">
           <div className="mb-6 flex items-baseline justify-between border-b border-stone-200 pb-6">
