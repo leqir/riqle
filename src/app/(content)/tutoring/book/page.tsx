@@ -451,7 +451,7 @@ export default function BookingPage() {
             1:1 hsc english
           </h1>
           <p className="mt-2 text-stone-500">
-            a$80 · 60 min · years 7–12 · english · advanced · ext 1 &amp; 2 · eald
+            a$80/hr · flexible duration · years 7–12 · english · advanced · ext 1 &amp; 2 · eald
           </p>
         </header>
 

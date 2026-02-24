@@ -100,8 +100,8 @@ export default function TutoringPage() {
               </p>
             </div>
             <div className="text-right">
-              <div className="text-3xl font-semibold text-stone-900">a$80</div>
-              <div className="text-sm text-stone-400">per hour</div>
+              <div className="text-3xl font-semibold text-stone-900">a$80/hr</div>
+              <div className="text-sm text-stone-400">flexible duration</div>
             </div>
           </div>
 
