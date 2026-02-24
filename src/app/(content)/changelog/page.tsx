@@ -39,6 +39,48 @@ type Version = {
 
 const versions: Version[] = [
   {
+    version: '1.0.5',
+    date: '2026-02-24',
+    title: 'Self-Hosted Tutoring Scheduler',
+    changes: [
+      {
+        category: 'feature',
+        description:
+          'Replaced Calendly with a fully self-hosted booking system — calendar UI, availability rules, and admin confirmation flow',
+      },
+      {
+        category: 'feature',
+        description:
+          'Students can now browse a Calendly-style month calendar and select a time slot at /tutoring/book',
+      },
+      {
+        category: 'feature',
+        description:
+          'Admin availability management at /admin/tutoring/availability — set weekly rules and block specific dates',
+      },
+      {
+        category: 'feature',
+        description:
+          'Manual booking confirmation flow — student gets a pending email on submit, a confirmation email when admin approves',
+      },
+      {
+        category: 'feature',
+        description:
+          "In-person sessions now collect a preferred location/suburb — admin reviews and confirms whether it's workable",
+      },
+      {
+        category: 'improvement',
+        description:
+          'Expanded tutoring to years 7–12 across English, English Standard, Advanced, Extension 1 & 2, and EALD',
+      },
+      {
+        category: 'improvement',
+        description:
+          'Admin /admin/tutoring now shows pending bookings with inline Confirm/Cancel actions',
+      },
+    ],
+  },
+  {
     version: '1.0.4',
     date: '2026-02-14',
     title: 'PDF Preview System & Performance Overhaul',

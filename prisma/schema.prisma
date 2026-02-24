@@ -459,6 +459,8 @@ model User {
   Project            Project[]
   Session            Session[]
   Startup            Startup[]
+  TutoringSession    TutoringSession[]
+  TutoringBooking    TutoringBooking[]
   UserRole           UserRole[]
 
   @@index([email])
@@ -542,4 +544,182 @@ model AnalyticsEvent {
   @@index([eventName])
   @@index([createdAt])
   @@index([userId])
+}
+
+// ─── Tutoring System ──────────────────────────────────────────────────────────
+
+model TutoringPackage {
+  id                     String   @id @default(cuid())
+  name                   String   // "Trial Session", "Single Session", "5-Session Block"
+  slug                   String   @unique
+  description            String
+  sessionCount           Int      // number of sessions included
+  durationMinutes        Int      // per-session duration
+  priceInCents           Int      // AUD cents
+  currency               String   @default("AUD")
+  published              Boolean  @default(false)
+  featured               Boolean  @default(false)
+  displayOrder           Int      @default(0)
+  calendlyEventTypeSlug  String?  // matches the Calendly Event Type slug
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  sessions   TutoringSession[]
+  inquiries  TutoringInquiry[]
+
+  @@index([published])
+  @@index([displayOrder])
+}
+
+model TutoringSession {
+  id                  String                @id @default(cuid())
+  packageId           String?
+  userId              String?               // linked if student has a Riqle account
+
+  // Calendly identifiers
+  calendlyEventId     String                @unique  // Calendly invitee UUID (idempotency key)
+  calendlyEventUri    String?
+  calendlyInviteeUri  String?
+
+  // Session details
+  status              TutoringSessionStatus @default(scheduled)
+  scheduledAt         DateTime
+  durationMinutes     Int
+  meetingUrl          String?               // Zoom/Meet link from Calendly
+
+  // Student info (denormalised — Calendly provides this, may be a guest)
+  studentName         String
+  studentEmail        String
+  studentPhone        String?
+
+  // Academic context (collected via Calendly question form)
+  yearLevel           String?               // "Year 12", "Year 11"
+  subject             String?               // "HSC English Advanced", "Extension 1"
+  goals               String?               // what the student wants from sessions
+
+  // Internal
+  tutorNotes          String?
+  sessionSummary      String?
+
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  cancelledAt  DateTime?
+  completedAt  DateTime?
+
+  Package  TutoringPackage? @relation(fields: [packageId], references: [id])
+  User     User?            @relation(fields: [userId], references: [id])
+
+  @@index([status])
+  @@index([scheduledAt])
+  @@index([studentEmail])
+  @@index([userId])
+  @@index([packageId])
+}
+
+model TutoringInquiry {
+  id        String                 @id @default(cuid())
+  packageId String?
+  name      String
+  email     String
+  phone     String?
+  message   String
+  yearLevel String?
+  subject   String?
+  status    TutoringInquiryStatus  @default(new)
+
+  respondedAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  Package  TutoringPackage? @relation(fields: [packageId], references: [id])
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([email])
+}
+
+enum TutoringSessionStatus {
+  scheduled
+  completed
+  cancelled
+  no_show
+  rescheduled
+}
+
+enum TutoringInquiryStatus {
+  new
+  contacted
+  booked
+  closed
+}
+
+// ─── Scheduling System ─────────────────────────────────────────────────────────
+
+model AvailabilityRule {
+  id        String  @id @default(cuid())
+  dayOfWeek Int     // 0=Sun 1=Mon … 6=Sat
+  startTime String  // "16:00" 24hr AEST
+  endTime   String  // "20:00"
+  active    Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([dayOfWeek])
+  @@index([active])
+}
+
+model AvailabilityBlock {
+  id     String    @id @default(cuid())
+  date   DateTime  // midnight UTC of the blocked AEST date
+  reason String?   // internal note (exam period, holiday, etc.)
+
+  createdAt DateTime @default(now())
+
+  @@index([date])
+}
+
+model TutoringBooking {
+  id              String                @id @default(cuid())
+  studentName     String
+  studentEmail    String
+  studentPhone    String?
+  yearLevel       String?               // "Year 12", "Year 11"
+  subject         String?               // "English Advanced", "Extension 1"
+  goals           String?
+  scheduledAt     DateTime              // UTC; display in AEST
+  durationMinutes Int                   @default(60)
+  meetingFormat       MeetingFormat
+  preferredLocation   String?               // in-person preferred suburb/area (admin reviews)
+  status              TutoringBookingStatus @default(pending)
+  meetingLink         String?               // Zoom URL set by admin on confirmation
+  adminNotes          String?
+  userId          String?               // links to Riqle account if student is registered
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  confirmedAt DateTime?
+  cancelledAt DateTime?
+  completedAt DateTime?
+
+  User User? @relation(fields: [userId], references: [id])
+
+  @@index([status])
+  @@index([scheduledAt])
+  @@index([studentEmail])
+  @@index([userId])
+}
+
+enum TutoringBookingStatus {
+  pending
+  confirmed
+  completed
+  cancelled
+  no_show
+}
+
+enum MeetingFormat {
+  in_person
+  online
 }

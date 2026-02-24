@@ -36,6 +36,8 @@ export async function AdminNav() {
                 <span className="text-sm font-medium text-slate-500">Commerce</span>
                 <AdminNavLink href="/admin/orders">Orders</AdminNavLink>
                 <AdminNavLink href="/admin/entitlements">Entitlements</AdminNavLink>
+                <AdminNavLink href="/admin/tutoring">Tutoring</AdminNavLink>
+                <AdminNavLink href="/admin/tutoring/availability">Availability</AdminNavLink>
               </div>
 
               {/* System Section */}
