@@ -11,8 +11,6 @@
 
 'use client';
 
-import { PhotoCarousel } from '@/components/content/about/photo-carousel';
-
 export default function AboutPage() {
   return (
     <div className="min-h-screen">
@@ -75,11 +73,6 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
-
-        {/* Photo Carousel */}
-        <section className="mb-32">
-          <PhotoCarousel />
-        </section>
       </div>
 
       {/* For Employers Section - Split Brain Layout */}
@@ -89,14 +82,9 @@ export default function AboutPage() {
           <div className="flex h-screen w-screen flex-shrink-0 overflow-y-auto border-r border-stone-200 bg-white/80 px-12 py-20 backdrop-blur-sm lg:w-[40vw]">
             <div className="mx-auto w-full max-w-lg space-y-12 py-12">
               {/* Header */}
-              <div className="space-y-4">
-                <div>
-                  <h2 className="mb-2 text-4xl font-medium tracking-tight text-stone-900">
-                    nathanael
-                  </h2>
-                  <p className="text-base text-stone-600">riqle</p>
-                </div>
-                <p className="text-lg text-stone-700">making things · sydney</p>
+              <div className="space-y-2">
+                <h2 className="text-4xl font-medium tracking-tight text-stone-900">nathanael</h2>
+                <p className="text-sm text-stone-500">sydney</p>
               </div>
 
               {/* Context Snapshot */}
