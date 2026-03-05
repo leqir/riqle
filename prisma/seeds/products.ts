@@ -135,13 +135,12 @@ export async function seedProducts() {
 
       // Metadata
       featured: true,
-      displayOrder: 1,
       published: true,
 
       // SEO
       metaTitle: 'Annotated 1984 Exemplar Essay - HSC Common Module Band 6',
       metaDescription:
-        'Rigorously annotated Band 6 exemplar essay analyzing Orwell\'s 1984 through Bakhtin, Wittgenstein, Weber, and Arendt. Comprehensive meta-cognitive annotations reveal sophisticated analytical thinking for HSC English Advanced/Extension students.',
+        "Rigorously annotated Band 6 exemplar essay analyzing Orwell's 1984 through Bakhtin, Wittgenstein, Weber, and Arendt. Comprehensive meta-cognitive annotations reveal sophisticated analytical thinking for HSC English Advanced/Extension students.",
       ogImage: null,
 
       // File path for download

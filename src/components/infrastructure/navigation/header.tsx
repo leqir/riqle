@@ -193,6 +193,19 @@ export function Header() {
                   <span className="animate-shimmer absolute inset-x-0 -bottom-px h-0.5 bg-gradient-to-r from-cyan-500 to-purple-500" />
                 )}
               </Link>
+
+              {/* Tutoring link */}
+              <Link
+                href="/tutoring"
+                className={`relative px-4 py-2 text-sm font-medium lowercase tracking-wide transition-all duration-200 ${
+                  isActive('/tutoring') ? 'text-cyan-600' : 'text-stone-700 hover:text-cyan-500'
+                }`}
+              >
+                tutoring
+                {isActive('/tutoring') && (
+                  <span className="animate-shimmer absolute inset-x-0 -bottom-px h-0.5 bg-gradient-to-r from-cyan-500 to-purple-500" />
+                )}
+              </Link>
             </div>
 
             {/* Auth section */}
@@ -334,6 +347,19 @@ export function Header() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 resources
+              </Link>
+
+              {/* Tutoring link */}
+              <Link
+                href="/tutoring"
+                className={`block rounded-lg px-3 py-2.5 text-base font-medium lowercase transition-all duration-200 ${
+                  isActive('/tutoring')
+                    ? 'bg-cyan-50 text-cyan-600'
+                    : 'text-stone-700 hover:bg-stone-50 hover:text-cyan-500'
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                tutoring
               </Link>
 
               <div className="mt-4 space-y-2 border-t border-stone-200 pt-4">

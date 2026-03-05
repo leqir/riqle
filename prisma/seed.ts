@@ -9,6 +9,7 @@
 
 import { PrismaClient } from '@prisma/client';
 import { seedProducts } from './seeds/products';
+import { seedTutoringPackages } from './seeds/tutoring-packages';
 
 const prisma = new PrismaClient();
 
@@ -56,8 +57,10 @@ async function main() {
   if (!existingUserRole) {
     await prisma.userRole.create({
       data: {
+        id: `userrole_${admin.id}_${adminRole.id}`.slice(0, 30),
         userId: admin.id,
         roleId: adminRole.id,
+        updatedAt: new Date(),
       },
     });
     console.log(`✓ Assigned admin role to ${admin.email}`);
@@ -68,6 +71,7 @@ async function main() {
     where: { slug: 'markpoint' },
     update: {},
     create: {
+      id: 'proj_markpoint',
       slug: 'markpoint',
       title: 'MarkPoint',
       description:
@@ -160,6 +164,7 @@ The core framework engine is solid. Next phase focuses on expanding framework li
       displayOrder: 1,
       published: true,
       authorId: admin.id,
+      updatedAt: new Date(),
     },
   });
 
@@ -170,6 +175,7 @@ The core framework engine is solid. Next phase focuses on expanding framework li
     where: { slug: 'riqle' },
     update: {},
     create: {
+      id: 'proj_riqle',
       slug: 'riqle',
       title: 'Riqle',
       description:
@@ -290,6 +296,7 @@ The T3 Stack proved to be an excellent foundation for solo full-stack developmen
       displayOrder: 2,
       published: true,
       authorId: admin.id,
+      updatedAt: new Date(),
     },
   });
 
@@ -300,6 +307,7 @@ The T3 Stack proved to be an excellent foundation for solo full-stack developmen
     where: { slug: 'markpoint' },
     update: {},
     create: {
+      id: 'startup_markpoint',
       slug: 'markpoint',
       name: 'MarkPoint',
       description:
@@ -478,6 +486,7 @@ Shipping early and iterating based on real user feedback beats building in isola
       metaTitle: 'MarkPoint - Cognitive Frameworks for HSC English',
       metaDescription:
         'Educational technology platform teaching cognitive frameworks for HSC English students. Built and operated by Nathanael.',
+      updatedAt: new Date(),
     },
   });
 
@@ -488,6 +497,7 @@ Shipping early and iterating based on real user feedback beats building in isola
     where: { slug: 'frameworks-over-content' },
     update: {},
     create: {
+      id: 'post_frameworks',
       slug: 'frameworks-over-content',
       title: 'Why Teaching Frameworks Beats Teaching Content',
       description:
@@ -547,6 +557,7 @@ Shipping early and iterating based on real user feedback beats building in isola
       metaTitle: 'Why Teaching Frameworks Beats Teaching Content | Nathanael',
       metaDescription:
         'After teaching 500+ students, I learned that frameworks trump content every time. How this insight shaped MarkPoint and my approach to product.',
+      updatedAt: new Date(),
     },
   });
 
@@ -557,6 +568,7 @@ Shipping early and iterating based on real user feedback beats building in isola
     where: { slug: 'feedback-speed-over-comprehensiveness' },
     update: {},
     create: {
+      id: 'post_feedback_speed',
       slug: 'feedback-speed-over-comprehensiveness',
       title: 'Feedback Speed Matters More Than Comprehensiveness',
       description: 'Why fast, focused feedback beats slow, detailed feedback for student learning.',
@@ -627,6 +639,7 @@ Shipping early and iterating based on real user feedback beats building in isola
       metaTitle: 'Feedback Speed Matters More Than Comprehensiveness | Nathanael',
       metaDescription:
         'Why fast, focused feedback beats slow, detailed feedback for student learning. Lessons from building MarkPoint.',
+      updatedAt: new Date(),
     },
   });
 
@@ -634,6 +647,9 @@ Shipping early and iterating based on real user feedback beats building in isola
 
   // Seed Epic 8 products
   await seedProducts();
+
+  // Seed tutoring packages
+  await seedTutoringPackages();
 
   console.log('✅ Database seed completed!');
 }
