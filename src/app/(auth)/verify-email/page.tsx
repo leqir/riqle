@@ -36,8 +36,8 @@ function VerifyEmailContent() {
         }
 
         setStatus('success');
-      } catch (error) {
-        console.error('Verification error:', error);
+      } catch (err) {
+        console.error('Verification error:', err);
         setStatus('error');
         setErrorMessage('an unexpected error occurred');
       }
@@ -47,149 +47,86 @@ function VerifyEmailContent() {
   }, [token, email]);
 
   return (
-    <>
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes scaleIn {
-          from {
-            opacity: 0;
-            transform: scale(0.5);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-        @keyframes spin {
-          to {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-50 via-white to-blue-50 px-4">
-        <div
-          className="w-full max-w-md"
-          style={{
-            animation: 'fadeIn 0.5s ease-out',
-          }}
+    <div className="flex min-h-screen flex-col bg-white">
+      <div className="px-8 py-6">
+        <Link
+          href="/"
+          className="text-sm font-medium text-stone-900 transition-colors hover:text-stone-500"
         >
-          {/* Verifying State */}
+          riqle
+        </Link>
+      </div>
+
+      <div className="flex flex-1 items-center justify-center px-6 pb-20">
+        <div className="w-full max-w-sm">
           {status === 'verifying' && (
             <>
-              <div className="mb-8 flex justify-center">
-                <div
-                  className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 shadow-lg"
-                  style={{
-                    animation: 'spin 1s linear infinite',
-                  }}
-                >
-                  <div className="h-16 w-16 rounded-full border-4 border-white border-t-transparent"></div>
-                </div>
-              </div>
-
-              <div className="rounded-2xl border border-cyan-100 bg-white p-8 shadow-xl">
-                <h1 className="mb-3 text-center text-2xl font-bold lowercase text-gray-900">
-                  verifying your email...
-                </h1>
-                <p className="text-center lowercase text-gray-600">
-                  please wait while we verify your account
-                </p>
-              </div>
+              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-stone-400">
+                please wait
+              </p>
+              <h1 className="mb-1 text-2xl font-semibold tracking-tight text-stone-900">
+                verifying your email
+              </h1>
+              <p className="mb-8 text-sm text-stone-500">this will only take a moment</p>
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-stone-200 border-t-stone-900" />
             </>
           )}
 
-          {/* Success State */}
           {status === 'success' && (
             <>
-              <div className="mb-8 flex justify-center">
-                <div
-                  className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-green-400 to-emerald-500 text-4xl shadow-lg"
-                  style={{
-                    animation: 'scaleIn 0.5s ease-out',
-                  }}
-                >
-                  ✓
-                </div>
-              </div>
-
-              <div className="rounded-2xl border border-green-100 bg-white p-8 shadow-xl">
-                <h1 className="mb-3 text-center text-2xl font-bold lowercase text-gray-900">
-                  email verified!
-                </h1>
-                <p className="mb-6 text-center lowercase text-gray-600">
-                  your email has been successfully verified. you can now sign in to your account.
-                </p>
-
-                <Link
-                  href="/login"
-                  className="block w-full rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 px-4 py-3 text-center font-semibold lowercase text-white shadow-md transition-all duration-200 hover:scale-105 hover:shadow-lg active:scale-95"
-                >
-                  sign in now
-                </Link>
-              </div>
+              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-stone-400">
+                verified
+              </p>
+              <h1 className="mb-1 text-2xl font-semibold tracking-tight text-stone-900">
+                email confirmed
+              </h1>
+              <p className="mb-8 text-sm text-stone-500">
+                your email has been verified. you can now sign in.
+              </p>
+              <Link
+                href="/login"
+                className="block w-full rounded-lg bg-stone-900 px-6 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-stone-700"
+              >
+                sign in
+              </Link>
             </>
           )}
 
-          {/* Error State */}
           {status === 'error' && (
             <>
-              <div className="mb-8 flex justify-center">
-                <div
-                  className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-red-400 to-orange-500 text-4xl shadow-lg"
-                  style={{
-                    animation: 'scaleIn 0.5s ease-out',
-                  }}
-                >
-                  ✕
-                </div>
+              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-stone-400">
+                error
+              </p>
+              <h1 className="mb-1 text-2xl font-semibold tracking-tight text-stone-900">
+                verification failed
+              </h1>
+              <p className="mb-6 text-sm text-stone-500">{errorMessage}</p>
+
+              <div className="mb-8 space-y-1.5 text-sm text-stone-400">
+                <p>— the link may have expired</p>
+                <p>— the link may have already been used</p>
+                <p>— the link may be invalid or corrupted</p>
               </div>
 
-              <div className="rounded-2xl border border-red-100 bg-white p-8 shadow-xl">
-                <h1 className="mb-3 text-center text-2xl font-bold lowercase text-gray-900">
-                  verification failed
-                </h1>
-                <p className="mb-6 text-center lowercase text-gray-600">{errorMessage}</p>
-
-                <div className="mb-6 rounded-lg bg-red-50 p-4">
-                  <p className="mb-2 text-sm font-semibold lowercase text-red-900">
-                    possible reasons:
-                  </p>
-                  <ul className="list-inside list-disc space-y-1 text-sm lowercase text-red-800">
-                    <li>the verification link has expired</li>
-                    <li>the link has already been used</li>
-                    <li>the link is invalid or corrupted</li>
-                  </ul>
-                </div>
-
-                <div className="space-y-2">
-                  <Link
-                    href="/signup"
-                    className="block w-full rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 px-4 py-3 text-center font-semibold lowercase text-white shadow-md transition-all duration-200 hover:scale-105 hover:shadow-lg active:scale-95"
-                  >
-                    sign up again
-                  </Link>
-                  <Link
-                    href="/login"
-                    className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-center font-medium lowercase text-gray-700 transition-all duration-200 hover:bg-gray-50 active:scale-95"
-                  >
-                    back to sign in
-                  </Link>
-                </div>
+              <div className="space-y-3">
+                <Link
+                  href="/signup"
+                  className="block w-full rounded-lg bg-stone-900 px-6 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-stone-700"
+                >
+                  sign up again
+                </Link>
+                <Link
+                  href="/login"
+                  className="block w-full rounded-lg border border-stone-200 px-6 py-3 text-center text-sm font-medium text-stone-700 transition-colors hover:bg-stone-50"
+                >
+                  back to sign in
+                </Link>
               </div>
             </>
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -197,8 +134,8 @@ export default function VerifyEmailPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-50 via-white to-blue-50">
-          <div className="h-20 w-20 animate-spin rounded-full border-4 border-cyan-200 border-t-cyan-600"></div>
+        <div className="flex min-h-screen items-center justify-center bg-white">
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-stone-200 border-t-stone-900" />
         </div>
       }
     >
