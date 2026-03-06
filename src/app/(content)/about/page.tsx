@@ -307,14 +307,6 @@ export default function AboutPage() {
                     <p>– NCSS Advanced Distinction (2022–2023)</p>
                   </div>
                 </div>
-
-                <div className="space-y-4 text-sm text-stone-700">
-                  <p className="text-xs font-medium text-stone-500">competitive programming</p>
-                  <p>• Australian Informatics Olympiad (2023)</p>
-                  <p>• UNSW ProgComp (2022)</p>
-                  <p>• Computational & Algorithmic Thinking — Distinction (2022)</p>
-                  <p>• FinTech Algothon (UNSW)</p>
-                </div>
               </section>
 
               {/* Brand & Growth */}
@@ -360,73 +352,6 @@ export default function AboutPage() {
                 </div>
               </section>
 
-              {/* Academic Record */}
-              <section className="space-y-8">
-                <div>
-                  <h3 className="mb-2 text-3xl font-medium tracking-tight text-stone-900">
-                    academic record
-                  </h3>
-                  <p className="text-sm text-stone-600">Sydney Boys High School, 2019–2024</p>
-                </div>
-
-                <div className="grid grid-cols-2 gap-8">
-                  <div className="border-l-2 border-stone-900 pl-6">
-                    <p className="text-sm text-stone-500">HSC results</p>
-                    <div className="mt-3 space-y-1.5 text-sm text-stone-700">
-                      <p>HSC All-Rounder (2024)</p>
-                      <p>1st — English Extension 2 (2024)</p>
-                      <p>1st — Software Design & Dev (2023–24)</p>
-                      <p>1st — English Extension 1 (2023)</p>
-                      <p>1st — Game & Software Design (2022)</p>
-                      <p>1st — English (2022)</p>
-                    </div>
-                  </div>
-
-                  <div className="border-l-2 border-stone-900 pl-6">
-                    <p className="text-sm text-stone-500">awards</p>
-                    <div className="mt-3 space-y-1.5 text-sm text-stone-700">
-                      <p>The Margaret Richardson Award</p>
-                      <p className="pl-2 text-xs text-stone-400">English Extension 2 (2024)</p>
-                      <p>The High Dedication Award (2024)</p>
-                      <p>Nathan McDonald Award (2023)</p>
-                      <p>School Trophy (2022)</p>
-                    </div>
-                  </div>
-
-                  <div className="border-l-2 border-stone-900 pl-6">
-                    <p className="text-sm text-stone-500">olympiads & competitions</p>
-                    <div className="mt-3 space-y-1.5 text-sm text-stone-700">
-                      <p>Maths — High Distinction (2020)</p>
-                      <p>Chemistry — High Distinction (2022)</p>
-                      <p>Geography — High Distinction (2019–20, 22)</p>
-                      <p>AlphaSights Asia Case Competition</p>
-                      <p>Fintech × PwC Case Competition</p>
-                      <p>BusinessOne Mastercard Case Competition</p>
-                      <p>UNIT Macquarie Private Markets Case</p>
-                    </div>
-                  </div>
-
-                  <div className="border-l-2 border-stone-900 pl-6">
-                    <p className="text-sm text-stone-500">education</p>
-                    <div className="mt-3 space-y-3 text-sm text-stone-700">
-                      <div>
-                        <p className="font-medium">UNSW</p>
-                        <p className="text-xs text-stone-500">
-                          B. Adv Computer Science (Hons) — 2025
-                        </p>
-                        <p className="text-xs italic text-stone-400">left to start markpoint</p>
-                      </div>
-                      <div>
-                        <p className="font-medium">UNSW</p>
-                        <p className="text-xs text-stone-500">
-                          B. Exercise Science / M. Physiotherapy — 2026–present
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
               {/* Teaching */}
               <section className="space-y-8">
                 <div>
@@ -444,18 +369,6 @@ export default function AboutPage() {
                       <p>– years 10–12, HSC English (Advanced, Extension 1 & 2)</p>
                       <p>– detailed written and verbal feedback on assessments</p>
                       <p>– translating complex ideas for mixed-ability cohorts</p>
-                    </div>
-                  </div>
-
-                  <div className="border-l-2 border-stone-300 pl-6">
-                    <p className="mb-1 text-sm font-medium text-stone-900">
-                      english tutor / marker
-                    </p>
-                    <p className="mb-3 text-xs text-stone-500">The Brain Education · 2025</p>
-                    <div className="space-y-2 text-sm text-stone-700">
-                      <p>– classroom teaching: years 10–12</p>
-                      <p>– prepared curriculum material, marked assessments at scale</p>
-                      <p>– didactic engagement across mixed-ability audiences</p>
                     </div>
                   </div>
                 </div>
