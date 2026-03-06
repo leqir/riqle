@@ -121,9 +121,14 @@ export default function AboutPage() {
           {/* RIGHT BRAIN - Scrolling Execution Column (60%) */}
           <div className="h-screen w-screen flex-shrink-0 overflow-y-auto bg-white/60 px-6 py-20 backdrop-blur-sm md:px-12 lg:w-[60vw]">
             <div className="mx-auto w-full max-w-3xl space-y-16">
-              <div>
-                <p className="mb-2 text-sm text-stone-500">for employers</p>
-                <p className="text-sm text-stone-600">this section is factual by design</p>
+              <div className="border-b border-stone-200 pb-8">
+                <p className="mb-3 text-xs font-medium uppercase tracking-wider text-stone-400">
+                  for employers
+                </p>
+                <h2 className="mb-2 text-2xl font-medium tracking-tight text-stone-900">
+                  what i&apos;ve built and how i work
+                </h2>
+                <p className="text-sm text-stone-500">this section is factual by design</p>
               </div>
 
               {/* Engineering */}
