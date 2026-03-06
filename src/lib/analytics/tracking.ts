@@ -62,6 +62,8 @@ export async function trackServerEvent(options: {
   eventName: string;
   path?: string;
   userId?: string;
+  ip?: string;
+  userAgent?: string;
   metadata?: Record<string, unknown>;
 }): Promise<void> {
   try {
@@ -71,6 +73,8 @@ export async function trackServerEvent(options: {
         eventName: options.eventName,
         path: options.path,
         userId: options.userId,
+        ip: options.ip,
+        userAgent: options.userAgent,
         metadata: options.metadata ? (options.metadata as object) : null,
       },
     });

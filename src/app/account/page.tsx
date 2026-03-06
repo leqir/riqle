@@ -2,20 +2,7 @@ import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { db } from '@/lib/db';
 import Link from 'next/link';
-import { AnimatedWrapper } from '@/components/account/AnimatedWrapper';
 
-/**
- * Account Page
- *
- * Modern, Stripe-esque UI showing user account information and purchases.
- * Requires authentication.
- *
- * Features:
- * - Smooth animations
- * - Gradient design elements
- * - Clean card layouts
- * - Consistent with auth pages
- */
 export default async function AccountPage() {
   const session = await auth();
 
@@ -23,7 +10,6 @@ export default async function AccountPage() {
     redirect('/login?callbackUrl=/account');
   }
 
-  // Fetch user's entitlements with product details
   const entitlements = await db.entitlement.findMany({
     where: {
       userId: session.user.id,
@@ -55,211 +41,131 @@ export default async function AccountPage() {
   });
 
   return (
-    <AnimatedWrapper>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 px-4 py-12">
-        <div className="mx-auto max-w-5xl">
-          {/* Header */}
-          <div
-            className="mb-8 text-center"
-            style={{
-              animation: 'fadeIn 0.5s ease-out',
-            }}
-          >
-            <h1
-              className="mb-2 bg-gradient-to-r from-cyan-600 via-purple-600 to-cyan-600 bg-clip-text text-4xl font-bold lowercase tracking-tight text-transparent"
-              style={{
-                animation: 'slideUp 0.6s ease-out 0.1s both',
-              }}
-            >
-              my account
-            </h1>
-            <p
-              className="lowercase text-gray-600"
-              style={{
-                animation: 'slideUp 0.6s ease-out 0.2s both',
-              }}
-            >
-              manage your account and purchases
-            </p>
-          </div>
+    <div className="min-h-screen">
+      <div className="mx-auto max-w-4xl px-6 py-24 md:px-8 md:py-32">
+        <header className="mb-20">
+          <p className="mb-3 text-sm font-medium uppercase tracking-wider text-stone-500">
+            account
+          </p>
+          <h1 className="mb-2 text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight tracking-tight text-stone-900">
+            {session.user.name ?? 'my account'}
+          </h1>
+          <p className="text-stone-500">{session.user.email}</p>
+        </header>
 
-          {/* Account Info Card */}
-          <div
-            className="mb-8 rounded-2xl border border-cyan-100 bg-white p-8 shadow-xl"
-            style={{
-              animation: 'slideUp 0.6s ease-out 0.3s both',
-            }}
-          >
-            <h2 className="mb-6 text-xl font-bold lowercase text-gray-900">account information</h2>
-            <div className="grid gap-6 md:grid-cols-3">
-              <div className="group">
-                <p className="mb-2 text-xs font-medium uppercase tracking-wider text-gray-500">
-                  name
-                </p>
-                <p className="text-base font-medium text-gray-900 transition-colors group-hover:text-cyan-600">
-                  {session.user.name || 'Not set'}
-                </p>
-              </div>
-              <div className="group">
-                <p className="mb-2 text-xs font-medium uppercase tracking-wider text-gray-500">
-                  email
-                </p>
-                <p className="text-base font-medium text-gray-900 transition-colors group-hover:text-cyan-600">
-                  {session.user.email}
-                </p>
-              </div>
-              <div className="group">
-                <p className="mb-2 text-xs font-medium uppercase tracking-wider text-gray-500">
-                  role
-                </p>
-                <span className="inline-flex items-center rounded-full bg-gradient-to-r from-cyan-50 to-purple-50 px-3 py-1 text-sm font-medium text-gray-900">
-                  {session.user.role || 'customer'}
-                </span>
-              </div>
+        {/* Account Details */}
+        <section className="mb-16">
+          <div className="mb-6 border-l-2 border-stone-300 pl-6">
+            <p className="text-sm font-medium text-stone-500">details</p>
+          </div>
+          <div className="grid gap-8 rounded-lg border border-stone-200 p-6 md:grid-cols-3">
+            <div>
+              <p className="mb-1 text-xs font-medium uppercase tracking-wider text-stone-400">
+                name
+              </p>
+              <p className="text-sm text-stone-900">{session.user.name ?? 'not set'}</p>
+            </div>
+            <div>
+              <p className="mb-1 text-xs font-medium uppercase tracking-wider text-stone-400">
+                email
+              </p>
+              <p className="text-sm text-stone-900">{session.user.email}</p>
+            </div>
+            <div>
+              <p className="mb-1 text-xs font-medium uppercase tracking-wider text-stone-400">
+                role
+              </p>
+              <p className="text-sm text-stone-900">{session.user.role ?? 'customer'}</p>
             </div>
           </div>
+        </section>
 
-          {/* Purchases Card */}
-          <div
-            className="rounded-2xl border border-cyan-100 bg-white p-8 shadow-xl"
-            style={{
-              animation: 'slideUp 0.6s ease-out 0.4s both',
-            }}
-          >
-            <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-xl font-bold lowercase text-gray-900">my purchases</h2>
-              <span className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
-                {entitlements.length} {entitlements.length === 1 ? 'item' : 'items'}
-              </span>
+        {/* Purchases */}
+        <section>
+          <div className="mb-8 flex items-baseline justify-between border-l-2 border-stone-900 pl-6">
+            <p className="text-sm font-medium text-stone-500">purchases</p>
+            <span className="text-xs text-stone-400">
+              {entitlements.length} {entitlements.length === 1 ? 'item' : 'items'}
+            </span>
+          </div>
+
+          {entitlements.length === 0 ? (
+            <div className="rounded-lg border border-stone-200 px-8 py-16 text-center">
+              <p className="mb-2 text-base font-medium text-stone-900">no purchases yet</p>
+              <p className="mb-6 text-sm text-stone-600">browse resources to get started</p>
+              <Link
+                href="/resources"
+                className="text-sm font-medium text-stone-900 underline underline-offset-4 transition-colors hover:text-stone-500"
+              >
+                browse resources →
+              </Link>
             </div>
-
-            {entitlements.length === 0 ? (
-              <div className="py-16 text-center">
-                <div className="mb-6">
-                  <svg
-                    className="mx-auto h-24 w-24 text-gray-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                    />
-                  </svg>
-                </div>
-                <p className="mb-2 text-lg font-medium lowercase text-gray-900">no purchases yet</p>
-                <p className="mb-6 lowercase text-gray-600">browse our resources to get started</p>
-                <Link
-                  href="/resources"
-                  className="inline-flex items-center rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 px-6 py-3 font-semibold lowercase text-white shadow-md transition-all duration-200 hover:scale-105 hover:shadow-lg active:scale-95"
+          ) : (
+            <div className="space-y-3">
+              {entitlements.map((entitlement) => (
+                <div
+                  key={entitlement.id}
+                  className="rounded-lg border border-stone-200 p-6 transition-colors hover:border-stone-300"
                 >
-                  browse resources
-                  <svg
-                    className="ml-2 h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {entitlements.map((entitlement, index) => (
-                  <div
-                    key={entitlement.id}
-                    className="group rounded-xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-6 transition-all duration-200 hover:border-cyan-200 hover:shadow-md"
-                    style={{
-                      animation: `slideUp 0.6s ease-out ${0.5 + index * 0.1}s both`,
-                    }}
-                  >
-                    <div className="mb-4 flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="mb-1 text-lg font-bold text-gray-900 transition-colors group-hover:text-cyan-600">
-                          {entitlement.Product.title}
-                        </h3>
-                        <p className="text-sm lowercase text-gray-600">
-                          purchased on {new Date(entitlement.createdAt).toLocaleDateString()}
-                        </p>
-                      </div>
-                      <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold lowercase text-green-700">
-                        <span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-green-500"></span>
-                        active
-                      </span>
-                    </div>
-
-                    {entitlement.Product.description && (
-                      <p className="mb-4 text-sm leading-relaxed text-gray-700">
-                        {entitlement.Product.description}
+                  <div className="mb-4 flex items-start justify-between">
+                    <div className="flex-1">
+                      <h3 className="mb-1 text-base font-medium text-stone-900">
+                        {entitlement.Product.title}
+                      </h3>
+                      <p className="text-xs text-stone-400">
+                        purchased{' '}
+                        {new Date(entitlement.createdAt).toLocaleDateString('en-AU', {
+                          day: 'numeric',
+                          month: 'short',
+                          year: 'numeric',
+                        })}
                       </p>
-                    )}
-
-                    <div className="flex flex-wrap gap-3">
-                      <Link
-                        href={`/resources/${entitlement.Product.slug}`}
-                        className="inline-flex items-center rounded-lg border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-medium lowercase text-cyan-700 transition-all duration-200 hover:border-cyan-300 hover:bg-cyan-100"
-                      >
-                        view details
-                        <svg
-                          className="ml-2 h-4 w-4"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M13 7l5 5m0 0l-5 5m5-5H6"
-                          />
-                        </svg>
-                      </Link>
-                      {entitlement.Product.downloadUrls.length > 0 && (
-                        <a
-                          href={`/api/products/${entitlement.Product.id}/download`}
-                          className="inline-flex items-center rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 px-4 py-2 text-sm font-semibold lowercase text-white shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md active:scale-95"
-                        >
-                          <svg
-                            className="mr-2 h-4 w-4"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                            />
-                          </svg>
-                          download ({entitlement.Product.format})
-                        </a>
-                      )}
                     </div>
+                    <span className="text-xs font-medium uppercase tracking-wider text-stone-400">
+                      active
+                    </span>
+                  </div>
 
-                    {entitlement.Order && (
-                      <div className="mt-4 flex items-center justify-between border-t border-gray-200 pt-4">
-                        <p className="text-xs lowercase text-gray-500">
-                          order #{entitlement.Order.id.slice(0, 8)}
-                        </p>
-                        <p className="text-sm font-semibold text-gray-900">
-                          {(entitlement.Order.total / 100).toFixed(2)}{' '}
-                          <span className="uppercase">{entitlement.Order.currency}</span>
-                        </p>
-                      </div>
+                  {entitlement.Product.description && (
+                    <p className="mb-4 text-sm leading-relaxed text-stone-600">
+                      {entitlement.Product.description}
+                    </p>
+                  )}
+
+                  <div className="flex flex-wrap gap-4">
+                    <Link
+                      href={`/resources/${entitlement.Product.slug}`}
+                      className="text-sm text-stone-500 underline underline-offset-4 transition-colors hover:text-stone-900"
+                    >
+                      view details
+                    </Link>
+                    {entitlement.Product.downloadUrls.length > 0 && (
+                      <a
+                        href={`/api/products/${entitlement.Product.id}/download`}
+                        className="text-sm font-medium text-stone-900 underline underline-offset-4 transition-colors hover:text-stone-500"
+                      >
+                        download ({entitlement.Product.format})
+                      </a>
                     )}
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+
+                  {entitlement.Order && (
+                    <div className="mt-4 flex items-center justify-between border-t border-stone-100 pt-4">
+                      <p className="text-xs text-stone-400">
+                        order #{entitlement.Order.id.slice(0, 8)}
+                      </p>
+                      <p className="text-xs text-stone-600">
+                        {(entitlement.Order.total / 100).toFixed(2)}{' '}
+                        <span className="uppercase">{entitlement.Order.currency}</span>
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
       </div>
-    </AnimatedWrapper>
+    </div>
   );
 }

@@ -5,6 +5,7 @@ import { AuthSessionProvider } from '@/components/infrastructure/providers/sessi
 import { TRPCProvider } from '@/lib/trpc/provider';
 import { Header } from '@/components/infrastructure/navigation/header';
 import { Footer } from '@/components/infrastructure/navigation/footer';
+import { VisitTracker } from '@/components/infrastructure/VisitTracker';
 import './globals.css';
 
 const inter = Inter({
@@ -112,6 +113,7 @@ export default function RootLayout({
       <body className="bg-gradient-to-br from-blue-50 via-white to-purple-50 font-sans">
         <TRPCProvider>
           <AuthSessionProvider>
+            <VisitTracker />
             <Header />
             <main>{children}</main>
             <Footer />

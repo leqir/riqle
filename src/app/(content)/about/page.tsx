@@ -1,14 +1,3 @@
-/**
- * About Page - Personal & Professional
- *
- * Features:
- * - Clean Apple HIG typography (matching work/writing/resources)
- * - Subtle gradient background
- * - Personal philosophy section
- * - Photo carousel
- * - Split-brain employer section
- */
-
 'use client';
 
 export default function AboutPage() {
@@ -26,7 +15,7 @@ export default function AboutPage() {
           </p>
         </header>
 
-        {/* Philosophy Section - More Personal, Less AI */}
+        {/* Philosophy Section */}
         <section className="mb-32">
           <div className="mb-12">
             <p className="mb-2 text-sm text-stone-500">philosophy</p>
@@ -90,10 +79,7 @@ export default function AboutPage() {
               {/* Context Snapshot */}
               <div className="space-y-3 border-l-2 border-stone-300 pl-6">
                 <p className="text-sm text-stone-600">
-                  dropped out of compsci. started a company. learned everything the hard way.
-                </p>
-                <p className="text-sm text-stone-600">
-                  now studying exercise science because the body is more interesting than code.
+                  dropped out of compsci. started a business. gambled on myself.
                 </p>
               </div>
 
@@ -101,11 +87,11 @@ export default function AboutPage() {
               <div className="space-y-6">
                 <p className="text-sm font-medium text-stone-500">things i believe</p>
                 <div className="space-y-4 text-sm leading-relaxed text-stone-700">
-                  <p>systems beat motivation</p>
-                  <p>clarity is a superpower</p>
-                  <p>good products teach, they don&apos;t just serve</p>
+                  <p>systems &gt; motivation</p>
+                  <p>clarity is based</p>
+                  <p>ai is good</p>
                   <p>ownership &gt; titles</p>
-                  <p>the best conversations happen at 1am</p>
+                  <p>claude &gt; chatgpt</p>
                 </div>
               </div>
 
@@ -113,11 +99,9 @@ export default function AboutPage() {
               <div className="space-y-4 border-t border-stone-200 pt-8">
                 <p className="text-sm font-medium text-stone-500">the path here</p>
                 <div className="space-y-3 text-sm text-stone-700">
-                  <p>tried uni. wasn&apos;t it.</p>
-                  <p>co-founded markpoint with some friends. built the whole stack.</p>
-                  <p>interned at breville doing ui/ux. learned how real companies work.</p>
-                  <p>taught myself product, design, growth. no bootcamp, just building.</p>
-                  <p>taking a different route now. medicine feels right.</p>
+                  <p>co-founded markpoint with two of my mates. built the whole stack.</p>
+                  <p>interned as ui/ux designer. i make screens look pretty</p>
+                  <p>taught myself product, design, growth.</p>
                 </div>
               </div>
 
@@ -125,11 +109,10 @@ export default function AboutPage() {
               <div className="space-y-4 border-t border-stone-200 pt-8">
                 <p className="text-sm font-medium text-stone-500">when i&apos;m not working</p>
                 <div className="space-y-3 text-sm text-stone-700">
-                  <p>guitar, bass, keys, drums, sax (hmu if you&apos;re forming a band)</p>
-                  <p>drawing when i need to think</p>
-                  <p>talking about theology and politics way too late</p>
-                  <p>running, swimming, acai bowls</p>
-                  <p>trying to beat people at geoguessr ($20 bounty still unclaimed)</p>
+                  <p>i play whatever instruments</p>
+                  <p>i can yap about theology</p>
+                  <p>i used to run now im unfit asl</p>
+                  <p>i swim now</p>
                 </div>
               </div>
             </div>
@@ -143,88 +126,95 @@ export default function AboutPage() {
                 <p className="text-sm text-stone-600">this section is factual by design</p>
               </div>
 
-              {/* Product */}
+              {/* Engineering */}
               <section className="space-y-8">
                 <div>
                   <h3 className="mb-2 text-3xl font-medium tracking-tight text-stone-900">
-                    product
+                    engineering
                   </h3>
-                  <p className="text-sm text-stone-600">systems shipped end-to-end</p>
+                  <p className="text-sm text-stone-600">full-stack, end-to-end</p>
                 </div>
 
                 <div className="space-y-8">
                   <div className="border-l-2 border-stone-900 pl-6">
-                    <h4 className="mb-3 text-lg font-medium text-stone-900">
+                    <h4 className="mb-1 text-lg font-medium text-stone-900">
                       markpoint – ai-powered edtech platform
                     </h4>
-                    <div className="space-y-2 text-sm text-stone-700">
-                      <p>– designed the full product lifecycle</p>
-                      <p>– built ai feedback systems for hsc students</p>
-                      <p>– shipped onboarding, progression, and engagement loops</p>
-                      <p>– owned ux, product decisions, and iteration</p>
-                    </div>
-                    <p className="mt-4 text-xs italic text-stone-600">
-                      focus: learning performance, not features
+                    <p className="mb-4 text-xs text-stone-500">
+                      founding engineer + brand lead · 2025–present
                     </p>
+                    <div className="space-y-2 text-sm text-stone-700">
+                      <p>
+                        – led full-stack development: Next.js 14, React, TypeScript (strict),
+                        Supabase
+                      </p>
+                      <p>
+                        – architected PostgreSQL schema with row-level security (RLS) policies and
+                        role-based access control
+                      </p>
+                      <p>
+                        – built RESTful API routes with complete server-side validation and
+                        structured error handling
+                      </p>
+                      <p>
+                        – established CI/CD pipelines and test architecture for a B2C production
+                        system used by real HSC students
+                      </p>
+                      <p>
+                        – implemented responsive component library using Tailwind CSS and Radix UI
+                        primitives
+                      </p>
+                      <p>– shipped AI feedback systems for student assessment (LLM-integrated)</p>
+                      <p>
+                        – owned full product lifecycle: UX, engineering, iteration, and deployment
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="space-y-6">
+                  <div className="grid grid-cols-2 gap-8">
                     <div>
-                      <p className="mb-3 text-xs font-medium text-stone-500">
-                        01 / full-stack development
-                      </p>
-                      <div className="space-y-2 text-sm text-stone-700">
-                        <p>• next.js 14</p>
-                        <p>• react</p>
-                        <p>• typescript</p>
-                        <p>• supabase</p>
+                      <p className="mb-3 text-xs font-medium text-stone-500">languages</p>
+                      <div className="space-y-1.5 text-sm text-stone-700">
+                        <p>TypeScript · JavaScript · Python</p>
+                        <p>HTML · CSS · SQL</p>
                       </div>
                     </div>
-
                     <div>
-                      <p className="mb-3 text-xs font-medium text-stone-500">
-                        02 / architecture & implementation of postgresql database
-                      </p>
-                      <div className="space-y-2 text-sm text-stone-700">
-                        <p>• schema design</p>
-                        <p>• row-level security (rls)</p>
-                        <p>• role-based access control</p>
-                        <p>• auth flows and permissions</p>
+                      <p className="mb-3 text-xs font-medium text-stone-500">frameworks & tools</p>
+                      <div className="space-y-1.5 text-sm text-stone-700">
+                        <p>Next.js · React · Node.js · Svelte</p>
+                        <p>Supabase · Prisma · Vercel</p>
+                        <p>Tailwind CSS · Radix UI</p>
                       </div>
                     </div>
-
                     <div>
                       <p className="mb-3 text-xs font-medium text-stone-500">
-                        03 / implementation of restful api routes & server logic
+                        infrastructure & practices
                       </p>
-                      <div className="space-y-2 text-sm text-stone-700">
-                        <p>• restful api routes</p>
-                        <p>• server-side logic</p>
-                        <p>• data validation</p>
+                      <div className="space-y-1.5 text-sm text-stone-700">
+                        <p>PostgreSQL · RLS policies</p>
+                        <p>RESTful APIs · tRPC</p>
+                        <p>CI/CD · automated test coverage</p>
                       </div>
                     </div>
-
                     <div>
-                      <p className="mb-3 text-xs font-medium text-stone-500">
-                        04 / setup of ci/cd pipelines, test coverage & deployment
-                      </p>
-                      <div className="space-y-2 text-sm text-stone-700">
-                        <p>• ci/cd pipelines</p>
-                        <p>• basic test coverage</p>
-                        <p>• deployment workflows</p>
-                        <p>• delivery of production b2c system used by real hsc students</p>
+                      <p className="mb-3 text-xs font-medium text-stone-500">operating model</p>
+                      <div className="space-y-1.5 text-sm text-stone-700">
+                        <p>no separation of design, eng, product</p>
+                        <p>bias toward shipping with real users</p>
+                        <p>optimised for iteration, not demos</p>
                       </div>
                     </div>
                   </div>
 
                   <div className="border-t border-stone-200 pt-6">
-                    <p className="mb-4 text-xs font-medium text-stone-500">operating model</p>
+                    <p className="mb-3 text-xs font-medium text-stone-500">also shipped</p>
                     <div className="space-y-2 text-sm text-stone-700">
-                      <p>• no separation between design, engineering, and product</p>
                       <p>
-                        • accountable for correctness, usability, performance, and maintainability
+                        • riqle.com.au — this site. Next.js 15 App Router, Prisma, tRPC, NextAuth.js
+                        v5, Stripe, Vercel Blob, Inngest, Resend, Upstash Redis
                       </p>
-                      <p>• decisions optimised for long-term iteration, not demos</p>
+                      <p>• GameMaker Studio games in Year 11-12 (1st in Software Design)</p>
                     </div>
                   </div>
                 </div>
@@ -240,151 +230,247 @@ export default function AboutPage() {
                 </div>
 
                 <div className="space-y-6">
-                  <div className="border-l-2 border-stone-300 pl-6">
-                    <p className="mb-3 text-sm text-stone-900">
-                      designed korean-inspired study aesthetics
-                    </p>
-                    <p className="text-sm text-stone-600">
-                      → reduced friction and increased daily usage
-                    </p>
+                  <div className="border-l-2 border-stone-900 pl-6">
+                    <h4 className="mb-1 text-lg font-medium text-stone-900">Breville Group Ltd</h4>
+                    <p className="mb-4 text-xs text-stone-500">UI/UX Design Intern · 2023</p>
+                    <div className="space-y-2 text-sm text-stone-700">
+                      <p>
+                        – used Sketch to design screen interfaces for consumer appliances (coffee
+                        machines and others) from wireframe through final spec
+                      </p>
+                      <p>
+                        – articulated design rationale and decision-making to stakeholders and
+                        product owners
+                      </p>
+                      <p>
+                        – conducted UI testing cycles with peer review and direct client feedback
+                        sessions
+                      </p>
+                      <p>– learned how design decisions translate to manufacturing constraints</p>
+                    </div>
                   </div>
 
                   <div className="border-l-2 border-stone-300 pl-6">
-                    <p className="mb-3 text-sm text-stone-900">
-                      built emotional ui for stressed students
+                    <p className="mb-3 text-sm font-medium text-stone-900">
+                      markpoint product design
                     </p>
-                    <p className="text-sm text-stone-600">→ clarity under exam pressure</p>
+                    <div className="space-y-2 text-sm text-stone-700">
+                      <p>
+                        – built korean-inspired study aesthetics to reduce friction and increase
+                        daily engagement
+                      </p>
+                      <p>
+                        – designed emotional UI for stressed students — clarity as a feature, not an
+                        afterthought
+                      </p>
+                      <p>– developed visual identity system and messaging hierarchy from zero</p>
+                      <p>– shaped onboarding flows to reduce cognitive load and early churn</p>
+                    </div>
                   </div>
-                </div>
-
-                <div className="space-y-4 text-sm text-stone-700">
-                  <p>
-                    i built brand and product positioning from zero and using knowledge from my
-                    ui/ux internship at breville, i:
-                  </p>
-                  <p>• developed the brand strategy and visual identity system</p>
-                  <p>• defined tone of voice, messaging hierarchy, and student-facing language</p>
-                  <p>
-                    • designed and implemented responsive ui components using tailwind css and radix
-                    ui primitives
-                  </p>
-                  <p>• shaped onboarding flows to reduce cognitive load and early churn</p>
                 </div>
 
                 <div className="border-l-2 border-stone-900 pl-6">
-                  <p className="mb-3 text-xs font-medium text-stone-500">focus areas</p>
+                  <p className="mb-3 text-xs font-medium text-stone-500">design principles</p>
                   <div className="space-y-2 text-sm text-stone-700">
                     <p>clarity over novelty</p>
                     <p>trust over growth-at-all-costs</p>
-                    <p>premium positioning in a crowded edtech market</p>
+                    <p>premium positioning in a crowded market</p>
                   </div>
                 </div>
               </section>
 
-              {/* Systems & Growth */}
+              {/* Cybersecurity + Systems */}
               <section className="space-y-8">
                 <div>
                   <h3 className="mb-2 text-3xl font-medium tracking-tight text-stone-900">
-                    systems & growth
+                    cybersecurity + systems
                   </h3>
-                  <p className="text-sm text-stone-600">design meets behavior</p>
+                  <p className="text-sm text-stone-600">applied under real conditions</p>
+                </div>
+
+                <div className="border-l-2 border-stone-900 pl-6">
+                  <h4 className="mb-1 text-lg font-medium text-stone-900">
+                    National Computer Science School (NCSS)
+                  </h4>
+                  <p className="mb-4 text-xs text-stone-500">Grok Academy · 2024</p>
+                  <div className="space-y-2 text-sm text-stone-700">
+                    <p>
+                      – selective-entry 10-day intensive program: computer programming and
+                      cybersecurity
+                    </p>
+                    <p>
+                      – industry workshops with security engineers from Commonwealth Bank of
+                      Australia, WiseTech Global, Atlassian, Macquarie Bank, Google, Optiver, and
+                      Westpac Bank
+                    </p>
+                    <p>– NCSS Intermediate Perfect Score (2022–2024)</p>
+                    <p>– NCSS Advanced Distinction (2022–2023)</p>
+                  </div>
                 </div>
 
                 <div className="space-y-4 text-sm text-stone-700">
-                  <p className="font-medium">marketing & go-to-market execution</p>
-                  <p>i led early gtm strategy and execution including:</p>
-                  <p>• defining icp for senior secondary students</p>
-                  <p>• mapping the conversion funnel</p>
-                  <p>
-                    • experimentation with lead magnets, gated resources, and quizzes to drive
-                    top-of-funnel acquisition
+                  <p className="text-xs font-medium text-stone-500">competitive programming</p>
+                  <p>• Australian Informatics Olympiad (2023)</p>
+                  <p>• UNSW ProgComp (2022)</p>
+                  <p>• Computational & Algorithmic Thinking — Distinction (2022)</p>
+                  <p>• FinTech Algothon (UNSW)</p>
+                </div>
+              </section>
+
+              {/* Brand & Growth */}
+              <section className="space-y-8">
+                <div>
+                  <h3 className="mb-2 text-3xl font-medium tracking-tight text-stone-900">
+                    brand & growth
+                  </h3>
+                  <p className="text-sm text-stone-600">zero to market</p>
+                </div>
+
+                <div className="space-y-4 text-sm text-stone-700">
+                  <p className="text-xs font-medium text-stone-500">
+                    go-to-market execution — markpoint
                   </p>
                   <p>
-                    • early user acquisition through organic channels, partnerships, and direct
-                    outreach
+                    – developed brand strategy: visual identity system, tone of voice, and messaging
+                    framework targeting senior secondary (HSC) students
+                  </p>
+                  <p>– defined ICP, mapped conversion funnel, and ran willing-to-pay experiments</p>
+                  <p>
+                    – managed beta user acquisition through organic channels, direct outreach, and
+                    school partnerships
                   </p>
                   <p>
-                    • handling early sales conversions, pricing decisions, and willing-to-pay
-                    testing
+                    – handled early inbound sales, pricing decisions, and packaging iteration based
+                    on usage and objections
+                  </p>
+                  <p>
+                    – experimented with lead magnets, gated resources, and quizzes for top-of-funnel
                   </p>
                 </div>
 
                 <div className="border-l-2 border-stone-300 pl-6">
                   <p className="mb-3 text-xs font-medium text-stone-500">
-                    concepts actively applied
+                    frameworks actively applied
                   </p>
                   <div className="space-y-2 text-sm text-stone-700">
-                    <p>activation metrics • retention and cohort thinking</p>
-                    <p>churn drivers • value-based pricing</p>
+                    <p>activation metrics · retention and cohort thinking</p>
+                    <p>churn drivers · value-based pricing</p>
                     <p>feedback loops between product and acquisition</p>
                   </div>
                 </div>
-
-                <div className="mt-8 space-y-4 text-sm text-stone-700">
-                  <p className="font-medium">sales & commercial thinking</p>
-                  <p>• experience with early-stage sales motion</p>
-                  <p>• handling inbound leads and outbound conversations</p>
-                  <p>• qualifying users based on fit rather than volume</p>
-                  <p>• iterating pricing and packaging based on usage patterns and objections</p>
-                  <p>• balancing monetization with long-term trust in an educational context</p>
-                </div>
               </section>
 
-              {/* Results */}
+              {/* Academic Record */}
               <section className="space-y-8">
                 <div>
                   <h3 className="mb-2 text-3xl font-medium tracking-tight text-stone-900">
-                    results
+                    academic record
                   </h3>
+                  <p className="text-sm text-stone-600">Sydney Boys High School, 2019–2024</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-8">
                   <div className="border-l-2 border-stone-900 pl-6">
-                    <p className="text-sm text-stone-500">production system</p>
-                    <p className="mt-2 text-2xl font-medium text-stone-900">live users</p>
+                    <p className="text-sm text-stone-500">HSC results</p>
+                    <div className="mt-3 space-y-1.5 text-sm text-stone-700">
+                      <p>HSC All-Rounder (2024)</p>
+                      <p>1st — English Extension 2 (2024)</p>
+                      <p>1st — Software Design & Dev (2023–24)</p>
+                      <p>1st — English Extension 1 (2023)</p>
+                      <p>1st — Game & Software Design (2022)</p>
+                      <p>1st — English (2022)</p>
+                    </div>
                   </div>
 
                   <div className="border-l-2 border-stone-900 pl-6">
-                    <p className="text-sm text-stone-500">end-to-end ownership</p>
-                    <p className="mt-2 text-2xl font-medium text-stone-900">full stack</p>
+                    <p className="text-sm text-stone-500">awards</p>
+                    <div className="mt-3 space-y-1.5 text-sm text-stone-700">
+                      <p>The Margaret Richardson Award</p>
+                      <p className="pl-2 text-xs text-stone-400">English Extension 2 (2024)</p>
+                      <p>The High Dedication Award (2024)</p>
+                      <p>Nathan McDonald Award (2023)</p>
+                      <p>School Trophy (2022)</p>
+                    </div>
                   </div>
 
                   <div className="border-l-2 border-stone-900 pl-6">
-                    <p className="text-sm text-stone-500">ai feedback systems</p>
-                    <p className="mt-2 text-2xl font-medium text-stone-900">shipped</p>
+                    <p className="text-sm text-stone-500">olympiads & competitions</p>
+                    <div className="mt-3 space-y-1.5 text-sm text-stone-700">
+                      <p>Maths — High Distinction (2020)</p>
+                      <p>Chemistry — High Distinction (2022)</p>
+                      <p>Geography — High Distinction (2019–20, 22)</p>
+                      <p>AlphaSights Asia Case Competition</p>
+                      <p>Fintech × PwC Case Competition</p>
+                      <p>BusinessOne Mastercard Case Competition</p>
+                      <p>UNIT Macquarie Private Markets Case</p>
+                    </div>
                   </div>
 
                   <div className="border-l-2 border-stone-900 pl-6">
-                    <p className="text-sm text-stone-500">real hsc students</p>
-                    <p className="mt-2 text-2xl font-medium text-stone-900">in production</p>
+                    <p className="text-sm text-stone-500">education</p>
+                    <div className="mt-3 space-y-3 text-sm text-stone-700">
+                      <div>
+                        <p className="font-medium">UNSW</p>
+                        <p className="text-xs text-stone-500">
+                          B. Adv Computer Science (Hons) — 2025
+                        </p>
+                        <p className="text-xs italic text-stone-400">left to start markpoint</p>
+                      </div>
+                      <div>
+                        <p className="font-medium">UNSW</p>
+                        <p className="text-xs text-stone-500">
+                          B. Exercise Science / M. Physiotherapy — 2026–present
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </section>
 
-              {/* Additional Context */}
-              <section className="space-y-8 border-t border-stone-200 pt-12">
+              {/* Teaching */}
+              <section className="space-y-8">
+                <div>
+                  <h3 className="mb-2 text-3xl font-medium tracking-tight text-stone-900">
+                    teaching
+                  </h3>
+                  <p className="text-sm text-stone-600">technical clarity under exam pressure</p>
+                </div>
+
                 <div className="space-y-6">
-                  <div>
-                    <h4 className="mb-4 text-xl font-medium text-stone-900">
-                      teaching & communication
-                    </h4>
+                  <div className="border-l-2 border-stone-300 pl-6">
+                    <p className="mb-1 text-sm font-medium text-stone-900">private english tutor</p>
+                    <p className="mb-3 text-xs text-stone-500">self-employed · 2024–present</p>
                     <div className="space-y-2 text-sm text-stone-700">
-                      <p>background in tutoring, particularly senior secondary english:</p>
-                      <p>• private tutor (years 10-12)</p>
-                      <p>• delivery of detailed written and verbal feedback</p>
-                      <p>• experience translating complex ideas for mixed-ability cohorts</p>
+                      <p>– years 10–12, HSC English (Advanced, Extension 1 & 2)</p>
+                      <p>– detailed written and verbal feedback on assessments</p>
+                      <p>– translating complex ideas for mixed-ability cohorts</p>
                     </div>
                   </div>
 
-                  <div>
-                    <h4 className="mb-4 text-xl font-medium text-stone-900">working style</h4>
+                  <div className="border-l-2 border-stone-300 pl-6">
+                    <p className="mb-1 text-sm font-medium text-stone-900">
+                      english tutor / marker
+                    </p>
+                    <p className="mb-3 text-xs text-stone-500">The Brain Education · 2025</p>
                     <div className="space-y-2 text-sm text-stone-700">
-                      <p>• strong preference for small, accountable teams</p>
-                      <p>• comfortable with ambiguity when ownership is clear</p>
-                      <p>• bias toward shipping and iterating with real users</p>
-                      <p>• values clarity, judgment, and work that compounds</p>
-                      <p>• low tolerance for performative process</p>
+                      <p>– classroom teaching: years 10–12</p>
+                      <p>– prepared curriculum material, marked assessments at scale</p>
+                      <p>– didactic engagement across mixed-ability audiences</p>
                     </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Working Style */}
+              <section className="space-y-8 border-t border-stone-200 pt-12">
+                <div>
+                  <h4 className="mb-4 text-xl font-medium text-stone-900">working style</h4>
+                  <div className="space-y-2 text-sm text-stone-700">
+                    <p>• strong preference for small, accountable teams</p>
+                    <p>• comfortable with ambiguity when ownership is clear</p>
+                    <p>• bias toward shipping and iterating with real users</p>
+                    <p>• values clarity, judgment, and work that compounds</p>
+                    <p>• low tolerance for performative process</p>
                   </div>
                 </div>
               </section>

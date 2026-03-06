@@ -7,6 +7,7 @@ import {
 } from '@/lib/analytics/interpretation';
 import { SUCCESS_QUESTIONS } from '@/lib/analytics/questions';
 import { getEventCount, SERVER_EVENTS } from '@/lib/analytics/tracking';
+import { db } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,7 +17,17 @@ export default async function AnalyticsPage() {
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - 30);
 
-  const metrics = await getDashboardMetrics(startDate, endDate);
+  const [metrics, recentVisitors, totalVisitors, subscriberCount] = await Promise.all([
+    getDashboardMetrics(startDate, endDate),
+    db.analyticsEvent.findMany({
+      where: { eventName: 'page_visit' },
+      orderBy: { createdAt: 'desc' },
+      take: 30,
+      select: { id: true, path: true, ip: true, userAgent: true, metadata: true, createdAt: true },
+    }),
+    db.analyticsEvent.count({ where: { eventName: 'page_visit' } }),
+    db.newsletterSubscriber.count(),
+  ]);
 
   // Get event counts for last 30 days
   const resourceViews = await getEventCount(SERVER_EVENTS.RESOURCE_VIEWED, startDate, endDate);
@@ -58,6 +69,70 @@ export default async function AnalyticsPage() {
           Minimal, intentional insights. Last 30 days.
         </p>
       </div>
+
+      {/* Visitors + Subscribers */}
+      <section className="rounded-lg border border-neutral-200 bg-white p-6">
+        <div className="mb-4 flex items-center justify-between">
+          <div>
+            <h2 className="text-lg font-semibold text-neutral-900">Visitors</h2>
+            <p className="mt-1 text-sm text-neutral-600">
+              Anonymous page visits — {totalVisitors} total · {subscriberCount} newsletter
+              subscribers
+            </p>
+          </div>
+        </div>
+
+        <div className="max-h-96 space-y-2 overflow-y-auto">
+          {recentVisitors.length === 0 ? (
+            <p className="text-sm text-neutral-500">No visits tracked yet.</p>
+          ) : (
+            recentVisitors.map((visit) => {
+              const meta = visit.metadata as Record<string, string> | null;
+              const referrer = meta?.referrer ?? 'direct';
+              const ua = visit.userAgent ?? 'unknown';
+              const browser = ua.includes('Chrome')
+                ? 'Chrome'
+                : ua.includes('Firefox')
+                  ? 'Firefox'
+                  : ua.includes('Safari')
+                    ? 'Safari'
+                    : ua.includes('Edge')
+                      ? 'Edge'
+                      : 'Other';
+              const device = ua.includes('Mobile') ? 'mobile' : 'desktop';
+              return (
+                <div
+                  key={visit.id}
+                  className="grid grid-cols-4 gap-3 rounded border border-neutral-100 bg-neutral-50 px-3 py-2 text-xs"
+                >
+                  <div className="truncate font-medium text-neutral-900">{visit.path}</div>
+                  <div className="truncate text-neutral-600">{visit.ip ?? '—'}</div>
+                  <div className="truncate text-neutral-500">
+                    {browser} · {device}
+                    {referrer !== 'direct' && (
+                      <span className="ml-1 truncate text-neutral-400">
+                        from{' '}
+                        {referrer
+                          .replace(/^https?:\/\//, '')
+                          .split('/')
+                          .at(0)}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-right text-neutral-400">
+                    {new Date(visit.createdAt).toLocaleString('en-AU', {
+                      month: 'short',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </section>
 
       {/* User Growth - Real Data */}
       <section className="rounded-lg border border-neutral-200 bg-white p-6">
