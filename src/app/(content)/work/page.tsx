@@ -50,21 +50,8 @@ export default async function WorkPage() {
         {/* Career Philosophy */}
         <section className="mb-20 border-l-2 border-stone-900 pl-8">
           <div className="space-y-6 text-lg leading-relaxed text-stone-700">
-            <p>
-              a lot of great work happens inside established organisations. internships at places
-              like atlassian or jpmorgan are rightly competitive, and learning within a well-run
-              system is valuable.
-            </p>
-            <p>i&apos;ve chosen a different path for now.</p>
-            <p>
-              i prefer having direct responsibility over what i&apos;m building. that usually means
-              smaller teams, less structure, and more exposure, but it also means the work is mine
-              end-to-end.
-            </p>
-            <p>
-              the projects here reflect that preference. they&apos;re not exercises or case studies.
-              they&apos;re things that exist, are used, and are still being improved.
-            </p>
+            <p>Things I&apos;ve built.</p>
+            <p>Real projects, in production, still being improved.</p>
           </div>
         </section>
 

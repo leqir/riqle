@@ -25,6 +25,13 @@ type ProjectDetailProps = {
   reflection?: string | null;
   screenshots: string[];
   diagrams: string[];
+  sectionHeadings?: {
+    overview?: string;
+    role?: string;
+    execution?: string;
+    outcome?: string;
+    reflection?: string;
+  };
 };
 
 export function ProjectDetail({
@@ -37,6 +44,7 @@ export function ProjectDetail({
   reflection,
   screenshots,
   diagrams,
+  sectionHeadings,
 }: ProjectDetailProps) {
   return (
     <div className="min-h-screen bg-white">
@@ -75,7 +83,7 @@ export function ProjectDetail({
                 overview
               </p>
               <h2 className="text-3xl font-semibold tracking-tight text-stone-900">
-                what this project was
+                {sectionHeadings?.overview ?? 'what this project was'}
               </h2>
             </div>
             <div className="border-l-2 border-stone-900 pl-8">
@@ -89,7 +97,9 @@ export function ProjectDetail({
               <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
                 role
               </p>
-              <h2 className="text-3xl font-semibold tracking-tight text-stone-900">what you did</h2>
+              <h2 className="text-3xl font-semibold tracking-tight text-stone-900">
+                {sectionHeadings?.role ?? 'what you did'}
+              </h2>
             </div>
             <div className="border-l-2 border-stone-900 pl-8">
               <p className="text-lg leading-relaxed text-stone-700">{roleDetail}</p>
@@ -111,7 +121,7 @@ export function ProjectDetail({
                 execution
               </p>
               <h2 className="text-3xl font-semibold tracking-tight text-stone-900">
-                how it was built
+                {sectionHeadings?.execution ?? 'how it was built'}
               </h2>
             </div>
             <div className="border-l-2 border-stone-900 pl-8">
@@ -126,7 +136,7 @@ export function ProjectDetail({
                 outcome
               </p>
               <h2 className="text-3xl font-semibold tracking-tight text-stone-900">
-                what happened
+                {sectionHeadings?.outcome ?? 'what happened'}
               </h2>
             </div>
             <div className="border-l-2 border-stone-900 pl-8">
@@ -142,7 +152,7 @@ export function ProjectDetail({
                   reflection
                 </p>
                 <h2 className="text-3xl font-semibold tracking-tight text-stone-900">
-                  what you learned
+                  {sectionHeadings?.reflection ?? 'what you learned'}
                 </h2>
               </div>
               <div className="border-l-2 border-stone-300 pl-8">

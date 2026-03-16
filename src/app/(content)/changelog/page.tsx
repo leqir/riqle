@@ -39,6 +39,32 @@ type Version = {
 
 const versions: Version[] = [
   {
+    version: '1.0.7',
+    date: '2026-03-17',
+    title: 'Work Section Rewrite',
+    changes: [
+      {
+        category: 'improvement',
+        description:
+          'Rewrote /work index intro — replaced career philosophy block with two-line statement',
+      },
+      {
+        category: 'improvement',
+        description:
+          'Rewrote MarkPoint case study — new sections: Origin, The Features, The Pivots, What I Built, Status, What I Learned',
+      },
+      {
+        category: 'improvement',
+        description:
+          'Rewrote Riqle case study — new sections: What It Is, What I Built, Why I Built It This Way, Status',
+      },
+      {
+        category: 'feature',
+        description: 'Added Ordo and Incline My Heart as coming-soon project cards on /work',
+      },
+    ],
+  },
+  {
     version: '1.0.6',
     date: '2026-03-16',
     title: 'Homepage & About Page Rewrite',

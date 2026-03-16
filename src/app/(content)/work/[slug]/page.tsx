@@ -54,6 +54,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
 
+  const sectionHeadings =
+    slug === 'markpoint'
+      ? {
+          overview: 'Origin',
+          role: 'The Features',
+          execution: 'The Pivots',
+          outcome: 'What I Built',
+          reflection: 'What I Learned',
+        }
+      : slug === 'riqle'
+        ? {
+            overview: 'What It Is',
+            role: 'What I Built',
+            execution: 'Why I Built It This Way',
+            outcome: 'Status',
+          }
+        : undefined;
+
   // Fetch project from database
   const project = await db.project.findUnique({
     where: { slug },
@@ -87,6 +105,7 @@ export default async function ProjectPage({ params }: Props) {
       reflection={project.reflection}
       screenshots={project.screenshots}
       diagrams={project.diagrams}
+      sectionHeadings={sectionHeadings}
     />
   );
 }
