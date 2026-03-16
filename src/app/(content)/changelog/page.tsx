@@ -39,6 +39,22 @@ type Version = {
 
 const versions: Version[] = [
   {
+    version: '1.0.8',
+    date: '2026-03-17',
+    title: 'Work Page Rich Text Formatting',
+    changes: [
+      {
+        category: 'improvement',
+        description:
+          'Project detail pages now render rich text — bold, italic, subheadings, and dividers throughout all case study sections',
+      },
+      {
+        category: 'improvement',
+        description: 'MarkPoint and Riqle case study content updated with full markdown formatting',
+      },
+    ],
+  },
+  {
     version: '1.0.7',
     date: '2026-03-17',
     title: 'Work Section Rewrite',

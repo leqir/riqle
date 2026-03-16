@@ -1,15 +1,3 @@
-/**
- * ProjectDetail Component - Minimalist, Stripe-Inspired Design
- *
- * Features:
- * - Clean typography with stone color palette
- * - border-l-2 border-stone-900 for emphasis
- * - No colored boxes/cards
- * - Matches minimalist aesthetic from resources
- * - Text-first layout (visuals support, don't distract)
- * - Reads like a post-mortem, not a pitch
- */
-
 'use client';
 
 import Image from 'next/image';
@@ -33,6 +21,69 @@ type ProjectDetailProps = {
     reflection?: string;
   };
 };
+
+// Render inline markdown: **bold**, *italic*
+function renderInline(text: string): React.ReactNode[] {
+  const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return (
+        <strong key={i} className="font-semibold text-stone-900">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    if (part.startsWith('*') && part.endsWith('*')) {
+      return <em key={i}>{part.slice(1, -1)}</em>;
+    }
+    return part;
+  });
+}
+
+// Render a block of text with paragraph, heading, and divider support
+function renderFormattedText(text: string) {
+  const blocks = text.split(/\n\n+/);
+
+  return (
+    <div className="space-y-5">
+      {blocks.map((block, i) => {
+        const trimmed = block.trim();
+
+        if (trimmed === '---') {
+          return <hr key={i} className="border-stone-200" />;
+        }
+
+        if (trimmed.startsWith('### ')) {
+          return (
+            <h3
+              key={i}
+              className="mb-1 mt-10 text-xl font-semibold tracking-tight text-stone-900 first:mt-0"
+            >
+              {renderInline(trimmed.slice(4))}
+            </h3>
+          );
+        }
+
+        if (trimmed.startsWith('## ')) {
+          return (
+            <h3
+              key={i}
+              className="mb-1 mt-10 text-2xl font-semibold tracking-tight text-stone-900 first:mt-0"
+            >
+              {renderInline(trimmed.slice(3))}
+            </h3>
+          );
+        }
+
+        return (
+          <p key={i} className="text-lg leading-relaxed text-stone-700">
+            {renderInline(trimmed)}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
 
 export function ProjectDetail({
   title,
@@ -78,7 +129,7 @@ export function ProjectDetail({
         <div className="space-y-20">
           {/* Overview */}
           <section>
-            <div className="mb-6">
+            <div className="mb-8">
               <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
                 overview
               </p>
@@ -86,14 +137,12 @@ export function ProjectDetail({
                 {sectionHeadings?.overview ?? 'what this project was'}
               </h2>
             </div>
-            <div className="border-l-2 border-stone-900 pl-8">
-              <p className="text-lg leading-relaxed text-stone-700">{overview}</p>
-            </div>
+            <div className="border-l-2 border-stone-900 pl-8">{renderFormattedText(overview)}</div>
           </section>
 
-          {/* Your Role */}
+          {/* Role / Features */}
           <section>
-            <div className="mb-6">
+            <div className="mb-8">
               <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
                 role
               </p>
@@ -102,9 +151,9 @@ export function ProjectDetail({
               </h2>
             </div>
             <div className="border-l-2 border-stone-900 pl-8">
-              <p className="text-lg leading-relaxed text-stone-700">{roleDetail}</p>
+              {renderFormattedText(roleDetail)}
               {teamSize !== null && teamSize !== undefined && (
-                <p className="mt-4 text-sm text-stone-600">
+                <p className="mt-6 text-sm text-stone-600">
                   team size:{' '}
                   {teamSize === 0
                     ? 'solo project'
@@ -116,7 +165,7 @@ export function ProjectDetail({
 
           {/* Execution */}
           <section>
-            <div className="mb-6">
+            <div className="mb-8">
               <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
                 execution
               </p>
@@ -124,14 +173,12 @@ export function ProjectDetail({
                 {sectionHeadings?.execution ?? 'how it was built'}
               </h2>
             </div>
-            <div className="border-l-2 border-stone-900 pl-8">
-              <p className="text-lg leading-relaxed text-stone-700">{execution}</p>
-            </div>
+            <div className="border-l-2 border-stone-900 pl-8">{renderFormattedText(execution)}</div>
           </section>
 
           {/* Outcome */}
           <section>
-            <div className="mb-6">
+            <div className="mb-8">
               <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
                 outcome
               </p>
@@ -140,14 +187,14 @@ export function ProjectDetail({
               </h2>
             </div>
             <div className="border-l-2 border-stone-900 pl-8">
-              <p className="text-lg leading-relaxed text-stone-700">{outcomeDetail}</p>
+              {renderFormattedText(outcomeDetail)}
             </div>
           </section>
 
           {/* Reflection (optional) */}
           {reflection && (
             <section>
-              <div className="mb-6">
+              <div className="mb-8">
                 <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
                   reflection
                 </p>
@@ -156,12 +203,12 @@ export function ProjectDetail({
                 </h2>
               </div>
               <div className="border-l-2 border-stone-300 pl-8">
-                <p className="text-lg leading-relaxed text-stone-600">{reflection}</p>
+                {renderFormattedText(reflection)}
               </div>
             </section>
           )}
 
-          {/* Diagrams (if any) - shown before screenshots */}
+          {/* Diagrams */}
           {diagrams.length > 0 && (
             <section>
               <div className="mb-6">
@@ -185,7 +232,7 @@ export function ProjectDetail({
             </section>
           )}
 
-          {/* Screenshots (sparingly - max 3) */}
+          {/* Screenshots */}
           {screenshots.length > 0 && (
             <section>
               <div className="mb-6">
