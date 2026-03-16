@@ -8,112 +8,67 @@ export default function AboutPage() {
         <header className="mb-20">
           <p className="mb-3 text-sm font-medium uppercase tracking-wider text-stone-500">about</p>
           <h1 className="mb-4 text-[clamp(2.5rem,6vw,4rem)] font-semibold leading-[1.1] tracking-tight text-stone-900">
-            hi, i&apos;m nathanael
+            hi, i&apos;m nathanael.
           </h1>
-          <p className="text-xl leading-relaxed text-stone-600">
-            or better known as <span className="font-semibold text-stone-900">riqle</span>
-          </p>
         </header>
 
-        {/* Philosophy Section */}
-        <section className="mb-32">
-          <div className="mb-12">
-            <p className="mb-2 text-sm text-stone-500">philosophy</p>
-            <h2 className="text-3xl font-medium tracking-tight text-stone-900">formation</h2>
-          </div>
-
+        {/* Section 1 - Personal */}
+        <section className="mb-20">
           <div className="border-l-2 border-stone-900 pl-8">
             <div className="space-y-6 text-lg leading-relaxed text-stone-700">
-              <p className="text-sm italic text-stone-500">
-                my chatgpt wanted me to write this here:
+              <p>
+                dropped out of compsci at unsw. co-founded markpoint.
+                <br />
+                now studying exercise science.
               </p>
 
               <p>
-                i think a lot about <span className="font-medium text-stone-900">formation</span>.
-                how people are shaped over time by the habits they keep, the language they use, the
-                discipline they build, and the systems they inhabit. not as some abstract concept,
-                but as a lived reality. the things you do every day are quietly forming you into
-                someone, whether you&apos;re paying attention or not.
+                i play music, read theology, swim and lift most weeks,
+                <br />
+                and draw when i feel like it. i also yap about most things
+                <br />
+                if you give me the chance.
               </p>
 
               <p>
-                i learned early on to care about clarity. unclear language, unclear ownership, and
-                unclear intent create more problems than technical difficulty ever does. this
-                applies to people just as much as it applies to software. i&apos;ve seen teams fall
-                apart not because the code was broken, but because no one could agree on what done
-                actually meant. clarity is kindness. ambiguity is violence.
+                if you can beat me in geoguessr or gamepigeon word hunt
+                <br />i will give you $20. no one has collected yet.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 2 - Clarity (no heading) */}
+        <section className="mb-32">
+          <div className="border-l-2 border-stone-900 pl-8">
+            <div className="space-y-6 text-lg leading-relaxed text-stone-700">
+              <p>
+                i care about clarity. in code, in conversations, in how
+                <br />
+                you structure your day. unclear intent creates more damage
+                <br />
+                than any technical problem does.
               </p>
 
-              <div className="my-10 border-l-2 border-stone-300 pl-6">
-                <p className="mb-4 text-lg text-stone-900">
-                  but i&apos;m genuinely just a simple guy
-                </p>
-                <ul className="space-y-2 text-base leading-relaxed text-stone-700">
-                  <li>• i like playing music, hmu if you forming a band</li>
-                  <li>• i like to draw</li>
-                  <li>• i like to yap about the political state of the world</li>
-                  <li>• i like acai</li>
-                </ul>
-              </div>
+              <p>clarity is kindness. ambiguity is usually just cowardice.</p>
 
-              <p className="text-stone-500">
-                p.s. if anyone can beat me in geoguessr or gamepigeon word hunt i will give them $20
-              </p>
+              <p>systems over motivation. ownership over titles.</p>
             </div>
           </div>
         </section>
       </div>
 
-      {/* For Employers Section - Split Brain Layout */}
+      {/* Technical CV Section - Split Brain Layout */}
       <section className="relative overflow-x-auto border-t border-stone-200 bg-stone-50/50">
         <div className="flex min-w-max">
           {/* LEFT BRAIN - Fixed Identity Column (40%) */}
           <div className="flex h-screen w-screen flex-shrink-0 overflow-y-auto border-r border-stone-200 bg-white/80 px-12 py-20 backdrop-blur-sm lg:w-[40vw]">
             <div className="mx-auto w-full max-w-lg space-y-12 py-12">
-              {/* Header */}
-              <div className="space-y-2">
-                <h2 className="text-4xl font-medium tracking-tight text-stone-900">nathanael</h2>
-                <p className="text-sm text-stone-500">sydney</p>
-              </div>
-
               {/* Context Snapshot */}
               <div className="space-y-3 border-l-2 border-stone-300 pl-6">
                 <p className="text-sm text-stone-600">
                   dropped out of compsci. started a business. gambled on myself.
                 </p>
-              </div>
-
-              {/* Philosophy */}
-              <div className="space-y-6">
-                <p className="text-sm font-medium text-stone-500">things i believe</p>
-                <div className="space-y-4 text-sm leading-relaxed text-stone-700">
-                  <p>systems &gt; motivation</p>
-                  <p>clarity is based</p>
-                  <p>ai is good</p>
-                  <p>ownership &gt; titles</p>
-                  <p>claude &gt; chatgpt</p>
-                </div>
-              </div>
-
-              {/* Background */}
-              <div className="space-y-4 border-t border-stone-200 pt-8">
-                <p className="text-sm font-medium text-stone-500">the path here</p>
-                <div className="space-y-3 text-sm text-stone-700">
-                  <p>co-founded markpoint with two of my mates. built the whole stack.</p>
-                  <p>interned as ui/ux designer. i make screens look pretty</p>
-                  <p>taught myself product, design, growth.</p>
-                </div>
-              </div>
-
-              {/* Human Element */}
-              <div className="space-y-4 border-t border-stone-200 pt-8">
-                <p className="text-sm font-medium text-stone-500">when i&apos;m not working</p>
-                <div className="space-y-3 text-sm text-stone-700">
-                  <p>i play whatever instruments</p>
-                  <p>i can yap about theology</p>
-                  <p>i used to run now im unfit asl</p>
-                  <p>i swim now</p>
-                </div>
               </div>
             </div>
           </div>
@@ -122,13 +77,9 @@ export default function AboutPage() {
           <div className="h-screen w-screen flex-shrink-0 overflow-y-auto bg-white/60 px-6 py-20 backdrop-blur-sm md:px-12 lg:w-[60vw]">
             <div className="mx-auto w-full max-w-3xl space-y-16">
               <div className="border-b border-stone-200 pb-8">
-                <p className="mb-3 text-xs font-medium uppercase tracking-wider text-stone-400">
-                  for employers
-                </p>
                 <h2 className="mb-2 text-2xl font-medium tracking-tight text-stone-900">
                   what i&apos;ve built and how i work
                 </h2>
-                <p className="text-sm text-stone-500">this section is factual by design</p>
               </div>
 
               {/* Engineering */}
@@ -391,6 +342,16 @@ export default function AboutPage() {
                     <p>• low tolerance for performative process</p>
                   </div>
                 </div>
+              </section>
+
+              {/* Closing note */}
+              <section className="border-t border-stone-200 pb-4 pt-12">
+                <p className="text-sm leading-relaxed text-stone-500">
+                  also working on some things outside the tech stuff.
+                  <br />a devotional called incline my heart, and ordo.
+                  <br />
+                  more on those when they&apos;re ready.
+                </p>
               </section>
             </div>
           </div>

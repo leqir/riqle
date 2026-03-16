@@ -39,6 +39,28 @@ type Version = {
 
 const versions: Version[] = [
   {
+    version: '1.0.6',
+    date: '2026-03-16',
+    title: 'Homepage & About Page Rewrite',
+    changes: [
+      {
+        category: 'improvement',
+        description:
+          'Rewrote homepage hero — new headline, concise two-line bio, three quiet text links replacing button CTAs',
+      },
+      {
+        category: 'improvement',
+        description:
+          'Rewrote about page — new personal intro, clarity/philosophy section, stripped left column of old filler content',
+      },
+      {
+        category: 'improvement',
+        description:
+          'Added closing note to about page referencing incline my heart and ordo projects',
+      },
+    ],
+  },
+  {
     version: '1.0.5',
     date: '2026-02-24',
     title: 'Self-Hosted Tutoring Scheduler',

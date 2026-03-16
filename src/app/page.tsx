@@ -97,97 +97,42 @@ export default function HomePage() {
           {/* Hero Section */}
           <section className="mb-32">
             <div className="max-w-3xl">
-              {/* Eyebrow */}
-              <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-blue-600">
-                WELCOME TO RIQLE.COM
-              </p>
-
               {/* Hero heading */}
               <h1 className="mb-8 text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.05] tracking-tight text-stone-900">
-                hi, i&apos;m nathanael
-                <br />
-                <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                  or better known as riqle
-                </span>
+                hi, i&apos;m nathanael.
               </h1>
 
               {/* Body content */}
-              <div className="mb-12 space-y-6 text-[1.125rem] leading-relaxed text-stone-700">
+              <div className="mb-10 space-y-4 text-[1.125rem] leading-relaxed text-stone-600">
                 <p>
-                  my future employers want a personal website
-                  <br />
-                  here it is.
+                  i dropped out of compsci at unsw, co-founded markpoint, and now i&apos;m studying
+                  exercise science.
                 </p>
-
-                <p>
-                  i dropped out of computer science at unsw when it became clear it wasn&apos;t the
-                  work i wanted to do.
-                </p>
-
-                <p>i&apos;m now studying exercise science (physio)</p>
-
-                <p>
-                  during my gap term i co-founded{' '}
-                  <span className="font-semibold text-stone-900">markpoint</span> with three of my
-                  mates. i pulled out of internships to work on it.
-                </p>
-
-                <p>
-                  this site is where i keep my projects, startups, and work in progress.
-                  <br />
-                  <span className="text-stone-600">
-                    unlike most portfolio sites, this one actually works — full auth, payments,
-                    content delivery, the whole thing.
-                  </span>
-                </p>
-
-                <p>
-                  most stuff lives in{' '}
-                  <Link
-                    href="/resources"
-                    className="font-semibold text-blue-600 hover:text-blue-700"
-                  >
-                    resources
-                  </Link>
-                  . some free, some paid.
-                  <br />
-                  <span className="text-stone-600">
-                    it&apos;s where i put things people actually use.
-                  </span>
-                </p>
-
-                <p className="text-stone-500">thanks for stopping by.</p>
+                <p>still figuring it out. building things along the way.</p>
               </div>
 
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-4">
+              {/* Links */}
+              <div className="flex flex-wrap gap-6 text-[1rem] text-stone-500">
                 <Link
                   href="/work/markpoint"
-                  className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-all hover:bg-blue-700 hover:shadow-md"
+                  className="inline-flex items-center gap-1 transition-colors hover:text-stone-900"
                 >
-                  MarkPoint
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
+                  markpoint
+                  <span aria-hidden="true">→</span>
                 </Link>
                 <Link
                   href="/resources"
-                  className="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-6 py-3 text-base font-semibold text-stone-900 shadow-sm transition-all hover:border-stone-400 hover:shadow-md"
+                  className="inline-flex items-center gap-1 transition-colors hover:text-stone-900"
                 >
-                  Resources
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
+                  resources
+                  <span aria-hidden="true">→</span>
+                </Link>
+                <Link
+                  href="/about"
+                  className="inline-flex items-center gap-1 transition-colors hover:text-stone-900"
+                >
+                  about
+                  <span aria-hidden="true">→</span>
                 </Link>
               </div>
             </div>
