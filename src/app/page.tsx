@@ -114,49 +114,18 @@ export default function HomePage() {
               {/* Body content */}
               <div className="mb-12 space-y-6 text-[1.125rem] leading-relaxed text-stone-700">
                 <p>
-                  my future employers want a personal website
+                  i dropped out of unsw compsci. co-founded markpoint.
                   <br />
-                  here it is.
+                  now studying physiotherapy.
                 </p>
 
-                <p>
-                  i dropped out of computer science at unsw when it became clear it wasn&apos;t the
-                  work i wanted to do.
-                </p>
+                <p>still figuring it out. building things along the way.</p>
 
-                <p>i&apos;m now studying exercise science (physio)</p>
-
-                <p>
-                  during my gap term i co-founded{' '}
-                  <span className="font-semibold text-stone-900">markpoint</span> with three of my
-                  mates. i pulled out of internships to work on it.
-                </p>
-
-                <p>
-                  this site is where i keep my projects, startups, and work in progress.
+                <p className="text-stone-500">
+                  currently: building markpoint and ordo, full-time uni
                   <br />
-                  <span className="text-stone-600">
-                    unlike most portfolio sites, this one actually works — full auth, payments,
-                    content delivery, the whole thing.
-                  </span>
+                  writing &lsquo;incline my heart.&rsquo;
                 </p>
-
-                <p>
-                  most stuff lives in{' '}
-                  <Link
-                    href="/resources"
-                    className="font-semibold text-blue-600 hover:text-blue-700"
-                  >
-                    resources
-                  </Link>
-                  . some free, some paid.
-                  <br />
-                  <span className="text-stone-600">
-                    it&apos;s where i put things people actually use.
-                  </span>
-                </p>
-
-                <p className="text-stone-500">thanks for stopping by.</p>
               </div>
 
               {/* CTAs */}
