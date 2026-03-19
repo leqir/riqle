@@ -82,50 +82,44 @@ export default function AboutPage() {
           {/* LEFT BRAIN - Fixed Identity Column (40%) */}
           <div className="flex h-screen w-screen flex-shrink-0 overflow-y-auto border-r border-stone-200 bg-white/80 px-12 py-20 backdrop-blur-sm lg:w-[40vw]">
             <div className="mx-auto w-full max-w-lg space-y-12 py-12">
-              {/* Header */}
-              <div className="space-y-2">
-                <h2 className="text-4xl font-medium tracking-tight text-stone-900">nathanael</h2>
-                <p className="text-sm text-stone-500">sydney</p>
-              </div>
-
-              {/* Context Snapshot */}
-              <div className="space-y-3 border-l-2 border-stone-300 pl-6">
-                <p className="text-sm text-stone-600">
-                  dropped out of compsci. started a business. gambled on myself.
+              {/* Personal */}
+              <div className="space-y-5">
+                <p className="text-sm font-medium uppercase tracking-wider text-stone-400">
+                  outside of work
                 </p>
+                <ul className="space-y-4 text-sm leading-relaxed text-stone-700">
+                  <li className="flex items-start gap-3">
+                    <span className="mt-0.5 text-stone-300">—</span>
+                    <span>
+                      i play music.{' '}
+                      <span className="text-stone-500">hmu if you&apos;re forming a band</span>
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-0.5 text-stone-300">—</span>
+                    <span>i like to draw sometimes</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-0.5 text-stone-300">—</span>
+                    <span>i talk about the political state of the world</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-0.5 text-stone-300">—</span>
+                    <span>i like acai</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-0.5 text-stone-300">—</span>
+                    <span>i swim and lift most weeks</span>
+                  </li>
+                </ul>
               </div>
 
-              {/* Philosophy */}
-              <div className="space-y-6">
-                <p className="text-sm font-medium text-stone-500">things i believe</p>
-                <div className="space-y-4 text-sm leading-relaxed text-stone-700">
-                  <p>systems &gt; motivation</p>
-                  <p>clarity is based</p>
-                  <p>ai is good</p>
-                  <p>ownership &gt; titles</p>
-                  <p>claude &gt; chatgpt</p>
-                </div>
-              </div>
-
-              {/* Background */}
-              <div className="space-y-4 border-t border-stone-200 pt-8">
-                <p className="text-sm font-medium text-stone-500">the path here</p>
-                <div className="space-y-3 text-sm text-stone-700">
-                  <p>co-founded markpoint with two of my mates. built the whole stack.</p>
-                  <p>interned as ui/ux designer. i make screens look pretty</p>
-                  <p>taught myself product, design, growth.</p>
-                </div>
-              </div>
-
-              {/* Human Element */}
-              <div className="space-y-4 border-t border-stone-200 pt-8">
-                <p className="text-sm font-medium text-stone-500">when i&apos;m not working</p>
-                <div className="space-y-3 text-sm text-stone-700">
-                  <p>i play whatever instruments</p>
-                  <p>i can yap about theology</p>
-                  <p>i used to run now im unfit asl</p>
-                  <p>i swim now</p>
-                </div>
+              {/* PS */}
+              <div className="border-t border-stone-100 pt-8">
+                <p className="text-sm leading-relaxed text-stone-400">
+                  p.s. if anyone can beat me in geoguessr or gamepigeon word hunt i will give you
+                  $20.
+                </p>
               </div>
             </div>
           </div>
