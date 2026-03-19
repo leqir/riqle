@@ -15,49 +15,61 @@ export default function AboutPage() {
           </p>
         </header>
 
-        {/* Philosophy Section */}
+        {/* Origin Story Section */}
         <section className="mb-32">
           <div className="mb-12">
-            <p className="mb-2 text-sm text-stone-500">philosophy</p>
-            <h2 className="text-3xl font-medium tracking-tight text-stone-900">formation</h2>
+            <p className="mb-2 text-sm text-stone-500">how it started</p>
+            <h2 className="text-3xl font-medium tracking-tight text-stone-900">
+              it started with acai.
+            </h2>
           </div>
 
           <div className="border-l-2 border-stone-900 pl-8">
-            <div className="space-y-6 text-lg leading-relaxed text-stone-700">
-              <p className="text-sm italic text-stone-500">
-                my chatgpt wanted me to write this here:
+            <div className="space-y-8 text-lg leading-relaxed text-stone-700">
+              <p>
+                me and my mate finished a gym sesh and i was craving{' '}
+                <span className="font-medium text-stone-900">berry boy</span>. so we went, got our
+                bowls, then decided to study at hurstville library.
               </p>
+
+              <p>we ran into his teacher there — who now works at nesa.</p>
 
               <p>
-                i think a lot about <span className="font-medium text-stone-900">formation</span>.
-                how people are shaped over time by the habits they keep, the language they use, the
-                discipline they build, and the systems they inhabit. not as some abstract concept,
-                but as a lived reality. the things you do every day are quietly forming you into
-                someone, whether you&apos;re paying attention or not.
+                she sat down with us and started talking about where hsc exams were heading.{' '}
+                <span className="font-medium text-stone-900">
+                  eng ext 1 and 2 going online in 2027.
+                </span>{' '}
+                and then she said this...
               </p>
 
-              <p>
-                i learned early on to care about clarity. unclear language, unclear ownership, and
-                unclear intent create more problems than technical difficulty ever does. this
-                applies to people just as much as it applies to software. i&apos;ve seen teams fall
-                apart not because the code was broken, but because no one could agree on what done
-                actually meant. clarity is kindness. ambiguity is violence.
-              </p>
-
-              <div className="my-10 border-l-2 border-stone-300 pl-6">
-                <p className="mb-4 text-lg text-stone-900">
-                  but i&apos;m genuinely just a simple guy
+              {/* Pull quote */}
+              <blockquote className="my-10 border-l-2 border-stone-400 py-1 pl-6">
+                <p className="text-xl font-medium italic leading-snug text-stone-900">
+                  &ldquo;nesa is not building the software for schools to trial it.&rdquo;
                 </p>
-                <ul className="space-y-2 text-base leading-relaxed text-stone-700">
-                  <li>• i like playing music, hmu if you forming a band</li>
-                  <li>• i like to draw</li>
-                  <li>• i like to yap about the political state of the world</li>
-                  <li>• i like acai</li>
-                </ul>
-              </div>
+                <p className="mt-3 text-sm text-stone-500">there is a gap.</p>
+              </blockquote>
+
+              <p>
+                the exam is changing. students need to practice on screen. nobody is building the
+                tool.
+              </p>
+
+              <p>
+                we started building <span className="font-medium text-stone-900">markpoint</span>{' '}
+                later on.
+              </p>
 
               <p className="text-stone-500">
-                p.s. if anyone can beat me in geoguessr or gamepigeon word hunt i will give them $20
+                and after numerous pivots, here we are now —{' '}
+                <a
+                  href="https://markpoint.com.au"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-stone-700 underline decoration-stone-300 transition-colors hover:text-stone-900 hover:decoration-stone-500"
+                >
+                  markpoint.com.au
+                </a>
               </p>
             </div>
           </div>
