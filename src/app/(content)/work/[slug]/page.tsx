@@ -70,7 +70,15 @@ export default async function ProjectPage({ params }: Props) {
             execution: 'Why I Built It This Way',
             outcome: 'Status',
           }
-        : undefined;
+        : slug === 'everreel'
+          ? {
+              overview: 'The Brief',
+              role: 'What I Did',
+              execution: 'Key Decisions',
+              outcome: 'Status',
+              reflection: 'What I Learned',
+            }
+          : undefined;
 
   // Fetch project from database
   const project = await db.project.findUnique({
