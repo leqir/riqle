@@ -38,7 +38,6 @@ export function Footer() {
       { href: '/about', label: 'about' },
       { href: '/work', label: 'work' },
       { href: '/writing', label: 'writing' },
-      { href: '/changelog', label: 'changelog' },
       { href: '/contact', label: 'contact' },
     ],
     resources: [
@@ -52,7 +51,6 @@ export function Footer() {
       { href: '/account/purchases', label: 'my purchases' },
     ],
     legal: [
-      { href: '/changelog', label: 'changelog' },
       { href: '/legal/terms', label: 'terms & conditions' },
       { href: '/legal/privacy', label: 'privacy policy' },
       { href: '/legal/contact', label: 'contact' },

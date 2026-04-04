@@ -128,9 +128,7 @@ export function Header() {
                 <button
                   onClick={() => setAboutMenuOpen(!aboutMenuOpen)}
                   className={`relative flex items-center gap-1 px-4 py-2 text-sm font-medium lowercase tracking-wide transition-all duration-200 ${
-                    ['/about', '/work', '/writing', '/changelog', '/contact'].some(
-                      (path) => pathname === path
-                    )
+                    ['/about', '/work', '/writing', '/contact'].some((path) => pathname === path)
                       ? 'text-cyan-600'
                       : 'text-stone-700 hover:text-cyan-500'
                   }`}
@@ -145,7 +143,7 @@ export function Header() {
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                   </svg>
-                  {['/about', '/work', '/writing', '/changelog', '/contact'].some(
+                  {['/about', '/work', '/writing', '/contact'].some(
                     (path) => pathname === path
                   ) && (
                     <span className="animate-shimmer absolute inset-x-0 -bottom-px h-0.5 bg-gradient-to-r from-cyan-500 to-purple-500" />
@@ -160,7 +158,6 @@ export function Header() {
                         { href: '/about', label: 'about' },
                         { href: '/work', label: 'work' },
                         { href: '/writing', label: 'writing' },
-                        { href: '/changelog', label: 'changelog' },
                         { href: '/contact', label: 'contact' },
                       ].map((item) => (
                         <Link
@@ -318,7 +315,6 @@ export function Header() {
                   { href: '/about', label: 'about' },
                   { href: '/work', label: 'work' },
                   { href: '/writing', label: 'writing' },
-                  { href: '/changelog', label: 'changelog' },
                   { href: '/contact', label: 'contact' },
                 ].map((item) => (
                   <Link
