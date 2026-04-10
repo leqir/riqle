@@ -60,29 +60,12 @@ export default async function ResourcesPage() {
             resources
           </p>
           <h1 className="mb-4 text-[clamp(2.5rem,6vw,4rem)] font-semibold leading-[1.1] tracking-tight text-stone-900">
-            educational materials
+            resources
           </h1>
           <p className="text-xl leading-relaxed text-stone-600">
-            proven frameworks and practical guidance from teaching 500+ students.
+            writing, tools, and materials worth paying for.
           </p>
         </header>
-
-        {/* Philosophy Section */}
-        <section className="mb-20 border-l-2 border-stone-900 pl-8">
-          <div className="space-y-6 text-lg leading-relaxed text-stone-700">
-            <p>these resources exist because students asked for them.</p>
-            <p>
-              every resource here is based on real teaching experience. i curate only the highest
-              quality materials—each one selected from an extensive database of exemplars and
-              rigorously annotated to reflect the sophistication required to state rank.
-            </p>
-            <p>
-              14-day refund, no questions asked. if it doesn&apos;t help, i&apos;ll refund
-              immediately.
-            </p>
-            <p>the goal is to help students, not extract revenue.</p>
-          </div>
-        </section>
 
         {/* Browse by Category Section */}
         {rootCategories.length > 0 && (

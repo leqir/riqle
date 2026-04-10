@@ -160,6 +160,25 @@ export default async function BrowsePage({ params, searchParams }: Props) {
           )}
         </header>
 
+        {/* HSC-specific philosophy — scoped to HSC category only */}
+        {currentCategory?.path === 'hsc' && (
+          <section className="mb-20 border-l-2 border-stone-900 pl-8">
+            <div className="space-y-6 text-lg leading-relaxed text-stone-700">
+              <p>these resources exist because students asked for them.</p>
+              <p>
+                every resource here is based on real teaching experience. i curate only the highest
+                quality materials—each one selected from an extensive database of exemplars and
+                rigorously annotated to reflect the sophistication required to state rank.
+              </p>
+              <p>
+                14-day refund, no questions asked. if it doesn&apos;t help, i&apos;ll refund
+                immediately.
+              </p>
+              <p>the goal is to help students, not extract revenue.</p>
+            </div>
+          </section>
+        )}
+
         {/* Subcategories Grid */}
         {subcategories.length > 0 && (
           <section className="mb-20">

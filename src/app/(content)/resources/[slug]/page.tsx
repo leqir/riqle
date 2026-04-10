@@ -71,7 +71,7 @@ export default async function ResourcePage({ params, searchParams }: Props) {
   const product = await db.product.findUnique({
     where: { slug },
     select: {
-      id: true, // Epic 8: Include product ID for checkout
+      id: true,
       title: true,
       description: true,
       targetAudience: true,
@@ -87,6 +87,7 @@ export default async function ResourcePage({ params, searchParams }: Props) {
       stripeProductId: true,
       stripePriceId: true,
       downloadUrls: true,
+      ogImage: true,
       relatedPostSlugs: true,
       relatedProjectSlugs: true,
       published: true,
@@ -161,6 +162,12 @@ export default async function ResourcePage({ params, searchParams }: Props) {
         })
       : [];
 
+  // Amazon paperback URL — update once the Amazon listing is live
+  const amazonUrl =
+    slug === 'incline-my-heart'
+      ? undefined // TODO: set once Amazon listing is live
+      : undefined;
+
   return (
     <ResourceDetail
       productId={product.id}
@@ -183,6 +190,8 @@ export default async function ResourcePage({ params, searchParams }: Props) {
       entitlementId={entitlement?.id}
       relatedPosts={relatedPosts}
       relatedProjects={relatedProjects}
+      coverImage={product.ogImage ?? undefined}
+      amazonUrl={amazonUrl}
     />
   );
 }

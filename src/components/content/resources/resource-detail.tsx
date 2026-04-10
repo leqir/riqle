@@ -12,6 +12,7 @@
 'use client';
 
 import * as React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { HandDrawnCheck } from '@/components/design-system/icons/hand-drawn-check';
 import { HandDrawnShield } from '@/components/design-system/icons/hand-drawn-shield';
@@ -38,6 +39,10 @@ type ResourceDetailProps = {
   entitlementId?: string;
   relatedPosts: Array<{ slug: string; title: string }>;
   relatedProjects: Array<{ slug: string; title: string }>;
+  /** If provided, shows cover image instead of PDF preview */
+  coverImage?: string;
+  /** If provided, shows a secondary "Buy paperback on Amazon" CTA */
+  amazonUrl?: string;
 };
 
 export function ResourceDetail({
@@ -61,6 +66,8 @@ export function ResourceDetail({
   entitlementId,
   relatedPosts,
   relatedProjects,
+  coverImage,
+  amazonUrl,
 }: ResourceDetailProps) {
   const price = (priceInCents / 100).toFixed(2);
   const currencySymbol = currency === 'AUD' ? 'A$' : '$';
@@ -68,27 +75,6 @@ export function ResourceDetail({
   const [purchasing, setPurchasing] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [downloading, setDownloading] = React.useState(false);
-
-  // Debug logging for PDF URLs
-  React.useEffect(() => {
-    console.log('🟢 ResourceDetail component mounted!');
-    console.log('=== Resource Detail Debug ===');
-    console.log('Product ID:', productId);
-    console.log('Download URLs:', downloadUrls);
-    console.log('Download URLs type:', typeof downloadUrls);
-    console.log('Download URLs length:', downloadUrls?.length);
-    console.log('First URL:', downloadUrls?.[0]);
-    console.log('Has Access:', hasAccess);
-    console.log('Page Count:', pageCount);
-    console.log('============================');
-
-    // Alert to make it VERY obvious
-    if (downloadUrls && downloadUrls.length > 0) {
-      console.log('✅ PDF URL is:', downloadUrls[0]);
-    } else {
-      console.error('❌ NO DOWNLOAD URLS FOUND!');
-    }
-  }, [productId, downloadUrls, hasAccess, pageCount]);
 
   const handlePurchase = async () => {
     try {
@@ -145,7 +131,7 @@ export function ResourceDetail({
       // Get filename from Content-Disposition header or use default
       const contentDisposition = response.headers.get('Content-Disposition');
       const filename = contentDisposition
-        ? contentDisposition.split('filename=')[1]?.replace(/"/g, '')
+        ? (contentDisposition.split('filename=')[1]?.replace(/"/g, '') ?? `${title}.pdf`)
         : `${title}.pdf`;
 
       // Create blob and download
@@ -204,17 +190,36 @@ export function ResourceDetail({
         <div className="grid gap-16 lg:grid-cols-[1fr,400px]">
           {/* Left Column - Content */}
           <div className="space-y-20">
-            {/* Preview Section - Full Width, Most Prominent */}
+            {/* Cover / Preview Section */}
             <section>
-              <div className="mb-8">
-                <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
-                  preview
-                </p>
-                <h2 className="text-3xl font-semibold tracking-tight text-stone-900">
-                  see what&apos;s inside
-                </h2>
-              </div>
-              <PDFPreview pdfUrl={downloadUrls[0]} totalPages={pageCount ?? 3} />
+              {coverImage ? (
+                /* Cover image — shown for non-PDF products (e.g. devotional books) */
+                <div className="border-l-2 border-stone-900 pl-8">
+                  <div className="relative max-w-xs">
+                    <Image
+                      src={coverImage}
+                      alt={`${title} cover`}
+                      width={320}
+                      height={480}
+                      className="h-auto w-full rounded shadow-lg"
+                      priority
+                    />
+                  </div>
+                </div>
+              ) : (
+                /* PDF preview — default for HSC resources */
+                <>
+                  <div className="mb-8">
+                    <p className="mb-2 text-sm font-medium uppercase tracking-wider text-stone-500">
+                      preview
+                    </p>
+                    <h2 className="text-3xl font-semibold tracking-tight text-stone-900">
+                      see what&apos;s inside
+                    </h2>
+                  </div>
+                  <PDFPreview pdfUrl={downloadUrls[0] ?? ''} totalPages={pageCount ?? 3} />
+                </>
+              )}
             </section>
 
             {/* Who it's for - Clean, No Boxes */}
@@ -429,7 +434,7 @@ export function ResourceDetail({
                   <button
                     onClick={handlePurchase}
                     disabled={purchasing}
-                    className="mb-6 w-full rounded-full bg-stone-900 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="mb-3 w-full rounded-full bg-stone-900 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {purchasing ? (
                       <span className="flex items-center justify-center gap-2">
@@ -451,9 +456,22 @@ export function ResourceDetail({
                         processing...
                       </span>
                     ) : (
-                      'purchase now'
+                      `buy pdf — ${currencySymbol}${price} aud`
                     )}
                   </button>
+
+                  {amazonUrl && (
+                    <a
+                      href={amazonUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mb-6 block w-full rounded-full border-2 border-stone-900 bg-white px-8 py-4 text-center text-base font-semibold text-stone-900 transition-all hover:bg-stone-50"
+                    >
+                      buy paperback on amazon
+                    </a>
+                  )}
+
+                  {!amazonUrl && <div className="mb-6" />}
 
                   {/* Benefits - Clean List */}
                   <div className="space-y-4">
