@@ -43,6 +43,7 @@ export async function AdminNav() {
               {/* System Section */}
               <div className="flex items-center gap-6 border-l border-slate-200 pl-6">
                 <span className="text-sm font-medium text-slate-500">System</span>
+                <AdminNavLink href="/admin/users">Users</AdminNavLink>
                 <AdminNavLink href="/admin/analytics">Analytics</AdminNavLink>
                 <AdminNavLink href="/admin/monitoring">Monitoring</AdminNavLink>
                 <AdminNavLink href="/admin/audit">Audit</AdminNavLink>

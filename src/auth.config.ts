@@ -234,6 +234,24 @@ export const authConfig = {
   events: {
     async signIn({ user, isNewUser }) {
       console.log(`User signed in: ${user.email} (new: ${isNewUser})`);
+
+      if (isNewUser && user.id) {
+        try {
+          const { db } = await import('@/lib/db');
+          await db.auditLog.create({
+            data: {
+              userId: user.id,
+              action: 'user_signup',
+              entity: 'user',
+              entityId: user.id,
+              details: { email: user.email, name: user.name },
+            },
+          });
+        } catch (err) {
+          // Audit log is best-effort — never block signup on failure.
+          console.error('Failed to write user_signup audit log:', err);
+        }
+      }
     },
     async signOut({ token }) {
       console.log(`User signed out: ${token.email}`);
